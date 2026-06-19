@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth bg-inkDeep">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Acelera | IA con sentido, donde el negocio lo pide</title>
+    <meta name="description"
+        content="IA con sentido: identificamos dónde sí cambia el resultado, implementamos con tu equipo y dejamos procesos operables. Si tu negocio no lo necesita, lo decimos en la primera reunión." />
+    <meta name="robots" content="index, follow" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#F7F5F0" />
+    <link rel="canonical" href="https://acelera.agency/" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Open Graph (LinkedIn, WhatsApp, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Acelera | IA con sentido, donde el negocio lo pide" />
+    <meta property="og:description"
+        content="Consultoría e implementación de IA donde el negocio lo pide: impacto medible, equipo operando la solución. Si no aporta, lo decimos en la primera reunión." />
+    <meta property="og:url" content="https://acelera.agency/" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:image" content="https://acelera.agency/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Acelera | IA con sentido, donde el negocio lo pide" />
+    <meta name="twitter:description" content="IA con sentido: implementación donde suma, tu equipo al mando. Si el proceso no necesita IA, lo decimos en la primera reunión." />
+    <meta name="twitter:image" content="https://acelera.agency/assets/og-image.png" />
+    <link rel="stylesheet" href="assets/tailwind.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+    </noscript>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script defer src="assets/lucide-sprite.js"></script>
+    <style>
+        html {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        body {
+            background: #F7F5F0;
+            color: #0B0F14;
+            overflow-x: hidden;
+            max-width: 100%;
+            font-feature-settings: 'kern', 'ss01', 'cv11';
+            background-image:
+                radial-gradient(circle at 1px 1px, rgba(11, 15, 20, 0.025) 1px, transparent 0),
+                radial-gradient(circle at 12px 12px, rgba(11, 15, 20, 0.015) 1px, transparent 0);
+            background-size: 24px 24px, 32px 32px;
+        }
+
+        /* Display headlines — Inter Tight, tighter tracking per brand kit §11.6 */
+        .text-hero {
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 0.92;
+            letter-spacing: -0.035em;
+        }
+
+        @media (max-width: 767px) {
+            /* Interlineado demasiado bajo (1.02) recortaba descendentes con overflow-hidden del hero */
+            .text-hero {
+                font-size: clamp(2.875rem, 10.2vw, 3.5rem);
+                line-height: 1.1;
+                letter-spacing: -0.022em;
+            }
+        }
+
+        /* Hero intro animation — pure CSS, no GSAP / JS dependency.
+           Runs at first paint, no DOMContentLoaded wait, no ticker stall. */
+        @keyframes heroIntro {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+        .gsap-hero-text {
+            opacity: 0;
+            transform: translateY(28px);
+            animation: heroIntro 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+            animation-delay: var(--hero-delay, 0s);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .gsap-hero-text {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+            }
+        }
+
+        @keyframes heroScrollCue {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(8px);
+            }
+        }
+        .hero-scroll-cue__motion {
+            animation: heroScrollCue 2.4s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-scroll-cue__motion {
+                animation: none;
+                opacity: 0.55;
+            }
+        }
+
+        main {
+            overflow-x: clip;
+            width: 100%;
+        }
+
+        .glass-header {
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-bottom: 0;
+        }
+
+        /* Header: enlaces y logo según fondo bajo el nav (scroll) */
+        #site-header[data-nav-tone="dark"] #site-brand {
+            color: #F7F5F0;
+        }
+        #site-header[data-nav-tone="dark"] .header-nav-link {
+            color: rgba(247, 245, 240, 0.7);
+        }
+        #site-header[data-nav-tone="dark"] .header-nav-link:hover {
+            color: #F7F5F0;
+        }
+        #site-header[data-nav-tone="dark"] #mobile-menu-btn {
+            color: #F7F5F0;
+        }
+        #site-header[data-nav-tone="dark"] #mobile-menu-btn:hover {
+            background: rgba(247, 245, 240, 0.08);
+        }
+
+        @media (max-width: 767px) {
+            #site-brand.max-md-brand-concealed {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+
+        /* Brand mark — subrayado naranja como el logo */
+        .brand-mark {
+            position: relative;
+            display: inline;
+            background-image: linear-gradient(to right, #C96A43, #C96A43);
+            background-position: 0 92%;
+            background-repeat: no-repeat;
+            background-size: 100% 0.06em;
+            padding-bottom: 0.04em;
+        }
+        .brand-mark--loud {
+            background-size: 100% 0.12em;
+            background-position: 0 90%;
+            padding-bottom: 0.06em;
+        }
+        .brand-mark--paper {
+            background-image: linear-gradient(to right, #F7F5F0, #F7F5F0);
+        }
+        .accent-reveal {
+            position: relative;
+            display: inline;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            border-radius: 0;
+            vertical-align: baseline;
+            line-height: inherit;
+        }
+        .accent-reveal__text {
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            font: inherit;
+            color: inherit;
+            text-decoration-line: underline;
+            text-decoration-color: #C96A43;
+            text-decoration-thickness: 0.08em;
+            text-underline-offset: 0.12em;
+        }
+        .accent-reveal__block {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background: #C96A43;
+            border-radius: 0;
+            transform: scaleX(0);
+            transform-origin: left center;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .accent-reveal__text {
+                opacity: 1 !important;
+            }
+            .accent-reveal__block {
+                display: none !important;
+            }
+        }
+
+        /* Scrollytelling utilities */
+        .gsap-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .clip-reveal {
+            clip-path: inset(100% 0 0 0);
+        }
+
+        /* Dashboard specific */
+        .dash-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+        }
+
+        /* Scrollbar: pista transparente para que no quede una franja paper sobre el footer oscuro */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: #8B9099 transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(107, 114, 128, 0.55);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6B7280;
+        }
+
+        .hero-3d-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #hero-3d-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .section-rail-label {
+            display: inline-block;
+            white-space: nowrap;
+            line-height: 1;
+        }
+
+        #manifesto ::selection {
+            background: rgba(201, 106, 67, 0.32);
+            color: #ffffff;
+        }
+
+        #manifesto ::-moz-selection {
+            background: rgba(201, 106, 67, 0.32);
+            color: #ffffff;
+        }
+
+        /* Calendly inline embed: fill container and avoid clipped calendar */
+        #calendly-embed iframe {
+            width: 100% !important;
+            height: 100% !important;
+            min-height: 100% !important;
+        }
+
+        /* Calendly widget needs enough width in 2-col layouts */
+        @media (min-width: 1024px) {
+            #calendly-embed {
+                min-width: 560px;
+            }
+        }
+
+        /* Prevent Calendly from adding inline scrollbars */
+        #calendly-embed .calendly-inline-widget {
+            height: 100% !important;
+            min-height: 100% !important;
+        }
+
+        /* ——— Mobile only (< md / 768px): no afecta desktop ——— */
+        @media (max-width: 767px) {
+            header.glass-header {
+                padding-top: max(1.25rem, env(safe-area-inset-top, 0px));
+                padding-left: max(1rem, env(safe-area-inset-left, 0px));
+                padding-right: max(1rem, env(safe-area-inset-right, 0px));
+            }
+
+            #hero-section {
+                padding-top: max(4.75rem, env(safe-area-inset-top, 0px) + 3.25rem);
+                padding-bottom: 3.25rem;
+                /* Evita recorte del h1; los halos siguen contenidos por capas absolutas internas */
+                overflow: visible;
+            }
+
+            #hero-section > .max-w-7xl.mx-auto {
+                padding-top: 0.3125rem;
+            }
+
+            #hero-section h1.text-hero {
+                text-wrap: balance;
+                padding-bottom: 0.08em;
+            }
+
+            #manifesto {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+
+            #proceso {
+                padding-top: 4rem;
+                padding-bottom: 4rem;
+            }
+
+            #sectores {
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
+            }
+
+            #equipo {
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
+            }
+
+            #lo-que-no-hacemos {
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
+            }
+
+            #lo-que-no-hacemos .brand-mark--loud {
+                background-size: 100% 0.14em;
+                background-position: 0 88%;
+                padding-bottom: 0.08em;
+            }
+
+            #contacto {
+                padding-top: 3.5rem;
+                padding-bottom: 3.5rem;
+            }
+
+            #footer-section {
+                padding-top: 4rem;
+                padding-left: max(1rem, env(safe-area-inset-left, 0px));
+                padding-right: max(1rem, env(safe-area-inset-right, 0px));
+                padding-bottom: max(2.5rem, env(safe-area-inset-bottom, 0px));
+            }
+
+            #manifesto .max-w-3xl.gsap-reveal {
+                padding-left: 1rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="antialiased selection:bg-primary/20 selection:text-textPrimary">
+    <header id="site-header" data-nav-tone="light"
+        class="fixed top-0 left-0 right-0 z-[200] glass-header px-4 sm:px-6 md:px-12 py-5 flex justify-between items-center transition-all">
+        <a id="site-brand" href="#hero-section" class="text-xl font-semibold tracking-tight text-ink font-serif inline-block leading-none transition-colors transition-opacity duration-300" aria-label="Acelera — ir al inicio">
+            Aceler<span class="relative inline-block">a<span aria-hidden="true" class="absolute left-0 right-0 -bottom-[0.18em] h-[2px] bg-accent"></span></span>
+        </a>
+        <nav class="hidden md:flex items-center gap-10" aria-label="Secciones">
+            <a href="#proceso"
+                class="header-nav-link text-sm font-medium text-mutedStrong hover:text-ink transition-colors duration-300">Cómo trabajamos</a>
+            <a href="#sectores"
+                class="header-nav-link text-sm font-medium text-mutedStrong hover:text-ink transition-colors duration-300">Diferencia</a>
+            <a href="#equipo"
+                class="header-nav-link text-sm font-medium text-mutedStrong hover:text-ink transition-colors duration-300">Equipo</a>
+        </nav>
+        <button type="button" data-open-lead-modal
+            class="hidden md:inline-flex items-center justify-center gap-2 bg-ink text-paper px-6 py-2.5 text-sm font-semibold tracking-tight hover:bg-white/12 transition-colors duration-300">
+            Hablemos<span class="relative inline-block w-4 shrink-0 translate-y-[0.5px]" aria-hidden="true"><span class="absolute left-0 right-0 bottom-0 h-[2px] bg-accent"></span></span>
+        </button>
+        <button type="button" id="mobile-menu-btn"
+            class="md:hidden relative z-[201] shrink-0 flex h-10 w-10 items-center justify-center rounded-lg text-textPrimary hover:bg-surfaceAlt/80 transition-colors"
+            aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú de navegación">
+            <span class="mobile-menu-icon-open flex items-center justify-center" aria-hidden="true"><i data-lucide="menu"
+                    class="h-6 w-6"></i></span>
+            <span class="mobile-menu-icon-close hidden flex items-center justify-center" aria-hidden="true"><i
+                    data-lucide="x" class="h-6 w-6"></i></span>
+        </button>
+    </header>
+
+        <div id="mobile-menu"
+        class="fixed inset-0 z-[210] flex min-h-[100dvh] flex-col md:hidden hidden overscroll-contain bg-background"
+        aria-hidden="true">
+        <div class="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_-20%,rgba(201,106,67,0.08),transparent_55%)]"
+            aria-hidden="true"></div>
+        <div class="relative z-10 flex w-full flex-1 flex-col min-h-0">
+            <div
+                class="flex w-full shrink-0 items-center justify-between gap-4 px-5 pt-[max(1rem,env(safe-area-inset-top))] pb-4 sm:px-6">
+                <span class="text-xl font-semibold tracking-tight text-ink font-serif inline-block leading-none">Aceler<span class="relative inline-block">a<span aria-hidden="true" class="absolute left-0 right-0 -bottom-[0.18em] h-[2px] bg-accent"></span></span></span>
+                <button type="button" id="mobile-menu-close-btn"
+                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-rule bg-paperPure text-ink shadow-sm transition-all hover:border-ink hover:bg-paperPure active:scale-[0.98]"
+                    aria-label="Cerrar menú">
+                    <i data-lucide="x" class="h-5 w-5 stroke-2" aria-hidden="true"></i>
+                </button>
+            </div>
+            <nav class="flex w-full min-h-0 flex-1 flex-col justify-start gap-8 overflow-y-auto px-5 py-6 sm:gap-9 sm:px-6" aria-label="Navegación principal">
+                <a href="#proceso"
+                    class="mobile-nav-link block w-full max-w-full font-serif text-2xl leading-tight tracking-tight text-ink transition-colors hover:text-accent sm:text-3xl">Cómo trabajamos</a>
+                <a href="#sectores"
+                    class="mobile-nav-link block w-full max-w-full font-serif text-2xl leading-tight tracking-tight text-ink transition-colors hover:text-accent sm:text-3xl">Diferencia</a>
+                <a href="#equipo"
+                    class="mobile-nav-link block w-full max-w-full font-serif text-2xl leading-tight tracking-tight text-ink transition-colors hover:text-accent sm:text-3xl">Equipo</a>
+            </nav>
+            <div
+                class="w-full shrink-0 border-t border-rule bg-paperPure px-5 pt-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] sm:px-6 sm:pt-4">
+                <button type="button" data-open-lead-modal
+                    class="mobile-nav-link flex w-full min-h-[48px] items-center justify-center gap-2 rounded-md bg-ink px-4 py-3 text-center text-[15px] font-semibold leading-none tracking-tight text-paper transition-colors hover:bg-white/12"><span>Hablemos</span><span class="relative inline-block w-4 shrink-0 translate-y-[1px]" aria-hidden="true"><span class="absolute left-0 right-0 bottom-0 h-[1.5px] bg-accent"></span></span></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+         MODAL — Agendá una reunión (lead form)
+         ============================================================ -->
+    <div id="lead-modal" class="fixed inset-0 z-[300] hidden items-center justify-center p-4 sm:p-6"
+        role="dialog" aria-modal="true" aria-labelledby="lead-modal-title" aria-hidden="true">
+        <div id="lead-modal-backdrop" class="absolute inset-0 bg-ink/70 backdrop-blur-sm opacity-0 transition-opacity duration-300 ease-out" aria-hidden="true"></div>
+        <div id="lead-modal-panel"
+            class="relative z-10 w-full max-w-lg max-h-[92dvh] overflow-y-auto bg-paperPure border border-rule shadow-floating p-6 sm:p-8 md:p-10 opacity-0 translate-y-3 scale-[0.98] transition-all duration-300 ease-out">
+            <button type="button" id="lead-modal-close"
+                class="absolute top-4 right-4 md:top-5 md:right-5 flex h-9 w-9 items-center justify-center text-muted hover:text-ink transition-colors"
+                aria-label="Cerrar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                </svg>
+            </button>
+
+            <span class="font-mono text-[11px] text-accent uppercase tracking-[0.2em] block mb-3">Agendá una reunión</span>
+            <h2 id="lead-modal-title" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-ink leading-[1.0] mb-3 text-balance">
+                Veamos si la IA <span class="brand-mark">suma</span> en tu caso.
+            </h2>
+            <p class="text-mutedStrong text-sm sm:text-base leading-relaxed mb-7">30 minutos, sin compromiso. Te escribimos en menos de 24 horas.</p>
+
+            <form data-lead-form class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="lead-nombre" class="sr-only">Nombre</label>
+                        <input id="lead-nombre" name="nombre" type="text" autocomplete="given-name" required placeholder="Nombre"
+                            class="w-full bg-paper border border-rule px-4 py-3 text-[15px] text-ink placeholder:text-muted focus:outline-none focus:ring-0 focus:border-ink transition-colors">
+                    </div>
+                    <div>
+                        <label for="lead-apellido" class="sr-only">Apellido</label>
+                        <input id="lead-apellido" name="apellido" type="text" autocomplete="family-name" placeholder="Apellido"
+                            class="w-full bg-paper border border-rule px-4 py-3 text-[15px] text-ink placeholder:text-muted focus:outline-none focus:ring-0 focus:border-ink transition-colors">
+                    </div>
+                </div>
+                <div>
+                    <label for="lead-email" class="sr-only">Email de trabajo</label>
+                    <input id="lead-email" name="email" type="email" autocomplete="email" required placeholder="Email de trabajo"
+                        class="w-full bg-paper border border-rule px-4 py-3 text-[15px] text-ink placeholder:text-muted focus:outline-none focus:ring-0 focus:border-ink transition-colors">
+                </div>
+                <div>
+                    <label for="lead-empresa" class="sr-only">Empresa</label>
+                    <input id="lead-empresa" name="empresa" type="text" autocomplete="organization" required placeholder="Empresa"
+                        class="w-full bg-paper border border-rule px-4 py-3 text-[15px] text-ink placeholder:text-muted focus:outline-none focus:ring-0 focus:border-ink transition-colors">
+                </div>
+                <div>
+                    <label for="lead-mensaje" class="sr-only">¿Qué querés resolver?</label>
+                    <textarea id="lead-mensaje" name="proceso" rows="3" placeholder="¿Qué querés resolver? (opcional)"
+                        class="w-full bg-paper border border-rule px-4 py-3 text-[15px] text-ink placeholder:text-muted focus:outline-none focus:ring-0 focus:border-ink transition-colors resize-none"></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full inline-flex items-center justify-center gap-2 bg-ink text-paper px-6 py-4 text-[15px] font-semibold tracking-tight hover:bg-white/12 transition-colors duration-300">
+                    Solicitar reunión
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M7 7h10v10" /><path d="M7 17 17 7" />
+                    </svg>
+                </button>
+                <p data-feedback role="status" aria-live="polite" class="text-center text-sm text-mutedStrong min-h-[1.25rem]"></p>
+                <p class="text-center text-xs text-muted">Sin spam. Solo te contactamos por tu consulta.</p>
+            </form>
+        </div>
+    </div>
+
+    <main class="relative z-10">
+        <section id="hero-section" data-header-scheme="light"
+            class="w-full min-h-[80vh] md:min-h-screen relative flex items-center overflow-hidden pt-20 md:pt-24 pb-16 md:pb-20">
+            <div class="absolute inset-0 z-0 pointer-events-none">
+                <div id="hero-glow-1"
+                    class="absolute w-[800px] h-[800px] rounded-full blur-[170px] bg-accent/[0.08] opacity-0 top-0 left-0 mix-blend-normal">
+                </div>
+                <div id="hero-glow-2"
+                    class="absolute w-[450px] h-[450px] rounded-full blur-[120px] bg-accent/[0.16] opacity-0 top-0 left-0 mix-blend-normal">
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 z-10 relative">
+                <div class="relative">
+                    <div class="max-w-none md:max-w-3xl pt-0">
+                        <span class="hidden font-mono text-[11px] sm:text-xs text-accent tracking-[0.18em] uppercase mb-6 gsap-hero-text md:block" style="--hero-delay: 0.05s;">
+                            Adopción de IA con sentido
+                        </span>
+                        <h1 class="relative top-0 md:top-[4px] font-serif text-hero text-ink mb-8 md:mb-10 lg:mb-12 gsap-hero-text" style="--hero-delay: 0.18s;">
+                            IA <span class="accent-reveal">con sentido</span>, donde el negocio lo pide.
+                        </h1>
+                        <p class="max-w-2xl text-[1.0625rem] sm:text-lg md:text-xl text-mutedStrong font-normal leading-relaxed mb-8 md:mb-10 gsap-hero-text" style="--hero-delay: 0.32s;">
+                            Asesoramos e implementamos IA para tu negocio, sin caja negra. Si no suma, te lo decimos al inicio.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 gsap-hero-text mt-8 sm:mt-12" style="--hero-delay: 0.45s;">
+                            <a href="#contacto"
+                                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-ink text-paper px-8 py-4 text-[15px] sm:text-base font-medium tracking-tight hover:bg-white/12 transition-colors duration-300">
+                                Hablemos<span class="relative inline-block w-5 shrink-0 translate-y-[1px]" aria-hidden="true"><span class="absolute left-0 right-0 bottom-0 h-[2px] bg-accent"></span></span>
+                            </a>
+                            <a href="#proceso"
+                                class="w-full sm:w-auto text-center border border-ruleStrong text-ink px-8 py-4 text-[15px] sm:text-base font-medium tracking-tight hover:border-ink transition-colors duration-300">
+                                Cómo trabajamos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="hero-3d-wrap" class="hero-3d-container hidden xl:block gsap-hero-text" aria-hidden="true">
+                <canvas id="hero-3d-canvas"></canvas>
+            </div>
+            <div
+                class="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 aspect-square bg-gradient-to-br from-surfaceAlt to-transparent rounded-full blur-3xl opacity-60 -z-10">
+            </div>
+            <a href="#manifesto"
+                class="hero-scroll-cue absolute left-1/2 z-20 -translate-x-1/2 bottom-[max(1.25rem,env(safe-area-inset-bottom))] md:bottom-10 p-1 text-accent hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink rounded-sm transition-colors"
+                aria-label="Siguiente sección: seguir leyendo">
+                <span class="hero-scroll-cue__motion block" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6" />
+                    </svg>
+                </span>
+            </a>
+        </section>
+
+        <!-- ============================================================
+             MANIFESTO / CARÁCTER — "Te decimos cuándo no."
+             Brand-kit §2 + landing-rewrite.md §4.1
+             Esta sección es obligatoria por regla §7.4
+             ============================================================ -->
+        <section id="manifesto" data-header-scheme="dark" class="bg-inkDeep text-paper py-20 md:py-28 px-4 sm:px-6 md:px-12 relative overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+                style="background-image: radial-gradient(circle at 1px 1px, rgba(247,245,240,0.025) 1px, transparent 0); background-size: 32px 32px;"></div>
+            <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-[112px_1fr] gap-6 md:gap-10">
+                <div class="font-mono text-xs text-paper/40 uppercase tracking-[0.18em] border-t border-paper/20 pt-2 hidden md:block">
+                    <span class="section-rail-label">[ Manifesto ]</span>
+                </div>
+                <div class="max-w-3xl border-l-[3px] border-accent pl-6 md:pl-10 gsap-reveal">
+                    <span class="font-mono text-[11px] text-accent uppercase tracking-[0.18em] block mb-6">Carácter</span>
+                    <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-semibold text-paper leading-[0.95] tracking-[-0.025em] mb-10">
+                        Te decimos cuándo <span class="brand-mark brand-mark--paper">no</span>.
+                    </h2>
+                    <!-- Móvil: copy acotado. Desktop (md+): copy completo. -->
+                    <p class="font-serif text-xl text-paper/85 leading-snug mb-6 max-w-2xl md:hidden">
+                        Si no necesitás IA, te lo decimos en la primera reunión. Sin vueltas.
+                    </p>
+                    <p class="hidden font-serif text-xl md:text-2xl text-paper/85 leading-snug mb-6 max-w-2xl md:block">
+                        Si tu proceso no necesita IA, lo decimos en la primera reunión. Perdemos el proyecto y ganamos el próximo.
+                    </p>
+                    <p class="font-serif text-xl text-paper/85 leading-snug mb-6 max-w-2xl md:hidden">
+                        Si aplica, lo llevamos a producción y tu equipo queda operando. Sin caja negra.
+                    </p>
+                    <p class="hidden font-serif text-xl md:text-2xl text-paper/85 leading-snug mb-6 max-w-2xl md:block">
+                        Si la necesita, no nos vamos hasta que esté en producción y tu equipo sepa operarla. No queremos dejarte una caja negra que solo nosotros sepamos tocar.
+                    </p>
+                    <p class="font-serif text-xl text-paper font-medium leading-snug mt-8 max-w-2xl tracking-tight md:hidden">
+                        No es comprar una herramienta: es cambiar cómo decide y opera el negocio.
+                    </p>
+                    <p class="hidden font-serif text-2xl md:text-3xl text-paper font-medium leading-snug mt-12 max-w-2xl tracking-tight md:block">
+                        Adoptar IA no es comprar una herramienta. Es cambiar cómo decide y opera el negocio.
+                    </p>
+                    <p class="font-mono text-sm text-accent uppercase tracking-[0.18em] mt-6 md:mt-10">
+                        — A eso venimos.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             SERVICIO — Cómo lo entregamos (unificado)
+             ============================================================ -->
+        <section id="proceso" data-header-scheme="light" class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-paperPure relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-[112px_1fr] gap-6 md:gap-10 mb-8 md:mb-14">
+                    <div class="font-mono text-xs text-muted uppercase tracking-[0.18em] border-t border-ruleStrong pt-2 hidden md:block">
+                        <span class="section-rail-label">[ Servicio ]</span>
+                    </div>
+                    <div class="max-w-3xl gsap-reveal">
+                        <span class="font-mono text-xs text-accent tracking-[0.18em] uppercase block mb-4 md:mb-6">Cómo lo entregamos</span>
+                        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-ink leading-[0.95] mb-6 md:mb-8">
+                            De idea a <span class="accent-reveal">producción</span>, sin escalas.
+                        </h2>
+                        <p class="text-mutedStrong text-lg sm:text-xl font-normal leading-relaxed max-w-2xl">
+                            Tres pasos: elegimos el caso correcto, lo construimos y lo dejamos andando con tu equipo al mando.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 border-t border-ruleStrong relative z-10">
+
+                    <!-- Paso 1 -->
+                    <div class="gsap-reveal py-8 md:py-10 md:pr-10 md:border-r md:border-rule border-b border-rule md:border-b-0">
+                        <div class="flex items-baseline gap-3 mb-5">
+                            <span class="font-serif text-3xl md:text-4xl font-semibold text-rule leading-none" aria-hidden="true">01</span>
+                            <span class="font-mono text-[11px] md:text-xs text-accent uppercase tracking-[0.2em]">Diagnóstico</span>
+                        </div>
+                        <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink tracking-tight leading-snug text-balance mb-3">Vemos con datos si la IA conviene.</h3>
+                        <p class="text-mutedStrong text-sm md:text-base leading-relaxed text-pretty max-w-xs">Revisamos tus procesos y números para ver dónde la IA realmente aporta.</p>
+                    </div>
+
+                    <!-- Paso 2 -->
+                    <div class="gsap-reveal py-8 md:py-10 md:px-10 md:border-r md:border-rule border-b border-rule md:border-b-0">
+                        <div class="flex items-baseline gap-3 mb-5">
+                            <span class="font-serif text-3xl md:text-4xl font-semibold text-rule leading-none" aria-hidden="true">02</span>
+                            <span class="font-mono text-[11px] md:text-xs text-accent uppercase tracking-[0.2em]">Construcción</span>
+                        </div>
+                        <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink tracking-tight leading-snug text-balance mb-3">Lo construimos y lo ponemos a producir.</h3>
+                        <p class="text-mutedStrong text-sm md:text-base leading-relaxed text-pretty max-w-xs">En semanas, no en meses. Cada entrega queda funcionando, no en una demo.</p>
+                    </div>
+
+                    <!-- Paso 3 -->
+                    <div class="gsap-reveal py-8 md:py-10 md:pl-10">
+                        <div class="flex items-baseline gap-3 mb-5">
+                            <span class="font-serif text-3xl md:text-4xl font-semibold text-rule leading-none" aria-hidden="true">03</span>
+                            <span class="font-mono text-[11px] md:text-xs text-accent uppercase tracking-[0.2em]">Habilitación</span>
+                        </div>
+                        <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink tracking-tight leading-snug text-balance mb-3">Te pasamos el control.</h3>
+                        <p class="text-mutedStrong text-sm md:text-base leading-relaxed text-pretty max-w-xs">Capacitamos a tu equipo y dejamos todo documentado. Operás sin depender de nosotros.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="sectores" data-header-scheme="light" class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-paper relative">
+            <div class="max-w-7xl mx-auto">
+
+                <!-- Header -->
+                <div class="grid grid-cols-1 md:grid-cols-[112px_1fr] gap-6 md:gap-10 mb-10 md:mb-14">
+                    <div class="font-mono text-xs text-muted uppercase tracking-[0.18em] border-t border-ruleStrong pt-2 hidden md:block">
+                        <span class="section-rail-label">[ Diferencia ]</span>
+                    </div>
+                    <div class="gsap-reveal max-w-4xl">
+                        <span class="font-mono text-xs text-accent tracking-[0.18em] uppercase block mb-4 md:mb-6">Por qué Acelera</span>
+                        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-ink leading-[0.95] mb-6 md:mb-8">
+                            No es solo qué hacemos.<br class="hidden sm:block">
+                            Es <span class="brand-mark">cómo</span> y a qué <span class="brand-mark">velocidad</span>.
+                        </h2>
+                        <p class="text-mutedStrong text-base md:text-lg font-normal leading-relaxed max-w-2xl">Cuatro principios que sostenemos en cada proyecto. Sin pilotos eternos, sin entregables que nadie usa, sin cajas negras.</p>
+                    </div>
+                </div>
+
+                <!-- Principios — índice editorial -->
+                <div class="relative z-10 border-t border-ruleStrong">
+
+                    <!-- 01 -->
+                    <div class="group grid grid-cols-1 md:grid-cols-[150px_minmax(0,0.85fr)_minmax(0,1fr)] gap-x-8 gap-y-4 md:gap-x-12 items-start border-b border-rule py-8 md:py-11 gsap-reveal transition-colors duration-300 hover:bg-paperPure/60">
+                        <div class="flex items-end gap-4 md:flex-col md:items-start md:gap-4">
+                            <span class="font-serif text-5xl md:text-6xl font-semibold text-rule leading-[0.8] transition-colors duration-500 group-hover:text-accent" aria-hidden="true">01</span>
+                            <div class="flex items-center gap-2.5 pb-1 md:pb-0">
+                                <span class="text-accent/70 transition-colors duration-500 group-hover:text-accent" aria-hidden="true"><i data-lucide="gauge" class="w-4 h-4" stroke-width="1.75"></i></span>
+                                <span class="font-mono text-[11px] md:text-xs text-mutedStrong uppercase tracking-[0.2em]">Velocidad</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-2xl md:text-3xl lg:text-[2rem] font-semibold tracking-tight text-ink leading-[1.1] text-balance transition-transform duration-500 md:group-hover:translate-x-1">Producción, no presentaciones.</h3>
+                        <p class="text-mutedStrong text-base md:text-[1.0625rem] leading-relaxed text-pretty max-w-lg">Trabajamos en ciclos cortos y mostramos avances que funcionan, no diapositivas. Cada semana algo nuevo queda operando.</p>
+                    </div>
+
+                    <!-- 02 -->
+                    <div class="group grid grid-cols-1 md:grid-cols-[150px_minmax(0,0.85fr)_minmax(0,1fr)] gap-x-8 gap-y-4 md:gap-x-12 items-start border-b border-rule py-8 md:py-11 gsap-reveal transition-colors duration-300 hover:bg-paperPure/60">
+                        <div class="flex items-end gap-4 md:flex-col md:items-start md:gap-4">
+                            <span class="font-serif text-5xl md:text-6xl font-semibold text-rule leading-[0.8] transition-colors duration-500 group-hover:text-accent" aria-hidden="true">02</span>
+                            <div class="flex items-center gap-2.5 pb-1 md:pb-0">
+                                <span class="text-accent/70 transition-colors duration-500 group-hover:text-accent" aria-hidden="true"><i data-lucide="route" class="w-4 h-4" stroke-width="1.75"></i></span>
+                                <span class="font-mono text-[11px] md:text-xs text-mutedStrong uppercase tracking-[0.2em]">Método</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-2xl md:text-3xl lg:text-[2rem] font-semibold tracking-tight text-ink leading-[1.1] text-balance transition-transform duration-500 md:group-hover:translate-x-1">Nada queda a la intuición.</h3>
+                        <p class="text-mutedStrong text-base md:text-[1.0625rem] leading-relaxed text-pretty max-w-lg">Arrancamos con un número concreto a mover y medimos antes y después de cada etapa. Así sabés exactamente qué cambió.</p>
+                    </div>
+
+                    <!-- 03 -->
+                    <div class="group grid grid-cols-1 md:grid-cols-[150px_minmax(0,0.85fr)_minmax(0,1fr)] gap-x-8 gap-y-4 md:gap-x-12 items-start border-b border-rule py-8 md:py-11 gsap-reveal transition-colors duration-300 hover:bg-paperPure/60">
+                        <div class="flex items-end gap-4 md:flex-col md:items-start md:gap-4">
+                            <span class="font-serif text-5xl md:text-6xl font-semibold text-rule leading-[0.8] transition-colors duration-500 group-hover:text-accent" aria-hidden="true">03</span>
+                            <div class="flex items-center gap-2.5 pb-1 md:pb-0">
+                                <span class="text-accent/70 transition-colors duration-500 group-hover:text-accent" aria-hidden="true"><i data-lucide="users" class="w-4 h-4" stroke-width="1.75"></i></span>
+                                <span class="font-mono text-[11px] md:text-xs text-mutedStrong uppercase tracking-[0.2em]">Autonomía</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-2xl md:text-3xl lg:text-[2rem] font-semibold tracking-tight text-ink leading-[1.1] text-balance transition-transform duration-500 md:group-hover:translate-x-1">Tu equipo opera, no nosotros.</h3>
+                        <p class="text-mutedStrong text-base md:text-[1.0625rem] leading-relaxed text-pretty max-w-lg">Construimos sobre tu propia infraestructura y te dejamos el código, la documentación y la capacitación para operarlo. Cuando nos vamos, nada deja de funcionar.</p>
+                    </div>
+
+                    <!-- 04 -->
+                    <div class="group grid grid-cols-1 md:grid-cols-[150px_minmax(0,0.85fr)_minmax(0,1fr)] gap-x-8 gap-y-4 md:gap-x-12 items-start border-b border-rule py-8 md:py-11 gsap-reveal transition-colors duration-300 hover:bg-paperPure/60">
+                        <div class="flex items-end gap-4 md:flex-col md:items-start md:gap-4">
+                            <span class="font-serif text-5xl md:text-6xl font-semibold text-rule leading-[0.8] transition-colors duration-500 group-hover:text-accent" aria-hidden="true">04</span>
+                            <div class="flex items-center gap-2.5 pb-1 md:pb-0">
+                                <span class="text-accent/70 transition-colors duration-500 group-hover:text-accent" aria-hidden="true"><i data-lucide="shield-check" class="w-4 h-4" stroke-width="1.75"></i></span>
+                                <span class="font-mono text-[11px] md:text-xs text-mutedStrong uppercase tracking-[0.2em]">Honestidad</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-2xl md:text-3xl lg:text-[2rem] font-semibold tracking-tight text-ink leading-[1.1] text-balance transition-transform duration-500 md:group-hover:translate-x-1">Si la IA no suma, te lo decimos.</h3>
+                        <p class="text-mutedStrong text-base md:text-[1.0625rem] leading-relaxed text-pretty max-w-lg">En la primera reunión, sin vueltas. Preferimos perder el proyecto antes que venderte una solución que no necesitás.</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+        <section id="equipo" data-header-scheme="light" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-surfaceAlt/30 border-t border-borderSubtle">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-12 md:mb-16 gsap-reveal">
+                    <span class="text-accent font-mono text-xs uppercase tracking-[0.18em] block mb-4">Equipo fundador</span>
+                    <h2 class="font-serif text-3xl font-semibold mb-6 text-ink leading-snug tracking-tight md:hidden"><span class="brand-mark">Un solo equipo</span>, de punta a punta.</h2>
+                    <h2 class="hidden font-serif text-5xl md:text-7xl font-semibold mb-8 text-ink leading-[0.95] tracking-tight md:block"><span class="brand-mark">Un solo equipo</span> del relevamiento a la operación.</h2>
+                    <p class="text-mutedStrong text-xl font-normal max-w-3xl leading-relaxed mb-5">Trabajás directo con quienes construyen: sin gerentes de cuenta ni traspasos. El mismo equipo que releva con vos diseña, construye y le deja la operación a tu gente.</p>
+                    <p class="flex items-start gap-3 text-ink font-normal leading-snug max-w-2xl">
+                        <span class="text-accent shrink-0 mt-0.5" aria-hidden="true"><i data-lucide="trophy" class="w-5 h-5" stroke-width="1.5"></i></span>
+                        <span><strong class="font-semibold">3 hackathones ganados.</strong> La prueba de que entendemos rápido el problema y lo llevamos a una solución concreta.</span>
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="group gsap-reveal">
+                        <div
+                            class="aspect-[4/5] w-full overflow-hidden bg-surfaceAlt rounded-[2rem] mb-6 relative border border-borderSubtle">
+                            <img src="assets/estevo_profile.webp" alt="Ignacio"
+                                class="w-full h-full object-cover grayscale mix-blend-multiply group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-700 opacity-90 group-hover:scale-105">
+                        </div>
+                        <div class="flex items-center justify-between mb-1">
+                            <h4 class="text-2xl font-bold text-textPrimary">Ignacio Estevo</h4>
+                            <a href="https://www.linkedin.com/in/ignacio-estevo/" target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-textSecondary hover:text-primary transition-colors hover:scale-110 inline-flex items-center justify-center min-h-[44px] min-w-[44px] p-2 -m-2 md:min-h-0 md:min-w-0 md:p-0 md:m-0 rounded-md md:rounded-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-linkedin">
+                                    <path
+                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                    </path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                            </a>
+                        </div>
+                        <span
+                            class="font-mono text-xs text-textSecondary uppercase tracking-widest block mb-1">Ingeniería e Implementación</span>
+                        <p class="text-sm text-textSecondary font-light">Ingeniero Informático.<br />
+                            Software Engineering | Automatización | IA aplicada
+                    </div>
+                    <div class="group gsap-reveal">
+                        <div
+                            class="aspect-[4/5] w-full overflow-hidden bg-surfaceAlt rounded-[2rem] mb-6 relative border border-borderSubtle">
+                            <img src="assets/aaaaa_recortada_8_balanceada.webp"
+                                alt="Mauro"
+                                class="w-full h-full object-cover grayscale mix-blend-multiply group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-700 opacity-90 group-hover:scale-105">
+                        </div>
+                        <div class="flex items-center justify-between mb-1">
+                            <h4 class="text-2xl font-bold text-textPrimary">Mauro Proto</h4>
+                            <a href="https://www.linkedin.com/in/mauroprotocassina/" target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-textSecondary hover:text-primary transition-colors hover:scale-110 inline-flex items-center justify-center min-h-[44px] min-w-[44px] p-2 -m-2 md:min-h-0 md:min-w-0 md:p-0 md:m-0 rounded-md md:rounded-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-linkedin">
+                                    <path
+                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                    </path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                            </a>
+                        </div>
+                        <span class="font-mono text-xs text-textSecondary uppercase tracking-widest block mb-1">Implementación
+                            Técnica</span>
+                        <p class="text-sm text-textSecondary font-light">AI/ML Engineering<br />Especialista en LLMs en producción.</p>
+                    </div>
+                    <div class="group gsap-reveal">
+                        <div
+                            class="aspect-[4/5] w-full overflow-hidden bg-surfaceAlt rounded-[2rem] mb-6 relative border border-borderSubtle">
+                            <img src="assets/franco_profile.webp"
+                                alt="Franco"
+                                class="w-full h-full object-cover grayscale mix-blend-multiply group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-700 opacity-90 group-hover:scale-105">
+                        </div>
+                        <div class="flex items-center justify-between mb-1">
+                            <h4 class="text-2xl font-bold text-textPrimary">Franco Ferreira</h4>
+                            <a href="https://www.linkedin.com/in/franco-ferreira/" target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-textSecondary hover:text-primary transition-colors hover:scale-110 inline-flex items-center justify-center min-h-[44px] min-w-[44px] p-2 -m-2 md:min-h-0 md:min-w-0 md:p-0 md:m-0 rounded-md md:rounded-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-linkedin">
+                                    <path
+                                        d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
+                                    </path>
+                                    <rect x="2" y="9" width="4" height="12"></rect>
+                                    <circle cx="4" cy="4" r="2"></circle>
+                                </svg>
+                            </a>
+                        </div>
+                        <span class="font-mono text-xs text-textSecondary uppercase tracking-widest block mb-1">Estrategia
+                            y
+                            Procesos</span>
+                        <p class="text-sm text-textSecondary font-light">Ingeniero en Software. <br/>
+                            Business Intelligence | Optimización de procesos
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             VOZ FUNDADOR — Cita "Empezamos por el proceso..."
+             Movida desde su ubicación original (post-manifesto) a este
+             slot para que actúe como remate emocional antes del bloque
+             de límites + CTA, no como filler post-carácter.
+             ============================================================ -->
+        <section id="section-founder-quote" data-header-scheme="light"
+            class="hidden py-10 px-4 sm:px-6 md:px-12 md:py-20 relative overflow-hidden bg-paper md:block">
+            <div class="max-w-5xl mx-auto text-center relative z-10">
+                <i data-lucide="quote" class="w-6 h-6 md:w-8 md:h-8 mx-auto text-muted/40 mb-5 md:mb-10 gsap-reveal" aria-hidden="true"></i>
+                <blockquote id="founder-quote"
+                    class="font-serif text-2xl sm:text-3xl md:text-6xl text-ink leading-snug md:leading-[1.05] mb-0 md:mb-12 tracking-tight font-medium text-balance">
+                    Empezamos por el proceso donde el costo se mide en plata, tiempo o reputación. Si no se ve, <span class="brand-mark">no lo hacemos</span>.
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             LO QUE NO HACEMOS — Anti-positioning visible
+             Brand-kit §13 + landing-rewrite.md §4.4
+             Diseño austero — texto y nada más
+             ============================================================ -->
+        <section id="lo-que-no-hacemos" data-header-scheme="light" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-paper border-t border-rule relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-[112px_1fr] gap-6 md:gap-10">
+                    <div class="font-mono text-xs text-muted uppercase tracking-[0.18em] border-t border-ruleStrong pt-2 hidden md:block">
+                        <span class="section-rail-label">[ Límites ]</span>
+                    </div>
+                    <div class="max-w-3xl gsap-reveal">
+                        <span class="font-mono text-xs text-accent uppercase tracking-[0.18em] block mb-6">Lo que no hacemos</span>
+                        <h2 class="font-serif text-3xl font-semibold tracking-tight text-ink leading-[1.05] mb-8 md:hidden">
+                            Cinco cosas que <span class="brand-mark brand-mark--loud">no</span> vamos a hacer.
+                        </h2>
+                        <h2 class="hidden font-serif text-4xl md:text-6xl font-semibold tracking-tight text-ink leading-[0.98] mb-12 md:mb-16 md:block">
+                            Cinco cosas que <span class="brand-mark">no</span> vas a encontrar acá.
+                        </h2>
+                        <ul class="space-y-0 md:hidden" aria-label="Cinco cosas que no hacemos">
+                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-rule items-start">
+                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
+                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No meter IA donde no suma.</span>
+                            </li>
+                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-rule items-start">
+                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
+                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No entregar un PDF y desaparecer.</span>
+                            </li>
+                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-rule items-start">
+                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
+                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No eternizar pilotos sin camino a producción.</span>
+                            </li>
+                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-rule items-start">
+                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
+                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No dejarte una caja negra que solo nosotros podamos tocar.</span>
+                            </li>
+                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-b border-rule items-start">
+                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
+                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No prometer magia, humo ni revoluciones de marketing.</span>
+                            </li>
+                        </ul>
+                        <ul class="hidden space-y-0 md:block" aria-label="Cinco cosas que no vas a encontrar acá">
+                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-rule items-baseline">
+                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No sumamos IA donde no cambia el resultado.</span>
+                            </li>
+                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-rule items-baseline">
+                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No entregamos PDFs y nos vamos.</span>
+                            </li>
+                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-rule items-baseline">
+                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No hacemos pilotos eternos sin camino a producción.</span>
+                            </li>
+                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-rule items-baseline">
+                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No te dejamos atado a una caja negra que solo nosotros sepamos tocar.</span>
+                            </li>
+                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-b border-rule items-baseline">
+                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No prometemos revoluciones grandilocuentes ni cambios mágicos.</span>
+                            </li>
+                        </ul>
+                        <p class="font-serif text-ink text-lg md:text-xl font-bold leading-snug mt-10 max-w-2xl tracking-tight text-balance">
+                            Si buscás eso, no somos tu equipo. <span class="brand-mark brand-mark--loud">Te lo decimos al inicio.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" data-header-scheme="light"
+            class="py-10 md:py-12 px-4 sm:px-6 md:px-12 bg-paperPure border-t border-rule flex flex-col">
+            <div class="max-w-7xl mx-auto flex-1 flex flex-col min-h-0">
+                <div class="flex-1 flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 items-start justify-center min-h-0">
+                    <div class="lg:w-[40%] max-w-sm flex flex-col justify-center gsap-reveal">
+                        <span class="font-mono text-xs text-accent tracking-[0.18em] uppercase block mb-3 md:mb-4">Hablemos</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-ink leading-[0.98] mb-3 md:mb-4">Elegí un horario y <span class="brand-mark">hablamos</span>.</h2>
+                        <p class="text-mutedStrong text-base md:text-lg font-normal leading-relaxed mb-6">30 minutos, sin compromiso. Mapeamos tu caso y salís con el próximo paso claro —o con un "no" honesto si la IA no aporta.</p>
+                        <a href="mailto:contacto@acelera.agency"
+                            class="inline-flex items-center gap-3 font-mono text-sm md:text-base text-ink hover:text-accent transition-colors group">
+                            <span class="text-accent" aria-hidden="true"><i data-lucide="mail" class="w-5 h-5" stroke-width="1.5"></i></span>
+                            <span class="border-b border-ruleStrong group-hover:border-accent transition-colors">contacto@acelera.agency</span>
+                        </a>
+                    </div>
+                    <div class="lg:w-[60%] flex items-center justify-center relative gsap-reveal">
+                        <div id="calendly-embed" class="w-full max-w-[520px] h-[520px] sm:h-[540px] md:h-[560px] relative">
+                            <div id="calendly-placeholder" class="absolute inset-0 flex flex-col items-center justify-center gap-4 py-20 px-6 text-center bg-paperPure border border-rule">
+                                <span class="text-accent" aria-hidden="true">
+                                    <i data-lucide="calendar-clock" class="w-14 h-14 md:w-16 md:h-16" stroke-width="1.5"></i>
+                                </span>
+                                <h3 class="font-serif text-xl md:text-2xl font-semibold text-ink tracking-tight">Cargando calendario...</h3>
+                                <p class="text-mutedStrong text-sm md:text-base leading-relaxed max-w-md">Si no se ve, escribinos a contacto@acelera.agency</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer id="footer-section" data-header-scheme="dark"
+        class="relative bg-inkDeep text-paper pt-20 pb-10 px-4 sm:px-6 md:px-12 overflow-hidden border-t border-rule">
+        <div id="footer-glow-1"
+            class="absolute w-[800px] h-[800px] rounded-full blur-[120px] bg-accent/10 opacity-0 top-0 left-0 mix-blend-normal pointer-events-none z-0">
+        </div>
+        <div id="footer-glow-2"
+            class="absolute w-[400px] h-[400px] rounded-full blur-[90px] bg-accent/20 opacity-0 top-0 left-0 mix-blend-normal pointer-events-none z-0">
+        </div>
+        <div
+            class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row justify-between items-start gap-16 mb-20 gsap-reveal">
+            <div class="max-w-md">
+                <div class="text-2xl font-semibold tracking-tight text-paper mb-6 font-serif inline-block leading-none">
+                    Aceler<span class="relative inline-block">a<span aria-hidden="true" class="absolute left-0 right-0 -bottom-[0.18em] h-[2px] bg-accent"></span></span>
+                </div>
+                <p class="text-sm sm:text-base text-paper/70 font-normal leading-relaxed">
+                    IA con sentido: consultoría e implementación donde suma, con tu equipo operando la solución. Si tu negocio no lo necesita, lo decimos en la primera reunión.
+                </p>
+                <p class="mt-6">
+                    <a href="mailto:contacto@acelera.agency"
+                        class="font-mono text-base sm:text-xl md:text-2xl text-paper/90 hover:text-accent transition-colors leading-tight inline-block break-words max-w-full hover:underline underline-offset-[0.18em] decoration-accent/70">contacto@acelera.agency</a>
+                </p>
+                <p class="mt-4">
+                    <a href="tel:+5491161758891"
+                        class="font-mono text-base sm:text-xl md:text-2xl text-paper/90 hover:text-accent transition-colors leading-tight inline-block break-words max-w-full hover:underline underline-offset-[0.18em] decoration-accent/70">+54 9 11 6175 8891</a>
+                </p>
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a href="https://www.linkedin.com/company/acelera-agency" target="_blank" rel="noopener noreferrer"
+                        aria-label="Acelera en LinkedIn"
+                        class="inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.18em] uppercase text-paper border border-paper/30 hover:border-accent hover:text-accent transition-colors rounded-full px-5 py-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="lucide lucide-linkedin" aria-hidden="true">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                        LinkedIn
+                    </a>
+                    <a href="https://wa.me/5491161758891" target="_blank" rel="noopener noreferrer"
+                        aria-label="Escribinos por WhatsApp"
+                        class="inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.18em] uppercase text-paper border border-paper/30 hover:border-accent hover:text-accent transition-colors rounded-full px-5 py-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                            fill="currentColor" aria-hidden="true">
+                            <path d="M20.52 3.48A11.82 11.82 0 0 0 12.04 0C5.5 0 .17 5.33.17 11.88c0 2.09.55 4.13 1.6 5.93L0 24l6.33-1.66a11.86 11.86 0 0 0 5.7 1.45h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.23-6.15-3.4-8.43ZM12.04 21.78h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.22-3.75.98 1-3.66-.24-.38a9.88 9.88 0 0 1-1.52-5.24c0-5.46 4.45-9.9 9.92-9.9 2.65 0 5.14 1.03 7.01 2.9a9.86 9.86 0 0 1 2.9 7.01c0 5.46-4.45 9.89-9.91 9.89Zm5.44-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.66-.51l-.57-.01a1.1 1.1 0 0 0-.8.37c-.27.3-1.04 1.02-1.04 2.47 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.4.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35Z"/>
+                        </svg>
+                        WhatsApp
+                    </a>
+                </div>
+            </div>
+            <div class="flex flex-col gap-10 md:flex-row md:gap-16">
+                <div class="flex flex-col gap-4">
+                    <span
+                        class="font-mono text-[10px] font-semibold tracking-[0.18em] uppercase text-paper/50 mb-2">Navegación</span>
+                    <a href="#proceso"
+                        class="text-sm text-paper font-medium hover:text-accent transition-colors">Cómo trabajamos</a>
+                    <a href="#sectores"
+                        class="text-sm text-paper font-medium hover:text-accent transition-colors">Diferencia</a>
+                    <a href="#equipo"
+                        class="text-sm text-paper font-medium hover:text-accent transition-colors">Equipo</a>
+                    <a href="#contacto"
+                        class="text-sm text-paper font-medium hover:text-accent transition-colors">Hablemos</a>
+                </div>
+                <div class="flex flex-col gap-4">
+                    <span
+                        class="font-mono text-[10px] font-semibold tracking-[0.18em] uppercase text-paper/50 mb-2">Legal</span>
+                    <a href="privacidad"
+                        class="text-sm text-paper font-medium hover:text-accent transition-colors">Privacidad</a>
+                    <a href="terminos"
+                        class="text-sm text-paper font-medium hover:text-accent transition-colors">Términos</a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10 pt-6 md:pt-16 flex flex-col items-center w-full min-w-0 overflow-x-hidden">
+            <h2 id="footer-watermark"
+                class="font-serif text-[18vw] md:text-[clamp(15rem,15vw,20rem)] leading-none text-paper/5 tracking-tighter select-none mb-6 md:mb-10 text-center w-full max-w-full font-semibold px-1">
+                Acelera
+            </h2>
+            <div class="hidden w-full md:flex md:flex-row justify-between items-center gap-4 text-paper/55">
+                <span class="font-mono text-[10px] tracking-[0.18em] uppercase">© 2026 Acelera — Adopción de IA con sentido</span>
+                <span class="font-mono text-[10px] tracking-[0.18em] uppercase flex items-center gap-2"><i
+                        data-lucide="globe" class="w-3 h-3"></i> IA que tu equipo opera. No una caja negra.</span>
+            </div>
+        </div>
+    </footer>
+    <script defer>
+        if (window.lucide && typeof window.lucide.createIcons === "function") {
+            window.lucide.createIcons();
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const desktopWidthMql = window.matchMedia("(min-width: 768px)");
+            function syncDesktopOnlyPlaceholders() {
+                const desktop = desktopWidthMql.matches;
+                document.querySelectorAll("[data-placeholder-desktop]").forEach((el) => {
+                    const v = el.getAttribute("data-placeholder-desktop");
+                    el.placeholder = desktop && v != null ? v : "";
+                });
+            }
+            syncDesktopOnlyPlaceholders();
+            desktopWidthMql.addEventListener("change", syncDesktopOnlyPlaceholders);
+
+            const mobileMenu = document.getElementById("mobile-menu");
+            const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+            const mobileMenuCloseBtn = document.getElementById("mobile-menu-close-btn");
+            const iconOpenWrap = mobileMenuBtn?.querySelector(".mobile-menu-icon-open");
+            const iconCloseWrap = mobileMenuBtn?.querySelector(".mobile-menu-icon-close");
+            const siteHeader = document.querySelector("header");
+            const siteBrand = document.getElementById("site-brand");
+
+            function setMobileMenuOpen(open) {
+                if (!mobileMenu || !mobileMenuBtn) {
+                    return;
+                }
+                if (open) {
+                    mobileMenu.classList.remove("hidden");
+                    mobileMenu.setAttribute("aria-hidden", "false");
+                    mobileMenuBtn.setAttribute("aria-expanded", "true");
+                    mobileMenuBtn.setAttribute("aria-label", "Cerrar menú de navegación");
+                    document.body.style.overflow = "hidden";
+                    iconOpenWrap?.classList.add("hidden");
+                    iconCloseWrap?.classList.remove("hidden");
+                    if (typeof lucide !== "undefined" && typeof lucide.createIcons === "function") {
+                        lucide.createIcons();
+                    }
+                } else {
+                    mobileMenu.classList.add("hidden");
+                    mobileMenu.setAttribute("aria-hidden", "true");
+                    mobileMenuBtn.setAttribute("aria-expanded", "false");
+                    mobileMenuBtn.setAttribute("aria-label", "Abrir menú de navegación");
+                    document.body.style.overflow = "";
+                    iconOpenWrap?.classList.remove("hidden");
+                    iconCloseWrap?.classList.add("hidden");
+                }
+            }
+
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener("click", () => {
+                    setMobileMenuOpen(mobileMenu.classList.contains("hidden"));
+                });
+                mobileMenuCloseBtn?.addEventListener("click", () => setMobileMenuOpen(false));
+                document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+                    link.addEventListener("click", () => setMobileMenuOpen(false));
+                });
+                document.addEventListener("keydown", (e) => {
+                    if (e.key === "Escape" && !mobileMenu.classList.contains("hidden")) {
+                        setMobileMenuOpen(false);
+                    }
+                });
+            }
+
+            // ============================================================
+            // Modal "Agendá una reunión" (lead form)
+            // ============================================================
+            const leadModal = document.getElementById("lead-modal");
+            const leadModalPanel = document.getElementById("lead-modal-panel");
+            const leadModalBackdrop = document.getElementById("lead-modal-backdrop");
+            const leadModalClose = document.getElementById("lead-modal-close");
+            let leadModalLastFocus = null;
+
+            function openLeadModal() {
+                if (!leadModal) return;
+                if (typeof setMobileMenuOpen === "function") setMobileMenuOpen(false);
+                leadModalLastFocus = document.activeElement;
+                leadModal.classList.remove("hidden");
+                leadModal.classList.add("flex");
+                leadModal.setAttribute("aria-hidden", "false");
+                if (leadModalPanel) void leadModalPanel.offsetWidth;
+                window.requestAnimationFrame(() => {
+                    document.body.style.overflow = "hidden";
+                    leadModalBackdrop && leadModalBackdrop.classList.remove("opacity-0");
+                    if (leadModalPanel) {
+                        leadModalPanel.classList.remove("opacity-0", "translate-y-3", "scale-[0.98]");
+                    }
+                });
+                window.setTimeout(function () {
+                    var first = document.getElementById("lead-nombre");
+                    if (first) first.focus();
+                }, 140);
+            }
+
+            function closeLeadModal() {
+                if (!leadModal || leadModal.classList.contains("hidden")) return;
+                leadModalBackdrop && leadModalBackdrop.classList.add("opacity-0");
+                if (leadModalPanel) {
+                    leadModalPanel.classList.add("opacity-0", "translate-y-3", "scale-[0.98]");
+                }
+                leadModal.setAttribute("aria-hidden", "true");
+                window.setTimeout(function () {
+                    leadModal.classList.add("hidden");
+                    leadModal.classList.remove("flex");
+                    document.body.style.overflow = "";
+                }, 220);
+                if (leadModalLastFocus && typeof leadModalLastFocus.focus === "function") {
+                    leadModalLastFocus.focus();
+                }
+            }
+
+            document.querySelectorAll("[data-open-lead-modal]").forEach(function (btn) {
+                btn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    openLeadModal();
+                });
+            });
+            leadModalClose && leadModalClose.addEventListener("click", closeLeadModal);
+            leadModalBackdrop && leadModalBackdrop.addEventListener("click", closeLeadModal);
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && leadModal && !leadModal.classList.contains("hidden")) {
+                    closeLeadModal();
+                }
+            });
+
+            const footerSection = document.getElementById("footer-section");
+            const mobileHeaderMql = window.matchMedia("(max-width: 767px)");
+
+            const syncHeaderBrandTone = () => {
+                if (!siteHeader || !siteBrand) {
+                    return;
+                }
+
+                const probeY = Math.max(16, Math.round(siteHeader.getBoundingClientRect().height * 0.5));
+                const overDarkSection = Array.from(document.querySelectorAll("[data-header-scheme=\"dark\"]")).some(
+                    (section) => {
+                        const cs = window.getComputedStyle(section);
+                        if (cs.display === "none" || cs.visibility === "hidden") {
+                            return false;
+                        }
+                        const rect = section.getBoundingClientRect();
+                        return rect.top <= probeY && rect.bottom >= probeY;
+                    }
+                );
+
+                siteBrand.classList.toggle("text-paper", overDarkSection);
+                siteBrand.classList.toggle("text-ink", !overDarkSection);
+                siteHeader.setAttribute("data-nav-tone", overDarkSection ? "dark" : "light");
+            };
+
+            /** Móvil: ocultar el logo del header en cuanto entra el footer (antes usábamos #footer-watermark,
+             *  que está al final del bloque y el logo seguía visible duplicando la marca). */
+            const syncMobileBrandOverFooter = () => {
+                if (!siteHeader || !siteBrand || !footerSection) {
+                    return;
+                }
+                if (!mobileHeaderMql.matches) {
+                    siteBrand.classList.remove("max-md-brand-concealed");
+                    siteBrand.removeAttribute("aria-hidden");
+                    return;
+                }
+                const headerBottom = siteHeader.getBoundingClientRect().bottom;
+                const footerTop = footerSection.getBoundingClientRect().top;
+                const conceal = footerTop < headerBottom + 48;
+                siteBrand.classList.toggle("max-md-brand-concealed", conceal);
+                if (conceal) {
+                    siteBrand.setAttribute("aria-hidden", "true");
+                } else {
+                    siteBrand.removeAttribute("aria-hidden");
+                }
+            };
+
+            const syncHeaderOnScroll = () => {
+                syncHeaderBrandTone();
+                syncMobileBrandOverFooter();
+            };
+
+            syncHeaderOnScroll();
+            window.addEventListener("scroll", syncHeaderOnScroll, { passive: true });
+            window.addEventListener("resize", syncHeaderOnScroll);
+            mobileHeaderMql.addEventListener("change", syncHeaderOnScroll);
+
+            const setupCursorGlow = (section, glows, config = {}) => {
+                if (!section) {
+                    return;
+                }
+                const validGlows = glows.filter(Boolean);
+                if (!validGlows.length) {
+                    return;
+                }
+
+                const primaryDuration = config.primaryDuration ?? 0.6;
+                const secondaryDuration = config.secondaryDuration ?? 0.35;
+                const leaveDuration = config.leaveDuration ?? 1.4;
+                const primaryOpacity = config.primaryOpacity ?? 1;
+                const secondaryOpacity = config.secondaryOpacity ?? 1;
+                const primaryEase = config.primaryEase ?? "power3.out";
+                const secondaryEase = config.secondaryEase ?? "power2.out";
+                const leaveEase = config.leaveEase ?? "sine.out";
+
+                gsap.set(validGlows, { xPercent: -50, yPercent: -50 });
+
+                section.addEventListener("mousemove", (e) => {
+                    const rect = section.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    if (validGlows[0]) {
+                        gsap.to(validGlows[0], { x, y, opacity: primaryOpacity, duration: primaryDuration, ease: primaryEase, overwrite: "auto" });
+                    }
+                    if (validGlows[1]) {
+                        gsap.to(validGlows[1], { x, y, opacity: secondaryOpacity, duration: secondaryDuration, ease: secondaryEase, overwrite: "auto" });
+                    }
+                });
+
+                section.addEventListener("mouseleave", () => {
+                    gsap.to(validGlows, { opacity: 0, duration: leaveDuration, ease: leaveEase, overwrite: "auto" });
+                });
+            };
+
+            const heroSection = document.getElementById("hero-section");
+            setupCursorGlow(heroSection, [
+                document.getElementById("hero-glow-1"),
+                document.getElementById("hero-glow-2")
+            ]);
+
+            setupCursorGlow(footerSection, [
+                document.getElementById("footer-glow-1"),
+                document.getElementById("footer-glow-2")
+            ]);
+
+            document.querySelectorAll(".sector-card").forEach((card) => {
+                const primary = card.querySelector(".sector-glow-primary");
+                const secondary = card.querySelector(".sector-glow-secondary");
+                setupCursorGlow(card, [primary, secondary], {
+                    primaryDuration: 0.45,
+                    secondaryDuration: 0.25,
+                    leaveDuration: 1.2,
+                    primaryEase: "power3.out",
+                    secondaryEase: "power2.out",
+                    leaveEase: "sine.out"
+                });
+            });
+
+            document.querySelectorAll(".proceso-card").forEach((card) => {
+                const primary = card.querySelector(".proceso-glow-primary");
+                const secondary = card.querySelector(".proceso-glow-secondary");
+                setupCursorGlow(card, [primary, secondary], {
+                    primaryDuration: 0.45,
+                    secondaryDuration: 0.25,
+                    leaveDuration: 1.2,
+                    primaryEase: "power3.out",
+                    secondaryEase: "power2.out",
+                    leaveEase: "sine.out"
+                });
+            });
+
+            // Hero intro is now pure CSS — see .gsap-hero-text @keyframes heroIntro.
+            // No JS dependency, runs at first paint, no DOMContentLoaded wait.
+            const setupCardReveal = (sectionId, itemSelector, config = {}) => {
+                const section = document.getElementById(sectionId);
+                if (!section) {
+                    return;
+                }
+
+                const cards = gsap.utils.toArray(itemSelector, section);
+                if (!cards.length) {
+                    return;
+                }
+
+                gsap.to(cards, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: config.start ?? "top 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    opacity: 1,
+                    y: 0,
+                    duration: config.duration ?? 0.92,
+                    ease: config.ease ?? "sine.inOut",
+                    stagger: {
+                        amount: config.staggerAmount ?? 0.28,
+                        from: "start",
+                        ease: config.staggerEase ?? "sine.inOut"
+                    }
+                });
+            };
+
+            document.querySelectorAll(".gsap-reveal:not(.proceso-card):not(.sector-card)").forEach((el) => {
+                gsap.to(el, { scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }, opacity: 1, y: 0, duration: 1, ease: "power3.out" });
+            });
+            document.querySelectorAll(".accent-reveal").forEach((el) => {
+                if (!el.querySelector(".accent-reveal__text")) {
+                    const raw = el.textContent || "";
+                    el.textContent = "";
+                    const textNode = document.createElement("span");
+                    textNode.className = "accent-reveal__text";
+                    textNode.textContent = raw;
+                    const blockNode = document.createElement("span");
+                    blockNode.className = "accent-reveal__block";
+                    blockNode.setAttribute("aria-hidden", "true");
+                    el.appendChild(textNode);
+                    el.appendChild(blockNode);
+                }
+
+                const textNode = el.querySelector(".accent-reveal__text");
+                const blockNode = el.querySelector(".accent-reveal__block");
+                if (!textNode || !blockNode) {
+                    return;
+                }
+
+                gsap.set(textNode, { opacity: 0 });
+                gsap.set(blockNode, { scaleX: 0, transformOrigin: "left center" });
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 88%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+
+                tl.to(blockNode, {
+                    scaleX: 1,
+                    duration: 0.34,
+                    ease: "power2.out"
+                })
+                .to(textNode, {
+                    opacity: 1,
+                    duration: 0.01,
+                    ease: "none"
+                }, "-=0.08")
+                .to(blockNode, {
+                    scaleX: 0,
+                    transformOrigin: "right center",
+                    duration: 0.5,
+                    ease: "power2.inOut"
+                });
+            });
+            setupCardReveal("proceso", ".proceso-card", {
+                start: "top 78%",
+                duration: 0.88,
+                staggerAmount: 0.22,
+                ease: "sine.inOut",
+                staggerEase: "sine.inOut"
+            });
+            setupCardReveal("sectores", ".sector-card", {
+                start: "top 80%",
+                duration: 0.94,
+                staggerAmount: 0.34,
+                ease: "sine.inOut",
+                staggerEase: "sine.inOut"
+            });
+            const quoteEl = document.getElementById("founder-quote");
+            if (quoteEl) {
+                const words = quoteEl.innerText.split(" ");
+                quoteEl.innerHTML = "";
+                words.forEach(word => {
+                    const span = document.createElement("span");
+                    span.innerText = word + " ";
+                    span.classList.add("text-borderSubtle", "transition-colors", "duration-300");
+                    quoteEl.appendChild(span);
+                });
+                gsap.to(quoteEl.children, {
+                    color: "#111827",
+                    stagger: 0.1,
+                    scrollTrigger: { trigger: quoteEl, start: "top 75%", end: "bottom 60%", scrub: 1 }
+                });
+            }
+            const nodeBoard = document.getElementById("node-editor-board");
+            if (nodeBoard) {
+                const nodeTl = gsap.timeline({
+                    scrollTrigger: { trigger: nodeBoard, start: "top 70%", end: "bottom 30%", scrub: 1 }
+                });
+                nodeTl.to(".node-item", { opacity: 1, y: 0, stagger: 0.3, duration: 1, ease: "power2.out" }, 0);
+                nodeTl.to(["#data-beam", "#data-beam-mobile"], { width: "100%", height: "100%", duration: 2, ease: "none" }, 0.5);
+            }
+
+        });
+    </script>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function () {
+            var wrap = document.getElementById("hero-3d-wrap");
+            var cvs = document.getElementById("hero-3d-canvas");
+            if (!wrap || !cvs) return;
+
+            var ctx = cvs.getContext("2d");
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
+            var phi = (1 + Math.sqrt(5)) / 2;
+            var time = 0;
+            var noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+            function resize() {
+                var w = wrap.clientWidth, h = wrap.clientHeight;
+                cvs.width = w * dpr;
+                cvs.height = h * dpr;
+                cvs.style.width = w + "px";
+                cvs.style.height = h + "px";
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+            resize();
+            window.addEventListener("resize", resize);
+
+            (function loop() {
+                requestAnimationFrame(loop);
+                var w = cvs.width / dpr, h = cvs.height / dpr;
+                ctx.clearRect(0, 0, w, h);
+                ctx.save();
+                ctx.translate((w * 0.49) + 4, (h * 0.43) - 4);
+
+                var maxRect = noMotion ? 70 : Math.min(70, Math.floor(time * 0.02));
+                var baseW = Math.min(w, h) * 0.81;
+                var rectW = baseW;
+                var rectH = rectW / phi;
+                var scale = 1;
+                var angle = time * 0.00004;
+
+                for (var i = 0; i < maxRect; i++) {
+                    ctx.save();
+                    var spiralAngle = i * 0.174533;
+                    var radius = scale * (baseW * 0.35);
+                    var x = Math.cos(spiralAngle) * radius;
+                    var y = Math.sin(spiralAngle) * radius;
+                    ctx.translate(x, y);
+                    ctx.rotate(spiralAngle + angle);
+
+                    var t = i / maxRect;
+                    var alpha = 0.5 - i * 0.012;
+                    if (alpha < 0.02) alpha = 0.02;
+                    var warmth = t > 0.65 ? (t - 0.65) / 0.35 : 0;
+                    if (warmth > 0) alpha = alpha + warmth * (0.15 - alpha);
+
+                    if (i % 3 === 2) {
+                        ctx.strokeStyle = "rgba(201,106,67," + Math.min(alpha * 1.4, 0.6) + ")";
+                    } else {
+                        var rr = Math.round(83 + warmth * (140 - 83));
+                        var gg = Math.round(81 + warmth * (90 - 81));
+                        var bb = Math.round(70 - warmth * 20);
+                        ctx.strokeStyle = "rgba(" + rr + "," + gg + "," + bb + "," + alpha + ")";
+                    }
+                    ctx.lineWidth = 0.4 + t * 0.8;
+                    ctx.strokeRect(-rectW / 2, -rectH / 2, rectW, rectH);
+
+                    if (i % 3 === 0) {
+                        ctx.strokeStyle = "rgba(50, 50, 50, " + (alpha * 0.15) + ")";
+                        ctx.lineWidth = 0.3 + t * 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(-rectW / 2, -rectH / 2);
+                        ctx.lineTo(rectW / 2, rectH / 2);
+                        ctx.moveTo(rectW / 2, -rectH / 2);
+                        ctx.lineTo(-rectW / 2, rectH / 2);
+                        ctx.stroke();
+                    }
+
+                    ctx.restore();
+                    rectW *= 0.95;
+                    rectH *= 0.95;
+                    scale *= 0.98;
+                }
+
+                for (var j = 0; j < maxRect - 1; j++) {
+                    var sa1 = j * 0.174533;
+                    var sa2 = (j + 1) * 0.174533;
+                    var r1 = Math.pow(0.98, j) * (baseW * 0.35);
+                    var r2 = Math.pow(0.98, j + 1) * (baseW * 0.35);
+                    var st = j / maxRect;
+                    var segAlpha = 0.3 * (1 - st);
+                    ctx.beginPath();
+                    ctx.moveTo(Math.cos(sa1) * r1, Math.sin(sa1) * r1);
+                    ctx.lineTo(Math.cos(sa2) * r2, Math.sin(sa2) * r2);
+                    ctx.strokeStyle = "rgba(150, 150, 150, " + segAlpha + ")";
+                    ctx.lineWidth = 1 - st * 0.6;
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+                if (!noMotion && maxRect < 70) time += 0.75;
+            })();
+        });
+    </script>
+    <script defer src="assets/app.js"></script>
+</body>
+
+</html>

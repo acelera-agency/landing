@@ -1,0 +1,16 @@
+node_modules
+.DS_Store
+*.log
+npm-debug.log*
+
+# Vercel
+.vercel
+
+# Resultados de tests / capturas locales
+test-results/
+*.png.tmp
+
+# Env
+.env
+.env.*
+!.env.example

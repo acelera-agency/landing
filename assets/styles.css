@@ -1,0 +1,83 @@
+/* Acelera brand v2 — design tokens.
+   Source of truth: ../../../../brand/style-guide/styles.css */
+
+:root {
+  /* Brand v2 semantic tokens */
+  --ink: #0B0F14;
+  --ink-deep: #06090C;
+  --paper: #F7F5F0;
+  --paper-pure: #FFFFFF;
+  --accent: #1F6E5A;
+  --accent-soft: #D7E5DE;
+  --signal: #C2410C;
+  --muted: #6B7280;
+  --muted-strong: #4B5563;
+  --rule: #E5E1D8;
+  --rule-strong: #D4CFC1;
+
+  /* Legacy aliases */
+  --bg: var(--paper);
+  --surface: var(--paper-pure);
+  --line: var(--rule);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(11, 15, 20, 0.025) 1px, transparent 0),
+    radial-gradient(circle at 12px 12px, rgba(11, 15, 20, 0.015) 1px, transparent 0);
+  background-size: 24px 24px, 32px 32px;
+  font-feature-settings: 'kern', 'ss01', 'cv11';
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 24px;
+}
+
+main {
+  display: block;
+}
+
+.theme-home .page {
+  position: relative;
+}
+
+.reveal,
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 18px;
+  }
+}

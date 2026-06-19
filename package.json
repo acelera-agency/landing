@@ -1,0 +1,20 @@
+{
+  "name": "landing-acelera",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing pública de Acelera (sitio estático + función de leads en Vercel)",
+  "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "build:css": "tailwindcss -i assets/tailwind.source.css -o assets/tailwind.css --minify",
+    "watch:css": "tailwindcss -i assets/tailwind.source.css -o assets/tailwind.css --watch",
+    "shot": "node scripts/shot.mjs",
+    "test": "node --test api/"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "0.5.11",
+    "autoprefixer": "10.5.0",
+    "playwright": "1.61.0",
+    "postcss": "8.5.15",
+    "tailwindcss": "3.4.19"
+  }
+}
