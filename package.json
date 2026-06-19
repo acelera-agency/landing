@@ -8,7 +8,7 @@
     "build:css": "tailwindcss -i assets/tailwind.source.css -o assets/tailwind.css --minify",
     "watch:css": "tailwindcss -i assets/tailwind.source.css -o assets/tailwind.css --watch",
     "shot": "node scripts/shot.mjs",
-    "test": "node --test api/"
+    "test": "node --test"
   },
   "devDependencies": {
     "@tailwindcss/forms": "0.5.11",
