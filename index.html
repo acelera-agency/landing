@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="assets/tailwind.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://assets.calendly.com">
     <link rel="preload" as="style"
         href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -77,6 +78,15 @@
                 font-size: clamp(2.875rem, 10.2vw, 3.5rem);
                 line-height: 1.1;
                 letter-spacing: -0.022em;
+            }
+        }
+
+        /* Tablet (768-1023px): el H1 "IA con sentido, donde el negocio lo pide."
+           rompía con orphan "donde el" flotante. Balance + scale ajustado. */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .text-hero {
+                font-size: clamp(2.75rem, 6.8vw, 4.75rem);
+                text-wrap: balance;
             }
         }
 
@@ -136,6 +146,42 @@
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
             border-bottom: 0;
+            transition: background-color 240ms ease, backdrop-filter 240ms ease, border-color 240ms ease;
+        }
+        #site-header.is-scrolled.glass-header,
+        #site-header.is-scrolled {
+            background: rgba(247, 245, 240, 0.82);
+            -webkit-backdrop-filter: saturate(180%) blur(14px);
+            backdrop-filter: saturate(180%) blur(14px);
+            border-bottom: 1px solid rgba(20, 20, 20, 0.06);
+        }
+        #site-header[data-nav-tone="dark"].is-scrolled {
+            background: rgba(15, 15, 15, 0.74);
+            -webkit-backdrop-filter: saturate(180%) blur(14px);
+            backdrop-filter: saturate(180%) blur(14px);
+            border-bottom-color: rgba(247, 245, 240, 0.08);
+        }
+
+        /* Header: CTA "Hablemos" sobre secciones dark */
+        #site-header[data-nav-tone="dark"] [data-open-lead-modal] {
+            background-color: #F7F5F0;
+            color: #0B0F14;
+            border: 1px solid rgba(247, 245, 240, 0.15);
+        }
+        #site-header[data-nav-tone="dark"] [data-open-lead-modal]:hover {
+            background-color: #ffffff;
+        }
+
+        /* Header: focus visible accesible en nav links y brand */
+        #site-header .header-nav-link:focus-visible,
+        #site-header #site-brand:focus-visible {
+            outline: 2px solid #C96A43;
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+        #site-header[data-nav-tone="dark"] .header-nav-link:focus-visible,
+        #site-header[data-nav-tone="dark"] #site-brand:focus-visible {
+            outline-color: #F7F5F0;
         }
 
         /* Header: enlaces y logo según fondo bajo el nav (scroll) */
@@ -282,6 +328,22 @@
             line-height: 1;
         }
 
+        /* Cita del fundador: palabras que se "encienden" al scrollear.
+           Clases discretas + transición CSS en lugar de interpolar color
+           con GSAP scrub (repintaba todo el bloque de texto en cada frame). */
+        .quote-word {
+            color: #E5E1D8; /* borderSubtle */
+            transition: color 0.3s ease-out;
+        }
+        .quote-word.is-lit {
+            color: #111827;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .quote-word {
+                transition: none;
+            }
+        }
+
         #manifesto ::selection {
             background: rgba(201, 106, 67, 0.32);
             color: #ffffff;
@@ -388,6 +450,10 @@
 </head>
 
 <body class="antialiased selection:bg-primary/20 selection:text-textPrimary">
+    <a href="#hero-section"
+       class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[400] focus:bg-ink focus:text-paper focus:px-4 focus:py-2 focus:rounded-md focus:font-medium focus:shadow-lg focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-accent">
+        Saltar al contenido
+    </a>
     <header id="site-header" data-nav-tone="light"
         class="fixed top-0 left-0 right-0 z-[200] glass-header px-4 sm:px-6 md:px-12 py-5 flex justify-between items-center transition-all">
         <a id="site-brand" href="#hero-section" class="text-xl font-semibold tracking-tight text-ink font-serif inline-block leading-none transition-colors transition-opacity duration-300" aria-label="Acelera — ir al inicio">
@@ -397,7 +463,7 @@
             <a href="#proceso"
                 class="header-nav-link text-sm font-medium text-mutedStrong hover:text-ink transition-colors duration-300">Cómo trabajamos</a>
             <a href="#sectores"
-                class="header-nav-link text-sm font-medium text-mutedStrong hover:text-ink transition-colors duration-300">Diferencia</a>
+                class="header-nav-link text-sm font-medium text-mutedStrong hover:text-ink transition-colors duration-300">Sectores</a>
             <a href="#equipo"
                 class="header-nav-link text-sm font-medium text-mutedStrong hover:text-ink transition-colors duration-300">Equipo</a>
         </nav>
@@ -434,7 +500,7 @@
                 <a href="#proceso"
                     class="mobile-nav-link block w-full max-w-full font-serif text-2xl leading-tight tracking-tight text-ink transition-colors hover:text-accent sm:text-3xl">Cómo trabajamos</a>
                 <a href="#sectores"
-                    class="mobile-nav-link block w-full max-w-full font-serif text-2xl leading-tight tracking-tight text-ink transition-colors hover:text-accent sm:text-3xl">Diferencia</a>
+                    class="mobile-nav-link block w-full max-w-full font-serif text-2xl leading-tight tracking-tight text-ink transition-colors hover:text-accent sm:text-3xl">Sectores</a>
                 <a href="#equipo"
                     class="mobile-nav-link block w-full max-w-full font-serif text-2xl leading-tight tracking-tight text-ink transition-colors hover:text-accent sm:text-3xl">Equipo</a>
             </nav>
@@ -499,7 +565,7 @@
                 </div>
                 <button type="submit"
                     class="w-full inline-flex items-center justify-center gap-2 bg-ink text-paper px-6 py-4 text-[15px] font-semibold tracking-tight hover:bg-white/12 transition-colors duration-300">
-                    Solicitar reunión
+                    Agendá la reunión
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M7 7h10v10" /><path d="M7 17 17 7" />
@@ -525,14 +591,12 @@
             <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 z-10 relative">
                 <div class="relative">
                     <div class="max-w-none md:max-w-3xl pt-0">
-                        <span class="hidden font-mono text-[11px] sm:text-xs text-accent tracking-[0.18em] uppercase mb-6 gsap-hero-text md:block" style="--hero-delay: 0.05s;">
-                            Adopción de IA con sentido
-                        </span>
+                        <span class="block font-mono text-[10px] sm:text-xs text-accent tracking-[0.18em] uppercase mb-5 sm:mb-6 gsap-hero-text" style="--hero-delay: 0.05s;">Adopción de IA</span>
                         <h1 class="relative top-0 md:top-[4px] font-serif text-hero text-ink mb-8 md:mb-10 lg:mb-12 gsap-hero-text" style="--hero-delay: 0.18s;">
                             IA <span class="accent-reveal">con sentido</span>, donde el negocio lo pide.
                         </h1>
                         <p class="max-w-2xl text-[1.0625rem] sm:text-lg md:text-xl text-mutedStrong font-normal leading-relaxed mb-8 md:mb-10 gsap-hero-text" style="--hero-delay: 0.32s;">
-                            Asesoramos e implementamos IA para tu negocio, sin caja negra. Si no suma, te lo decimos al inicio.
+                            Implementamos IA en tu negocio, sin caja negra. Si no suma, te lo decimos al inicio.
                         </p>
                         <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 gsap-hero-text mt-8 sm:mt-12" style="--hero-delay: 0.45s;">
                             <a href="#contacto"
@@ -555,7 +619,7 @@
             </div>
             <a href="#manifesto"
                 class="hero-scroll-cue absolute left-1/2 z-20 -translate-x-1/2 bottom-[max(1.25rem,env(safe-area-inset-bottom))] md:bottom-10 p-1 text-accent hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink rounded-sm transition-colors"
-                aria-label="Siguiente sección: seguir leyendo">
+                aria-label="Seguir leyendo">
                 <span class="hero-scroll-cue__motion block" aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -580,7 +644,7 @@
                 <div class="max-w-3xl border-l-[3px] border-accent pl-6 md:pl-10 gsap-reveal">
                     <span class="font-mono text-[11px] text-accent uppercase tracking-[0.18em] block mb-6">Carácter</span>
                     <h2 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-semibold text-paper leading-[0.95] tracking-[-0.025em] mb-10">
-                        Te decimos cuándo <span class="brand-mark brand-mark--paper">no</span>.
+                        Te decimos cuándo <span class="brand-mark">no</span>.
                     </h2>
                     <!-- Móvil: copy acotado. Desktop (md+): copy completo. -->
                     <p class="font-serif text-xl text-paper/85 leading-snug mb-6 max-w-2xl md:hidden">
@@ -596,10 +660,10 @@
                         Si la necesita, no nos vamos hasta que esté en producción y tu equipo sepa operarla. No queremos dejarte una caja negra que solo nosotros sepamos tocar.
                     </p>
                     <p class="font-serif text-xl text-paper font-medium leading-snug mt-8 max-w-2xl tracking-tight md:hidden">
-                        No es comprar una herramienta: es cambiar cómo decide y opera el negocio.
+                        La herramienta sola no alcanza. Lo que cambia el negocio es cómo decide y opera.
                     </p>
                     <p class="hidden font-serif text-2xl md:text-3xl text-paper font-medium leading-snug mt-12 max-w-2xl tracking-tight md:block">
-                        Adoptar IA no es comprar una herramienta. Es cambiar cómo decide y opera el negocio.
+                        Adoptar IA cambia cómo decide y opera el negocio. La herramienta es apenas el arranque.
                     </p>
                     <p class="font-mono text-sm text-accent uppercase tracking-[0.18em] mt-6 md:mt-10">
                         — A eso venimos.
@@ -670,15 +734,14 @@
                 <!-- Header -->
                 <div class="grid grid-cols-1 md:grid-cols-[112px_1fr] gap-6 md:gap-10 mb-10 md:mb-14">
                     <div class="font-mono text-xs text-muted uppercase tracking-[0.18em] border-t border-ruleStrong pt-2 hidden md:block">
-                        <span class="section-rail-label">[ Diferencia ]</span>
+                        <span class="section-rail-label">[ Sectores ]</span>
                     </div>
                     <div class="gsap-reveal max-w-4xl">
                         <span class="font-mono text-xs text-accent tracking-[0.18em] uppercase block mb-4 md:mb-6">Por qué Acelera</span>
                         <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-ink leading-[0.95] mb-6 md:mb-8">
-                            No es solo qué hacemos.<br class="hidden sm:block">
-                            Es <span class="brand-mark">cómo</span> y a qué <span class="brand-mark">velocidad</span>.
+                            <span class="brand-mark">Cómo lo hacemos y a qué velocidad.</span>
                         </h2>
-                        <p class="text-mutedStrong text-base md:text-lg font-normal leading-relaxed max-w-2xl">Cuatro principios que sostenemos en cada proyecto. Sin pilotos eternos, sin entregables que nadie usa, sin cajas negras.</p>
+                        <p class="text-mutedStrong text-base md:text-lg font-normal leading-relaxed max-w-2xl">Cuatro principios que sostenemos en cada proyecto. Sin pilotos eternos ni cajas negras.</p>
                     </div>
                 </div>
 
@@ -720,7 +783,7 @@
                                 <span class="font-mono text-[11px] md:text-xs text-mutedStrong uppercase tracking-[0.2em]">Autonomía</span>
                             </div>
                         </div>
-                        <h3 class="font-serif text-2xl md:text-3xl lg:text-[2rem] font-semibold tracking-tight text-ink leading-[1.1] text-balance transition-transform duration-500 md:group-hover:translate-x-1">Tu equipo opera, no nosotros.</h3>
+                        <h3 class="font-serif text-2xl md:text-3xl lg:text-[2rem] font-semibold tracking-tight text-ink leading-[1.1] text-balance transition-transform duration-500 md:group-hover:translate-x-1">Tu equipo se queda operando solo.</h3>
                         <p class="text-mutedStrong text-base md:text-[1.0625rem] leading-relaxed text-pretty max-w-lg">Construimos sobre tu propia infraestructura y te dejamos el código, la documentación y la capacitación para operarlo. Cuando nos vamos, nada deja de funcionar.</p>
                     </div>
 
@@ -741,23 +804,23 @@
 
             </div>
         </section>
-        <section id="equipo" data-header-scheme="light" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-surfaceAlt/30 border-t border-borderSubtle">
+        <section id="equipo" data-header-scheme="light" class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-surfaceAlt/30 border-t border-borderSubtle">
             <div class="max-w-7xl mx-auto">
                 <div class="mb-12 md:mb-16 gsap-reveal">
                     <span class="text-accent font-mono text-xs uppercase tracking-[0.18em] block mb-4">Equipo fundador</span>
                     <h2 class="font-serif text-3xl font-semibold mb-6 text-ink leading-snug tracking-tight md:hidden"><span class="brand-mark">Un solo equipo</span>, de punta a punta.</h2>
                     <h2 class="hidden font-serif text-5xl md:text-7xl font-semibold mb-8 text-ink leading-[0.95] tracking-tight md:block"><span class="brand-mark">Un solo equipo</span> del relevamiento a la operación.</h2>
-                    <p class="text-mutedStrong text-xl font-normal max-w-3xl leading-relaxed mb-5">Trabajás directo con quienes construyen: sin gerentes de cuenta ni traspasos. El mismo equipo que releva con vos diseña, construye y le deja la operación a tu gente.</p>
+                    <p class="text-mutedStrong text-xl font-normal max-w-3xl leading-relaxed mb-5">Trabajás directo con quienes construyen. Sin gerentes de cuenta ni traspasos. Diseñamos, construimos y te dejamos la operación en tus manos.</p>
                     <p class="flex items-start gap-3 text-ink font-normal leading-snug max-w-2xl">
                         <span class="text-accent shrink-0 mt-0.5" aria-hidden="true"><i data-lucide="trophy" class="w-5 h-5" stroke-width="1.5"></i></span>
-                        <span><strong class="font-semibold">3 hackathones ganados.</strong> La prueba de que entendemos rápido el problema y lo llevamos a una solución concreta.</span>
+                        <span><strong class="font-semibold">3 hackathones ganados.</strong> Lo que muestra es que pasamos del problema a una solución funcional en horas, no en semanas.</span>
                     </p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                     <div class="group gsap-reveal">
                         <div
                             class="aspect-[4/5] w-full overflow-hidden bg-surfaceAlt rounded-[2rem] mb-6 relative border border-borderSubtle">
-                            <img src="assets/estevo_profile.webp" alt="Ignacio"
+                            <img src="assets/estevo_profile.webp" alt="Ignacio" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover grayscale mix-blend-multiply group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-700 opacity-90 group-hover:scale-105">
                         </div>
                         <div class="flex items-center justify-between mb-1">
@@ -785,7 +848,7 @@
                         <div
                             class="aspect-[4/5] w-full overflow-hidden bg-surfaceAlt rounded-[2rem] mb-6 relative border border-borderSubtle">
                             <img src="assets/aaaaa_recortada_8_balanceada.webp"
-                                alt="Mauro"
+                                alt="Mauro" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover grayscale mix-blend-multiply group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-700 opacity-90 group-hover:scale-105">
                         </div>
                         <div class="flex items-center justify-between mb-1">
@@ -812,7 +875,7 @@
                         <div
                             class="aspect-[4/5] w-full overflow-hidden bg-surfaceAlt rounded-[2rem] mb-6 relative border border-borderSubtle">
                             <img src="assets/franco_profile.webp"
-                                alt="Franco"
+                                alt="Franco" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover grayscale mix-blend-multiply group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-700 opacity-90 group-hover:scale-105">
                         </div>
                         <div class="flex items-center justify-between mb-1">
@@ -848,12 +911,12 @@
              de límites + CTA, no como filler post-carácter.
              ============================================================ -->
         <section id="section-founder-quote" data-header-scheme="light"
-            class="hidden py-10 px-4 sm:px-6 md:px-12 md:py-20 relative overflow-hidden bg-paper md:block">
+            class="scroll-mt-24 md:scroll-mt-28 hidden py-10 px-4 sm:px-6 md:px-12 md:py-20 relative overflow-hidden bg-paper md:block">
             <div class="max-w-5xl mx-auto text-center relative z-10">
                 <i data-lucide="quote" class="w-6 h-6 md:w-8 md:h-8 mx-auto text-muted/40 mb-5 md:mb-10 gsap-reveal" aria-hidden="true"></i>
                 <blockquote id="founder-quote"
                     class="font-serif text-2xl sm:text-3xl md:text-6xl text-ink leading-snug md:leading-[1.05] mb-0 md:mb-12 tracking-tight font-medium text-balance">
-                    Empezamos por el proceso donde el costo se mide en plata, tiempo o reputación. Si no se ve, <span class="brand-mark">no lo hacemos</span>.
+                    Arrancamos por donde se pierde plata, tiempo o reputación. Si no se ve, <span class="brand-mark">no lo hacemos</span>.
                 </blockquote>
             </div>
         </section>
@@ -863,7 +926,7 @@
              Brand-kit §13 + landing-rewrite.md §4.4
              Diseño austero — texto y nada más
              ============================================================ -->
-        <section id="lo-que-no-hacemos" data-header-scheme="light" class="py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-paper border-t border-rule relative">
+        <section id="lo-que-no-hacemos" data-header-scheme="light" class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-paper border-t border-rule relative">
             <div class="max-w-7xl mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-[112px_1fr] gap-6 md:gap-10">
                     <div class="font-mono text-xs text-muted uppercase tracking-[0.18em] border-t border-ruleStrong pt-2 hidden md:block">
@@ -877,48 +940,26 @@
                         <h2 class="hidden font-serif text-4xl md:text-6xl font-semibold tracking-tight text-ink leading-[0.98] mb-12 md:mb-16 md:block">
                             Cinco cosas que <span class="brand-mark">no</span> vas a encontrar acá.
                         </h2>
-                        <ul class="space-y-0 md:hidden" aria-label="Cinco cosas que no hacemos">
-                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-rule items-start">
-                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
-                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No meter IA donde no suma.</span>
+                        <ul class="space-y-0" aria-label="Cinco cosas que no vas a encontrar acá">
+                            <li class="grid grid-cols-[44px_1fr] sm:grid-cols-[32px_1fr] gap-3 sm:gap-4 py-4 sm:py-5 border-t border-rule items-baseline">
+                                <span class="font-mono text-signal text-2xl sm:text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-base md:text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-signal decoration-1">No sumamos IA donde no cambia nada.</span>
                             </li>
-                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-rule items-start">
-                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
-                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No entregar un PDF y desaparecer.</span>
+                            <li class="grid grid-cols-[44px_1fr] sm:grid-cols-[32px_1fr] gap-3 sm:gap-4 py-4 sm:py-5 border-t border-rule items-baseline">
+                                <span class="font-mono text-signal text-2xl sm:text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-base md:text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-signal decoration-1">No entregamos PDFs y nos vamos.</span>
                             </li>
-                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-rule items-start">
-                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
-                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No eternizar pilotos sin camino a producción.</span>
+                            <li class="grid grid-cols-[44px_1fr] sm:grid-cols-[32px_1fr] gap-3 sm:gap-4 py-4 sm:py-5 border-t border-rule items-baseline">
+                                <span class="font-mono text-signal text-2xl sm:text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-base md:text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-signal decoration-1">No hacemos pilotos eternos sin camino a producción.</span>
                             </li>
-                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-rule items-start">
-                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
-                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No dejarte una caja negra que solo nosotros podamos tocar.</span>
+                            <li class="grid grid-cols-[44px_1fr] sm:grid-cols-[32px_1fr] gap-3 sm:gap-4 py-4 sm:py-5 border-t border-rule items-baseline">
+                                <span class="font-mono text-signal text-2xl sm:text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-base md:text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-signal decoration-1">No te dejamos atado a una caja negra que solo sepamos abrir nosotros.</span>
                             </li>
-                            <li class="grid grid-cols-[44px_1fr] gap-3 py-4 border-t border-b border-rule items-start">
-                                <span class="font-mono text-signal text-2xl font-bold leading-none w-11 text-center shrink-0" aria-hidden="true">×</span>
-                                <span class="font-serif text-base text-ink font-medium leading-snug line-through decoration-ink decoration-2">No prometer magia, humo ni revoluciones de marketing.</span>
-                            </li>
-                        </ul>
-                        <ul class="hidden space-y-0 md:block" aria-label="Cinco cosas que no vas a encontrar acá">
-                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-rule items-baseline">
-                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
-                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No sumamos IA donde no cambia el resultado.</span>
-                            </li>
-                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-rule items-baseline">
-                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
-                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No entregamos PDFs y nos vamos.</span>
-                            </li>
-                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-rule items-baseline">
-                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
-                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No hacemos pilotos eternos sin camino a producción.</span>
-                            </li>
-                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-rule items-baseline">
-                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
-                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No te dejamos atado a una caja negra que solo nosotros sepamos tocar.</span>
-                            </li>
-                            <li class="grid grid-cols-[32px_1fr] gap-4 py-5 border-t border-b border-rule items-baseline">
-                                <span class="font-mono text-signal text-base leading-none" aria-hidden="true">×</span>
-                                <span class="font-serif text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-ink decoration-[3px]">No prometemos revoluciones grandilocuentes ni cambios mágicos.</span>
+                            <li class="grid grid-cols-[44px_1fr] sm:grid-cols-[32px_1fr] gap-3 sm:gap-4 py-4 sm:py-5 border-t border-b border-rule items-baseline">
+                                <span class="font-mono text-signal text-2xl sm:text-base leading-none" aria-hidden="true">×</span>
+                                <span class="font-serif text-base md:text-xl md:text-2xl text-ink font-medium leading-snug line-through decoration-signal decoration-1">No prometemos magia, humo ni revoluciones de marketing.</span>
                             </li>
                         </ul>
                         <p class="font-serif text-ink text-lg md:text-xl font-bold leading-snug mt-10 max-w-2xl tracking-tight text-balance">
@@ -930,12 +971,12 @@
         </section>
 
         <section id="contacto" data-header-scheme="light"
-            class="py-10 md:py-12 px-4 sm:px-6 md:px-12 bg-paperPure border-t border-rule flex flex-col">
+            class="scroll-mt-24 md:scroll-mt-28 py-10 md:py-12 px-4 sm:px-6 md:px-12 bg-paperPure border-t border-rule flex flex-col">
             <div class="max-w-7xl mx-auto flex-1 flex flex-col min-h-0">
                 <div class="flex-1 flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 items-start justify-center min-h-0">
                     <div class="lg:w-[40%] max-w-sm flex flex-col justify-center gsap-reveal">
                         <span class="font-mono text-xs text-accent tracking-[0.18em] uppercase block mb-3 md:mb-4">Hablemos</span>
-                        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-ink leading-[0.98] mb-3 md:mb-4">Elegí un horario y <span class="brand-mark">hablamos</span>.</h2>
+                        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-ink leading-[0.98] mb-3 md:mb-4">Elegí un horario y <span class="brand-mark">arrancamos</span>.</h2>
                         <p class="text-mutedStrong text-base md:text-lg font-normal leading-relaxed mb-6">30 minutos, sin compromiso. Mapeamos tu caso y salís con el próximo paso claro —o con un "no" honesto si la IA no aporta.</p>
                         <a href="mailto:contacto@acelera.agency"
                             class="inline-flex items-center gap-3 font-mono text-sm md:text-base text-ink hover:text-accent transition-colors group">
@@ -967,13 +1008,13 @@
             class="absolute w-[400px] h-[400px] rounded-full blur-[90px] bg-accent/20 opacity-0 top-0 left-0 mix-blend-normal pointer-events-none z-0">
         </div>
         <div
-            class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row justify-between items-start gap-16 mb-20 gsap-reveal">
-            <div class="max-w-md">
+            class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-start px-4 sm:px-6 md:px-12 mb-20 gsap-reveal">
+            <div class="max-w-md md:col-span-7">
                 <div class="text-2xl font-semibold tracking-tight text-paper mb-6 font-serif inline-block leading-none">
                     Aceler<span class="relative inline-block">a<span aria-hidden="true" class="absolute left-0 right-0 -bottom-[0.18em] h-[2px] bg-accent"></span></span>
                 </div>
                 <p class="text-sm sm:text-base text-paper/70 font-normal leading-relaxed">
-                    IA con sentido: consultoría e implementación donde suma, con tu equipo operando la solución. Si tu negocio no lo necesita, lo decimos en la primera reunión.
+                    IA con sentido: consultoría e implementación donde aporta. Si tu negocio no la necesita, te lo decimos en la primera reunión.
                 </p>
                 <p class="mt-6">
                     <a href="mailto:contacto@acelera.agency"
@@ -1007,25 +1048,25 @@
                     </a>
                 </div>
             </div>
-            <div class="flex flex-col gap-10 md:flex-row md:gap-16">
-                <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-10 md:contents">
+                <div class="flex flex-col gap-4 md:col-span-3">
                     <span
                         class="font-mono text-[10px] font-semibold tracking-[0.18em] uppercase text-paper/50 mb-2">Navegación</span>
                     <a href="#proceso"
                         class="text-sm text-paper font-medium hover:text-accent transition-colors">Cómo trabajamos</a>
                     <a href="#sectores"
-                        class="text-sm text-paper font-medium hover:text-accent transition-colors">Diferencia</a>
+                        class="text-sm text-paper font-medium hover:text-accent transition-colors">Sectores</a>
                     <a href="#equipo"
                         class="text-sm text-paper font-medium hover:text-accent transition-colors">Equipo</a>
                     <a href="#contacto"
                         class="text-sm text-paper font-medium hover:text-accent transition-colors">Hablemos</a>
                 </div>
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 md:col-span-2">
                     <span
                         class="font-mono text-[10px] font-semibold tracking-[0.18em] uppercase text-paper/50 mb-2">Legal</span>
-                    <a href="privacidad"
+                    <a href="/privacidad.html"
                         class="text-sm text-paper font-medium hover:text-accent transition-colors">Privacidad</a>
-                    <a href="terminos"
+                    <a href="/terminos.html"
                         class="text-sm text-paper font-medium hover:text-accent transition-colors">Términos</a>
                 </div>
             </div>
@@ -1035,7 +1076,7 @@
                 class="font-serif text-[18vw] md:text-[clamp(15rem,15vw,20rem)] leading-none text-paper/5 tracking-tighter select-none mb-6 md:mb-10 text-center w-full max-w-full font-semibold px-1">
                 Acelera
             </h2>
-            <div class="hidden w-full md:flex md:flex-row justify-between items-center gap-4 text-paper/55">
+            <div class="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between text-center md:text-left w-full gap-4 text-paper/55">
                 <span class="font-mono text-[10px] tracking-[0.18em] uppercase">© 2026 Acelera — Adopción de IA con sentido</span>
                 <span class="font-mono text-[10px] tracking-[0.18em] uppercase flex items-center gap-2"><i
                         data-lucide="globe" class="w-3 h-3"></i> IA que tu equipo opera. No una caja negra.</span>
@@ -1172,6 +1213,8 @@
 
             const footerSection = document.getElementById("footer-section");
             const mobileHeaderMql = window.matchMedia("(max-width: 767px)");
+            const darkSections = Array.from(document.querySelectorAll("[data-header-scheme=\"dark\"]"));
+            let lastNavTone = null;
 
             const syncHeaderBrandTone = () => {
                 if (!siteHeader || !siteBrand) {
@@ -1179,7 +1222,7 @@
                 }
 
                 const probeY = Math.max(16, Math.round(siteHeader.getBoundingClientRect().height * 0.5));
-                const overDarkSection = Array.from(document.querySelectorAll("[data-header-scheme=\"dark\"]")).some(
+                const overDarkSection = darkSections.some(
                     (section) => {
                         const cs = window.getComputedStyle(section);
                         if (cs.display === "none" || cs.visibility === "hidden") {
@@ -1190,25 +1233,38 @@
                     }
                 );
 
-                siteBrand.classList.toggle("text-paper", overDarkSection);
-                siteBrand.classList.toggle("text-ink", !overDarkSection);
-                siteHeader.setAttribute("data-nav-tone", overDarkSection ? "dark" : "light");
+                // Escribir al DOM solo cuando cambia: setAttribute incondicional
+                // invalidaba estilos del header en cada evento de scroll.
+                if (lastNavTone !== overDarkSection) {
+                    lastNavTone = overDarkSection;
+                    siteBrand.classList.toggle("text-paper", overDarkSection);
+                    siteBrand.classList.toggle("text-ink", !overDarkSection);
+                    siteHeader.setAttribute("data-nav-tone", overDarkSection ? "dark" : "light");
+                }
             };
 
             /** Móvil: ocultar el logo del header en cuanto entra el footer (antes usábamos #footer-watermark,
              *  que está al final del bloque y el logo seguía visible duplicando la marca). */
+            let lastConceal = null;
             const syncMobileBrandOverFooter = () => {
                 if (!siteHeader || !siteBrand || !footerSection) {
                     return;
                 }
                 if (!mobileHeaderMql.matches) {
-                    siteBrand.classList.remove("max-md-brand-concealed");
-                    siteBrand.removeAttribute("aria-hidden");
+                    if (lastConceal !== false) {
+                        lastConceal = false;
+                        siteBrand.classList.remove("max-md-brand-concealed");
+                        siteBrand.removeAttribute("aria-hidden");
+                    }
                     return;
                 }
                 const headerBottom = siteHeader.getBoundingClientRect().bottom;
                 const footerTop = footerSection.getBoundingClientRect().top;
                 const conceal = footerTop < headerBottom + 48;
+                if (lastConceal === conceal) {
+                    return;
+                }
+                lastConceal = conceal;
                 siteBrand.classList.toggle("max-md-brand-concealed", conceal);
                 if (conceal) {
                     siteBrand.setAttribute("aria-hidden", "true");
@@ -1222,10 +1278,30 @@
                 syncMobileBrandOverFooter();
             };
 
+            // Throttle con rAF: el scroll dispara muchos eventos por frame y
+            // este handler lee layout (getBoundingClientRect/getComputedStyle).
+            let headerSyncTicking = false;
+            const scheduleHeaderSync = () => {
+                if (headerSyncTicking) return;
+                headerSyncTicking = true;
+                requestAnimationFrame(() => {
+                    syncHeaderOnScroll();
+                    headerSyncTicking = false;
+                });
+            };
+
             syncHeaderOnScroll();
-            window.addEventListener("scroll", syncHeaderOnScroll, { passive: true });
-            window.addEventListener("resize", syncHeaderOnScroll);
-            mobileHeaderMql.addEventListener("change", syncHeaderOnScroll);
+            window.addEventListener("scroll", scheduleHeaderSync, { passive: true });
+            window.addEventListener("resize", scheduleHeaderSync);
+            mobileHeaderMql.addEventListener("change", scheduleHeaderSync);
+
+            // Sync is-scrolled class on header (para el background al scrollear)
+            const __syncScrolled = () => {
+                if (!siteHeader) return;
+                siteHeader.classList.toggle("is-scrolled", window.scrollY > 24);
+            };
+            window.addEventListener("scroll", () => requestAnimationFrame(__syncScrolled), { passive: true });
+            __syncScrolled();
 
             const setupCursorGlow = (section, glows, config = {}) => {
                 if (!section) {
@@ -1400,18 +1476,55 @@
             });
             const quoteEl = document.getElementById("founder-quote");
             if (quoteEl) {
-                const words = quoteEl.innerText.split(" ");
-                quoteEl.innerHTML = "";
-                words.forEach(word => {
-                    const span = document.createElement("span");
-                    span.innerText = word + " ";
-                    span.classList.add("text-borderSubtle", "transition-colors", "duration-300");
-                    quoteEl.appendChild(span);
-                });
-                gsap.to(quoteEl.children, {
-                    color: "#111827",
-                    stagger: 0.1,
-                    scrollTrigger: { trigger: quoteEl, start: "top 75%", end: "bottom 60%", scrub: 1 }
+                // Recorrer nodos hijos recursivamente, envolviendo solo texto
+                // en .quote-word SIN tocar .brand-mark (subrayado naranja) ni
+                // otros wrappers especiales ya presentes en el HTML.
+                // El innerHTML = "" previo destruía la marca de "no lo hacemos".
+                function wrapTextNodes(node) {
+                    const children = Array.from(node.childNodes);
+                    for (const child of children) {
+                        if (child.nodeType === Node.TEXT_NODE) {
+                            const text = child.textContent;
+                            if (!text.trim()) continue;
+                            const words = text.split(/(\s+)/); // preserva espacios
+                            const frag = document.createDocumentFragment();
+                            for (const w of words) {
+                                if (/^\s+$/.test(w)) {
+                                    frag.appendChild(document.createTextNode(w));
+                                } else {
+                                    const span = document.createElement("span");
+                                    span.className = "quote-word";
+                                    span.innerText = w;
+                                    frag.appendChild(span);
+                                }
+                            }
+                            node.replaceChild(frag, child);
+                        } else if (child.nodeType === Node.ELEMENT_NODE) {
+                            if (child.classList && (child.classList.contains("brand-mark") || child.classList.contains("quote-word"))) {
+                                continue;
+                            }
+                            wrapTextNodes(child);
+                        }
+                    }
+                }
+                wrapTextNodes(quoteEl);
+                // Encendido por umbral: solo muta la palabra que cruza su punto
+                // del recorrido (la transición de color la hace CSS). Interpolar
+                // color con scrub repintaba el bloque entero en cada frame.
+                // querySelectorAll('.quote-word') en vez de .children para
+                // excluir el .brand-mark (no se anima, mantiene su estilo).
+                const wordEls = Array.from(quoteEl.querySelectorAll(".quote-word"));
+                let litCount = 0;
+                ScrollTrigger.create({
+                    trigger: quoteEl,
+                    start: "top 75%",
+                    end: "bottom 60%",
+                    onUpdate(self) {
+                        const target = Math.round(self.progress * wordEls.length);
+                        if (target === litCount) return;
+                        while (litCount < target) wordEls[litCount++].classList.add("is-lit");
+                        while (litCount > target) wordEls[--litCount].classList.remove("is-lit");
+                    }
                 });
             }
             const nodeBoard = document.getElementById("node-editor-board");
@@ -1436,6 +1549,10 @@
             var phi = (1 + Math.sqrt(5)) / 2;
             var time = 0;
             var noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            // time avanza 0.75/frame; la espiral queda completa (70 rects) en time >= 3500.
+            var TIME_END = 3500;
+            var rafId = null;
+            var inView = false;
 
             function resize() {
                 var w = wrap.clientWidth, h = wrap.clientHeight;
@@ -1446,10 +1563,12 @@
                 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             }
             resize();
-            window.addEventListener("resize", resize);
+            window.addEventListener("resize", function () {
+                resize();
+                draw();
+            });
 
-            (function loop() {
-                requestAnimationFrame(loop);
+            function draw() {
                 var w = cvs.width / dpr, h = cvs.height / dpr;
                 ctx.clearRect(0, 0, w, h);
                 ctx.save();
@@ -1521,8 +1640,36 @@
                 }
 
                 ctx.restore();
-                if (!noMotion && maxRect < 70) time += 0.75;
-            })();
+            }
+
+            function frame() {
+                rafId = null;
+                draw();
+                // Espiral completa (o reduced motion): queda estática, no redibujar más.
+                if (noMotion || time >= TIME_END) return;
+                time += 0.75;
+                schedule();
+            }
+
+            function schedule() {
+                if (inView && rafId === null) rafId = requestAnimationFrame(frame);
+            }
+
+            // El loop solo corre con el hero en pantalla; al salir se cancela.
+            if ("IntersectionObserver" in window) {
+                new IntersectionObserver(function (entries) {
+                    inView = entries.some(function (e) { return e.isIntersecting; });
+                    if (inView) {
+                        schedule();
+                    } else if (rafId !== null) {
+                        cancelAnimationFrame(rafId);
+                        rafId = null;
+                    }
+                }).observe(wrap);
+            } else {
+                inView = true;
+                schedule();
+            }
         });
     </script>
     <script defer src="assets/app.js"></script>

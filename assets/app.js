@@ -174,53 +174,15 @@
     document.querySelectorAll(".reveal").forEach((node) => node.classList.add("is-visible"));
   }
 
-  // ====================================================================
-  // Header: logo + nav desktop + menú móvil según fondo bajo el nav fijo
-  // ====================================================================
-  function syncHeaderNavTone() {
-    const header = document.getElementById("site-header");
-    if (!header) return;
-
-    const probeY = Math.min(header.getBoundingClientRect().bottom + 4, window.innerHeight - 1);
-    const candidates = document.querySelectorAll("[data-header-scheme]");
-    let tone = "light";
-    let bestTop = -Infinity;
-
-    candidates.forEach(function (el) {
-      if (window.getComputedStyle(el).display === "none") {
-        return;
-      }
-      const r = el.getBoundingClientRect();
-      if (r.top <= probeY && r.top > bestTop) {
-        bestTop = r.top;
-        const t = el.getAttribute("data-header-scheme");
-        if (t === "dark" || t === "light") tone = t;
-      }
-    });
-
-    header.dataset.navTone = tone;
-  }
-
-  let navToneTicking = false;
-  function scheduleHeaderNavTone() {
-    if (navToneTicking) return;
-    navToneTicking = true;
-    requestAnimationFrame(function () {
-      syncHeaderNavTone();
-      navToneTicking = false;
-    });
-  }
-
-  window.addEventListener("scroll", scheduleHeaderNavTone, { passive: true });
-  window.addEventListener("resize", scheduleHeaderNavTone);
-  window.addEventListener("load", scheduleHeaderNavTone);
-  scheduleHeaderNavTone();
+  // El tono del header según la sección visible lo maneja el script inline
+  // de index.html (syncHeaderBrandTone); acá había una versión duplicada
+  // que recalculaba layout en cada scroll por segunda vez.
 
   // ====================================================================
-  // Calendly inline embed — loads the widget at page start, without
-  // waiting for scroll. Uses requestAnimationFrame (or DOMContentLoaded
-  // if the document is still parsing) to avoid competing with the hero
-  // initial paint. When the URL is empty, the placeholder stays.
+  // Calendly inline embed — se carga recién cuando la sección de contacto
+  // se acerca al viewport (~1200px antes). El widget arrastra varios MB
+  // (booking JS/CSS, Stripe, reCAPTCHA, analytics): cargarlo al inicio
+  // competía con el primer render y hacía lenta toda la página.
   // ====================================================================
   (function initCalendlyEmbed() {
     var url = siteConfig.calendlyUrl.trim();
@@ -229,19 +191,67 @@
     var container = document.getElementById("calendly-embed");
     if (!container) return;
 
+    var widgetRequested = false;
+
     var embedUrl = url + (url.indexOf("?") === -1 ? "?" : "&") + "hide_event_type_details=1&hide_gdpr_banner=1";
 
-    function loadWidget() {
+    // Calendly inyecta el iframe real 1-3s después de initInlineWidget.
+    // Si removemos el placeholder antes, queda un hueco en blanco visible
+    // durante varios segundos. Esperamos al iframe con MutationObserver y
+    // hacemos fade-out elegante cuando llega. Fallback a 12s por si el
+    // iframe nunca se monta (ad blocker, error de red, etc).
+    function hidePlaceholderWhenReady() {
       var placeholder = document.getElementById("calendly-placeholder");
+      if (!placeholder) return;
+      var embed = document.getElementById("calendly-embed");
+      if (!embed) { placeholder.remove(); return; }
+
+      var done = false;
+      var observer = null;
+
+      function fadeOut() {
+        if (done) return;
+        done = true;
+        if (observer) observer.disconnect();
+        placeholder.style.transition = "opacity 280ms ease";
+        placeholder.style.opacity = "0";
+        placeholder.style.pointerEvents = "none";
+        setTimeout(function () { placeholder.remove(); }, 320);
+      }
+
+      // Fade recién cuando el contenido del iframe cargó (evita el hueco
+      // en blanco de 1-3s mientras Calendly renderiza).
+      function armIframe(iframe) {
+        if (!iframe || iframe.dataset.placeholderArmed) return;
+        iframe.dataset.placeholderArmed = "true";
+        iframe.addEventListener("load", fadeOut, { once: true });
+      }
+
+      // initInlineWidget inserta el iframe de forma síncrona: si ya está,
+      // el MutationObserver no vería ninguna mutación — chequear primero.
+      armIframe(embed.querySelector("iframe"));
+
+      observer = new MutationObserver(function () {
+        armIframe(embed.querySelector("iframe"));
+      });
+      observer.observe(embed, { childList: true, subtree: true });
+      setTimeout(function () {
+        if (observer && !done) observer.disconnect();
+      }, 12000);
+    }
+
+    function loadWidget() {
+      if (widgetRequested) return;
+      widgetRequested = true;
 
       if (typeof Calendly !== "undefined" && Calendly.initInlineWidget) {
-        if (placeholder) placeholder.remove();
         Calendly.initInlineWidget({
           url: embedUrl,
           parentElement: container,
           prefill: {},
           utm: Object.fromEntries(utmFields.map(function (f) { return [f, params.get(f) || ""]; }))
         });
+        hidePlaceholderWhenReady();
         return;
       }
 
@@ -250,19 +260,47 @@
       script.async = true;
       script.onload = function () {
         if (typeof Calendly !== "undefined" && Calendly.initInlineWidget) {
-          if (placeholder) placeholder.remove();
           Calendly.initInlineWidget({
             url: embedUrl,
             parentElement: container,
             prefill: {},
             utm: Object.fromEntries(utmFields.map(function (f) { return [f, params.get(f) || ""]; }))
           });
+          hidePlaceholderWhenReady();
         }
       };
       document.head.appendChild(script);
     }
 
-    if (document.readyState === "loading") {
+    // Ejecutar la carga recién cuando el scroll se detiene: evaluar el JS
+    // de Calendly (widget + analytics, ~300KB en el frame principal) en
+    // plena scrolleada congelaba frames por ~250ms a la altura de la cita.
+    function loadWidgetOnScrollPause() {
+      var idleTimer = null;
+      function fire() {
+        window.removeEventListener("scroll", onScroll);
+        loadWidget();
+      }
+      function onScroll() {
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(fire, 220);
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    }
+
+    if ("IntersectionObserver" in window) {
+      var lazyObserver = new IntersectionObserver(
+        function (entries) {
+          if (entries.some(function (e) { return e.isIntersecting; })) {
+            lazyObserver.disconnect();
+            loadWidgetOnScrollPause();
+          }
+        },
+        { rootMargin: "1200px 0px" }
+      );
+      lazyObserver.observe(container);
+    } else if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", function () {
         window.requestAnimationFrame(loadWidget);
       });
