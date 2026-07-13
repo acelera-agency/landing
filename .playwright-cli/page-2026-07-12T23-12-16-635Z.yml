@@ -1,0 +1,337 @@
+- generic [active] [ref=e1]:
+  - link "Saltar al contenido" [ref=e2] [cursor=pointer]:
+    - /url: "#hero-section"
+  - banner [ref=e3]:
+    - link "Acelera — ir al inicio" [ref=e4] [cursor=pointer]:
+      - /url: "#hero-section"
+      - text: Aceler
+      - generic [ref=e5]: a
+    - navigation "Secciones" [ref=e7]:
+      - link "Qué construimos" [ref=e8] [cursor=pointer]:
+        - /url: "#construimos"
+      - link "Proyectos" [ref=e9] [cursor=pointer]:
+        - /url: "#proyectos"
+      - link "Cómo trabajamos" [ref=e10] [cursor=pointer]:
+        - /url: "#proceso"
+      - link "Equipo" [ref=e11] [cursor=pointer]:
+        - /url: "#equipo"
+    - generic [ref=e12]:
+      - group "Idioma" [ref=e13]:
+        - button "ES" [pressed] [ref=e14] [cursor=pointer]
+        - generic [ref=e15]: /
+        - button "EN" [ref=e16] [cursor=pointer]
+      - button "Hablemos" [ref=e17] [cursor=pointer]
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e23]:
+        - heading [level=1] [ref=e24]:
+          - text: IA
+          - generic [ref=e25]: con sentido
+          - text: ", donde el negocio lo pide."
+        - paragraph [ref=e26]: Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.
+        - generic [ref=e27]:
+          - link "Hablemos" [ref=e28] [cursor=pointer]:
+            - /url: "#contacto"
+          - link "Qué construimos" [ref=e30] [cursor=pointer]:
+            - /url: "#construimos"
+      - link "Seguir leyendo" [ref=e32] [cursor=pointer]:
+        - /url: "#situaciones"
+    - generic [ref=e37]:
+      - generic [ref=e39]:
+        - generic [ref=e40]: Dónde podemos ayudar
+        - heading "Desarrollo a medida para empresas." [level=2] [ref=e41]
+      - generic [ref=e42]:
+        - article [ref=e43]:
+          - generic [ref=e44]:
+            - heading "Software para procesos operativos." [level=3] [ref=e45]
+            - paragraph [ref=e46]: Herramientas internas e integraciones para reemplazar procesos manuales por un sistema propio.
+        - article [ref=e47]:
+          - generic [ref=e48]:
+            - heading "Desarrollo junto a equipos de producto." [level=3] [ref=e49]
+            - paragraph [ref=e50]: Tomamos una parte concreta del producto y la llevamos a producción junto al equipo interno.
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - heading "Por qué Acelera" [level=2] [ref=e55]
+        - paragraph [ref=e56]: Una forma directa de construir software.
+      - generic [ref=e57]:
+        - article [ref=e58]:
+          - generic [ref=e59]: "01"
+          - generic [ref=e60]:
+            - heading "Trabajo directo" [level=3] [ref=e61]
+            - paragraph [ref=e62]: Quienes definen la solución son quienes la diseñan y la construyen.
+        - article [ref=e63]:
+          - generic [ref=e64]: "02"
+          - generic [ref=e65]:
+            - heading "Responsabilidad completa" [level=3] [ref=e66]
+            - paragraph [ref=e67]: Nos ocupamos del desarrollo desde el problema inicial hasta la puesta en producción.
+        - article [ref=e68]:
+          - generic [ref=e69]: "03"
+          - generic [ref=e70]:
+            - heading "Control para tu equipo" [level=3] [ref=e71]
+            - paragraph [ref=e72]: El código, la documentación y los accesos quedan en manos de la empresa.
+    - generic [ref=e74]:
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - generic [ref=e78]: Capacidades
+          - heading "Qué desarrollamos" [level=2] [ref=e79]
+        - paragraph [ref=e80]: Diseñamos herramientas y plataformas a medida para ordenar procesos, conectar sistemas y reducir trabajo manual.
+      - generic [ref=e81]:
+        - generic [ref=e82]: Proceso actual
+        - generic [ref=e83]: Software funcionando
+        - generic [ref=e84]: Área de especialización
+        - group "Capacidades de Acelera":
+          - button "Plataformas internas" [ref=e85] [cursor=pointer]
+          - button "MVPs y productos" [ref=e87] [cursor=pointer]
+          - button "Software operativo" [ref=e89] [cursor=pointer]
+          - button "Web y mobile" [ref=e91] [cursor=pointer]
+          - button "Dashboards y BI" [ref=e93] [cursor=pointer]
+          - button "Pipelines de datos" [ref=e95] [cursor=pointer]
+          - button "Integraciones y APIs" [ref=e97] [cursor=pointer]
+          - button "Agentes IA" [ref=e99] [cursor=pointer]
+          - button "Automatizaciones" [ref=e101] [cursor=pointer]
+          - button "IA sobre tus datos" [ref=e103] [cursor=pointer]
+          - button "Backends y servicios" [ref=e105] [cursor=pointer]
+          - button "Portales y autogestión" [ref=e107] [cursor=pointer]
+        - generic [ref=e109]:
+          - generic [ref=e110]: Núcleo Acelera
+          - paragraph [ref=e111]:
+            - generic [ref=e112]: Software que
+            - generic [ref=e113]: queda integrado
+            - generic [ref=e114]: a la operación.
+          - generic [ref=e115]: Explorá una capacidad
+      - paragraph [ref=e118]: Primero definimos qué hace falta construir. Después elegimos la tecnología.
+    - generic [ref=e120]:
+      - generic [ref=e122]:
+        - generic [ref=e123]: Proyectos
+        - heading "Proyectos construidos para resolver problemas reales ." [level=2] [ref=e124]:
+          - text: Proyectos construidos para resolver
+          - generic [ref=e125]: problemas reales
+          - text: .
+        - paragraph [ref=e126]: Los tres proyectos fueron premiados en competencias nacionales e internacionales de tecnología e IA. En cada caso definimos el problema, construimos una solución usable y la presentamos funcionando.
+      - generic [ref=e127]:
+        - article [ref=e128]:
+          - 'img "Faro: mapa interactivo de contrataciones de obra pública" [ref=e130]'
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - generic [ref=e133]: 1er puesto · Hack@LATAM
+              - heading "Faro" [level=3] [ref=e134]
+              - paragraph [ref=e135]: Una plataforma que reúne 426 expedientes de obra pública de Argentina, Chile y Perú en un mapa interactivo. Permite consultar señales de revisión y verificar cada caso en su fuente oficial.
+            - generic "Datos del proyecto Faro" [ref=e136]:
+              - generic [ref=e137]:
+                - term [ref=e138]: Expedientes
+                - definition [ref=e139]: "426"
+              - generic [ref=e140]:
+                - term [ref=e141]: Formato
+                - definition [ref=e142]: Mapa navegable
+              - generic [ref=e143]:
+                - term [ref=e144]: Fuentes
+                - definition [ref=e145]: Oficiales
+        - generic [ref=e146]:
+          - article [ref=e147]:
+            - 'img "Vueltito: donaciones recurrentes a partir del vuelto" [ref=e149]'
+            - generic [ref=e150]:
+              - generic [ref=e151]: 1er puesto · Paisanos ONG
+              - generic [ref=e152]:
+                - heading "Vueltito" [level=3] [ref=e153]
+                - generic [ref=e154]: 02 / 03
+              - paragraph [ref=e155]: Una plataforma que convierte pequeños montos de compras cotidianas en donaciones recurrentes para ONG. La propuesta se definió después de conversar con más de 30 personas del sector.
+          - article [ref=e156]:
+            - 'img "MUSA: letras sincronizadas y patrones hápticos" [ref=e158]'
+            - generic [ref=e159]:
+              - generic [ref=e160]: Premio especial · AI Music Hackathon
+              - generic [ref=e161]:
+                - heading "MUSA" [level=3] [ref=e162]
+                - generic [ref=e163]: 03 / 03
+              - paragraph [ref=e164]: Una experiencia móvil de accesibilidad musical para personas sordas o con hipoacusia. Combina letras sincronizadas, señales visuales y patrones hápticos.
+    - generic [ref=e166]:
+      - generic [ref=e168]:
+        - generic [ref=e169]: Cómo trabajamos
+        - heading "Del problema a un sistema funcionando ." [level=2] [ref=e170]:
+          - text: Del problema a un
+          - generic [ref=e171]: sistema funcionando
+          - text: .
+        - paragraph [ref=e172]: Trabajamos en cuatro etapas. Cada una termina con una decisión, un entregable y una forma concreta de medir el avance.
+      - paragraph [ref=e173]: Trabajamos con AWS, React, Node.js, Python, PostgreSQL, Anthropic, OpenAI y Expo, según las necesidades de cada solución.
+      - generic [ref=e174]:
+        - generic [ref=e175]:
+          - article [ref=e176]:
+            - generic [ref=e177]:
+              - generic [ref=e178]:
+                - generic [ref=e179]: Diagnóstico
+                - generic [ref=e180]: 01 / 04
+              - heading "Definimos el problema antes de construir" [level=3] [ref=e181]
+              - paragraph [ref=e182]: Relevamos el proceso, hablamos con quienes lo usan y acordamos qué resultado tiene que mejorar.
+              - generic [ref=e183]:
+                - generic [ref=e184]: Resultado
+                - generic [ref=e185]: Problema definido + criterio de éxito
+          - article [ref=e186]:
+            - generic [ref=e187]:
+              - generic [ref=e188]:
+                - generic [ref=e189]: Diseño
+                - generic [ref=e190]: 02 / 04
+              - heading "Convertimos la necesidad en un plan de trabajo" [level=3] [ref=e191]
+              - paragraph [ref=e192]: Definimos el flujo, el alcance, la arquitectura y las integraciones necesarias.
+              - generic [ref=e193]:
+                - generic [ref=e194]: Resultado
+                - generic [ref=e195]: Alcance + diseño técnico + prioridades
+          - article [ref=e196]:
+            - generic [ref=e197]:
+              - generic [ref=e198]:
+                - generic [ref=e199]: Construcción
+                - generic [ref=e200]: 03 / 04
+              - heading "Entregamos avances que se pueden usar y probar" [level=3] [ref=e201]
+              - paragraph [ref=e202]: Construimos en ciclos cortos y validamos cada incremento con usuarios y datos reales.
+              - generic [ref=e203]:
+                - generic [ref=e204]: Resultado
+                - generic [ref=e205]: Software usable + siguiente decisión
+          - article [ref=e206]:
+            - generic [ref=e207]:
+              - generic [ref=e208]:
+                - generic [ref=e209]: Producción
+                - generic [ref=e210]: 04 / 04
+              - heading "El sistema queda funcionando y bajo tu control" [level=3] [ref=e211]
+              - paragraph [ref=e212]: Desplegamos, medimos, documentamos y transferimos el conocimiento necesario para operarlo.
+              - generic [ref=e213]:
+                - generic [ref=e214]: Resultado
+                - generic [ref=e215]: Producción + métricas + documentación
+        - generic [ref=e216]: Tecnología que respalda nuestros desarrollos
+    - generic [ref=e221]:
+      - generic [ref=e222]:
+        - heading "Equipo fundador." [level=2] [ref=e223]
+        - paragraph [ref=e224]: Después de años construyendo software juntos y de competir en proyectos de IA en Argentina y el exterior, fundamos Acelera para llevar esa forma rápida y práctica de trabajar a empresas. Nos involucramos desde la definición del problema hasta la puesta en producción, con cercanía, criterio técnico y responsabilidad sobre lo que entregamos.
+      - generic [ref=e225]:
+        - generic [ref=e226]:
+          - img "Ignacio" [ref=e228]
+          - generic [ref=e229]:
+            - heading "Ignacio Estevo" [level=4] [ref=e230]
+            - link [ref=e231] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ignacio-estevo/
+          - generic [ref=e235]: Ingeniería de software
+          - paragraph [ref=e236]: Ingeniero Informático. Desarrollo de software, automatización e implementación de soluciones con IA.
+        - generic [ref=e237]:
+          - img "Mauro" [ref=e239]
+          - generic [ref=e240]:
+            - heading "Mauro Proto" [level=4] [ref=e241]
+            - link [ref=e242] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/mauroprotocassina/
+          - generic [ref=e246]: IA y producto
+          - paragraph [ref=e247]: Formación en inteligencia artificial y machine learning. Diseño de productos y sistemas con IA aplicada.
+        - generic [ref=e248]:
+          - img "Franco" [ref=e250]
+          - generic [ref=e251]:
+            - heading "Franco Ferreira" [level=4] [ref=e252]
+            - link [ref=e253] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/franco-ferreira/
+          - generic [ref=e257]: Procesos y datos
+          - paragraph [ref=e258]: Ingeniero en Software. Análisis de procesos, business intelligence y diseño de soluciones operativas.
+    - generic [ref=e260]:
+      - heading "Preguntas frecuentes." [level=2] [ref=e262]
+      - generic [ref=e263]:
+        - group [ref=e264]:
+          - generic "¿Cuánto tiempo lleva un proyecto?" [ref=e265] [cursor=pointer]:
+            - text: ¿Cuánto tiempo lleva un proyecto?
+            - generic [ref=e266]: +
+        - group [ref=e267]:
+          - generic "¿Cómo comienza el trabajo?" [ref=e268] [cursor=pointer]:
+            - text: ¿Cómo comienza el trabajo?
+            - generic [ref=e269]: +
+        - group [ref=e270]:
+          - generic "¿A quién pertenece el código?" [ref=e271] [cursor=pointer]:
+            - text: ¿A quién pertenece el código?
+            - generic [ref=e272]: +
+        - group [ref=e273]:
+          - generic "¿Qué recibe la empresa al finalizar?" [ref=e274] [cursor=pointer]:
+            - text: ¿Qué recibe la empresa al finalizar?
+            - generic [ref=e275]: +
+        - group [ref=e276]:
+          - generic "¿Cómo eligen las tecnologías?" [ref=e277] [cursor=pointer]:
+            - text: ¿Cómo eligen las tecnologías?
+            - generic [ref=e278]: +
+        - group [ref=e279]:
+          - generic "¿Cómo protegen la información?" [ref=e280] [cursor=pointer]:
+            - text: ¿Cómo protegen la información?
+            - generic [ref=e281]: +
+        - group [ref=e282]:
+          - generic "¿Qué ocurre después del lanzamiento?" [ref=e283] [cursor=pointer]:
+            - text: ¿Qué ocurre después del lanzamiento?
+            - generic [ref=e284]: +
+    - generic [ref=e287]:
+      - generic [ref=e288]:
+        - heading "Contanos qué querés resolver." [level=2] [ref=e289]
+        - paragraph [ref=e290]: Dejanos un poco de contexto. Te respondemos personalmente en menos de 24 horas con un próximo paso claro.
+        - link "contacto@acelera.agency" [ref=e291] [cursor=pointer]:
+          - /url: mailto:contacto@acelera.agency
+      - form "Formulario de contacto" [ref=e298]:
+        - generic [ref=e299]:
+          - heading "Formulario de contacto" [level=3] [ref=e300]
+          - paragraph [ref=e301]: Completá tus datos y contanos brevemente qué necesitás desarrollar.
+        - generic [ref=e302]:
+          - generic [ref=e303]: Nombre
+          - textbox "Nombre" [ref=e304]:
+            - /placeholder: Tu nombre
+        - generic [ref=e305]:
+          - generic [ref=e306]: Email de trabajo
+          - textbox "Email de trabajo" [ref=e307]:
+            - /placeholder: nombre@empresa.com
+        - generic [ref=e308]:
+          - generic [ref=e309]: Empresa
+          - textbox "Empresa" [ref=e310]:
+            - /placeholder: Nombre de la empresa
+        - generic [ref=e311]:
+          - generic [ref=e312]: ¿Qué querés resolver?
+          - textbox "¿Qué querés resolver?" [ref=e313]:
+            - /placeholder: Contanos brevemente qué proceso, problema o idea querés trabajar
+        - generic [ref=e314]:
+          - checkbox "Consiento que Acelera trate mis datos para responder mi consulta, evaluar el proyecto y preparar una propuesta, incluso mediante proveedores que pueden procesarlos fuera de Argentina, conforme la Política de Privacidad." [ref=e315]
+          - generic [ref=e316]:
+            - text: Consiento que Acelera trate mis datos para responder mi consulta, evaluar el proyecto y preparar una propuesta, incluso mediante proveedores que pueden procesarlos fuera de Argentina, conforme la
+            - link "Política de Privacidad" [ref=e317] [cursor=pointer]:
+              - /url: /privacidad.html
+            - text: .
+        - generic [ref=e318]:
+          - status
+          - button "Enviar consulta" [ref=e319] [cursor=pointer]
+  - contentinfo [ref=e323]:
+    - generic [ref=e324]:
+      - generic [ref=e325]:
+        - generic [ref=e326]:
+          - text: Aceler
+          - generic [ref=e327]: a
+        - paragraph [ref=e329]: Software factory boutique + IA aplicada. Si tu negocio no lo necesita, te lo decimos en la primera reunión.
+        - paragraph [ref=e330]:
+          - link "contacto@acelera.agency" [ref=e331] [cursor=pointer]:
+            - /url: mailto:contacto@acelera.agency
+        - paragraph [ref=e332]:
+          - link "+54 9 11 6175 8891" [ref=e333] [cursor=pointer]:
+            - /url: tel:+5491161758891
+        - generic [ref=e334]:
+          - link "Acelera en LinkedIn" [ref=e335] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/acelera-agency
+            - text: LinkedIn
+          - link "Escribinos por WhatsApp" [ref=e340] [cursor=pointer]:
+            - /url: https://wa.me/5491161758891
+            - text: WhatsApp
+      - generic [ref=e343]:
+        - generic [ref=e344]:
+          - generic [ref=e345]: Navegación
+          - link "Qué construimos" [ref=e346] [cursor=pointer]:
+            - /url: "#construimos"
+          - link "Proyectos" [ref=e347] [cursor=pointer]:
+            - /url: "#proyectos"
+          - link "Cómo trabajamos" [ref=e348] [cursor=pointer]:
+            - /url: "#proceso"
+          - link "Equipo" [ref=e349] [cursor=pointer]:
+            - /url: "#equipo"
+          - link "Hablemos" [ref=e350] [cursor=pointer]:
+            - /url: "#contacto"
+        - generic [ref=e351]:
+          - generic [ref=e352]: Legal
+          - link "Privacidad" [ref=e353] [cursor=pointer]:
+            - /url: /privacidad.html
+          - link "Términos" [ref=e354] [cursor=pointer]:
+            - /url: /terminos.html
+    - generic [ref=e355]:
+      - heading "Acelera" [level=2] [ref=e356]
+      - generic [ref=e357]:
+        - generic [ref=e358]: © 2026 Acelera — Adopción de IA con sentido
+        - generic [ref=e359]: IA que tu equipo opera. No una caja negra.

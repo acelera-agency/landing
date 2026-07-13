@@ -75,6 +75,8 @@
       .filter(Boolean);
     let sectionOffsets = [];
     let sectionIndexFrame = 0;
+    let sectionMeasureFrame = 0;
+    let activeSectionIndex = -1;
 
     const measureSections = () => {
       sectionOffsets = sections.map((section) => ({
@@ -85,13 +87,15 @@
 
     const updateSectionIndex = () => {
       sectionIndexFrame = 0;
-      measureSections();
 
       const readingLine = window.scrollY + window.innerHeight * 0.5;
       let activeIndex = 0;
       sectionOffsets.forEach((section, index) => {
         if (section.top <= readingLine) activeIndex = index;
       });
+
+      if (activeIndex === activeSectionIndex) return;
+      activeSectionIndex = activeIndex;
 
       sectionIndex.style.setProperty("--section-index-active", String(activeIndex));
       sectionIndex.dataset.tone = sectionOffsets[activeIndex]?.scheme === "dark" ? "dark" : "light";
@@ -105,18 +109,52 @@
       if (!sectionIndexFrame) sectionIndexFrame = window.requestAnimationFrame(updateSectionIndex);
     };
 
+    const requestSectionMeasurement = () => {
+      if (sectionMeasureFrame) return;
+      sectionMeasureFrame = window.requestAnimationFrame(() => {
+        sectionMeasureFrame = 0;
+        measureSections();
+        requestSectionIndexUpdate();
+      });
+    };
+
     measureSections();
     updateSectionIndex();
     window.addEventListener("scroll", requestSectionIndexUpdate, { passive: true });
-    window.addEventListener("resize", () => {
-      measureSections();
-      requestSectionIndexUpdate();
-    });
-    window.addEventListener("load", () => {
-      measureSections();
-      requestSectionIndexUpdate();
-    }, { once: true });
+    window.addEventListener("resize", requestSectionMeasurement, { passive: true });
+    window.addEventListener("load", requestSectionMeasurement, { once: true });
+
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(requestSectionMeasurement);
+    }
+
+    if ("ResizeObserver" in window) {
+      const sectionResizeObserver = new ResizeObserver(requestSectionMeasurement);
+      sections.forEach((section) => sectionResizeObserver.observe(section));
+    }
   }
+
+  const warmDeferredImages = () => {
+    document.querySelectorAll("#proyectos img, #equipo img").forEach((image) => {
+      image.fetchPriority = "low";
+      image.loading = "eager";
+
+      const decode = () => {
+        if (typeof image.decode === "function") image.decode().catch(() => {});
+      };
+
+      if (image.complete) decode();
+      else image.addEventListener("load", decode, { once: true });
+    });
+  };
+
+  window.addEventListener("load", () => {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(warmDeferredImages, { timeout: 2500 });
+    } else {
+      window.setTimeout(warmDeferredImages, 1200);
+    }
+  }, { once: true });
 
   document.querySelectorAll("[data-lead-form]").forEach((form) => {
     applyTrackingContext(form);

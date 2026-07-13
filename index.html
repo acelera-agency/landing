@@ -46,8 +46,9 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script type="module">
-        import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
-        window.THREE = THREE;
+        if (window.matchMedia("(min-width: 1200px)").matches) {
+            window.THREE = await import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js");
+        }
     </script>
     <script defer src="assets/lucide-sprite.js?v=20260713-1"></script>
     <style>
@@ -73,6 +74,13 @@
                 radial-gradient(circle at 1px 1px, rgba(11, 15, 20, 0.025) 1px, transparent 0),
                 radial-gradient(circle at 12px 12px, rgba(11, 15, 20, 0.015) 1px, transparent 0);
             background-size: 24px 24px, 32px 32px;
+        }
+
+        #hero-glow-1,
+        #hero-glow-2,
+        #footer-glow-1,
+        #footer-glow-2 {
+            will-change: transform, opacity;
         }
 
         /* Display headlines — custom display stack with editorial fallback. */
@@ -357,11 +365,12 @@
 
         .floating-brand {
             color: #0B0F14;
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            font-weight: 600;
-            line-height: 1;
-            letter-spacing: 0;
+        }
+
+        .floating-brand__wordmark {
+            display: block;
+            width: 4.65rem;
+            height: auto;
         }
 
         .floating-contact {
@@ -3273,7 +3282,7 @@
     </a>
     <div id="floating-controls" class="floating-controls">
         <a class="floating-pill floating-pill--brand floating-brand" href="#hero-section" aria-label="Acelera — ir al inicio">
-            Aceler<span class="relative inline-block">a<span aria-hidden="true" class="absolute left-0 right-0 -bottom-[0.18em] h-[2px] bg-accent"></span></span>
+            <img class="floating-brand__wordmark" src="assets/acelera-wordmark.png" alt="" width="552" height="213">
         </a>
         <div class="floating-pill floating-pill--actions">
             <div class="language-switcher" role="group" aria-label="Idioma">
@@ -4354,11 +4363,21 @@
                     };
                 });
                 let positioned = false;
+                let bounds = null;
+                let boundsScrollY = window.scrollY;
+                let pointerFrame = 0;
+                let pendingPointer = null;
 
-                const moveFollowers = (e, immediate = false) => {
-                    const rect = section.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
+                const measureBounds = () => {
+                    bounds = section.getBoundingClientRect();
+                    boundsScrollY = window.scrollY;
+                    return bounds;
+                };
+
+                const moveFollowers = (point, immediate = false) => {
+                    const rect = !bounds || boundsScrollY !== window.scrollY ? measureBounds() : bounds;
+                    const x = point.clientX - rect.left;
+                    const y = point.clientY - rect.top;
 
                     followers.forEach((follower) => {
                         if (immediate || !positioned) gsap.set(follower.glow, { x, y });
@@ -4372,17 +4391,33 @@
 
                 section.addEventListener("pointerenter", (e) => {
                     positioned = false;
+                    measureBounds();
                     moveFollowers(e, true);
                     if (validGlows[0]) gsap.to(validGlows[0], { opacity: primaryOpacity, duration: enterDuration, ease: "sine.out", overwrite: "auto" });
                     if (validGlows[1]) gsap.to(validGlows[1], { opacity: secondaryOpacity, duration: enterDuration * 0.8, ease: "sine.out", overwrite: "auto" });
                 });
 
-                section.addEventListener("pointermove", (e) => moveFollowers(e));
+                section.addEventListener("pointermove", (e) => {
+                    pendingPointer = { clientX: e.clientX, clientY: e.clientY };
+                    if (pointerFrame) return;
+                    pointerFrame = requestAnimationFrame(() => {
+                        pointerFrame = 0;
+                        if (pendingPointer) moveFollowers(pendingPointer);
+                        pendingPointer = null;
+                    });
+                });
 
                 section.addEventListener("pointerleave", () => {
                     positioned = false;
+                    pendingPointer = null;
+                    if (pointerFrame) cancelAnimationFrame(pointerFrame);
+                    pointerFrame = 0;
                     gsap.to(validGlows, { opacity: 0, duration: leaveDuration, ease: leaveEase, overwrite: "auto" });
                 });
+
+                window.addEventListener("resize", () => {
+                    bounds = null;
+                }, { passive: true });
             };
 
             const heroSection = document.getElementById("hero-section");
@@ -4581,10 +4616,12 @@
                         canvas: methodCanvas,
                         alpha: true,
                         antialias: true,
-                        preserveDrawingBuffer: true
+                        preserveDrawingBuffer: false,
+                        powerPreference: "high-performance",
+                        stencil: false
                     });
                     renderer.setClearColor(0x000000, 0);
-                    renderer.setPixelRatio(Math.min(Math.max(window.devicePixelRatio || 1, 2), 3));
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
                     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
                     const scene = new THREE.Scene();
@@ -4888,6 +4925,7 @@
                     let targetProgress = 0;
                     let currentProgress = 0;
                     let frame = 0;
+                    let techCaptionVisible = false;
                     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
                     const renderScene = (progress) => {
@@ -4949,8 +4987,11 @@
                             tile.labelMaterial.opacity = reveal;
                         });
 
-                        methodSceneElement.dataset.progress = progress.toFixed(3);
-                        methodSceneElement.classList.toggle("show-tech-caption", progress >= 0.54);
+                        const nextTechCaptionVisible = progress >= 0.54;
+                        if (nextTechCaptionVisible !== techCaptionVisible) {
+                            techCaptionVisible = nextTechCaptionVisible;
+                            methodSceneElement.classList.toggle("show-tech-caption", techCaptionVisible);
+                        }
                         renderer.render(scene, camera);
                     };
 
@@ -5051,28 +5092,83 @@
             if (!wrap || !cvs) return;
 
             var ctx = cvs.getContext("2d");
+            var connectorCanvas = document.createElement("canvas");
+            var connectorCtx = connectorCanvas.getContext("2d");
             var dpr = Math.min(window.devicePixelRatio || 1, 2);
             var phi = (1 + Math.sqrt(5)) / 2;
             var time = 0;
+            var geometry = [];
+            var cachedConnectorCount = -1;
             var noMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             // time avanza 0.75/frame; la espiral queda completa (70 rects) en time >= 3500.
             var TIME_END = 3500;
             var rafId = null;
             var inView = false;
 
+            function rebuildGeometry(w, h) {
+                var baseW = Math.min(w, h) * 0.81;
+                var rectW = baseW;
+                var rectH = rectW / phi;
+                var radialScale = 1;
+                geometry = [];
+
+                for (var i = 0; i < 70; i++) {
+                    var spiralAngle = i * 0.174533;
+                    var radius = radialScale * (baseW * 0.35);
+                    geometry.push({
+                        angle: spiralAngle,
+                        x: Math.cos(spiralAngle) * radius,
+                        y: Math.sin(spiralAngle) * radius,
+                        width: rectW,
+                        height: rectH
+                    });
+                    rectW *= 0.95;
+                    rectH *= 0.95;
+                    radialScale *= 0.98;
+                }
+            }
+
             function resize() {
                 var w = wrap.clientWidth, h = wrap.clientHeight;
                 cvs.width = w * dpr;
                 cvs.height = h * dpr;
+                connectorCanvas.width = w * dpr;
+                connectorCanvas.height = h * dpr;
                 cvs.style.width = w + "px";
                 cvs.style.height = h + "px";
                 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                connectorCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                rebuildGeometry(w, h);
+                cachedConnectorCount = -1;
             }
             resize();
             window.addEventListener("resize", function () {
                 resize();
                 draw();
             });
+
+            function drawConnectors(maxRect, w, h) {
+                if (cachedConnectorCount === maxRect) return;
+                cachedConnectorCount = maxRect;
+                connectorCtx.clearRect(0, 0, w, h);
+                connectorCtx.save();
+                connectorCtx.translate((w * 0.49) + 4, (h * 0.43) - 4);
+
+                for (var j = 0; j < maxRect - 1; j++) {
+                    var current = geometry[j];
+                    var next = geometry[j + 1];
+                    var st = j / maxRect;
+                    var segAlpha = 0.3 * (1 - st);
+                    connectorCtx.beginPath();
+                    connectorCtx.moveTo(current.x, current.y);
+                    connectorCtx.lineTo(next.x, next.y);
+                    connectorCtx.strokeStyle = "rgba(150, 150, 150, " + segAlpha + ")";
+                    connectorCtx.lineWidth = 1 - st * 0.6;
+                    connectorCtx.stroke();
+                }
+
+                connectorCtx.restore();
+            }
 
             function draw() {
                 var w = cvs.width / dpr, h = cvs.height / dpr;
@@ -5081,20 +5177,13 @@
                 ctx.translate((w * 0.49) + 4, (h * 0.43) - 4);
 
                 var maxRect = noMotion ? 70 : Math.min(70, Math.floor(time * 0.02));
-                var baseW = Math.min(w, h) * 0.81;
-                var rectW = baseW;
-                var rectH = rectW / phi;
-                var scale = 1;
                 var angle = time * 0.00004;
 
                 for (var i = 0; i < maxRect; i++) {
                     ctx.save();
-                    var spiralAngle = i * 0.174533;
-                    var radius = scale * (baseW * 0.35);
-                    var x = Math.cos(spiralAngle) * radius;
-                    var y = Math.sin(spiralAngle) * radius;
-                    ctx.translate(x, y);
-                    ctx.rotate(spiralAngle + angle);
+                    var item = geometry[i];
+                    ctx.translate(item.x, item.y);
+                    ctx.rotate(item.angle + angle);
 
                     var t = i / maxRect;
                     var alpha = 0.5 - i * 0.012;
@@ -5111,41 +5200,25 @@
                         ctx.strokeStyle = "rgba(" + rr + "," + gg + "," + bb + "," + alpha + ")";
                     }
                     ctx.lineWidth = 0.4 + t * 0.8;
-                    ctx.strokeRect(-rectW / 2, -rectH / 2, rectW, rectH);
+                    ctx.strokeRect(-item.width / 2, -item.height / 2, item.width, item.height);
 
                     if (i % 3 === 0) {
                         ctx.strokeStyle = "rgba(50, 50, 50, " + (alpha * 0.15) + ")";
                         ctx.lineWidth = 0.3 + t * 0.5;
                         ctx.beginPath();
-                        ctx.moveTo(-rectW / 2, -rectH / 2);
-                        ctx.lineTo(rectW / 2, rectH / 2);
-                        ctx.moveTo(rectW / 2, -rectH / 2);
-                        ctx.lineTo(-rectW / 2, rectH / 2);
+                        ctx.moveTo(-item.width / 2, -item.height / 2);
+                        ctx.lineTo(item.width / 2, item.height / 2);
+                        ctx.moveTo(item.width / 2, -item.height / 2);
+                        ctx.lineTo(-item.width / 2, item.height / 2);
                         ctx.stroke();
                     }
 
                     ctx.restore();
-                    rectW *= 0.95;
-                    rectH *= 0.95;
-                    scale *= 0.98;
-                }
-
-                for (var j = 0; j < maxRect - 1; j++) {
-                    var sa1 = j * 0.174533;
-                    var sa2 = (j + 1) * 0.174533;
-                    var r1 = Math.pow(0.98, j) * (baseW * 0.35);
-                    var r2 = Math.pow(0.98, j + 1) * (baseW * 0.35);
-                    var st = j / maxRect;
-                    var segAlpha = 0.3 * (1 - st);
-                    ctx.beginPath();
-                    ctx.moveTo(Math.cos(sa1) * r1, Math.sin(sa1) * r1);
-                    ctx.lineTo(Math.cos(sa2) * r2, Math.sin(sa2) * r2);
-                    ctx.strokeStyle = "rgba(150, 150, 150, " + segAlpha + ")";
-                    ctx.lineWidth = 1 - st * 0.6;
-                    ctx.stroke();
                 }
 
                 ctx.restore();
+                drawConnectors(maxRect, w, h);
+                ctx.drawImage(connectorCanvas, 0, 0, connectorCanvas.width, connectorCanvas.height, 0, 0, w, h);
             }
 
             function frame() {

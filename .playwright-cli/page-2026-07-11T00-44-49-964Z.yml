@@ -1,0 +1,262 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - list [ref=e8]:
+          - listitem [ref=e9]:
+            - link "Blog" [ref=e10] [cursor=pointer]:
+              - /url: /blog
+          - listitem [ref=e11]:
+            - link "Careers" [ref=e12] [cursor=pointer]:
+              - /url: /careers
+          - listitem [ref=e13]:
+            - link "Government" [ref=e14] [cursor=pointer]:
+              - /url: /government
+        - link "Antimetal" [ref=e19] [cursor=pointer]:
+          - /url: /
+        - list [ref=e23]:
+          - listitem [ref=e24]:
+            - link "Sign In" [ref=e25] [cursor=pointer]:
+              - /url: https://overlook.antimetal.com
+          - listitem [ref=e26]:
+            - link "Book a demo" [ref=e27] [cursor=pointer]:
+              - /url: /book-a-demo
+    - region "Hero" [ref=e28]:
+      - generic:
+        - generic:
+          - generic:
+            - heading "Production that runs itself." [level=1]
+          - generic:
+            - heading "Antimetal is the autonomous system for production. Continuously understanding, operating, and improving your environment." [level=2]
+          - generic:
+            - generic:
+              - link "Book a demo" [ref=e34] [cursor=pointer]:
+                - /url: /book-a-demo
+              - link "Explore the research":
+                - /url: /blog
+    - separator [ref=e38]
+    - region "Customer quote" [ref=e39]:
+      - generic [ref=e40]:
+        - figure [ref=e42]:
+          - button "Play video" [ref=e43]:
+            - generic [ref=e48]: 2:07
+        - generic [ref=e49]:
+          - blockquote [ref=e50]:
+            - generic [ref=e51]: “
+            - text: You may be able to build software rapidly, but if people can’t depend on it, if you can’t figure out what breaks, well, people aren’t going to use it.”
+          - generic [ref=e52]:
+            - generic [ref=e53]:
+              - generic [ref=e54]: Ben Lutch
+              - generic [ref=e55]: Google, VP of Engineering
+            - img "Google" [ref=e56]
+    - separator [ref=e57]
+    - region "Manifesto" [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e62]:
+          - 'img "Chart: the understanding required to manage production climbs exponentially over time, while what a team can hold in their heads rises only gently. The widening difference between the two is the representational gap." [ref=e63]'
+          - generic [ref=e69]:
+            - generic [ref=e70]: Understanding needed to manage production
+            - generic [ref=e71]: What your team can hold in their heads
+            - generic [ref=e72]: Representational gap
+            - generic [ref=e73]: Complexity
+            - generic [ref=e74]: Time
+        - generic [ref=e75]:
+          - paragraph [ref=e76]:
+            - generic [ref=e77]: P
+            - text: roduction engineering, as practiced today, is breaking. Software systems have grown too complex for humans to manually operate, and the knowledge required to run them is fragmented across tools, infrastructure, alerts, and tribal knowledge. The result is pages at 3 a.m., dashboards that surface symptoms instead of causes, and fixes that never become prevention.
+          - paragraph [ref=e79]: "Antimetal is building the autonomous system for production: a new layer between your team and your running systems."
+          - paragraph [ref=e80]: It diagnoses. It fixes. It prevents. It learns how your systems run and operates production for you.
+    - generic [ref=e82]:
+      - generic [ref=e83]:
+        - generic [ref=e84]: "02"
+        - generic [ref=e86]: Where we sit
+      - generic [ref=e87]:
+        - heading "A new layer of the stack" [level=2] [ref=e88]
+        - paragraph [ref=e89]: Antimetal is the autonomous layer between your team and your production systems.
+    - region "Where we fit in your architectural stack" [ref=e90]:
+      - generic [ref=e93]:
+        - generic [ref=e96]:
+          - generic [ref=e97]: THE VISION
+          - heading "Production should run itself." [level=3] [ref=e98]
+          - paragraph [ref=e99]: Production is too complex to run manually. Engineers should set direction, ship product, and approve important changes. The rest should be handled autonomously.
+        - generic [ref=e102]:
+          - generic [ref=e103]: THE WORLD MODEL
+          - heading "A layer that owns the runtime." [level=3] [ref=e104]
+          - paragraph [ref=e105]: At its core sits a live world model, a continuous understanding of how your stack behaves. On top, an army of specialized agents acts on the model to diagnose, fix, prevent, and answer any question.
+        - generic [ref=e108]:
+          - generic [ref=e109]: THE AUTONOMOUS LAYER
+          - heading "Everyone else watches. We operate." [level=3] [ref=e110]
+          - paragraph [ref=e111]: Most software stops at recommendations and assistance, keeping humans in the loop as the operational layer. Antimetal is designed to continuously investigate, operate, and improve production systems itself.
+    - region "Antimetal production dashboard preview" [ref=e117]:
+      - generic [ref=e123]:
+        - generic [ref=e124]: Antimetal · Production
+        - iframe [ref=e131]:
+          
+    - region "An army of agents" [ref=e132]:
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - generic [ref=e136]: "04"
+            - generic [ref=e138]: Your Stack is our Stack
+          - generic [ref=e139]:
+            - heading "One platform. An army of agents." [level=2] [ref=e140]: One platform.An army of agents.
+            - paragraph [ref=e141]: Specialized agents that own different slices of production. Composable, customizable, and fully auditable.
+        - generic [ref=e143]:
+          - generic [ref=e144]:
+            - generic [ref=e145]: Proactive
+            - heading "Patrol" [level=3] [ref=e146]
+            - paragraph [ref=e147]: Continuously watches for operational risks, regressions, and system drift.
+          - generic [ref=e148]:
+            - generic [ref=e149]: Reactive
+            - heading "Triage" [level=3] [ref=e150]
+            - paragraph [ref=e151]: Turns noisy production signals into structured, actionable issues.
+          - generic [ref=e152]:
+            - generic [ref=e153]: Intelligence
+            - heading "World Model" [level=3] [ref=e154]
+            - paragraph [ref=e155]: Continuously learns how your systems and teams behave and evolve.
+          - generic [ref=e156]:
+            - generic [ref=e157]: Platform
+            - heading "Agent Builder" [level=3] [ref=e158]
+            - paragraph [ref=e159]: Create custom operational agents via natural language.
+    - region "Frequently asked questions" [ref=e161]:
+      - generic [ref=e162]:
+        - generic [ref=e163]:
+          - generic [ref=e164]:
+            - generic [ref=e165]: "05"
+            - generic [ref=e167]: FAQ
+          - generic [ref=e168]:
+            - heading "Operating production with agents" [level=2] [ref=e169]
+            - paragraph [ref=e170]: What teams want to know before trusting Antimetal in production.
+        - generic [ref=e171]:
+          - separator [ref=e172]
+          - generic [ref=e173] [cursor=pointer]:
+            - button "How does Antimetal understand my systems?" [ref=e174]
+            - region "How does Antimetal understand my systems?":
+              - generic [ref=e179]:
+                - paragraph [ref=e180]: Antimetal builds a continuously evolving world model of your production environment by connecting to the tools you already use.
+                - paragraph [ref=e181]: Each signal is normalized and linked to the systems, changes, and people around it, so a deployment connects to the metrics it changed, the alert it triggered, and the engineer who pushed it.
+                - paragraph [ref=e182]: The result is persistent operational context that updates in real time and improves the longer Antimetal runs.
+          - separator [ref=e183]
+          - generic [ref=e184] [cursor=pointer]:
+            - button "Does Antimetal replace observability tools?" [ref=e185]
+            - region "Does Antimetal replace observability tools?":
+              - generic [ref=e190]:
+                - paragraph [ref=e191]: No. Antimetal sits on top of the observability tools you already use and uses their data to build and maintain its world model.
+                - paragraph [ref=e192]: Observability platforms were built for humans to read dashboards and investigate alerts. Antimetal is built for a world where production operates itself.
+          - separator [ref=e193]
+          - generic [ref=e194] [cursor=pointer]:
+            - button "Why isn't a coding agent enough?" [ref=e195]
+            - region "Why isn't a coding agent enough?":
+              - generic [ref=e200]:
+                - paragraph [ref=e201]: "Coding agents are good at generating code. Operating production is different. It requires continuous understanding of a live system: what changed, what depends on what, what failed before, and what is happening right now."
+                - paragraph [ref=e202]: That understanding cannot come from a single prompt or context window. Antimetal's world model gives agents continuously updated operational context across your infrastructure, telemetry, deployments, and code.
+                - paragraph [ref=e203]: That is what allows Antimetal to reason about production systems in ways standard coding agents cannot.
+          - separator [ref=e204]
+          - generic [ref=e205] [cursor=pointer]:
+            - button "What can Antimetal do autonomously?" [ref=e206]
+            - region "What can Antimetal do autonomously?":
+              - generic [ref=e211]:
+                - paragraph [ref=e212]: Antimetal can investigate incidents, trace failures across systems, identify likely root causes, propose fixes, open pull requests, and carry out operational workflows on your behalf.
+                - paragraph [ref=e213]: It starts with read access to your observability, infrastructure, and code systems so it can build and maintain its world model. From there, you control what actions it is allowed to take.
+                - paragraph [ref=e214]: By default, changes still route through your existing approval flow, whether that is a pull request, deployment pipeline, or Slack approval.
+          - separator [ref=e215]
+    - region "From the research log" [ref=e216]:
+      - generic [ref=e217]:
+        - generic [ref=e218]:
+          - generic [ref=e219]:
+            - generic [ref=e220]: "06"
+            - generic [ref=e222]: Stay up to date
+          - generic [ref=e223]:
+            - heading "From the research log." [level=2] [ref=e224]
+            - link "View All" [ref=e226] [cursor=pointer]:
+              - /url: /blog
+        - generic [ref=e229]:
+          - link "We used Antimetal to resolve 76% of our production errors in one day Research 06/10/2026 We used Antimetal to resolve 76% of our production errors in one day We pointed Antimetal at our production environment to see how many errors it could resolve on its own. Thibaud Roy 9 min" [ref=e231] [cursor=pointer]:
+            - /url: /blog/clearing-76-of-our-production-errors-in-one-day
+            - img "We used Antimetal to resolve 76% of our production errors in one day" [ref=e233]
+            - generic [ref=e234]:
+              - generic [ref=e235]:
+                - generic [ref=e236]:
+                  - generic [ref=e237]: Research
+                  - generic [ref=e239]: 06/10/2026
+                - heading "We used Antimetal to resolve 76% of our production errors in one day" [level=3] [ref=e240]
+              - paragraph [ref=e241]: We pointed Antimetal at our production environment to see how many errors it could resolve on its own.
+              - generic [ref=e242]:
+                - generic [ref=e243]: Thibaud Roy
+                - generic [ref=e247]: 9 min
+          - link "How we automated technical implementation Engineering 06/05/2026 How we automated technical implementation Most startups scale onboarding by hiring forward-deployed engineers. We built Anvil to do most of it in software, before reaching for people. Sai Naidu 7 min" [ref=e249] [cursor=pointer]:
+            - /url: /blog/how-we-automated-technical-implementation
+            - img "How we automated technical implementation" [ref=e251]
+            - generic [ref=e252]:
+              - generic [ref=e253]:
+                - generic [ref=e254]:
+                  - generic [ref=e255]: Engineering
+                  - generic [ref=e257]: 06/05/2026
+                - heading "How we automated technical implementation" [level=3] [ref=e258]
+              - paragraph [ref=e259]: Most startups scale onboarding by hiring forward-deployed engineers. We built Anvil to do most of it in software, before reaching for people.
+              - generic [ref=e260]:
+                - generic [ref=e261]: Sai Naidu
+                - generic [ref=e265]: 7 min
+          - link "Introducing Antimetal for Coding Agents Product 04/16/2026 Introducing Antimetal for Coding Agents A single MCP for the runtime context your coding agent is missing. Matt Casey 3 min" [ref=e267] [cursor=pointer]:
+            - /url: /blog/introducing-antimetal-for-coding-agents
+            - img "Introducing Antimetal for Coding Agents" [ref=e269]
+            - generic [ref=e270]:
+              - generic [ref=e271]:
+                - generic [ref=e272]:
+                  - generic [ref=e273]: Product
+                  - generic [ref=e275]: 04/16/2026
+                - heading "Introducing Antimetal for Coding Agents" [level=3] [ref=e276]
+              - paragraph [ref=e277]: A single MCP for the runtime context your coding agent is missing.
+              - generic [ref=e278]:
+                - generic [ref=e279]: Matt Casey
+                - generic [ref=e283]: 3 min
+    - region "Production CTA" [ref=e284]:
+      - generic [ref=e286]:
+        - heading "The autonomous system for production." [level=2] [ref=e287]
+        - paragraph [ref=e288]: Take a 30 minute demo to see if Antimetal is the missing layer in your stack.
+        - generic [ref=e289]:
+          - link "Book a demo" [ref=e290] [cursor=pointer]:
+            - /url: /book-a-demo
+          - link "Read the research" [ref=e293] [cursor=pointer]:
+            - /url: /blog
+    - region "Footer" [ref=e295]:
+      - generic [ref=e298]:
+        - generic [ref=e299]:
+          - paragraph [ref=e300]: Product
+          - list [ref=e301]:
+            - listitem [ref=e302]:
+              - generic [ref=e303]: Agentic Production Engineering
+        - generic [ref=e304]:
+          - paragraph [ref=e305]: Company
+          - list [ref=e306]:
+            - listitem [ref=e307]:
+              - link "About" [ref=e308] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e309]:
+              - link "Careers" [ref=e310] [cursor=pointer]:
+                - /url: /careers
+        - generic [ref=e311]:
+          - paragraph [ref=e312]: Resources
+          - list [ref=e313]:
+            - listitem [ref=e314]:
+              - link "Docs" [ref=e315] [cursor=pointer]:
+                - /url: https://docs.antimetal.com/
+            - listitem [ref=e316]:
+              - link "Blog" [ref=e317] [cursor=pointer]:
+                - /url: /blog
+        - generic [ref=e318]:
+          - paragraph [ref=e319]: Compliance
+          - list [ref=e320]:
+            - listitem [ref=e321]:
+              - link "Terms" [ref=e322] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e323]:
+              - link "Privacy" [ref=e324] [cursor=pointer]:
+                - /url: /privacy
+        - generic [ref=e325]:
+          - generic [ref=e326]:
+            - generic [ref=e327]: All systems normal
+            - generic [ref=e329]: Built in NYC
+          - paragraph [ref=e330]: The autonomous system for production.SOC 2, GDPR, and HIPAA compliant.
+          - button "Shuffle the Antimetal mark" [ref=e332] [cursor=pointer]
+  - alert [ref=e344]

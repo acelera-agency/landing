@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acelera — IA con sentido</title>
+  <meta name="description" content="Asesoramos e implementamos IA para tu negocio, sin caja negra. Si no suma, te lo decimos al inicio.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Base neutros — el "lienzo" de la página
+            paper:       '#F2EDE3',  // cream principal (apagado)
+            paperWarm:   '#E8E1D2',  // cream más cálido
+            paperCool:   '#EAE6DC',  // cream más frío
+            ink:         '#14110E',  // casi negro, no tan azul
+            inkSoft:     '#3A332B',
+            // Acentos MUY apagados — la paleta de las referencias es desaturada
+            accent:      '#7A4A28',  // óxido / sepia, no naranja vivo
+            accentDeep:  '#5C381E',
+            mustard:     '#B89C5C',  // mostaza apagado (en vez de amarillo brillante)
+            rose:        '#B89B9F',  // rosa té / dusty rose
+            cream2:      '#D7CDB4',  // cream oscuro
+            olive:       '#6B6A48',
+            slate:       '#4A4E48',
+            rust:        '#7A4232',
+            // Aliases (compatibilidad con código existente)
+            inkDeep:     '#14110E',
+            yellow:      '#B89C5C',  // apagado (era #F1D98A brillante)
+            yellowDeep:  '#9C8142',
+            pink:        '#B89B9F',   // apagado (era #F1C3CE brillante)
+            pinkDeep:    '#967F84',
+            cream:       '#D7CDB4',
+            signal:      '#7A4232'
+          },
+          fontFamily: {
+            serif:   ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
+            garamond:['EB Garamond', 'ui-serif', 'Georgia', 'serif'],
+            mono:    ['DM Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+            sans:    ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+          },
+          letterSpacing: {
+            'extra-wide': '0.22em',
+            'wider2':     '0.14em'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background: #F2EDE3; color: #14110E; }
+    .font-display { font-family: 'Fraunces', serif; font-feature-settings: 'liga' 1, 'ss01' 1; }
+    .font-old { font-family: 'EB Garamond', 'Garamond', serif; }
+
+    /* Highlight tipo marcador — los 3 colores apagados */
+    .mark {
+      background-image: linear-gradient(180deg, transparent 55%, var(--mark, #B89C5C) 55%);
+      padding: 0 0.12em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    .mark--rose     { --mark: #B89B9F; }
+    .mark--mustard  { --mark: #B89C5C; }
+    .mark--cream2   { --mark: #D7CDB4; }
+    .mark--ink      { --mark: #14110E; color: #F2EDE3; }
+
+    /* Cards — border ink fino, radius generoso */
+    .card-outline {
+      border: 1.25px solid #14110E;
+      border-radius: 22px;
+      background: transparent;
+    }
+    .card-mustard {
+      background: #B89C5C;
+      border-radius: 22px;
+      border: 1.25px solid #14110E;
+    }
+    .card-rose {
+      background: #B89B9F;
+      border-radius: 22px;
+      border: 1.25px solid #14110E;
+    }
+    .card-cream2 {
+      background: #D7CDB4;
+      border-radius: 22px;
+      border: 1.25px solid #14110E;
+    }
+    .card-paper {
+      background: #E8E1D2;
+      border-radius: 22px;
+      border: 1.25px solid #14110E;
+    }
+
+    /* Old-paper grain */
+    .grain {
+      position: relative;
+      isolation: isolate;
+    }
+    .grain::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+        radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 3px 3px, 5px 5px;
+      background-position: 0 0, 1px 2px;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      opacity: .35;
+      z-index: 1;
+    }
+
+    /* Markerline editorial */
+    .markerline {
+      background-image: linear-gradient(180deg, transparent 78%, var(--ml, #7A4A28) 78%, var(--ml, #7A4A28) 95%, transparent 95%);
+    }
+
+    /* Old-etching style decorative borders */
+    .etching-rule {
+      background-image: repeating-linear-gradient(90deg, #14110E 0 1px, transparent 1px 4px);
+      height: 1px;
+    }
+
+    .skip-link:focus { transform: translateY(0) !important; }
+
+    .ornament::before, .ornament::after {
+      content: "—";
+      display: inline-block;
+      margin: 0 1rem;
+      color: #14110E;
+      opacity: 0.4;
+    }
+
+    .issue-number {
+      font-feature-settings: 'tnum' 1, 'lnum' 1;
+      font-variant-numeric: tabular-nums lining-nums;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+
+  <a href="#section-1" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[999] focus:bg-ink focus:text-paper focus:px-4 focus:py-2 focus:rounded-md focus:font-medium focus:shadow-lg">Saltar al contenido</a>
+
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-paper/75 border-b border-ink/10">
+    <div class="max-w-[1320px] mx-auto px-6 md:px-10 py-4 flex items-center justify-between gap-8">
+      <a href="#section-1" class="font-display font-semibold text-2xl tracking-tight leading-none">
+        <span class="relative inline-block">
+          Acelera<span class="absolute left-0 right-0 -bottom-[0.18em] h-[2px] bg-accent"></span>
+        </span>
+      </a>
+      <nav class="hidden md:flex items-center gap-10 font-mono text-sm uppercase tracking-wider2">
+        <a href="#section-2" class="hover:text-accent transition-colors">Manifiesto</a>
+        <a href="#section-3" class="hover:text-accent transition-colors">Proceso</a>
+        <a href="#section-4" class="hover:text-accent transition-colors">Sectores</a>
+        <a href="#section-8" class="hover:text-accent transition-colors">Hablemos</a>
+      </nav>
+      <a href="#section-8" class="hidden md:inline-flex items-center gap-3 px-5 py-2.5 bg-ink text-paper rounded-full font-mono text-xs uppercase tracking-wider2">
+        Hablemos
+        <span class="w-4 h-[2px] bg-accent"></span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- SECTION 1 — HERO -->
+    <section id="section-1" data-section="hero" class="px-6 md:px-10 py-20 md:py-28 bg-paper relative">
+      <div class="max-w-[1320px] mx-auto">
+
+        <!-- Eyebrow -->
+        <div class="flex items-center gap-4 mb-12 md:mb-20">
+          <span class="w-10 md:w-14 h-[1px] bg-ink/40"></span>
+          <span class="font-mono text-[10px] md:text-xs uppercase tracking-extra-wide text-ink/60">
+            Consultoría · Implementación · Buenos Aires
+          </span>
+        </div>
+
+        <!-- Main grid: copy + atmospheric generative text -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+
+          <!-- LEFT: H1 + subtitle + CTAs -->
+          <div class="lg:col-span-8">
+
+            <h1 class="font-display font-medium text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.25rem] leading-[0.96] tracking-tight text-ink mb-10 md:mb-14">
+              IA <span class="mark">con sentido</span>,<br class="hidden sm:inline"> donde el negocio<br class="hidden sm:inline"> lo pide.
+            </h1>
+
+            <p class="font-display text-lg md:text-xl lg:text-2xl leading-[1.3] text-ink/75 max-w-[34ch] mb-12 md:mb-16">
+              Implementamos IA en tu negocio, sin caja negra. Si no suma, te lo decimos al inicio.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-6 md:gap-10">
+              <a href="#section-8" class="inline-flex items-center gap-3 px-5 py-3 bg-ink text-paper rounded-full font-mono text-xs md:text-sm uppercase tracking-wider2">
+                Hablemos
+                <span class="w-4 h-[2px] bg-accent"></span>
+              </a>
+              <a href="#section-2" class="font-mono text-xs md:text-sm uppercase tracking-wider2 text-ink">
+                <span class="markerline pb-1">Cómo trabajamos</span> <span class="text-accent">→</span>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- RIGHT: subtle generative text (atmospheric marginalia) -->
+          <aside class="lg:col-span-4 hidden lg:block pt-2" aria-hidden="true">
+            <div class="font-mono text-[11px] uppercase tracking-wider2 leading-[1.45] select-none">
+              <div class="text-ink/[0.10]">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.14] pl-6">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.07]">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.12] pl-3">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.09]">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.15] pl-8">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.06]">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.11] pl-4">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.08]">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.13] pl-5">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+              <div class="text-ink/[0.05]">SENTIDO · NEGOCIO · ADOPCIÓN ·</div>
+            </div>
+          </aside>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2 — MANIFIESTO -->
+    <section id="section-2" data-section="manifiesto" class="px-6 md:px-10 py-20 md:py-28 bg-ink text-paper relative overflow-hidden">
+
+      <!-- Textura generativa sutil — columna vertical en el margen derecho -->
+      <div aria-hidden="true" class="hidden lg:block absolute top-0 right-0 h-full w-[300px] overflow-hidden pointer-events-none select-none">
+        <div class="font-mono text-[10px] uppercase tracking-wider2 leading-[1.7] text-paper whitespace-nowrap text-right pt-16 pr-4">
+          <p class="opacity-[0.06]">PRIMERA REUNIÓN · PRIMERA REUNIÓN · PRIMERA REUNIÓN ·</p>
+          <p class="opacity-[0.10]">ADOPCIÓN · ADOPCIÓN · ADOPCIÓN · ADOPCIÓN · ADOPCIÓN ·</p>
+          <p class="opacity-[0.12]">PRODUCCIÓN · PRODUCCIÓN · PRODUCCIÓN · PRODUCCIÓN ·</p>
+          <p class="opacity-[0.07]">EQUIPO OPERANDO · EQUIPO OPERANDO · EQUIPO OPERANDO ·</p>
+          <p class="opacity-[0.09]">NEGOCIO · NEGOCIO · NEGOCIO · NEGOCIO · NEGOCIO ·</p>
+          <p class="opacity-[0.05]">PRIMERA REUNIÓN · PRIMERA REUNIÓN · PRIMERA REUNIÓN ·</p>
+          <p class="opacity-[0.11]">ADOPCIÓN · ADOPCIÓN · ADOPCIÓN · ADOPCIÓN · ADOPCIÓN ·</p>
+          <p class="opacity-[0.08]">PRODUCCIÓN · PRODUCCIÓN · PRODUCCIÓN · PRODUCCIÓN ·</p>
+        </div>
+      </div>
+
+      <div class="max-w-[1320px] mx-auto relative">
+
+        <!-- Eyebrow mono · issue number + categoría con tick sepia -->
+        <div class="flex items-center gap-3 mb-12 md:mb-16 lg:mb-20">
+          <span class="block w-2 h-2 rounded-full bg-accent"></span>
+          <span class="font-mono text-xs uppercase tracking-extra-wide text-paper/45">Nº 02</span>
+          <span class="font-mono text-xs uppercase tracking-extra-wide text-paper/25">/</span>
+          <span class="font-mono text-xs uppercase tracking-extra-wide text-accent">Carácter</span>
+        </div>
+
+        <!-- Manifiesto · H2 serif enorme -->
+        <h2 class="font-display font-medium text-paper text-[clamp(3rem,9vw,8rem)] leading-[0.96] tracking-[-0.02em] max-w-[14ch]">
+          Te decimos cuándo <span class="markerline">no</span>.
+        </h2>
+
+        <!-- Cuerpo · 3 párrafos serif, el último (reframe) en itálica apagada -->
+        <div class="mt-14 md:mt-20 lg:mt-24 space-y-6 md:space-y-7 max-w-[58ch]">
+          <p class="font-display text-paper/90 text-xl md:text-2xl leading-[1.55]">
+            Si tu proceso no necesita IA, lo decimos en la primera reunión. Perdemos el proyecto y ganamos el próximo.
+          </p>
+          <p class="font-display text-paper/90 text-xl md:text-2xl leading-[1.55]">
+            Si la necesita, no nos vamos hasta que esté en producción y tu equipo sepa operarla. No queremos dejarte una caja negra que solo nosotros sepamos tocar.
+          </p>
+          <p class="font-display italic text-paper/55 text-lg md:text-xl leading-[1.6] pt-2">
+            Adoptar IA cambia cómo decide y opera el negocio. La herramienta es apenas el arranque.
+          </p>
+        </div>
+
+        <!-- Firma · hairline sepia + mono uppercase accent -->
+        <div class="mt-14 md:mt-20 flex items-center gap-4">
+          <span class="block w-12 h-px bg-accent"></span>
+          <p class="font-mono uppercase tracking-extra-wide text-accent text-xs">
+            — A eso venimos.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 3 — PROCESO -->
+    <section id="section-3" data-section="proceso" class="px-6 md:px-10 py-20 md:py-28 bg-paperWarm">
+      <div class="max-w-[1320px] mx-auto">
+
+        <!-- Header: eyebrow / H2 / intro -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 mb-16 md:mb-20">
+          <div class="md:col-span-3">
+            <p class="font-mono text-xs uppercase tracking-extra-wide text-ink/60 leading-relaxed">
+              Nº 03 ·<br>
+              Cómo lo entregamos
+            </p>
+          </div>
+          <div class="md:col-span-9">
+            <h2 class="font-display font-medium text-5xl md:text-7xl xl:text-[88px] leading-[0.95] tracking-tight text-ink">
+              De idea a <span class="mark mark--mustard">producción</span>, sin escalas.
+            </h2>
+            <p class="font-serif italic text-xl md:text-2xl text-ink/70 mt-8 max-w-2xl leading-snug">
+              Tres pasos: elegimos el caso correcto, lo construimos y lo dejamos andando con tu equipo al mando.
+            </p>
+          </div>
+        </div>
+
+        <!-- Hairline etching rule -->
+        <div class="etching-rule mb-12 md:mb-16"></div>
+
+        <!-- 3 Steps -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0">
+
+          <!-- Step 01 -->
+          <div class="md:pr-10 lg:pr-14 md:border-r md:border-ink/15">
+            <div class="font-display font-medium text-7xl md:text-8xl text-ink/15 leading-none mb-6 select-none">01</div>
+            <p class="font-mono text-xs uppercase tracking-extra-wide text-accent mb-5">
+              01 — Diagnóstico
+            </p>
+            <h3 class="font-display text-2xl md:text-[28px] text-ink leading-[1.15] mb-5 max-w-[18ch]">
+              Vemos con datos si la IA conviene.
+            </h3>
+            <p class="font-serif text-base md:text-[17px] text-ink/70 leading-relaxed max-w-[30ch]">
+              Revisamos tus procesos y números para ver dónde la IA realmente aporta.
+            </p>
+          </div>
+
+          <!-- Step 02 -->
+          <div class="md:px-10 lg:px-14 md:border-r md:border-ink/15">
+            <div class="font-display font-medium text-7xl md:text-8xl text-ink/15 leading-none mb-6 select-none">02</div>
+            <p class="font-mono text-xs uppercase tracking-extra-wide text-accent mb-5">
+              02 — Construcción
+            </p>
+            <h3 class="font-display text-2xl md:text-[28px] text-ink leading-[1.15] mb-5 max-w-[18ch]">
+              Lo construimos y lo ponemos a producir.
+            </h3>
+            <p class="font-serif text-base md:text-[17px] text-ink/70 leading-relaxed max-w-[30ch]">
+              En semanas, no en meses. Cada entrega queda funcionando, no en una demo.
+            </p>
+          </div>
+
+          <!-- Step 03 -->
+          <div class="md:pl-10 lg:pl-14">
+            <div class="font-display font-medium text-7xl md:text-8xl text-ink/15 leading-none mb-6 select-none">03</div>
+            <p class="font-mono text-xs uppercase tracking-extra-wide text-accent mb-5">
+              03 — Habilitación
+            </p>
+            <h3 class="font-display text-2xl md:text-[28px] text-ink leading-[1.15] mb-5 max-w-[18ch]">
+              Te pasamos el control.
+            </h3>
+            <p class="font-serif text-base md:text-[17px] text-ink/70 leading-relaxed max-w-[30ch]">
+              Capacitamos a tu equipo y dejamos todo documentado. Operás sin depender de nosotros.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Generative text — montañas de palabras (closing breath) -->
+        <div class="mt-20 md:mt-28 font-mono text-[11px] uppercase tracking-extra-wide leading-[1.55] text-ink select-none max-w-3xl">
+          <p class="opacity-[0.05]">MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR ·</p>
+          <p class="opacity-[0.13]">MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR ·</p>
+          <p class="opacity-[0.07]">MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR ·</p>
+          <p class="opacity-[0.15]">MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR ·</p>
+          <p class="opacity-[0.05]">MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR ·</p>
+          <p class="opacity-[0.11]">MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR ·</p>
+          <p class="opacity-[0.06]">MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR ·</p>
+          <p class="opacity-[0.14]">MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR ·</p>
+          <p class="opacity-[0.08]">MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR · TRANSFERIR · MEDIR · CONSTRUIR ·</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4 — SECTORES (Por qué Acelera) -->
+    <section id="section-4" data-section="sectores" class="px-6 md:px-10 py-20 md:py-28 bg-paper">
+      <div class="max-w-[1320px] mx-auto">
+
+        <!-- Header editorial -->
+        <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 mb-10 md:mb-14">
+          <p class="font-mono text-xs uppercase tracking-extra-wide text-ink/60">Nº 04 · Por qué Acelera</p>
+          <p class="font-mono text-xs uppercase tracking-extra-wide text-ink/40">4 principios · 0 cajas negras</p>
+        </div>
+
+        <!-- H2 -->
+        <h2 class="font-display text-[2.5rem] md:text-[4rem] lg:text-[5rem] leading-[0.98] tracking-tight text-ink mb-8 md:mb-10 max-w-[18ch]">
+          Cómo lo hacemos y <span class="mark mark--mustard">qué velocidad.</span>
+        </h2>
+
+        <!-- Subtítulo -->
+        <p class="font-serif text-lg md:text-xl text-inkSoft max-w-2xl mb-14 md:mb-20 leading-snug">
+          Cuatro principios que sostenemos en cada proyecto. Sin pilotos eternos ni cajas negras.
+        </p>
+
+        <!-- Banda generativa — opacidades bajas, no pared -->
+        <div class="border-y border-ink/15 py-5 mb-16 md:mb-24 overflow-hidden">
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-1 font-mono text-[10px] md:text-[11px] uppercase tracking-extra-wide text-ink">
+            <span class="opacity-[0.10]">VELOCIDAD</span><span class="opacity-[0.06]">·</span>
+            <span class="opacity-[0.13]">MÉTODO</span><span class="opacity-[0.05]">·</span>
+            <span class="opacity-[0.15]">AUTONOMÍA</span><span class="opacity-[0.07]">·</span>
+            <span class="opacity-[0.11]">HONESTIDAD</span><span class="opacity-[0.06]">·</span>
+            <span class="opacity-[0.10]">VELOCIDAD</span><span class="opacity-[0.05]">·</span>
+            <span class="opacity-[0.13]">MÉTODO</span><span class="opacity-[0.08]">·</span>
+            <span class="opacity-[0.12]">AUTONOMÍA</span><span class="opacity-[0.06]">·</span>
+            <span class="opacity-[0.14]">HONESTIDAD</span><span class="opacity-[0.07]">·</span>
+            <span class="opacity-[0.10]">VELOCIDAD</span><span class="opacity-[0.05]">·</span>
+            <span class="opacity-[0.15]">MÉTODO</span><span class="opacity-[0.09]">·</span>
+            <span class="opacity-[0.11]">AUTONOMÍA</span><span class="opacity-[0.06]">·</span>
+            <span class="opacity-[0.13]">HONESTIDAD</span><span class="opacity-[0.08]">·</span>
+          </div>
+        </div>
+
+        <!-- Principios — stack editorial con hairlines -->
+        <div class="border-t border-ink/15">
+
+          <!-- 01 · VELOCIDAD -->
+          <article class="grid grid-cols-1 md:grid-cols-[140px_1fr_1.3fr] gap-x-10 gap-y-4 py-10 md:py-14 border-b border-ink/15">
+            <div>
+              <span class="font-display text-6xl md:text-7xl leading-none text-ink/15 issue-number">01</span>
+            </div>
+            <div class="flex flex-col gap-3">
+              <span class="font-mono text-[11px] uppercase tracking-extra-wide text-accent">01 — Velocidad</span>
+              <h3 class="font-display text-[1.75rem] md:text-[2.25rem] leading-[1.05] text-ink tracking-tight max-w-md">Producción, no presentaciones.</h3>
+            </div>
+            <div class="md:pt-[2.15rem]">
+              <p class="font-serif text-base md:text-lg text-inkSoft leading-relaxed max-w-xl">Trabajamos en ciclos cortos y mostramos avances que funcionan, no diapositivas. Cada semana algo nuevo queda operando.</p>
+            </div>
+          </article>
+
+          <!-- 02 · MÉTODO -->
+          <article class="grid grid-cols-1 md:grid-cols-[140px_1fr_1.3fr] gap-x-10 gap-y-4 py-10 md:py-14 border-b border-ink/15">
+            <div>
+              <span class="font-display text-6xl md:text-7xl leading-none text-ink/15 issue-number">02</span>
+            </div>
+            <div class="flex flex-col gap-3">
+              <span class="font-mono text-[11px] uppercase tracking-extra-wide text-accent">02 — Método</span>
+              <h3 class="font-display text-[1.75rem] md:text-[2.25rem] leading-[1.05] text-ink tracking-tight max-w-md">Nada queda a la intuición.</h3>
+            </div>
+            <div class="md:pt-[2.15rem]">
+              <p class="font-serif text-base md:text-lg text-inkSoft leading-relaxed max-w-xl">Arrancamos con un número concreto a mover y medimos antes y después de cada etapa. Así sabés exactamente qué cambió.</p>
+            </div>
+          </article>
+
+          <!-- 03 · AUTONOMÍA -->
+          <article class="grid grid-cols-1 md:grid-cols-[140px_1fr_1.3fr] gap-x-10 gap-y-4 py-10 md:py-14 border-b border-ink/15">
+            <div>
+              <span class="font-display text-6xl md:text-7xl leading-none text-ink/15 issue-number">03</span>
+            </div>
+            <div class="flex flex-col gap-3">
+              <span class="font-mono text-[11px] uppercase tracking-extra-wide text-accent">03 — Autonomía</span>
+              <h3 class="font-display text-[1.75rem] md:text-[2.25rem] leading-[1.05] text-ink tracking-tight max-w-md">Tu equipo se queda operando solo.</h3>
+            </div>
+            <div class="md:pt-[2.15rem]">
+              <p class="font-serif text-base md:text-lg text-inkSoft leading-relaxed max-w-xl">Construimos sobre tu propia infraestructura y te dejamos el código, la documentación y la capacitación para operarlo. Cuando nos vamos, nada deja de funcionar.</p>
+            </div>
+          </article>
+
+          <!-- 04 · HONESTIDAD -->
+          <article class="grid grid-cols-1 md:grid-cols-[140px_1fr_1.3fr] gap-x-10 gap-y-4 py-10 md:py-14 border-b border-ink/15">
+            <div>
+              <span class="font-display text-6xl md:text-7xl leading-none text-ink/15 issue-number">04</span>
+            </div>
+            <div class="flex flex-col gap-3">
+              <span class="font-mono text-[11px] uppercase tracking-extra-wide text-accent">04 — Honestidad</span>
+              <h3 class="font-display text-[1.75rem] md:text-[2.25rem] leading-[1.05] text-ink tracking-tight max-w-md">Si la IA no suma, te lo decimos.</h3>
+            </div>
+            <div class="md:pt-[2.15rem]">
+              <p class="font-serif text-base md:text-lg text-inkSoft leading-relaxed max-w-xl">En la primera reunión, sin vueltas. Preferimos perder el proyecto antes que venderte una solución que no necesitás.</p>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Cierre editorial -->
+        <div class="mt-12 md:mt-16 flex items-center gap-4">
+          <span class="block w-10 h-px bg-accent"></span>
+          <p class="font-mono text-xs uppercase tracking-extra-wide text-ink/60">Sin piloto eterno · Sin caja negra · Sin letra chica</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5 — EQUIPO -->
+    <section id="section-5" data-section="equipo" class="px-6 md:px-10 py-20 md:py-28 bg-paperWarm">
+      <div class="max-w-[1320px] mx-auto">
+
+        <!-- Eyebrow row -->
+        <div class="flex items-baseline justify-between gap-6 mb-8 md:mb-10">
+          <p class="font-mono text-xs uppercase tracking-extra-wide text-ink/60">Nº 05 · Equipo fundador</p>
+          <p class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/40 hidden md:block">Acelera · Fundadores · 03</p>
+        </div>
+
+        <!-- Generative text band — nombres repetidos, opacidades bajas -->
+        <div class="border-t border-b border-ink/15 py-3 mb-14 md:mb-20 overflow-hidden select-none" aria-hidden="true">
+          <p class="font-mono text-[10px] uppercase tracking-wider2 text-ink/[0.15] leading-[1.6] whitespace-nowrap">IGNACIO ESTEVO · MAURO PROTO · FRANCO FERREIRA · IGNACIO ESTEVO · MAURO PROTO · FRANCO FERREIRA · IGNACIO ESTEVO · MAURO PROTO</p>
+          <p class="font-mono text-[10px] uppercase tracking-wider2 text-ink/[0.10] leading-[1.6] whitespace-nowrap">FRANCO FERREIRA · IGNACIO ESTEVO · MAURO PROTO · FRANCO FERREIRA · IGNACIO ESTEVO · MAURO PROTO · FRANCO FERREIRA · IGNACIO ESTEVO</p>
+          <p class="font-mono text-[10px] uppercase tracking-wider2 text-ink/[0.14] leading-[1.6] whitespace-nowrap">MAURO PROTO · FRANCO FERREIRA · IGNACIO ESTEVO · MAURO PROTO · FRANCO FERREIRA · IGNACIO ESTEVO · MAURO PROTO · FRANCO FERREIRA</p>
+          <p class="font-mono text-[10px] uppercase tracking-wider2 text-ink/[0.08] leading-[1.6] whitespace-nowrap">IGNACIO · MAURO · FRANCO · IGNACIO · MAURO · FRANCO · IGNACIO · MAURO · FRANCO · IGNACIO · MAURO · FRANCO · IGNACIO · MAURO</p>
+          <p class="font-mono text-[10px] uppercase tracking-wider2 text-ink/[0.15] leading-[1.6] whitespace-nowrap">FRANCO FERREIRA · MAURO PROTO · IGNACIO ESTEVO · FRANCO FERREIRA · MAURO PROTO · IGNACIO ESTEVO · FRANCO FERREIRA · MAURO PROTO</p>
+          <p class="font-mono text-[10px] uppercase tracking-wider2 text-ink/[0.10] leading-[1.6] whitespace-nowrap">IGNACIO ESTEVO · FRANCO FERREIRA · MAURO PROTO · IGNACIO ESTEVO · FRANCO FERREIRA · MAURO PROTO · IGNACIO ESTEVO · FRANCO FERREIRA</p>
+        </div>
+
+        <!-- H2 + intro -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 mb-14 md:mb-20">
+          <div class="md:col-span-10 md:col-start-2">
+            <h2 class="font-display font-medium text-[2.25rem] md:text-6xl lg:text-[5rem] leading-[1.02] tracking-tight text-ink mb-7 md:mb-9">
+              Un solo <span class="mark mark--mustard">equipo</span>, del relevamiento a la operación.
+            </h2>
+            <p class="font-old text-lg md:text-2xl leading-relaxed text-ink/70 max-w-2xl">
+              Trabajás directo con quienes construyen. Sin gerentes de cuenta ni traspasos. Diseñamos, construimos y te dejamos la operación en tus manos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Callout · 3 hackathones -->
+        <div class="card-outline p-6 md:p-8 mb-16 md:mb-24 grid grid-cols-[auto_1fr] gap-5 md:gap-7 items-start">
+          <div class="shrink-0 w-12 h-12 md:w-14 md:h-14 border border-ink rounded-full flex items-center justify-center text-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-6 md:h-6" aria-hidden="true">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+              <path d="M4 22h16"/>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+            </svg>
+          </div>
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-extra-wide text-accent mb-3">Logro · Hackathones</p>
+            <p class="font-old text-lg md:text-2xl leading-snug text-ink">
+              3 hackathones ganados. Lo que muestra es que pasamos del problema a una solución funcional en horas, no en semanas.
+            </p>
+          </div>
+        </div>
+
+        <!-- Cards fundadores -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7">
+
+          <!-- Ignacio Estevo -->
+          <article class="card-outline overflow-hidden flex flex-col">
+            <div class="aspect-[4/5] relative bg-cream2 border-b border-ink overflow-hidden">
+              <div class="absolute inset-0 p-3 flex flex-col gap-[2px] font-mono text-[8px] uppercase tracking-wider2 leading-[1.65] overflow-hidden">
+                <p class="text-ink/[0.22] whitespace-nowrap">IGNACIO ESTEVO · IGNACIO · INGENIERÍA</p>
+                <p class="text-ink/[0.14] whitespace-nowrap">INGENIERÍA · IGNACIO ESTEVO · IGNACIO</p>
+                <p class="text-ink/[0.28] whitespace-nowrap">IGNACIO · INGENIERÍA · IGNACIO ESTEVO</p>
+                <p class="text-ink/[0.18] whitespace-nowrap">IGNACIO ESTEVO · INGENIERÍA E · IGNACIO</p>
+                <p class="text-ink/[0.25] whitespace-nowrap">INGENIERÍA E · IGNACIO ESTEVO · INGENIERÍA</p>
+                <p class="text-ink/[0.12] whitespace-nowrap">IGNACIO · INGENIERÍA · IGNACIO · INGENIERÍA</p>
+                <p class="text-ink/[0.30] whitespace-nowrap">INGENIERÍA E IMPLEMENTACIÓN · IGNACIO</p>
+                <p class="text-ink/[0.16] whitespace-nowrap">IGNACIO ESTEVO · IGNACIO · IGNACIO ESTEVO</p>
+                <p class="text-ink/[0.22] whitespace-nowrap">INGENIERÍA · IGNACIO · INGENIERÍA · IGNACIO</p>
+                <p class="text-ink/[0.10] whitespace-nowrap">IGNACIO · INGENIERÍA · IGNACIO ESTEVO</p>
+                <p class="text-ink/[0.26] whitespace-nowrap">IGNACIO ESTEVO · INGENIERÍA · IGNACIO</p>
+                <p class="text-ink/[0.14] whitespace-nowrap">INGENIERÍA · IGNACIO ESTEVO · IGNACIO</p>
+              </div>
+            </div>
+            <div class="p-6 md:p-7 flex-1 flex flex-col">
+              <p class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/40 mb-3">01 · Co-founder</p>
+              <h3 class="font-display font-semibold text-2xl md:text-[1.75rem] text-ink leading-[1.1] mb-3">Ignacio Estevo</h3>
+              <p class="font-mono text-[11px] uppercase tracking-extra-wide text-accent mb-5">Ingeniería e Implementación</p>
+              <div class="etching-rule mb-5"></div>
+              <p class="font-old text-[0.9375rem] md:text-base text-ink/70 leading-relaxed">Ingeniero Informático. Software Engineering | Automatización | IA aplicada</p>
+            </div>
+          </article>
+
+          <!-- Mauro Proto -->
+          <article class="card-outline overflow-hidden flex flex-col">
+            <div class="aspect-[4/5] relative bg-cream2 border-b border-ink overflow-hidden">
+              <div class="absolute inset-0 p-3 flex flex-col gap-[2px] font-mono text-[8px] uppercase tracking-wider2 leading-[1.65] overflow-hidden">
+                <p class="text-ink/[0.18] whitespace-nowrap">MAURO PROTO · MAURO · IMPLEMENTACIÓN</p>
+                <p class="text-ink/[0.28] whitespace-nowrap">IMPLEMENTACIÓN · MAURO PROTO · MAURO</p>
+                <p class="text-ink/[0.12] whitespace-nowrap">MAURO · IMPLEMENTACIÓN · MAURO PROTO</p>
+                <p class="text-ink/[0.22] whitespace-nowrap">MAURO PROTO · IMPLEMENTACIÓN T · MAURO</p>
+                <p class="text-ink/[0.14] whitespace-nowrap">IMPLEMENTACIÓN · MAURO · IMPLEMENTACIÓN</p>
+                <p class="text-ink/[0.26] whitespace-nowrap">MAURO · MAURO PROTO · IMPLEMENTACIÓN</p>
+                <p class="text-ink/[0.10] whitespace-nowrap">IMPLEMENTACIÓN TÉCNICA · MAURO · MAURO</p>
+                <p class="text-ink/[0.30] whitespace-nowrap">MAURO PROTO · MAURO PROTO · MAURO</p>
+                <p class="text-ink/[0.16] whitespace-nowrap">IMPLEMENTACIÓN · MAURO · IMPLEMENTACIÓN</p>
+                <p class="text-ink/[0.24] whitespace-nowrap">MAURO · MAURO PROTO · IMPLEMENTACIÓN T</p>
+                <p class="text-ink/[0.12] whitespace-nowrap">MAURO PROTO · IMPLEMENTACIÓN · MAURO</p>
+                <p class="text-ink/[0.28] whitespace-nowrap">IMPLEMENTACIÓN · MAURO · MAURO PROTO</p>
+              </div>
+            </div>
+            <div class="p-6 md:p-7 flex-1 flex flex-col">
+              <p class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/40 mb-3">02 · Co-founder</p>
+              <h3 class="font-display font-semibold text-2xl md:text-[1.75rem] text-ink leading-[1.1] mb-3">Mauro Proto</h3>
+              <p class="font-mono text-[11px] uppercase tracking-extra-wide text-accent mb-5">Implementación Técnica</p>
+              <div class="etching-rule mb-5"></div>
+              <p class="font-old text-[0.9375rem] md:text-base text-ink/70 leading-relaxed">AI/ML Engineering — Especialista en LLMs en producción.</p>
+            </div>
+          </article>
+
+          <!-- Franco Ferreira -->
+          <article class="card-outline overflow-hidden flex flex-col">
+            <div class="aspect-[4/5] relative bg-cream2 border-b border-ink overflow-hidden">
+              <div class="absolute inset-0 p-3 flex flex-col gap-[2px] font-mono text-[8px] uppercase tracking-wider2 leading-[1.65] overflow-hidden">
+                <p class="text-ink/[0.20] whitespace-nowrap">FRANCO FERREIRA · FRANCO · ESTRATEGIA</p>
+                <p class="text-ink/[0.30] whitespace-nowrap">ESTRATEGIA · FRANCO FERREIRA · FRANCO</p>
+                <p class="text-ink/[0.14] whitespace-nowrap">FRANCO · ESTRATEGIA · FRANCO FERREIRA</p>
+                <p class="text-ink/[0.24] whitespace-nowrap">FRANCO FERREIRA · ESTRATEGIA Y · FRANCO</p>
+                <p class="text-ink/[0.18] whitespace-nowrap">ESTRATEGIA Y PROCESOS · FRANCO FERREIRA</p>
+                <p class="text-ink/[0.10] whitespace-nowrap">FRANCO · FRANCO FERREIRA · ESTRATEGIA</p>
+                <p class="text-ink/[0.28] whitespace-nowrap">ESTRATEGIA · FRANCO · ESTRATEGIA · FRANCO</p>
+                <p class="text-ink/[0.16] whitespace-nowrap">FRANCO FERREIRA · ESTRATEGIA · FRANCO</p>
+                <p class="text-ink/[0.22] whitespace-nowrap">ESTRATEGIA Y · FRANCO FERREIRA · ESTRATEGIA</p>
+                <p class="text-ink/[0.12] whitespace-nowrap">FRANCO · ESTRATEGIA · FRANCO · ESTRATEGIA</p>
+                <p class="text-ink/[0.26] whitespace-nowrap">FRANCO FERREIRA · FRANCO · ESTRATEGIA Y</p>
+                <p class="text-ink/[0.14] whitespace-nowrap">ESTRATEGIA · FRANCO FERREIRA · FRANCO</p>
+              </div>
+            </div>
+            <div class="p-6 md:p-7 flex-1 flex flex-col">
+              <p class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/40 mb-3">03 · Co-founder</p>
+              <h3 class="font-display font-semibold text-2xl md:text-[1.75rem] text-ink leading-[1.1] mb-3">Franco Ferreira</h3>
+              <p class="font-mono text-[11px] uppercase tracking-extra-wide text-accent mb-5">Estrategia y Procesos</p>
+              <div class="etching-rule mb-5"></div>
+              <p class="font-old text-[0.9375rem] md:text-base text-ink/70 leading-relaxed">Ingeniero en Software. Business Intelligence | Optimización de procesos</p>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6 — CITA FUNDADOR -->
+    <section id="section-6" data-section="cita" class="px-6 md:px-10 py-20 md:py-28 bg-paper relative overflow-hidden">
+      <div class="max-w-[1320px] mx-auto relative">
+
+        <!-- Generative text (decorative, desktop only) -->
+        <aside aria-hidden="true" class="hidden lg:block absolute right-6 top-1/2 -translate-y-1/2 font-mono text-[10px] uppercase tracking-extra-wide text-ink leading-[1.9] text-right pointer-events-none select-none">
+          <span class="opacity-[0.05]">PLATA · TIEMPO · REPUTACIÓN</span><br>
+          <span class="opacity-[0.09]">PLATA · TIEMPO · REPUTACIÓN</span><br>
+          <span class="opacity-[0.13]">PLATA · TIEMPO · REPUTACIÓN</span><br>
+          <span class="opacity-[0.07]">PLATA · TIEMPO · REPUTACIÓN</span><br>
+          <span class="opacity-[0.15]">PLATA · TIEMPO · REPUTACIÓN</span><br>
+          <span class="opacity-[0.04]">PLATA · TIEMPO · REPUTACIÓN</span><br>
+          <span class="opacity-[0.11]">PLATA · TIEMPO · REPUTACIÓN</span><br>
+          <span class="opacity-[0.06]">PLATA · TIEMPO · REPUTACIÓN</span><br>
+          <span class="opacity-[0.10]">PLATA · TIEMPO · REPUTACIÓN</span><br>
+          <span class="opacity-[0.08]">PLATA · TIEMPO · REPUTACIÓN</span>
+        </aside>
+
+        <!-- Quote content (centered) -->
+        <div class="text-center max-w-[20ch] mx-auto relative">
+          <p class="font-mono text-xs uppercase tracking-extra-wide text-ink/60 mb-10 md:mb-14">
+            [ Nº 06 · Nota del editor ]
+          </p>
+
+          <span aria-hidden="true" class="block font-display text-7xl md:text-8xl text-ink/20 leading-none mb-2 select-none">"</span>
+
+          <blockquote class="font-display text-4xl md:text-6xl lg:text-7xl text-ink leading-[1.05] tracking-tight">
+            Arrancamos por donde se pierde plata, tiempo o reputación. Si no se ve, <span class="markerline">no lo hacemos</span>.
+          </blockquote>
+
+          <div class="mt-12 md:mt-16 flex items-center justify-center gap-4 font-mono text-xs uppercase tracking-wider2 text-ink/50">
+            <span class="w-8 h-px bg-ink/30"></span>
+            <span>A. Estevo · M. Proto · F. Ferreira · Cofounders</span>
+            <span class="w-8 h-px bg-ink/30"></span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 7 — LO QUE NO HACEMOS -->
+    <section id="section-7" data-section="limites" class="px-6 md:px-10 py-20 md:py-28 bg-paperWarm">
+      <div class="max-w-[1320px] mx-auto">
+
+        <header class="mb-14 md:mb-20 max-w-[920px]">
+          <p class="font-mono text-xs uppercase tracking-extra-wide text-ink/60 mb-7">Nº 07 · LÍMITES</p>
+          <h2 class="font-display font-medium text-[2.5rem] md:text-[4.25rem] leading-[1.02] tracking-[-0.012em] text-ink">Cinco cosas que no vas a encontrar acá.</h2>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-24 items-start">
+
+          <ul class="border-t border-ink/15">
+            <li class="flex items-start gap-5 md:gap-7 py-5 md:py-6 border-b border-ink/15">
+              <span class="font-mono text-signal text-lg md:text-xl leading-none shrink-0 mt-[0.55em]">×</span>
+              <span class="font-display text-[1.25rem] md:text-[1.5rem] leading-[1.28] line-through decoration-1 decoration-accent text-ink/75">No sumamos IA donde no cambia nada.</span>
+            </li>
+            <li class="flex items-start gap-5 md:gap-7 py-5 md:py-6 border-b border-ink/15">
+              <span class="font-mono text-signal text-lg md:text-xl leading-none shrink-0 mt-[0.55em]">×</span>
+              <span class="font-display text-[1.25rem] md:text-[1.5rem] leading-[1.28] line-through decoration-1 decoration-accent text-ink/75">No entregamos PDFs y nos vamos.</span>
+            </li>
+            <li class="flex items-start gap-5 md:gap-7 py-5 md:py-6 border-b border-ink/15">
+              <span class="font-mono text-signal text-lg md:text-xl leading-none shrink-0 mt-[0.55em]">×</span>
+              <span class="font-display text-[1.25rem] md:text-[1.5rem] leading-[1.28] line-through decoration-1 decoration-accent text-ink/75">No hacemos pilotos eternos sin camino a producción.</span>
+            </li>
+            <li class="flex items-start gap-5 md:gap-7 py-5 md:py-6 border-b border-ink/15">
+              <span class="font-mono text-signal text-lg md:text-xl leading-none shrink-0 mt-[0.55em]">×</span>
+              <span class="font-display text-[1.25rem] md:text-[1.5rem] leading-[1.28] line-through decoration-1 decoration-accent text-ink/75">No te dejamos atado a una caja negra que solo sepamos abrir nosotros.</span>
+            </li>
+            <li class="flex items-start gap-5 md:gap-7 py-5 md:py-6 border-b border-ink/40">
+              <span class="font-mono text-signal text-lg md:text-xl leading-none shrink-0 mt-[0.55em]">×</span>
+              <span class="font-display text-[1.25rem] md:text-[1.5rem] leading-[1.28] line-through decoration-1 decoration-accent text-ink/75">No prometemos magia, humo ni revoluciones de marketing.</span>
+            </li>
+          </ul>
+
+          <div aria-hidden="true" class="font-mono text-[11px] md:text-xs uppercase tracking-[0.18em] leading-[1.9] select-none">
+            <p class="opacity-[0.10]">NO · NO · NO · NO · NO · NO · NO · NO</p>
+            <p class="opacity-[0.15]">NOT · NEVER · NONE · NO · NOT · NEVER</p>
+            <p class="opacity-[0.07]">NO · NO · NO · NO · NO · NO · NO</p>
+            <p class="opacity-[0.12]">NOT · NO · NEVER · NONE · NO · NONE</p>
+            <p class="opacity-[0.05]">NO · NO · NO · NO · NO · NO</p>
+            <p class="opacity-[0.10]">NO · NOT · NEVER · NO · NEVER · NO</p>
+            <p class="opacity-[0.14]">NO · NO · NO · NO · NO · NO · NO · NO</p>
+            <p class="opacity-[0.08]">NOT · NONE · NEVER · NO · NOT · NONE</p>
+            <p class="opacity-[0.11]">NO · NO · NO · NO · NO · NO · NO</p>
+            <p class="opacity-[0.06]">NOT · NEVER · NO · NO · NEVER · NONE</p>
+            <p class="opacity-[0.13]">NO · NO · NO · NO · NO · NO · NO</p>
+            <p class="opacity-[0.09]">NOT · NO · NEVER · NO · NEVER · NONE</p>
+          </div>
+
+        </div>
+
+        <p class="font-display font-semibold text-[1.625rem] md:text-[2.5rem] leading-[1.2] tracking-[-0.005em] max-w-[22ch] mt-16 md:mt-24">
+          Si buscás eso, no somos tu equipo. <span class="markerline">Te lo decimos al inicio</span>.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- SECTION 8 — CONTACTO -->
+    <section id="section-8" data-section="contacto" class="px-6 md:px-10 py-20 md:py-28 bg-paper">
+      <div class="max-w-[1320px] mx-auto">
+
+        <!-- Eyebrow + etching rule -->
+        <div class="flex items-center gap-6 mb-8 md:mb-10">
+          <p class="font-mono text-xs uppercase tracking-extra-wide text-ink/60 whitespace-nowrap">Nº 08 · Hablemos</p>
+          <div class="flex-1 etching-rule"></div>
+          <p class="font-mono text-xs uppercase tracking-extra-wide text-ink/40 whitespace-nowrap hidden sm:block">Sección final · Contacto</p>
+        </div>
+
+        <!-- Generative text band (compact, low opacity) -->
+        <p aria-hidden="true" class="font-mono text-[10px] sm:text-xs uppercase tracking-extra-wide text-ink mb-14 md:mb-20 select-none overflow-hidden whitespace-nowrap">
+          <span class="opacity-[0.08]">Hablemos · 30 minutos · Sin compromiso · Hablemos · 30 minutos · Sin compromiso · Hablemos · 30 minutos · Sin compromiso · Hablemos · 30 minutos · Sin compromiso ·&nbsp;</span>
+        </p>
+
+        <!-- Split 50/50 layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-16 lg:gap-20 items-start">
+
+          <!-- LEFT — Copy + contacto -->
+          <div class="flex flex-col">
+            <h2 class="font-display font-medium text-5xl md:text-6xl lg:text-[5.5rem] leading-[0.95] tracking-tight text-ink mb-8">
+              Elegí un horario y <span class="markerline">arrancamos</span>.
+            </h2>
+
+            <p class="font-old text-lg md:text-xl leading-relaxed text-inkSoft max-w-[42ch] mb-12">
+              30 minutos, sin compromiso. Mapeamos tu caso y salís con el próximo paso claro —o con un "no" honesto si la IA no aporta.
+            </p>
+
+            <!-- Contact lines -->
+            <dl class="border-t border-ink/20 mb-10">
+              <a href="mailto:contacto@acelera.agency" class="flex items-baseline justify-between gap-6 py-4 border-b border-ink/15 group">
+                <dt class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/50">Email</dt>
+                <dd class="font-mono text-sm md:text-base text-ink group-hover:text-accent transition-colors">contacto@acelera.agency</dd>
+              </a>
+              <a href="tel:+5491161758891" class="flex items-baseline justify-between gap-6 py-4 border-b border-ink/15 group">
+                <dt class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/50">Teléfono</dt>
+                <dd class="font-mono text-sm md:text-base text-ink group-hover:text-accent transition-colors">+54 9 11 6175 8891</dd>
+              </a>
+            </dl>
+
+            <!-- CTA pill -->
+            <a href="mailto:contacto@acelera.agency" class="inline-flex items-center gap-4 self-start px-7 py-4 bg-ink text-paper rounded-full font-mono text-xs uppercase tracking-wider2 hover:bg-accentDeep transition-colors">
+              Hablemos
+              <span class="w-5 h-[2px] bg-accent"></span>
+            </a>
+          </div>
+
+          <!-- RIGHT — Calendly placeholder card -->
+          <div class="card-mustard grain relative p-7 md:p-9 flex flex-col">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-6 relative z-10">
+              <p class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/70">Semana próxima · GMT-3</p>
+              <p class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/50">Próximamente</p>
+            </div>
+
+            <!-- Day labels -->
+            <div class="grid grid-cols-7 gap-1.5 mb-2 relative z-10">
+              <span class="text-center font-mono text-[9px] uppercase tracking-wider2 text-ink/55">L</span>
+              <span class="text-center font-mono text-[9px] uppercase tracking-wider2 text-ink/55">M</span>
+              <span class="text-center font-mono text-[9px] uppercase tracking-wider2 text-ink/55">M</span>
+              <span class="text-center font-mono text-[9px] uppercase tracking-wider2 text-ink/55">J</span>
+              <span class="text-center font-mono text-[9px] uppercase tracking-wider2 text-ink/55">V</span>
+              <span class="text-center font-mono text-[9px] uppercase tracking-wider2 text-ink/55">S</span>
+              <span class="text-center font-mono text-[9px] uppercase tracking-wider2 text-ink/55">D</span>
+            </div>
+
+            <!-- Mini calendar: 7 cols × 5 rows = 35 cells -->
+            <div class="grid grid-cols-7 gap-1.5 mb-7 relative z-10">
+              <!-- Row 1 -->
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+              <!-- Row 2 -->
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/20"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+              <!-- Row 3 — ACCENT slot at col 4 -->
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink rounded-[3px] bg-accent relative">
+                <span class="absolute inset-0 flex items-center justify-center font-mono text-[10px] font-medium text-paper issue-number">11</span>
+              </div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+              <!-- Row 4 -->
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/20"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+              <!-- Row 5 -->
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px]"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/20"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+              <div class="aspect-square border border-ink/30 rounded-[3px] bg-ink/10"></div>
+            </div>
+
+            <!-- Copy -->
+            <p class="font-old text-base md:text-lg leading-snug text-ink mb-7 max-w-[28ch] relative z-10">
+              Reservá un slot · <span class="font-medium">30 minutos</span> · Sin compromiso.
+            </p>
+
+            <!-- Fake button -->
+            <button type="button" class="mt-auto inline-flex items-center justify-center gap-3 px-6 py-3.5 bg-ink text-paper rounded-full font-mono text-xs uppercase tracking-wider2 hover:bg-accentDeep transition-colors relative z-10">
+              Ver disponibilidad
+              <span class="w-4 h-[2px] bg-accent"></span>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 9 — FOOTER TOP (marca + nav + legal) -->
+    <footer id="section-9" data-section="footer-top" class="px-6 md:px-10 py-16 md:py-20 bg-ink text-paper relative overflow-hidden">
+      <div class="max-w-[1320px] mx-auto">
+
+        <!-- Generative text band — editorial rule, 2 líneas, opacidades bajas -->
+        <div class="border-y border-paper/15 py-6 mb-14 md:mb-20 select-none" aria-hidden="true">
+          <div class="font-display text-paper/[0.08] leading-[0.95] tracking-tight text-4xl md:text-6xl lg:text-7xl whitespace-nowrap overflow-hidden">
+            ACELERA · IA · SENTIDO · NEGOCIO · ACELERA · IA · SENTIDO · NEGOCIO · ACELERA ·
+          </div>
+          <div class="font-mono text-paper/[0.14] leading-tight text-[10px] md:text-[11px] uppercase tracking-extra-wide mt-3 whitespace-nowrap overflow-hidden">
+            consultoría · implementación · diagnóstico · sentido · consultoría · implementación · diagnóstico · sentido ·
+          </div>
+        </div>
+
+        <!-- Grid 40 / 30 / 30 -->
+        <div class="grid grid-cols-1 md:grid-cols-10 gap-12 md:gap-10 lg:gap-16">
+
+          <!-- Brand — 4 cols (40%) -->
+          <div class="md:col-span-4 flex flex-col gap-7">
+            <a href="#section-1" class="font-display font-semibold text-3xl md:text-4xl tracking-tight leading-none">
+              <span class="relative inline-block">
+                Acelera<span class="absolute left-0 right-0 -bottom-[0.18em] h-[2px] bg-accent"></span>
+              </span>
+            </a>
+
+            <p class="font-display italic text-base md:text-lg text-paper/70 leading-snug max-w-md">
+              IA con sentido: consultoría e implementación donde aporta. Si tu negocio no la necesita, te lo decimos en la primera reunión.
+            </p>
+
+            <div class="flex flex-col gap-1.5 font-mono text-sm">
+              <a href="mailto:contacto@acelera.agency" class="text-paper/80 hover:text-accent transition-colors w-fit">
+                contacto@acelera.agency
+              </a>
+              <a href="tel:+5491161758891" class="text-paper/80 hover:text-accent transition-colors w-fit">
+                +54 9 11 6175 8891
+              </a>
+            </div>
+
+            <div class="flex flex-wrap gap-2 mt-1">
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 border border-paper/30 rounded-full font-mono text-[11px] uppercase tracking-wider2 text-paper/80 hover:border-accent hover:text-accent transition-colors">
+                LinkedIn
+              </a>
+              <a href="https://wa.me/5491161758891" target="_blank" rel="noopener" class="inline-flex items-center px-4 py-2 border border-paper/30 rounded-full font-mono text-[11px] uppercase tracking-wider2 text-paper/80 hover:border-accent hover:text-accent transition-colors">
+                WhatsApp
+              </a>
+            </div>
+          </div>
+
+          <!-- Navegación — 3 cols (30%) -->
+          <div class="md:col-span-3 flex flex-col gap-5">
+            <p class="font-mono text-[11px] uppercase tracking-extra-wide text-paper/40">Navegación</p>
+            <ul class="flex flex-col gap-3 font-mono text-sm uppercase tracking-wider2">
+              <li><a href="#section-3" class="text-paper/80 hover:text-accent transition-colors">Cómo trabajamos</a></li>
+              <li><a href="#section-4" class="text-paper/80 hover:text-accent transition-colors">Sectores</a></li>
+              <li><a href="#section-5" class="text-paper/80 hover:text-accent transition-colors">Equipo</a></li>
+              <li><a href="#section-8" class="text-paper/80 hover:text-accent transition-colors">Hablemos</a></li>
+            </ul>
+          </div>
+
+          <!-- Legal — 3 cols (30%) -->
+          <div class="md:col-span-3 flex flex-col gap-5">
+            <p class="font-mono text-[11px] uppercase tracking-extra-wide text-paper/40">Legal</p>
+            <ul class="flex flex-col gap-3 font-mono text-sm uppercase tracking-wider2">
+              <li><a href="#" class="text-paper/80 hover:text-accent transition-colors">Privacidad</a></li>
+              <li><a href="#" class="text-paper/80 hover:text-accent transition-colors">Términos</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </footer>
+
+    <!-- SECTION 10 — COLOPHON (final copyright + statement) -->
+    <section id="section-10" data-section="colophon" class="px-6 md:px-10 py-8 bg-ink text-paper/60 relative">
+      <div class="max-w-[1320px] mx-auto border-t border-paper/15 pt-6">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-8">
+          <p class="font-mono text-[11px] md:text-xs uppercase tracking-extra-wide text-paper/40">
+            © 2026 Acelera — Adopción de IA con sentido
+          </p>
+          <p class="font-mono text-[11px] md:text-xs uppercase tracking-extra-wide text-paper/50 md:text-right">
+            IA que tu equipo opera. No una caja negra.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

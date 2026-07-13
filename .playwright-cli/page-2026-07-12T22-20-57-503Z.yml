@@ -1,0 +1,259 @@
+- generic [ref=e1]:
+  - link "Skip to content" [ref=e362] [cursor=pointer]:
+    - /url: "#hero-section"
+  - banner [ref=e3]:
+    - link "Acelera — back to top" [ref=e363] [cursor=pointer]:
+      - /url: "#hero-section"
+      - text: Aceler
+      - generic [ref=e5]: a
+    - generic [ref=e12]:
+      - group "Language" [ref=e364]:
+        - button "ES" [ref=e14] [cursor=pointer]
+        - generic [ref=e15]: /
+        - button "EN" [active] [pressed] [ref=e16] [cursor=pointer]
+      - button "Open navigation menu" [ref=e365] [cursor=pointer]
+  - main [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e23]:
+        - heading "AI with purpose , where the business needs it." [level=1] [ref=e366]:
+          - text: AI
+          - generic [ref=e25]: with purpose
+          - text: ", where the business needs it."
+        - paragraph [ref=e26]: We design and develop software for specific needs. We start with a concrete problem and take it through to a production-ready solution.
+        - generic [ref=e27]:
+          - link "Let's talk" [ref=e367] [cursor=pointer]:
+            - /url: "#contacto"
+          - link "What we build" [ref=e368] [cursor=pointer]:
+            - /url: "#construimos"
+      - link "Seguir leyendo" [ref=e32] [cursor=pointer]:
+        - /url: "#situaciones"
+    - generic [ref=e37]:
+      - generic [ref=e39]:
+        - generic [ref=e40]: Where we can help
+        - heading "Custom development for companies." [level=2] [ref=e369]
+      - generic [ref=e42]:
+        - article [ref=e43]:
+          - generic [ref=e44]:
+            - heading "Software for operational processes." [level=3] [ref=e370]
+            - paragraph [ref=e46]: Internal tools and integrations that replace manual processes with a system of your own.
+        - article [ref=e47]:
+          - generic [ref=e48]:
+            - heading "Development alongside product teams." [level=3] [ref=e371]
+            - paragraph [ref=e50]: We take a specific part of the product through to production alongside the internal team.
+    - generic [ref=e53]:
+      - heading "We tell you when not to." [level=2] [ref=e372]
+      - paragraph [ref=e55]: If you don't need it, we'll say so in the first meeting. If you do, we stay until it is running in production, without black boxes.
+      - paragraph [ref=e56]: That is why we are here
+    - generic [ref=e58]:
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - generic [ref=e62]: Capabilities
+          - heading "What we develop" [level=2] [ref=e373]
+        - paragraph [ref=e64]: We design custom tools and platforms to organize processes, connect systems, and reduce manual work.
+      - generic [ref=e65]:
+        - group "Capacidades de Acelera":
+          - button "Internal platforms"
+          - button "MVPs and products"
+          - button "Operational software"
+          - button "Web and mobile"
+          - button "Dashboards and BI"
+          - button "AI agents"
+      - paragraph [ref=e102]: First we define what needs to be built. Then we choose the technology.
+    - generic [ref=e104]:
+      - generic [ref=e106]:
+        - generic [ref=e107]: Projects
+        - heading "Projects built to solve real problems ." [level=2] [ref=e374]:
+          - text: Projects built to solve
+          - generic [ref=e109]: real problems
+          - text: .
+        - paragraph [ref=e110]: All three projects received awards in national and international technology and AI competitions. In each case, we defined the problem, built a usable solution and presented it working.
+      - generic [ref=e111]:
+        - article [ref=e112]:
+          - 'img "Faro: mapa interactivo de contrataciones de obra pública" [ref=e114]'
+          - generic [ref=e116]:
+            - generic [ref=e117]: 1st place · Hack@LATAM
+            - heading "Faro" [level=3] [ref=e118]
+            - paragraph [ref=e119]: A platform that brings together 426 public works records from Argentina, Chile and Peru on an interactive map. It makes it possible to review warning signals and verify each case against its official source.
+        - generic [ref=e130]:
+          - article [ref=e131]:
+            - 'img "Vueltito: donaciones recurrentes a partir del vuelto" [ref=e133]'
+            - generic [ref=e134]:
+              - generic [ref=e135]: 1st place · Paisanos NGO
+              - heading "Vueltito" [level=3] [ref=e137]
+              - paragraph [ref=e139]: A platform that turns small amounts from everyday purchases into recurring donations for nonprofits. The proposal was defined after speaking with more than 30 people in the sector.
+          - article [ref=e140]:
+            - 'img "MUSA: letras sincronizadas y patrones hápticos" [ref=e142]'
+            - generic [ref=e143]:
+              - generic [ref=e144]: Special award · AI Music Hackathon
+              - heading "MUSA" [level=3] [ref=e146]
+              - paragraph [ref=e148]: A mobile music accessibility experience for deaf or hard-of-hearing people. It combines synchronized lyrics, visual cues and haptic patterns.
+    - generic [ref=e150]:
+      - generic [ref=e152]:
+        - generic [ref=e153]: How we work
+        - heading "From the problem to a working system ." [level=2] [ref=e375]:
+          - text: From the problem to a
+          - generic [ref=e155]: working system
+          - text: .
+      - paragraph [ref=e157]: We work with AWS, React, Node.js, Python, PostgreSQL, Anthropic, OpenAI and Expo according to each solution's needs.
+      - generic [ref=e159]:
+        - article [ref=e160]:
+          - generic [ref=e161]:
+            - generic [ref=e162]:
+              - generic [ref=e163]: Diagnosis
+              - generic [ref=e164]: 01 / 04
+            - heading "We define the problem before building." [level=3] [ref=e376]
+            - generic [ref=e167]:
+              - generic [ref=e168]: Outcome
+              - generic [ref=e169]: Defined problem + success criteria
+        - article [ref=e170]:
+          - generic [ref=e171]:
+            - generic [ref=e172]:
+              - generic [ref=e173]: Design
+              - generic [ref=e174]: 02 / 04
+            - heading "We turn the need into a plan of work." [level=3] [ref=e377]
+            - generic [ref=e177]:
+              - generic [ref=e178]: Outcome
+              - generic [ref=e179]: Scope + technical design + priorities
+        - article [ref=e180]:
+          - generic [ref=e181]:
+            - generic [ref=e182]:
+              - generic [ref=e183]: Build
+              - generic [ref=e184]: 03 / 04
+            - heading "We deliver progress that can be used and tested." [level=3] [ref=e378]
+            - generic [ref=e187]:
+              - generic [ref=e188]: Outcome
+              - generic [ref=e189]: Usable software + next decision
+        - article [ref=e190]:
+          - generic [ref=e191]:
+            - generic [ref=e192]:
+              - generic [ref=e193]: Production
+              - generic [ref=e194]: 04 / 04
+            - heading "The system stays running and under your control." [level=3] [ref=e379]
+            - generic [ref=e197]:
+              - generic [ref=e198]: Outcome
+              - generic [ref=e199]: Production + metrics + documentation
+    - generic [ref=e205]:
+      - generic [ref=e206]:
+        - generic [ref=e207]: Founding team
+        - heading "One team from discovery to operations." [level=2] [ref=e380]
+        - paragraph [ref=e209]: "Three university friends, tired of AI hype. The people who design are the people who build: no account managers and no handoffs."
+        - paragraph [ref=e210]:
+          - generic [ref=e218]:
+            - strong [ref=e219]: 3 hackathons won.
+            - text: From problem to working solution in hours.
+      - generic [ref=e220]:
+        - generic [ref=e221]:
+          - img "Ignacio" [ref=e223]
+          - generic [ref=e224]:
+            - heading "Ignacio Estevo" [level=4] [ref=e225]
+            - link [ref=e226] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ignacio-estevo/
+          - generic [ref=e230]: Engineering and implementation
+          - paragraph [ref=e231]: Computer engineer. Software engineering | Automation | Applied AI
+        - generic [ref=e232]:
+          - img "Mauro" [ref=e234]
+          - generic [ref=e235]:
+            - heading "Mauro Proto" [level=4] [ref=e236]
+            - link [ref=e237] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/mauroprotocassina/
+          - generic [ref=e241]: Technical implementation
+          - paragraph [ref=e242]: AI/ML EngineeringSpecialist in production LLMs.
+        - generic [ref=e243]:
+          - img "Franco" [ref=e245]
+          - generic [ref=e246]:
+            - heading "Franco Ferreira" [level=4] [ref=e247]
+            - link [ref=e248] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/franco-ferreira/
+          - generic [ref=e252]: Strategy and processes
+          - paragraph [ref=e253]: Software engineer. Business intelligence | Process optimization
+    - generic [ref=e255]:
+      - generic [ref=e256]:
+        - generic [ref=e257]:
+          - generic [ref=e258]: Before starting
+          - heading "Frequently asked questions." [level=2] [ref=e381]
+        - paragraph [ref=e260]: Answers about timelines, scope, code ownership, information and support after launch.
+      - generic [ref=e261]:
+        - group [ref=e262]:
+          - generic "How long does a project take?" [ref=e382] [cursor=pointer]:
+            - text: How long does a project take?
+            - generic [ref=e264]: +
+          - paragraph [ref=e360]: It depends on the scope. Discovery usually takes one week, and a first version takes between two and six weeks. Before starting, we agree on stages, deliverables and dates.
+        - group [ref=e265]:
+          - generic "How does the work begin?" [ref=e383] [cursor=pointer]:
+            - text: How does the work begin?
+            - generic [ref=e267]: +
+        - group [ref=e268]:
+          - generic "Who owns the code?" [ref=e384] [cursor=pointer]:
+            - text: Who owns the code?
+            - generic [ref=e270]: +
+        - group [ref=e271]:
+          - generic "What does the company receive at the end?" [ref=e385] [cursor=pointer]:
+            - text: What does the company receive at the end?
+            - generic [ref=e273]: +
+        - group [ref=e274]:
+          - generic "How do you choose the technology?" [ref=e386] [cursor=pointer]:
+            - text: How do you choose the technology?
+            - generic [ref=e276]: +
+        - group [ref=e277]:
+          - generic "How do you protect information?" [ref=e387] [cursor=pointer]:
+            - text: How do you protect information?
+            - generic [ref=e279]: +
+        - group [ref=e280]:
+          - generic "What happens after launch?" [ref=e388] [cursor=pointer]:
+            - text: What happens after launch?
+            - generic [ref=e282]: +
+          - paragraph [ref=e361]: The system can remain entirely in the team's hands, or we can continue with maintenance, support and new versions. The arrangement is defined before delivery.
+    - generic [ref=e285]:
+      - generic [ref=e286]:
+        - generic [ref=e287]: Let's talk
+        - heading "Tell us what you want to solve." [level=2] [ref=e389]
+        - paragraph [ref=e289]: Share a little context. We'll reply personally within 24 hours with a clear next step.
+        - link "contacto@acelera.agency" [ref=e290] [cursor=pointer]:
+          - /url: mailto:contacto@acelera.agency
+      - form "Contact form" [ref=e390]:
+        - generic [ref=e298]:
+          - generic [ref=e299]: First name
+          - textbox "First name" [ref=e391]:
+            - /placeholder: Your name
+        - generic [ref=e301]:
+          - generic [ref=e302]: Work email
+          - textbox "Work email" [ref=e392]:
+            - /placeholder: nombre@empresa.com
+        - generic [ref=e304]:
+          - generic [ref=e305]: Company
+          - textbox "Company" [ref=e393]:
+            - /placeholder: Company name
+        - generic [ref=e307]:
+          - generic [ref=e308]: What do you want to solve?
+          - textbox "What do you want to solve?" [ref=e394]:
+            - /placeholder: Briefly describe the process, problem or idea you want to work on
+        - generic [ref=e310]:
+          - status [ref=e311]
+          - button "Send inquiry" [ref=e395] [cursor=pointer]
+        - paragraph [ref=e316]: No spam. We'll only contact you about your request.
+  - contentinfo [ref=e317]:
+    - generic [ref=e318]:
+      - generic [ref=e319]:
+        - generic [ref=e320]:
+          - text: Aceler
+          - generic [ref=e321]: a
+        - paragraph [ref=e323]: Boutique software factory + applied AI. If your business does not need it, we say so in the first meeting.
+        - paragraph [ref=e324]:
+          - link "contacto@acelera.agency" [ref=e325] [cursor=pointer]:
+            - /url: mailto:contacto@acelera.agency
+        - paragraph [ref=e326]:
+          - link "+54 9 11 6175 8891" [ref=e327] [cursor=pointer]:
+            - /url: tel:+5491161758891
+        - generic [ref=e328]:
+          - link "Acelera en LinkedIn" [ref=e329] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/acelera-agency
+            - text: LinkedIn
+          - link "Escribinos por WhatsApp" [ref=e334] [cursor=pointer]:
+            - /url: https://wa.me/5491161758891
+            - text: WhatsApp
+      - generic [ref=e345]:
+        - link "Privacy" [ref=e396] [cursor=pointer]:
+          - /url: /privacidad.html
+        - link "Terms" [ref=e397] [cursor=pointer]:
+          - /url: /terminos.html
+    - generic [ref=e349]: © 2026 Acelera — Purposeful AI adoption

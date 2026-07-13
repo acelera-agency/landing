@@ -1,0 +1,321 @@
+- generic [active] [ref=f4e1]:
+  - link "Saltar al contenido" [ref=f4e2] [cursor=pointer]:
+    - /url: "#hero-section"
+  - banner [ref=f4e3]:
+    - link "Acelera — ir al inicio" [ref=f4e4] [cursor=pointer]:
+      - /url: "#hero-section"
+      - text: Aceler
+      - generic [ref=f4e5]: a
+    - navigation "Secciones" [ref=f4e7]:
+      - link "Qué construimos" [ref=f4e8] [cursor=pointer]:
+        - /url: "#construimos"
+      - link "Proyectos" [ref=f4e9] [cursor=pointer]:
+        - /url: "#proyectos"
+      - link "Cómo trabajamos" [ref=f4e10] [cursor=pointer]:
+        - /url: "#proceso"
+      - link "Equipo" [ref=f4e11] [cursor=pointer]:
+        - /url: "#equipo"
+    - generic [ref=f4e12]:
+      - group "Idioma" [ref=f4e13]:
+        - button "ES" [pressed] [ref=f4e14] [cursor=pointer]
+        - generic [ref=f4e15]: /
+        - button "EN" [ref=f4e16] [cursor=pointer]
+      - button "Hablemos" [ref=f4e17] [cursor=pointer]
+  - main [ref=f4e19]:
+    - generic [ref=f4e20]:
+      - generic [ref=f4e23]:
+        - heading "IA con sentido , donde el negocio lo pide." [level=1] [ref=f4e24]:
+          - text: IA
+          - generic [ref=f4e25]: con sentido
+          - text: ", donde el negocio lo pide."
+        - paragraph [ref=f4e26]: Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.
+        - generic [ref=f4e27]:
+          - link "Hablemos" [ref=f4e28] [cursor=pointer]:
+            - /url: "#contacto"
+          - link "Qué construimos" [ref=f4e30] [cursor=pointer]:
+            - /url: "#construimos"
+      - link "Seguir leyendo" [ref=f4e32] [cursor=pointer]:
+        - /url: "#situaciones"
+    - generic [ref=f4e37]:
+      - generic [ref=f4e39]:
+        - generic [ref=f4e40]: Dónde podemos ayudar
+        - heading "Desarrollo a medida para empresas." [level=2] [ref=f4e41]
+      - generic [ref=f4e42]:
+        - article [ref=f4e43]:
+          - generic [ref=f4e44]:
+            - heading "Software para procesos operativos." [level=3] [ref=f4e45]
+            - paragraph [ref=f4e46]: Herramientas internas e integraciones para reemplazar procesos manuales por un sistema propio.
+        - article [ref=f4e47]:
+          - generic [ref=f4e48]:
+            - heading "Desarrollo junto a equipos de producto." [level=3] [ref=f4e49]
+            - paragraph [ref=f4e50]: Tomamos una parte concreta del producto y la llevamos a producción junto al equipo interno.
+    - generic [ref=f4e53]:
+      - generic [ref=f4e54]: Carácter
+      - heading "Te decimos cuándo no." [level=2] [ref=f4e55]
+      - paragraph [ref=f4e56]: Si no la necesitás, te lo decimos en la primera reunión. Si la necesitás, no nos vamos hasta que esté en producción, sin cajas negras.
+      - paragraph [ref=f4e57]: A eso venimos
+    - generic [ref=f4e59]:
+      - generic [ref=f4e61]:
+        - generic [ref=f4e62]:
+          - generic [ref=f4e63]: Capacidades
+          - heading "Qué desarrollamos" [level=2] [ref=f4e64]
+        - paragraph [ref=f4e65]: Diseñamos herramientas y plataformas a medida para ordenar procesos, conectar sistemas y reducir trabajo manual.
+      - generic [ref=f4e66]:
+        - generic [ref=f4e67]: Proceso actual
+        - generic [ref=f4e68]: Software funcionando
+        - generic [ref=f4e69]: Área de especialización
+        - group "Capacidades de Acelera":
+          - button "Plataformas internas" [ref=f4e70] [cursor=pointer]
+          - button "MVPs y productos" [ref=f4e72] [cursor=pointer]
+          - button "Software operativo" [ref=f4e74] [cursor=pointer]
+          - button "Web y mobile" [ref=f4e76] [cursor=pointer]
+          - button "Dashboards y BI" [ref=f4e78] [cursor=pointer]
+          - button "Pipelines de datos" [ref=f4e80] [cursor=pointer]
+          - button "Integraciones y APIs" [ref=f4e82] [cursor=pointer]
+          - button "Agentes IA" [ref=f4e84] [cursor=pointer]
+          - button "Automatizaciones" [ref=f4e86] [cursor=pointer]
+          - button "IA sobre tus datos" [ref=f4e88] [cursor=pointer]
+          - button "Backends y servicios" [ref=f4e90] [cursor=pointer]
+          - button "Portales y autogestión" [ref=f4e92] [cursor=pointer]
+        - generic [ref=f4e94]:
+          - generic [ref=f4e95]: Núcleo Acelera
+          - paragraph [ref=f4e96]:
+            - generic [ref=f4e97]: Software que
+            - generic [ref=f4e98]: queda integrado
+            - generic [ref=f4e99]: a la operación.
+          - generic [ref=f4e100]: Explorá una capacidad
+      - paragraph [ref=f4e103]: Primero definimos qué hace falta construir. Después elegimos la tecnología.
+    - blockquote [ref=f4e109]: Arrancamos por donde se pierde plata, tiempo o reputación. Si no se ve, no lo hacemos.
+    - generic [ref=f4e111]:
+      - generic [ref=f4e113]:
+        - generic [ref=f4e114]: Proyectos
+        - heading "Proyectos construidos para resolver problemas reales ." [level=2] [ref=f4e115]:
+          - text: Proyectos construidos para resolver
+          - generic [ref=f4e116]: problemas reales
+          - text: .
+        - paragraph [ref=f4e117]: Fueron desarrollados en competencias de tecnología e IA. En cada caso definimos el problema, construimos una solución usable y la presentamos funcionando.
+      - generic [ref=f4e118]:
+        - article [ref=f4e119]:
+          - 'img "Faro: mapa interactivo de contrataciones de obra pública" [ref=f4e121]'
+          - generic [ref=f4e122]:
+            - generic [ref=f4e123]:
+              - generic [ref=f4e124]: 1er puesto · Hack@LATAM
+              - heading "Faro" [level=3] [ref=f4e125]
+              - paragraph [ref=f4e126]: Una plataforma que reúne 426 expedientes de obra pública de Argentina, Chile y Perú en un mapa interactivo. Permite consultar señales de revisión y verificar cada caso en su fuente oficial.
+            - generic "Datos del proyecto Faro" [ref=f4e127]:
+              - generic [ref=f4e128]:
+                - term [ref=f4e129]: Expedientes
+                - definition [ref=f4e130]: "426"
+              - generic [ref=f4e131]:
+                - term [ref=f4e132]: Formato
+                - definition [ref=f4e133]: Mapa navegable
+              - generic [ref=f4e134]:
+                - term [ref=f4e135]: Fuentes
+                - definition [ref=f4e136]: Oficiales
+        - generic [ref=f4e137]:
+          - article [ref=f4e138]:
+            - 'img "Vueltito: donaciones recurrentes a partir del vuelto" [ref=f4e140]'
+            - generic [ref=f4e141]:
+              - generic [ref=f4e142]: 1er puesto · Paisanos ONG
+              - generic [ref=f4e143]:
+                - heading "Vueltito" [level=3] [ref=f4e144]
+                - generic [ref=f4e145]: 02 / 03
+              - paragraph [ref=f4e146]: Una plataforma que convierte pequeños montos de compras cotidianas en donaciones recurrentes para ONG. La propuesta se definió después de conversar con más de 30 personas del sector.
+          - article [ref=f4e147]:
+            - 'img "MUSA: letras sincronizadas y patrones hápticos" [ref=f4e149]'
+            - generic [ref=f4e150]:
+              - generic [ref=f4e151]: Premio especial · AI Music Hackathon
+              - generic [ref=f4e152]:
+                - heading "MUSA" [level=3] [ref=f4e153]
+                - generic [ref=f4e154]: 03 / 03
+              - paragraph [ref=f4e155]: Una experiencia móvil de accesibilidad musical para personas sordas o con hipoacusia. Combina letras sincronizadas, señales visuales y patrones hápticos.
+    - generic [ref=f4e157]:
+      - generic [ref=f4e159]:
+        - generic [ref=f4e160]: Cómo trabajamos
+        - heading "De problema real a producción" [level=2] [ref=f4e161]:
+          - text: De problema real a
+          - generic [ref=f4e162]: producción
+        - paragraph [ref=f4e163]: El proceso queda visible. Cada etapa termina con una decisión o un entregable concreto.
+      - paragraph [ref=f4e164]: Trabajamos con AWS, React, Node.js, Python, PostgreSQL, Anthropic, OpenAI y Expo, según las necesidades de cada solución.
+      - generic [ref=f4e166]:
+        - article [ref=f4e167]:
+          - generic [ref=f4e168]:
+            - generic [ref=f4e169]:
+              - generic [ref=f4e170]: Diagnóstico
+              - generic [ref=f4e171]: 01 / 04
+            - heading "Empezamos por el problema, no por la herramienta." [level=3] [ref=f4e172]
+            - paragraph [ref=f4e173]: Observamos el proceso real, medimos dónde pierde tiempo, margen o control y definimos qué resultado justificaría construir.
+            - generic [ref=f4e174]:
+              - generic [ref=f4e175]: Salida
+              - generic [ref=f4e176]: Mapa del proceso + línea base
+        - article [ref=f4e177]:
+          - generic [ref=f4e178]:
+            - generic [ref=f4e179]:
+              - generic [ref=f4e180]: Diseño
+              - generic [ref=f4e181]: 02 / 04
+            - heading "La solución cabe en un plan que se puede ejecutar." [level=3] [ref=f4e182]
+            - paragraph [ref=f4e183]: Definimos el flujo, la arquitectura, las integraciones y los riesgos. Lo que no aporta al resultado queda afuera.
+            - generic [ref=f4e184]:
+              - generic [ref=f4e185]: Salida
+              - generic [ref=f4e186]: Alcance + arquitectura + riesgos
+        - article [ref=f4e187]:
+          - generic [ref=f4e188]:
+            - generic [ref=f4e189]:
+              - generic [ref=f4e190]: Construcción
+              - generic [ref=f4e191]: 03 / 04
+            - heading "Cada semana deja algo funcionando." [level=3] [ref=f4e192]
+            - paragraph [ref=f4e193]: Construimos en ciclos cortos sobre tu stack. Probamos con usuarios y datos reales para decidir el siguiente incremento.
+            - generic [ref=f4e194]:
+              - generic [ref=f4e195]: Salida
+              - generic [ref=f4e196]: Incremento usable + próxima decisión
+        - article [ref=f4e197]:
+          - generic [ref=f4e198]:
+            - generic [ref=f4e199]:
+              - generic [ref=f4e200]: Producción
+              - generic [ref=f4e201]: 04 / 04
+            - heading "El sistema queda operando y en tus manos." [level=3] [ref=f4e202]
+            - paragraph [ref=f4e203]: Integramos, medimos y transferimos. Tu equipo recibe documentación, control y un camino claro para seguir evolucionando.
+            - generic [ref=f4e204]:
+              - generic [ref=f4e205]: Salida
+              - generic [ref=f4e206]: Producción + métricas + transferencia
+    - generic [ref=f4e212]:
+      - generic [ref=f4e213]:
+        - generic [ref=f4e214]: Equipo fundador
+        - heading "Un solo equipo del relevamiento a la operación." [level=2] [ref=f4e215]
+        - paragraph [ref=f4e216]: "Tres amigos de la facultad, hartos del humo de IA. El que diseña es el que construye: sin gerentes de cuenta ni traspasos."
+        - paragraph [ref=f4e217]:
+          - generic [ref=f4e225]:
+            - strong [ref=f4e226]: 3 hackathones ganados.
+            - text: Del problema a una solución funcional en horas.
+      - generic [ref=f4e227]:
+        - generic [ref=f4e228]:
+          - img "Ignacio" [ref=f4e230]
+          - generic [ref=f4e231]:
+            - heading "Ignacio Estevo" [level=4] [ref=f4e232]
+            - link [ref=f4e233] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/ignacio-estevo/
+          - generic [ref=f4e237]: Ingeniería e Implementación
+          - paragraph [ref=f4e238]: Ingeniero Informático. Software Engineering | Automatización | IA aplicada
+        - generic [ref=f4e239]:
+          - img "Mauro" [ref=f4e241]
+          - generic [ref=f4e242]:
+            - heading "Mauro Proto" [level=4] [ref=f4e243]
+            - link [ref=f4e244] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/mauroprotocassina/
+          - generic [ref=f4e248]: Implementación Técnica
+          - paragraph [ref=f4e249]: AI/ML EngineeringEspecialista en LLMs en producción.
+        - generic [ref=f4e250]:
+          - img "Franco" [ref=f4e252]
+          - generic [ref=f4e253]:
+            - heading "Franco Ferreira" [level=4] [ref=f4e254]
+            - link [ref=f4e255] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/franco-ferreira/
+          - generic [ref=f4e259]: Estrategia y Procesos
+          - paragraph [ref=f4e260]: Ingeniero en Software. Business Intelligence | Optimización de procesos
+    - generic [ref=f4e262]:
+      - generic [ref=f4e263]:
+        - generic [ref=f4e264]:
+          - generic [ref=f4e265]: Preguntas frecuentes
+          - heading "Lo que seguro querés saber." [level=2] [ref=f4e266]
+        - paragraph [ref=f4e267]: Lo que conviene tener claro antes de construir, integrar y llevar una solución a producción.
+      - generic [ref=f4e268]:
+        - group [ref=f4e269]:
+          - generic "¿Cuánto tarda un proyecto?" [ref=f4e270] [cursor=pointer]:
+            - text: ¿Cuánto tarda un proyecto?
+            - generic [ref=f4e271]: +
+        - group [ref=f4e272]:
+          - generic "¿Cómo empezamos?" [ref=f4e273] [cursor=pointer]:
+            - text: ¿Cómo empezamos?
+            - generic [ref=f4e274]: +
+        - group [ref=f4e275]:
+          - generic "¿De quién es el código?" [ref=f4e276] [cursor=pointer]:
+            - text: ¿De quién es el código?
+            - generic [ref=f4e277]: +
+        - group [ref=f4e278]:
+          - generic "¿Qué recibo al final?" [ref=f4e279] [cursor=pointer]:
+            - text: ¿Qué recibo al final?
+            - generic [ref=f4e280]: +
+        - group [ref=f4e281]:
+          - generic "¿Con qué tecnologías trabajan?" [ref=f4e282] [cursor=pointer]:
+            - text: ¿Con qué tecnologías trabajan?
+            - generic [ref=f4e283]: +
+        - group [ref=f4e284]:
+          - generic "¿Cómo manejan mis datos?" [ref=f4e285] [cursor=pointer]:
+            - text: ¿Cómo manejan mis datos?
+            - generic [ref=f4e286]: +
+        - group [ref=f4e287]:
+          - generic "¿Qué pasa después del lanzamiento?" [ref=f4e288] [cursor=pointer]:
+            - text: ¿Qué pasa después del lanzamiento?
+            - generic [ref=f4e289]: +
+    - generic [ref=f4e292]:
+      - generic [ref=f4e293]:
+        - generic [ref=f4e294]: Hablemos
+        - heading "Contanos qué querés resolver." [level=2] [ref=f4e295]
+        - paragraph [ref=f4e296]: Dejanos un poco de contexto. Te respondemos personalmente en menos de 24 horas con un próximo paso claro.
+        - link "contacto@acelera.agency" [ref=f4e297] [cursor=pointer]:
+          - /url: mailto:contacto@acelera.agency
+      - form "Formulario de contacto" [ref=f4e304]:
+        - generic [ref=f4e305]:
+          - generic [ref=f4e306]: Nombre
+          - textbox "Nombre" [ref=f4e307]:
+            - /placeholder: Tu nombre
+        - generic [ref=f4e308]:
+          - generic [ref=f4e309]: Email de trabajo
+          - textbox "Email de trabajo" [ref=f4e310]:
+            - /placeholder: nombre@empresa.com
+        - generic [ref=f4e311]:
+          - generic [ref=f4e312]: Empresa
+          - textbox "Empresa" [ref=f4e313]:
+            - /placeholder: Nombre de la empresa
+        - generic [ref=f4e314]:
+          - generic [ref=f4e315]: ¿Qué querés resolver?
+          - textbox "¿Qué querés resolver?" [ref=f4e316]:
+            - /placeholder: Contanos brevemente qué proceso, problema o idea querés trabajar
+        - generic [ref=f4e317]:
+          - status [ref=f4e318]
+          - button "Enviar consulta" [ref=f4e319] [cursor=pointer]
+        - paragraph [ref=f4e323]: Sin spam. Solo te contactamos por tu consulta.
+  - contentinfo [ref=f4e324]:
+    - generic [ref=f4e325]:
+      - generic [ref=f4e326]:
+        - generic [ref=f4e327]:
+          - text: Aceler
+          - generic [ref=f4e328]: a
+        - paragraph [ref=f4e330]: Software factory boutique + IA aplicada. Si tu negocio no lo necesita, te lo decimos en la primera reunión.
+        - paragraph [ref=f4e331]:
+          - link "contacto@acelera.agency" [ref=f4e332] [cursor=pointer]:
+            - /url: mailto:contacto@acelera.agency
+        - paragraph [ref=f4e333]:
+          - link "+54 9 11 6175 8891" [ref=f4e334] [cursor=pointer]:
+            - /url: tel:+5491161758891
+        - generic [ref=f4e335]:
+          - link "Acelera en LinkedIn" [ref=f4e336] [cursor=pointer]:
+            - /url: https://www.linkedin.com/company/acelera-agency
+            - text: LinkedIn
+          - link "Escribinos por WhatsApp" [ref=f4e341] [cursor=pointer]:
+            - /url: https://wa.me/5491161758891
+            - text: WhatsApp
+      - generic [ref=f4e344]:
+        - generic [ref=f4e345]:
+          - generic [ref=f4e346]: Navegación
+          - link "Qué construimos" [ref=f4e347] [cursor=pointer]:
+            - /url: "#construimos"
+          - link "Proyectos" [ref=f4e348] [cursor=pointer]:
+            - /url: "#proyectos"
+          - link "Cómo trabajamos" [ref=f4e349] [cursor=pointer]:
+            - /url: "#proceso"
+          - link "Equipo" [ref=f4e350] [cursor=pointer]:
+            - /url: "#equipo"
+          - link "Hablemos" [ref=f4e351] [cursor=pointer]:
+            - /url: "#contacto"
+        - generic [ref=f4e352]:
+          - generic [ref=f4e353]: Legal
+          - link "Privacidad" [ref=f4e354] [cursor=pointer]:
+            - /url: /privacidad.html
+          - link "Términos" [ref=f4e355] [cursor=pointer]:
+            - /url: /terminos.html
+    - generic [ref=f4e356]:
+      - heading "Acelera" [level=2] [ref=f4e357]
+      - generic [ref=f4e358]:
+        - generic [ref=f4e359]: © 2026 Acelera — Adopción de IA con sentido
+        - generic [ref=f4e360]: IA que tu equipo opera. No una caja negra.
