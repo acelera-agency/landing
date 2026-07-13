@@ -73,16 +73,23 @@
     const sections = links
       .map((link) => document.querySelector(link.getAttribute("href")))
       .filter(Boolean);
+    const toneSections = Array.from(document.querySelectorAll("[data-header-scheme]"));
     let sectionOffsets = [];
+    let toneOffsets = [];
     let sectionIndexFrame = 0;
     let sectionMeasureFrame = 0;
     let activeSectionIndex = -1;
+    let activeTone = "";
 
     const measureSections = () => {
       sectionOffsets = sections.map((section) => ({
         top: section.getBoundingClientRect().top + window.scrollY,
         scheme: section.dataset.headerScheme || "light"
       }));
+      toneOffsets = toneSections.map((section) => ({
+        top: section.getBoundingClientRect().top + window.scrollY,
+        scheme: section.dataset.headerScheme || "light"
+      })).sort((a, b) => a.top - b.top);
     };
 
     const updateSectionIndex = () => {
@@ -94,11 +101,20 @@
         if (section.top <= readingLine) activeIndex = index;
       });
 
+      let nextTone = "light";
+      toneOffsets.forEach((section) => {
+        if (section.top <= readingLine) nextTone = section.scheme;
+      });
+
+      if (nextTone !== activeTone) {
+        activeTone = nextTone;
+        sectionIndex.dataset.tone = nextTone;
+      }
+
       if (activeIndex === activeSectionIndex) return;
       activeSectionIndex = activeIndex;
 
       sectionIndex.style.setProperty("--section-index-active", String(activeIndex));
-      sectionIndex.dataset.tone = sectionOffsets[activeIndex]?.scheme === "dark" ? "dark" : "light";
       links.forEach((link, index) => {
         if (index === activeIndex) link.setAttribute("aria-current", "true");
         else link.removeAttribute("aria-current");
@@ -130,7 +146,7 @@
 
     if ("ResizeObserver" in window) {
       const sectionResizeObserver = new ResizeObserver(requestSectionMeasurement);
-      sections.forEach((section) => sectionResizeObserver.observe(section));
+      new Set([...sections, ...toneSections]).forEach((section) => sectionResizeObserver.observe(section));
     }
   }
 

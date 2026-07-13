@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const releaseToken = "v=20260713-1";
+const releaseToken = "v=20260713-2";
 
 test("mutable assets are revalidated instead of cached as immutable", async () => {
   const config = JSON.parse(await readFile(new URL("./vercel.json", import.meta.url), "utf8"));
