@@ -8,7 +8,7 @@
   const body = document.body;
   const params = new URLSearchParams(window.location.search);
   const variant = body.dataset.variant || "sin-variant";
-  const utmFields = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+  const utmFields = ["utm_source"];
   const configuredFormEndpoint = siteConfig.formEndpoint.trim();
   const hasRealFormEndpoint =
     configuredFormEndpoint &&
@@ -42,8 +42,7 @@
       input.value = params.get(field) || "";
     });
 
-    ensureHiddenInput(form, "landing_url").value = window.location.href;
-    ensureHiddenInput(form, "landing_title").value = document.title;
+    ensureHiddenInput(form, "landing_url").value = window.location.origin + window.location.pathname;
   }
 
   document.querySelectorAll("[data-calendly-link]").forEach((link) => {
@@ -66,6 +65,57 @@
         body.classList.add("is-ready");
       });
     });
+  }
+
+  const sectionIndex = document.querySelector("[data-section-index]");
+  if (sectionIndex) {
+    const links = Array.from(sectionIndex.querySelectorAll(".section-index__link"));
+    const sections = links
+      .map((link) => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+    let sectionOffsets = [];
+    let sectionIndexFrame = 0;
+
+    const measureSections = () => {
+      sectionOffsets = sections.map((section) => ({
+        top: section.getBoundingClientRect().top + window.scrollY,
+        scheme: section.dataset.headerScheme || "light"
+      }));
+    };
+
+    const updateSectionIndex = () => {
+      sectionIndexFrame = 0;
+      measureSections();
+
+      const readingLine = window.scrollY + window.innerHeight * 0.5;
+      let activeIndex = 0;
+      sectionOffsets.forEach((section, index) => {
+        if (section.top <= readingLine) activeIndex = index;
+      });
+
+      sectionIndex.style.setProperty("--section-index-active", String(activeIndex));
+      sectionIndex.dataset.tone = sectionOffsets[activeIndex]?.scheme === "dark" ? "dark" : "light";
+      links.forEach((link, index) => {
+        if (index === activeIndex) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+      });
+    };
+
+    const requestSectionIndexUpdate = () => {
+      if (!sectionIndexFrame) sectionIndexFrame = window.requestAnimationFrame(updateSectionIndex);
+    };
+
+    measureSections();
+    updateSectionIndex();
+    window.addEventListener("scroll", requestSectionIndexUpdate, { passive: true });
+    window.addEventListener("resize", () => {
+      measureSections();
+      requestSectionIndexUpdate();
+    });
+    window.addEventListener("load", () => {
+      measureSections();
+      requestSectionIndexUpdate();
+    }, { once: true });
   }
 
   document.querySelectorAll("[data-lead-form]").forEach((form) => {
@@ -193,7 +243,7 @@
 
     var widgetRequested = false;
 
-    var embedUrl = url + (url.indexOf("?") === -1 ? "?" : "&") + "hide_event_type_details=1&hide_gdpr_banner=1";
+    var embedUrl = url + (url.indexOf("?") === -1 ? "?" : "&") + "hide_event_type_details=1";
 
     // Calendly inyecta el iframe real 1-3s después de initInlineWidget.
     // Si removemos el placeholder antes, queda un hueco en blanco visible

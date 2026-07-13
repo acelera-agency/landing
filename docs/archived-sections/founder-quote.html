@@ -1,0 +1,48 @@
+<!--
+  Seccion archivada el 2026-07-12.
+  Motivo: retirada temporalmente de la landing.
+  Ubicacion original: entre #construimos y #proyectos en el DOM; orden visual
+  posterior a #equipo mediante el layout flex de <main>.
+  Traduccion usada: "We start where money, time or reputation is lost. If it
+  isn't visible, we don't do it."
+-->
+<section id="section-founder-quote" data-header-scheme="light"
+    class="scroll-mt-24 md:scroll-mt-28 hidden py-10 px-4 sm:px-6 md:px-12 md:py-20 relative overflow-hidden bg-paper md:block">
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+        <i data-lucide="quote" class="w-6 h-6 md:w-8 md:h-8 mx-auto text-muted/40 mb-5 md:mb-10 gsap-reveal" aria-hidden="true"></i>
+        <blockquote id="founder-quote"
+            class="font-serif text-2xl sm:text-3xl md:text-6xl text-ink leading-snug md:leading-[1.05] mb-0 tracking-tight font-medium text-balance">
+            Arrancamos por donde se pierde plata, tiempo o reputación. Si no se ve, no lo hacemos.
+        </blockquote>
+    </div>
+</section>
+
+<!-- Estilos asociados -->
+<style>
+    .quote-word {
+        color: #E5E1D8;
+        transition: color 0.3s ease-out;
+    }
+
+    .quote-word.is-lit {
+        color: #111827;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .quote-word { transition: none; }
+    }
+
+    @media (min-width: 768px) {
+        #section-founder-quote {
+            display: flex;
+            align-items: center;
+        }
+    }
+</style>
+
+<!--
+  La version retirada envolvia las palabras del bloque en .quote-word y usaba
+  ScrollTrigger para activar .is-lit progresivamente. Al restaurarla, recuperar
+  tambien la funcion syncFounderQuote del historial para la traduccion por
+  palabra, o reemplazarla por una traduccion directa del bloque completo.
+-->

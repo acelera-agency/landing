@@ -71,7 +71,7 @@ function parseRecipients(value) {
     .filter(Boolean);
 }
 
-function buildEmail({ nombre, empresa, email, proceso, variant, landingUrl, utmSource }) {
+function buildEmail({ nombre, empresa, email, proceso, variant, landingUrl, utmSource, privacyConsent }) {
   const subject = `[Acelera] Nuevo lead de ${empresa}`;
   const details = [
     ["Nombre", nombre],
@@ -80,7 +80,8 @@ function buildEmail({ nombre, empresa, email, proceso, variant, landingUrl, utmS
     ["Proceso", proceso],
     ["Variant", variant],
     ["UTM source", utmSource],
-    ["Landing", landingUrl]
+    ["Landing", landingUrl],
+    ["Consentimiento de privacidad", privacyConsent === "accepted" ? "Aceptado" : "No registrado"]
   ].filter(([, value]) => value);
 
   const text = details.map(([label, value]) => `${label}: ${value}`).join("\n");
@@ -131,7 +132,8 @@ async function handler(req, res) {
     proceso: cleanText(body.proceso, 2000),
     variant: cleanText(body.variant, 120),
     landingUrl: cleanText(body.landing_url, 1000),
-    utmSource: cleanText(body.utm_source, 160)
+    utmSource: cleanText(body.utm_source, 160),
+    privacyConsent: cleanText(body.privacy_consent, 32)
   };
 
   if (!lead.nombre || !lead.empresa) {
@@ -140,6 +142,12 @@ async function handler(req, res) {
 
   if (!isEmail(lead.email)) {
     return sendJson(res, 400, { error: "Ingresá un email válido." });
+  }
+
+  if (lead.privacyConsent !== "accepted") {
+    return sendJson(res, 400, {
+      error: "Necesitás aceptar la Política de Privacidad para enviar la consulta."
+    });
   }
 
   const email = buildEmail(lead);

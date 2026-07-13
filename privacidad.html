@@ -1,479 +1,382 @@
 <!DOCTYPE html>
-<html lang="es-AR" class="scroll-smooth">
+<html lang="es-AR">
 
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Política de Privacidad | Acelera</title>
     <meta name="description"
-        content="Política de privacidad de Acelera. Tratamiento de datos personales conforme a la Ley 25.326 de Argentina y normativa complementaria." />
+        content="Cómo Acelera recopila, utiliza, comparte y protege los datos personales de quienes visitan el sitio o envían una consulta." />
     <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#F7F5F0" />
     <link rel="canonical" href="https://acelera.agency/privacidad" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <link rel="manifest" href="site.webmanifest" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,450;9..144,600&family=Geist+Mono:wght@500;600&display=swap"
         rel="stylesheet" />
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        // Acelera brand v2 — same tokens as index.html
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        ink:         '#0B0F14',
-                        inkDeep:     '#06090C',
-                        paper:       '#F7F5F0',
-                        paperPure:   '#FFFFFF',
-                        accent:      '#1F6E5A',
-                        accentSoft:  '#D7E5DE',
-                        signal:      '#C2410C',
-                        muted:       '#6B7280',
-                        mutedStrong: '#4B5563',
-                        rule:        '#E5E1D8',
-                        ruleStrong:  '#D4CFC1',
-                        background:    '#F7F5F0',
-                        surface:       '#FFFFFF',
-                        surfaceAlt:    '#EFEBE0',
-                        primary:       '#1F6E5A',
-                        textPrimary:   '#0B0F14',
-                        textSecondary: '#6B7280',
-                        borderSubtle:  '#E5E1D8'
-                    },
-                    fontFamily: {
-                        sans:    ['"Inter"', 'system-ui', 'sans-serif'],
-                        serif:   ['"Inter Tight"', 'system-ui', 'sans-serif'],
-                        display: ['"Inter Tight"', 'system-ui', 'sans-serif'],
-                        mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace']
-                    },
-                    boxShadow: {
-                        premium:  '0 1px 0 0 rgba(11, 15, 20, 0.04)',
-                        floating: '0 2px 0 0 rgba(11, 15, 20, 0.06)'
-                    },
-                    borderRadius: {
-                        DEFAULT: '0',
-                        sm: '2px',
-                        md: '4px',
-                        lg: '8px',
-                        xl: '8px',
-                        '2xl': '8px',
-                        '3xl': '8px'
-                    }
-                }
-            }
-        };
-    </script>
-    <style>
-        body {
-            background: #F7F5F0;
-            color: #0B0F14;
-            font-feature-settings: 'kern', 'ss01', 'cv11';
-            background-image:
-                radial-gradient(circle at 1px 1px, rgba(11, 15, 20, 0.025) 1px, transparent 0),
-                radial-gradient(circle at 12px 12px, rgba(11, 15, 20, 0.015) 1px, transparent 0);
-            background-size: 24px 24px, 32px 32px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #F7F5F0;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #D4CFC1;
-            border-radius: 0;
-        }
-
-        .legal-card {
-            box-shadow: 0 1px 0 0 rgba(11, 15, 20, 0.04);
-        }
-
-        .gsap-reveal {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-    </style>
+    <link rel="stylesheet" href="assets/legal.css" />
 </head>
 
-<body class="antialiased selection:bg-primary/20 selection:text-textPrimary">
-    <header
-        class="fixed top-0 left-0 right-0 z-[100] px-6 md:px-12 py-5 flex justify-between items-center bg-background/90 backdrop-blur-md border-b border-borderSubtle/60">
-        <a href="index.html" class="text-xl font-bold tracking-tight text-textPrimary">ACELERA</a>
-        <nav class="hidden md:flex items-center gap-10">
-            <a href="index.html#proceso"
-                class="text-sm font-medium text-textSecondary hover:text-textPrimary transition-colors">Cómo trabajamos</a>
-            <a href="index.html#sectores"
-                class="text-sm font-medium text-textSecondary hover:text-textPrimary transition-colors">Sectores</a>
-            <a href="index.html#equipo"
-                class="text-sm font-medium text-textSecondary hover:text-textPrimary transition-colors">Equipo</a>
-        </nav>
-        <a href="index.html#contacto"
-            class="hidden md:inline-flex items-center justify-center bg-textPrimary text-surface px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black transition-colors duration-300">
-            Hablemos
-        </a>
+<body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="/" aria-label="Acelera — ir al inicio">Aceler<span>a</span></a>
+            <div class="header-actions">
+                <nav class="legal-switcher" aria-label="Documentos legales">
+                    <a href="/privacidad.html" aria-current="page">Privacidad</a>
+                    <a href="/terminos.html">Términos</a>
+                </nav>
+                <a class="back-link" href="/">Volver al sitio →</a>
+            </div>
+        </div>
     </header>
 
-    <main class="relative z-10 pt-28 pb-20 px-6 md:px-12">
-        <div class="max-w-3xl mx-auto">
-            <p class="font-mono text-[10px] text-textSecondary uppercase tracking-widest mb-4">Legal</p>
-            <h1 class="font-serif text-4xl md:text-5xl font-bold text-textPrimary mb-4 tracking-tight">Política de
-                privacidad</h1>
-            <p class="text-textSecondary text-sm mb-10">Última actualización: abril de 2026 · República Argentina</p>
-
-            <div
-                class="legal-card bg-surface border border-borderSubtle rounded-2xl md:rounded-[1.75rem] p-8 md:p-10 mb-10">
-                <p class="text-textSecondary text-sm leading-relaxed">
-                    El presente documento describe cómo <strong class="text-textPrimary">Acelera</strong> (en adelante,
-                    “<strong class="text-textPrimary">Acelera</strong>”, “nosotros” o el “<strong
-                        class="text-textPrimary">Responsable</strong>”) trata los datos personales que se recopilan a
-                    través del sitio web y formularios asociados, de conformidad con la <strong
-                        class="text-textPrimary">Ley N.º 25.326</strong> de Protección de Datos Personales y normativa
-                    complementaria (incluido el <strong class="text-textPrimary">Decreto N.º 1558/2001</strong> y
-                    resoluciones dictadas por la autoridad de aplicación).
-                </p>
-                <p class="text-textSecondary text-sm leading-relaxed mt-4">
-                    <strong class="text-textPrimary">Nota:</strong> este texto es informativo. Conviene que un asesor
-                    legal revise datos societarios (razón social, domicilio legal, CUIT) y canales de contacto antes de
-                    publicación definitiva.
-                </p>
+    <main id="contenido" class="legal-main">
+        <header class="legal-hero">
+            <div>
+                <span class="eyebrow">Legal / Privacidad</span>
+                <h1>Política de privacidad</h1>
             </div>
+            <div>
+                <p class="hero-summary">Qué datos usamos, para qué, con quiénes se procesan y cómo podés ejercer tus
+                    derechos.</p>
+                <time class="hero-meta" datetime="2026-07-12">Vigente desde el 12 de julio de 2026 · Argentina</time>
+            </div>
+        </header>
 
-            <div class="space-y-12 text-textSecondary leading-relaxed">
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">1. Responsable del tratamiento
-                    </h2>
-                    <ul class="list-disc pl-5 space-y-2 text-[15px]">
-                        <li><strong class="text-textPrimary">Denominación:</strong> Acelera (completar razón social y
-                            datos registrales según constancia).</li>
-                        <li><strong class="text-textPrimary">Domicilio legal:</strong> República Argentina (completar
-                            provincia y domicilio).</li>
-                        <li><strong class="text-textPrimary">Contacto para temas de datos personales:</strong> a través
-                            del formulario de contacto disponible en el sitio o al correo <a
-                                href="mailto:contacto@acelera.agency"
-                                class="text-primary underline underline-offset-2 hover:text-textPrimary transition-colors">contacto@acelera.agency</a>.
+        <div class="legal-layout">
+            <aside class="legal-toc">
+                <nav aria-label="Índice de la política">
+                    <p class="meta-label">En esta página</p>
+                    <ol>
+                        <li><a href="#responsable">Responsable y contacto</a></li>
+                        <li><a href="#alcance">Alcance</a></li>
+                        <li><a href="#datos">Datos que tratamos</a></li>
+                        <li><a href="#finalidades">Para qué los usamos</a></li>
+                        <li><a href="#fundamento">Fundamento y campos</a></li>
+                        <li><a href="#proveedores">Proveedores y destinatarios</a></li>
+                        <li><a href="#transferencias">Transferencias internacionales</a></li>
+                        <li><a href="#conservacion">Conservación</a></li>
+                        <li><a href="#derechos">Tus derechos</a></li>
+                        <li><a href="#tecnologias">Cookies y tecnologías</a></li>
+                        <li><a href="#seguridad">Seguridad</a></li>
+                        <li><a href="#otros">Otros aspectos</a></li>
+                    </ol>
+                </nav>
+            </aside>
+
+            <article class="legal-content">
+                <p class="legal-intro">Acelera utiliza la información mínima necesaria para responder consultas y
+                    evaluar posibles proyectos. No vende datos, no tiene píxeles publicitarios propios y no usa los
+                    formularios para suscribir personas a campañas de marketing.</p>
+
+                <section id="responsable" class="legal-section">
+                    <span class="section-number">01</span>
+                    <h2>Responsable y contacto</h2>
+                    <p><strong>Acelera</strong> es el nombre comercial de una <strong>sociedad de hecho comprendida en la
+                            Sección IV del Capítulo I de la Ley General de Sociedades 19.550</strong>, integrada por
+                        <strong>Ignacio Estevo, Mauro Proto y Franco Ferreira</strong>. En esta política nos referimos a
+                        esa sociedad como “Acelera” o el “Responsable”.</p>
+                    <dl class="fact-grid">
+                        <div class="fact">
+                            <dt>Sede informada públicamente</dt>
+                            <dd>Buenos Aires, República Argentina</dd>
+                        </div>
+                        <div class="fact">
+                            <dt>Sitio</dt>
+                            <dd><a href="https://acelera.agency">acelera.agency</a></dd>
+                        </div>
+                        <div class="fact">
+                            <dt>Privacidad y derechos</dt>
+                            <dd><a href="mailto:contacto@acelera.agency?subject=Privacidad%20y%20datos%20personales">contacto@acelera.agency</a>
+                            </dd>
+                        </div>
+                        <div class="fact">
+                            <dt>Teléfono de contacto</dt>
+                            <dd><a href="tel:+5491161758891">+54 9 11 6175 8891</a></dd>
+                        </div>
+                    </dl>
+                    <p>El canal indicado recibe consultas sobre privacidad y solicitudes de acceso, actualización,
+                        rectificación o supresión.</p>
+                </section>
+
+                <section id="alcance" class="legal-section">
+                    <span class="section-number">02</span>
+                    <h2>Alcance</h2>
+                    <p>Esta política se aplica a los datos de quienes:</p>
+                    <ul>
+                        <li>visitan el sitio público de Acelera;</li>
+                        <li>envían el formulario de contacto o el formulario emergente;</li>
+                        <li>se comunican mediante el correo, teléfono, WhatsApp o perfiles enlazados desde el sitio; o</li>
+                        <li>mantienen conversaciones comerciales o precontractuales derivadas de esos contactos.</li>
+                    </ul>
+                    <p>No regula los datos que Acelera pudiera tratar dentro de un proyecto contratado por un cliente.
+                        Ese tratamiento debe definirse en la propuesta, contrato y, cuando corresponda, acuerdo de
+                        tratamiento de datos específico.</p>
+                </section>
+
+                <section id="datos" class="legal-section">
+                    <span class="section-number">03</span>
+                    <h2>Datos que tratamos</h2>
+                    <h3>Datos que proporcionás</h3>
+                    <ul>
+                        <li><strong>Identificación y contacto profesional:</strong> nombre, apellido si lo completás,
+                            correo electrónico de trabajo y empresa.</li>
+                        <li><strong>Contenido de la consulta:</strong> el proceso, problema, idea o contexto que decidís
+                            describir.</li>
+                        <li><strong>Comunicaciones posteriores:</strong> mensajes, datos de contacto y documentos que
+                            intercambiemos para responder o evaluar una propuesta.</li>
+                        <li><strong>Registro de consentimiento:</strong> la aceptación requerida de esta política al
+                            enviar el formulario.</li>
+                    </ul>
+
+                    <h3>Datos técnicos y de procedencia</h3>
+                    <ul>
+                        <li><strong>Fuente de campaña:</strong> el parámetro <code>utm_source</code>, sólo cuando existe
+                            en la dirección desde la que enviás el formulario.</li>
+                        <li><strong>Página de origen:</strong> dominio y ruta de la landing, sin copiar otros parámetros
+                            de la URL ni el fragmento.</li>
+                        <li><strong>Datos de infraestructura:</strong> dirección IP, fecha y hora, navegador, dispositivo,
+                            encabezados y eventos de seguridad que el hosting o las redes de distribución registren para
+                            entregar y proteger el sitio.</li>
+                        <li><strong>Preferencia de idioma:</strong> español o inglés, guardada localmente en tu navegador.
                         </li>
                     </ul>
-                    <p class="mt-4 text-[15px]">
-                        La <strong class="text-textPrimary">Agencia de Acceso a la Información Pública (AAIP)</strong> es
-                        la autoridad de aplicación de la Ley N.º 25.326. Información institucional: <a
-                            class="text-primary underline underline-offset-2 hover:text-textPrimary transition-colors"
-                            href="https://www.argentina.gob.ar/aaip/datospersonales" target="_blank"
-                            rel="noopener noreferrer">argentina.gob.ar/aaip/datospersonales</a>.
-                    </p>
+
+                    <div class="notice">
+                        <p><strong>No envíes datos sensibles, contraseñas, credenciales, secretos comerciales ni datos
+                                personales de terceros</strong> mediante el formulario. Si necesitás compartir información
+                            confidencial para evaluar un proyecto, primero acordaremos un canal y las condiciones
+                            adecuadas.</p>
+                    </div>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">2. Alcance</h2>
-                    <p class="text-[15px]">
-                        Esta política aplica a los datos personales tratados mediante el sitio web público de Acelera,
-                        formularios de contacto o solicitud de diagnóstico, y comunicaciones derivadas de esas
-                        interacciones. No regula el tratamiento que puedan realizar terceros ajenos a Acelera en sitios
-                        enlazados.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">3. Datos que podemos tratar</h2>
-                    <p class="text-[15px] mb-3">Según la interacción, podemos tratar, entre otros:</p>
-                    <ul class="list-disc pl-5 space-y-2 text-[15px]">
-                        <li><strong class="text-textPrimary">Datos identificativos y de contacto profesional:</strong>
-                            nombre y apellido, correo electrónico corporativo, empresa, cargo o área (si se informa).
+                <section id="finalidades" class="legal-section">
+                    <span class="section-number">04</span>
+                    <h2>Para qué usamos los datos</h2>
+                    <p>Usamos los datos únicamente para:</p>
+                    <ul>
+                        <li>recibir, ordenar y responder tu consulta;</li>
+                        <li>entender el problema, evaluar si Acelera puede ayudar y preparar un próximo paso o propuesta;
                         </li>
-                        <li><strong class="text-textPrimary">Datos de la consulta:</strong> descripción del proceso o
-                            contexto enviado en el formulario.</li>
-                        <li><strong class="text-textPrimary">Datos técnicos de navegación:</strong> por ejemplo
-                            dirección IP, tipo de navegador, páginas visitadas, tiempo aproximado de visita, URL de
-                            referencia y parámetros de campaña (p. ej. UTM), cuando la infraestructura del sitio los
-                            registre de forma automática.</li>
+                        <li>mantener comunicaciones vinculadas con esa solicitud o con una relación profesional;</li>
+                        <li>conocer, de forma limitada, la fuente que originó una consulta;</li>
+                        <li>operar, mantener y proteger el sitio, prevenir abuso y resolver errores; y</li>
+                        <li>cumplir obligaciones legales, atender requerimientos válidos y ejercer o defender derechos.
+                        </li>
                     </ul>
-                    <p class="mt-4 text-[15px]">
-                        Acelera no solicita datos sensibles (p. ej. salud, origen racial, opiniones políticas) a través de
-                        este sitio. Te pedimos que no los incluyas en mensajes libres salvo que sea estrictamente
-                        necesario y con base legal adecuada.
-                    </p>
+                    <p><strong>No vendemos ni alquilamos datos personales.</strong> Tampoco tomamos decisiones
+                        automatizadas que produzcan efectos jurídicos o similares sobre las personas que contactan a
+                        Acelera.</p>
+                    <p>El formulario no incluye consentimiento para newsletters ni publicidad. Si en el futuro se ofrece
+                        una suscripción comercial, se solicitará por separado y será opcional.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">4. Finalidades del tratamiento
-                    </h2>
-                    <p class="text-[15px] mb-3">Tratamos los datos personales para finalidades determinadas y
-                        explícitas, entre otras:</p>
-                    <ul class="list-disc pl-5 space-y-2 text-[15px]">
-                        <li>Gestionar y responder consultas o solicitudes de diagnóstico comercial.</li>
-                        <li>Mantener comunicaciones relacionadas con la relación comercial o precontractual que derives
-                            del contacto.</li>
-                        <li>Mejorar el sitio, la seguridad y la experiencia de uso (p. ej. analítica agregada, si se
-                            implementara).</li>
-                        <li>Cumplir obligaciones legales o requerimientos válidos de autoridades competentes.</li>
+                <section id="fundamento" class="legal-section">
+                    <span class="section-number">05</span>
+                    <h2>Fundamento, consentimiento y campos</h2>
+                    <p>El tratamiento se realiza conforme a la <a
+                            href="https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/actualizacion"
+                            target="_blank" rel="noopener noreferrer">Ley 25.326</a>, su <a
+                            href="https://www.argentina.gob.ar/normativa/nacional/70368/actualizacion" target="_blank"
+                            rel="noopener noreferrer">Decreto reglamentario 1558/2001</a> y normas complementarias.</p>
+                    <p>Al marcar la casilla y enviar el formulario, prestás un consentimiento libre, expreso e informado
+                        para que Acelera trate los datos con las finalidades de esta política. También podemos tratar la
+                        información necesaria para desarrollar medidas precontractuales pedidas por vos, cumplir una
+                        relación profesional o una obligación legal.</p>
+                    <p><strong>Nombre, correo laboral, empresa y aceptación de privacidad son obligatorios</strong> para
+                        procesar el formulario. El apellido y la descripción del proceso son opcionales. Sin los campos
+                        obligatorios no podremos recibir ni responder la solicitud por ese medio.</p>
+                    <p>Podés retirar el consentimiento hacia el futuro escribiendo al canal indicado en la sección 1. La
+                        revocación no afecta tratamientos anteriores que hayan sido lícitos ni datos que debamos conservar
+                        por una obligación legal o para gestionar una relación vigente.</p>
+                </section>
+
+                <section id="proveedores" class="legal-section">
+                    <span class="section-number">06</span>
+                    <h2>Proveedores y destinatarios</h2>
+                    <p>Acceden a los datos únicamente las personas del equipo que necesitan atender la consulta y los
+                        proveedores indispensables para operar el sitio y entregar la comunicación.</p>
+                    <div class="provider-list">
+                        <div class="provider">
+                            <h3>Vercel</h3>
+                            <p>Hosting del sitio y ejecución de la función que recibe el formulario. Puede procesar datos
+                                técnicos y el contenido de la solicitud durante su transmisión. <a
+                                    href="https://vercel.com/legal/privacy-notice" target="_blank"
+                                    rel="noopener noreferrer">Privacidad</a>.</p>
+                        </div>
+                        <div class="provider">
+                            <h3>Resend · Plus Five Five, Inc.</h3>
+                            <p>Entrega la consulta como correo electrónico a Acelera. Procesa remitente, destinatarios,
+                                metadatos y contenido del mensaje. <a href="https://resend.com/legal/privacy-policy"
+                                    target="_blank" rel="noopener noreferrer">Privacidad</a>.</p>
+                        </div>
+                        <div class="provider">
+                            <h3>Proveedor de correo</h3>
+                            <p>La casilla operativa de Acelera recibe y conserva el mensaje para que el equipo pueda
+                                responder. Su acceso está limitado a las cuentas autorizadas.</p>
+                        </div>
+                        <div class="provider">
+                            <h3>Google Fonts</h3>
+                            <p>Entrega las tipografías del sitio. Recibe la solicitud técnica del navegador; Google
+                                informa que la API no establece cookies. <a
+                                    href="https://developers.google.com/fonts/faq/privacy" target="_blank"
+                                    rel="noopener noreferrer">Detalle</a>.</p>
+                        </div>
+                        <div class="provider">
+                            <h3>cdnjs y jsDelivr</h3>
+                            <p>Distribuyen librerías visuales utilizadas por la página principal. Como toda red de
+                                distribución, reciben datos técnicos necesarios para responder la solicitud.</p>
+                        </div>
+                        <div class="provider">
+                            <h3>Autoridades y asesores</h3>
+                            <p>Podremos comunicar la información cuando exista una obligación legal, orden válida o sea
+                                necesario para formular, ejercer o defender reclamos.</p>
+                        </div>
+                    </div>
+                    <p>LinkedIn y WhatsApp son enlaces externos: sólo reciben información cuando decidís abrirlos o
+                        comunicarte por esos canales, bajo sus propias políticas.</p>
+                </section>
+
+                <section id="transferencias" class="legal-section">
+                    <span class="section-number">07</span>
+                    <h2>Transferencias internacionales</h2>
+                    <p>Vercel, Resend, Google y las redes de distribución mencionadas son proveedores globales y pueden
+                        procesar datos en <strong>Estados Unidos y otros países</strong> donde operan ellos o sus
+                        subencargados. Estados Unidos no integra actualmente la lista argentina de jurisdicciones con
+                        nivel adecuado.</p>
+                    <p>Para esas transferencias se aplican, según el servicio y el dato, el consentimiento informado del
+                        titular, los acuerdos de procesamiento incorporados a los servicios y las garantías contractuales
+                        disponibles. Acelera revisa que el uso del proveedor sea compatible con la finalidad informada y
+                        limita los datos transmitidos a lo necesario.</p>
+                    <p>La AAIP explica los países adecuados y mecanismos admitidos en su guía de <a
+                            href="https://www.argentina.gob.ar/transferencias-internacionales" target="_blank"
+                            rel="noopener noreferrer">transferencias internacionales</a>.</p>
+                </section>
+
+                <section id="conservacion" class="legal-section">
+                    <span class="section-number">08</span>
+                    <h2>Conservación</h2>
+                    <ul>
+                        <li><strong>Consultas que no se convierten en una relación contractual:</strong> hasta 24 meses
+                            desde la última interacción, salvo pedido de supresión anterior o necesidad justificada de
+                            conservar evidencia de la comunicación.</li>
+                        <li><strong>Relaciones profesionales o contractuales:</strong> durante la relación y luego por los
+                            plazos necesarios para obligaciones legales, fiscales, contables y para ejercer o defender
+                            derechos.</li>
+                        <li><strong>Preferencia de idioma:</strong> permanece en el almacenamiento local del navegador
+                            hasta que la borres desde sus controles.</li>
+                        <li><strong>Registros técnicos:</strong> por los plazos de seguridad y retención configurados por
+                            los proveedores de infraestructura.</li>
                     </ul>
-                    <p class="mt-4 text-[15px]">
-                        No vendemos ni alquilamos datos personales. No realizamos elaboración de perfiles que produzcan
-                        efectos jurídicos significativos sobre las personas sin fundamento legal y transparencia adecuada.
-                    </p>
+                    <p>Al terminar el plazo aplicable, los datos se eliminan, anonimizan o quedan bloqueados cuando una
+                        obligación impide su supresión inmediata.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">5. Base jurídica del tratamiento
-                    </h2>
-                    <p class="text-[15px]">
-                        En general, el tratamiento se apoya en el <strong class="text-textPrimary">consentimiento</strong>
-                        del titular al enviar voluntariamente el formulario o al contactarnos, y/o en el <strong
-                            class="text-textPrimary">interés legítimo</strong> de Acelera en gestionar solicitudes
-                        comerciales B2B y responder consultas, en la medida en que resulte aplicable y proporcional,
-                        sin perjuicio de los derechos del titular. Cuando corresponda, también podrá tratarse en función
-                        del <strong class="text-textPrimary">cumplimiento de obligaciones legales</strong> o de la <strong
-                            class="text-textPrimary">ejecución de medidas precontractuales</strong> a solicitud del
-                        interesado, según el caso.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">6. Conservación</h2>
-                    <p class="text-[15px]">
-                        Conservamos los datos el tiempo necesario para cumplir las finalidades descritas y los plazos
-                        legales o contractuales aplicables. Transcurridos esos plazos, procederemos a su supresión,
-                        bloqueo o anonimización cuando corresponda, salvo obligación legal de conservación.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">7. Comunicación a terceros y
-                        encargados</h2>
-                    <p class="text-[15px] mb-3">
-                        Podemos compartir datos con proveedores que presten servicios necesarios para el funcionamiento
-                        del sitio o la operación de Acelera (por ejemplo hosting, infraestructura en la nube, envío de
-                        correo electrónico, herramientas de productividad), actuando como <strong
-                            class="text-textPrimary">encargados del tratamiento</strong> u operadores, según el caso,
-                        con obligaciones de confidencialidad y seguridad.
-                    </p>
-                    <p class="text-[15px]">
-                        Si los datos se alojaran fuera del territorio de la República Argentina, adoptaremos medidas
-                        razonables conforme a la normativa vigente (incluidas cláusulas contractuales u otras garantías
-                        cuando proceda).
-                    </p>
-                </section>
-
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">8. Derechos de los titulares de
-                        datos</h2>
-                    <p class="text-[15px] mb-3">
-                        De acuerdo con la Ley N.º 25.326 y la normativa aplicable, los titulares pueden ejercer derechos
-                        tales como (según corresponda al caso):
-                    </p>
-                    <ul class="list-disc pl-5 space-y-2 text-[15px]">
-                        <li><strong class="text-textPrimary">Acceso:</strong> solicitar información sobre los datos
-                            tratados y su origen.</li>
-                        <li><strong class="text-textPrimary">Rectificación o actualización:</strong> corregir datos
-                            inexactos o incompletos.</li>
-                        <li><strong class="text-textPrimary">Supresión u oposición:</strong> en los supuestos previstos
-                            por ley.</li>
-                        <li><strong class="text-textPrimary">Confidencialidad:</strong> tratamiento con medidas que
-                            preserven la seguridad y privacidad.</li>
+                <section id="derechos" class="legal-section">
+                    <span class="section-number">09</span>
+                    <h2>Tus derechos</h2>
+                    <p>Podés solicitar:</p>
+                    <ul>
+                        <li>información y <strong>acceso</strong> a los datos que conservamos;</li>
+                        <li><strong>actualización o rectificación</strong> de información inexacta;</li>
+                        <li><strong>supresión</strong> cuando corresponda;</li>
+                        <li>retiro del consentimiento u <strong>oposición</strong> a usos no obligatorios; y</li>
+                        <li>información sobre destinatarios y transferencias.</li>
                     </ul>
-                    <p class="mt-4 text-[15px]">
-                        La normativa prevé plazos para responder solicitudes (por regla general, <strong
-                            class="text-textPrimary">diez (10) días corridos</strong> para acceso y <strong
-                            class="text-textPrimary">cinco (5) días hábiles</strong> para rectificación, actualización o
-                        supresión, salvo norma o resolución que establezca otro plazo). Los plazos pueden computarse
-                        desde la recepción de la solicitud con la documentación razonablemente suficiente.
-                    </p>
+                    <p>Para ejercerlos, escribí a <a
+                            href="mailto:contacto@acelera.agency?subject=Solicitud%20sobre%20datos%20personales">contacto@acelera.agency</a>
+                        con el asunto “Solicitud sobre datos personales”. Podremos pedir la información mínima necesaria
+                        para verificar tu identidad y evitar entregar datos a otra persona.</p>
+                    <p>El derecho de acceso es gratuito, en general, a intervalos no inferiores a seis meses salvo interés
+                        legítimo, y debe responderse dentro de los diez días corridos. La rectificación, actualización o
+                        supresión debe atenderse dentro de los cinco días hábiles, conforme los plazos legales vigentes.</p>
+                    <div class="notice">
+                        <p>La <strong>Agencia de Acceso a la Información Pública</strong>, en su carácter de órgano de
+                            control de la Ley 25.326, tiene la atribución de atender las denuncias y reclamos de quienes
+                            resulten afectados en sus derechos por incumplimiento de las normas de protección de datos
+                            personales. Podés consultar sus <a
+                                href="https://www.argentina.gob.ar/aaip/datospersonales/derechos" target="_blank"
+                                rel="noopener noreferrer">canales y modelos de solicitud</a>.</p>
+                    </div>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">9. Cómo ejercer tus derechos</h2>
-                    <p class="text-[15px]">
-                        Podés dirigir un reclamo o solicitud al contacto indicado en la sección 1. Te pediremos que
-                        acredites tu identidad razonablemente (p. ej. desde el mismo correo utilizado en el formulario o
-                        con la documentación mínima necesaria) para proteger la privacidad de terceros.
-                    </p>
+                <section id="tecnologias" class="legal-section">
+                    <span class="section-number">10</span>
+                    <h2>Cookies y tecnologías similares</h2>
+                    <p>A la fecha de esta política, Acelera <strong>no instala cookies propias, Google Analytics, Meta
+                            Pixel ni otros píxeles publicitarios</strong> en el sitio.</p>
+                    <p>El selector de idioma guarda en <code>localStorage</code> la clave
+                        <code>acelera-language</code>, con el valor “es” o “en”. Es una preferencia funcional, no se usa
+                        para identificarte ni se envía en el formulario. Podés borrarla eliminando los datos del sitio en
+                        tu navegador.</p>
+                    <p>Google Fonts y las redes de distribución reciben solicitudes técnicas para entregar recursos, tal
+                        como se describe en la sección 6. Si Acelera incorpora analítica, publicidad o cookies no
+                        esenciales, actualizará esta política y, cuando corresponda, pedirá una elección antes de
+                        activarlas.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">10. Reclamo ante la autoridad de
-                        control</h2>
-                    <p class="text-[15px]">
-                        Si considerás que el tratamiento vulnera la normativa, podés presentar un reclamo ante la <strong
-                            class="text-textPrimary">AAIP</strong>. Información y canales: <a
-                            class="text-primary underline underline-offset-2 hover:text-textPrimary transition-colors"
-                            href="https://www.argentina.gob.ar/aaip/datospersonales/derechos" target="_blank"
-                            rel="noopener noreferrer">argentina.gob.ar/aaip/datospersonales/derechos</a>.
+                <section id="seguridad" class="legal-section">
+                    <span class="section-number">11</span>
+                    <h2>Seguridad y confidencialidad</h2>
+                    <p>Acelera aplica medidas razonables acordes al volumen y naturaleza de los datos: acceso restringido
+                        a cuentas autorizadas, secretos fuera del código público, validación y limitación de los campos,
+                        transmisión mediante HTTPS y uso de proveedores con compromisos de seguridad y confidencialidad.
                     </p>
+                    <p>Ningún sistema conectado a internet puede garantizar seguridad absoluta. Si identificamos un
+                        incidente relevante, evaluaremos su alcance, tomaremos medidas de contención y realizaremos las
+                        comunicaciones exigidas por la normativa aplicable.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">11. Seguridad</h2>
-                    <p class="text-[15px]">
-                        Aplicamos medidas técnicas y organizativas razonables acordes al riesgo, para proteger los datos
-                        contra destrucción accidental o ilícita, pérdida, acceso no autorizado o divulgación. Ningún
-                        sistema es invulnerable; si detectamos un incidente que afecte tus datos con relevancia, daremos
-                        curso a las acciones previstas por la normativa aplicable.
+                <section id="otros" class="legal-section">
+                    <span class="section-number">12</span>
+                    <h2>Menores, cambios y legislación</h2>
+                    <h3>Menores de edad</h3>
+                    <p>El sitio y los servicios de Acelera están orientados a contactos profesionales y no se dirigen a
+                        menores de edad. Si detectamos que recibimos información de un menor sin autorización válida, la
+                        eliminaremos cuando corresponda.</p>
+                    <h3>Cambios</h3>
+                    <p>Podemos actualizar esta política cuando cambien el sitio, los proveedores o la normativa. La nueva
+                        versión se publicará aquí con su fecha de vigencia. Los cambios no habilitan usos incompatibles de
+                        datos obtenidos anteriormente sin el fundamento o consentimiento que resulte necesario.</p>
+                    <h3>Legislación y reclamos</h3>
+                    <p>Esta política se interpreta conforme a las leyes de la República Argentina, sin limitar derechos
+                        inderogables que pudieran corresponder según otra normativa aplicable. Además del canal de Acelera,
+                        siempre podés recurrir a la AAIP o a los tribunales competentes.</p>
+                    <h3>Contacto</h3>
+                    <p>Para cualquier pregunta sobre esta política o sobre el uso de tus datos, escribinos a <a
+                            href="mailto:contacto@acelera.agency?subject=Privacidad%20y%20datos%20personales">contacto@acelera.agency</a>.
                     </p>
                 </section>
-
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">12. Menores de edad</h2>
-                    <p class="text-[15px]">
-                        Los servicios de Acelera están dirigidos a personas con capacidad jurídica para contratar en el
-                        ámbito B2B. No solicitamos datos de menores de forma intencionada. Si tomás conocimiento de que
-                        un menor nos envió datos, contactanos para proceder a su eliminación cuando corresponda.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">13. Cookies y tecnologías similares
-                    </h2>
-                    <p class="text-[15px]">
-                        El sitio puede usar cookies o tecnologías similares necesarias para el funcionamiento (p. ej.
-                        sesión, preferencias) o, en su caso, analíticas. Podés configurar tu navegador para rechazar
-                        cookies; algunas funciones del sitio podrían verse afectadas. Si incorporamos cookies no
-                        esenciales con fines analíticos o de remarketing, actualizaremos esta política o el aviso
-                        correspondiente.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">14. Actualizaciones</h2>
-                    <p class="text-[15px]">
-                        Acelera puede modificar esta política para reflejar cambios legales, técnicos u operativos. La
-                        versión vigente se publicará en esta página con su fecha de actualización. El uso continuado del
-                        sitio tras cambios relevantes implicará, cuando la ley lo permita, tu conocimiento de la
-                        política actualizada.
-                    </p>
-                </section>
-
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">15. Legislación y jurisdicción</h2>
-                    <p class="text-[15px]">
-                        Esta política se interpreta según las leyes de la <strong class="text-textPrimary">República
-                            Argentina</strong>. Para conflictos derivados del tratamiento de datos personales en el marco
-                        de esta política, se aplicarán los tribunales competentes según la normativa procesal vigente,
-                        sin perjuicio de la competencia de la AAIP en materia administrativa.
-                    </p>
-                </section>
-            </div>
+            </article>
         </div>
     </main>
 
-    <footer id="footer-section"
-        class="relative bg-surfaceAlt/30 pt-32 pb-10 px-6 md:px-12 overflow-hidden border-t border-borderSubtle">
-        <div id="footer-glow-1"
-            class="absolute w-[800px] h-[800px] rounded-full blur-[120px] bg-primary/10 opacity-0 top-0 left-0 mix-blend-normal pointer-events-none z-0">
-        </div>
-        <div id="footer-glow-2"
-            class="absolute w-[400px] h-[400px] rounded-full blur-[90px] bg-accent/20 opacity-0 top-0 left-0 mix-blend-normal pointer-events-none z-0">
-        </div>
-        <div
-            class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row justify-between items-start gap-16 mb-20 gsap-reveal">
-            <div class="max-w-sm">
-                <div class="text-2xl font-bold tracking-tight text-textPrimary mb-6 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    ACELERA
-                </div>
-                <p class="text-textSecondary font-light leading-relaxed">
-                    Desarrollamos productos con inteligencia artificial para diversos clientes: menos tareas manuales entre
-                    sistemas y documentos, más visibilidad cuando la IA aporta velocidad y criterio.
-                </p>
-                <p class="mt-5 font-mono text-sm md:text-base text-textSecondary">
-                    <a href="mailto:contacto@acelera.agency"
-                        class="hover:text-primary transition-colors">contacto@acelera.agency</a>
-                </p>
+    <footer class="legal-footer">
+        <div class="footer-inner">
+            <div>
+                <p class="footer-brand">Acelera</p>
+                <p class="footer-copy"><a href="mailto:contacto@acelera.agency">contacto@acelera.agency</a> · Buenos
+                    Aires, Argentina</p>
             </div>
-            <div class="flex gap-16">
-                <div class="flex flex-col gap-4">
-                    <span
-                        class="font-mono text-[10px] font-semibold tracking-widest uppercase text-textPrimary mb-2">Navegación</span>
-                    <a href="index.html#proceso"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Cómo
-                        trabajamos</a>
-                    <a href="index.html#sectores"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Sectores</a>
-                    <a href="index.html#equipo"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Equipo</a>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <span
-                        class="font-mono text-[10px] font-semibold tracking-widest uppercase text-textPrimary mb-2">Legal</span>
-                    <a href="privacidad"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Privacidad</a>
-                    <a href="terminos"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Términos</a>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto relative z-10 border-t border-borderSubtle/50 pt-10 flex flex-col items-center">
-            <h2
-                class="font-serif text-[18vw] md:text-[15vw] leading-none text-textPrimary/5 tracking-tighter select-none mb-10 text-center w-full">
-                Acelera.
-            </h2>
-            <div class="w-full flex flex-col md:flex-row justify-between items-center gap-4 text-textSecondary">
-                <span class="font-mono text-[10px] tracking-widest uppercase">© 2026 Acelera</span>
-                <span class="font-mono text-[10px] tracking-widest uppercase flex items-center gap-2"><i
-                        data-lucide="globe" class="w-3 h-3"></i> Productos con IA para clientes B2B</span>
+            <div>
+                <nav class="footer-links" aria-label="Enlaces legales y de contacto">
+                    <a href="/">Inicio</a>
+                    <a href="/privacidad.html" aria-current="page">Privacidad</a>
+                    <a href="/terminos.html">Términos</a>
+                </nav>
+                <p class="footer-meta">© 2026 Acelera</p>
             </div>
         </div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script>
-        lucide.createIcons();
-        document.addEventListener("DOMContentLoaded", () => {
-            gsap.registerPlugin(ScrollTrigger);
-            document.querySelectorAll(".gsap-reveal").forEach((el) => {
-                gsap.to(el, {
-                    scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" },
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: "power3.out"
-                });
-            });
-            const setupCursorGlow = (section, glows, config = {}) => {
-                if (!section) {
-                    return;
-                }
-                const validGlows = glows.filter(Boolean);
-                if (!validGlows.length) {
-                    return;
-                }
-                const primaryDuration = config.primaryDuration ?? 1.8;
-                const secondaryDuration = config.secondaryDuration ?? 0.65;
-                const leaveDuration = config.leaveDuration ?? 1.4;
-                const primaryOpacity = config.primaryOpacity ?? 1;
-                const secondaryOpacity = config.secondaryOpacity ?? 1;
-                gsap.set(validGlows, { xPercent: -50, yPercent: -50 });
-                section.addEventListener("mousemove", (e) => {
-                    const rect = section.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    if (validGlows[0]) {
-                        gsap.to(validGlows[0], { x, y, opacity: primaryOpacity, duration: primaryDuration, ease: "power2.out" });
-                    }
-                    if (validGlows[1]) {
-                        gsap.to(validGlows[1], { x, y, opacity: secondaryOpacity, duration: secondaryDuration, ease: "power3.out" });
-                    }
-                });
-                section.addEventListener("mouseleave", () => {
-                    gsap.to(validGlows, { opacity: 0, duration: leaveDuration, ease: "power2.out" });
-                });
-            };
-            const footerSection = document.getElementById("footer-section");
-            if (footerSection) {
-                setupCursorGlow(footerSection, [
-                    document.getElementById("footer-glow-1"),
-                    document.getElementById("footer-glow-2")
-                ]);
-            }
-        });
-    </script>
 </body>
 
 </html>

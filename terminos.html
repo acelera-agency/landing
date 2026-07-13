@@ -1,427 +1,327 @@
 <!DOCTYPE html>
-<html lang="es-AR" class="scroll-smooth">
+<html lang="es-AR">
 
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Términos y condiciones | Acelera</title>
     <meta name="description"
-        content="Términos y condiciones de uso del sitio web y servicios de Acelera. República Argentina." />
+        content="Condiciones aplicables al uso del sitio público de Acelera, sus formularios y las conversaciones comerciales iniciadas desde la página." />
     <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#F7F5F0" />
     <link rel="canonical" href="https://acelera.agency/terminos" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <link rel="manifest" href="site.webmanifest" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,450;9..144,600&family=Geist+Mono:wght@500;600&display=swap"
         rel="stylesheet" />
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        // Acelera brand v2 — same tokens as index.html
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        ink:         '#0B0F14',
-                        inkDeep:     '#06090C',
-                        paper:       '#F7F5F0',
-                        paperPure:   '#FFFFFF',
-                        accent:      '#1F6E5A',
-                        accentSoft:  '#D7E5DE',
-                        signal:      '#C2410C',
-                        muted:       '#6B7280',
-                        mutedStrong: '#4B5563',
-                        rule:        '#E5E1D8',
-                        ruleStrong:  '#D4CFC1',
-                        background:    '#F7F5F0',
-                        surface:       '#FFFFFF',
-                        surfaceAlt:    '#EFEBE0',
-                        primary:       '#1F6E5A',
-                        textPrimary:   '#0B0F14',
-                        textSecondary: '#6B7280',
-                        borderSubtle:  '#E5E1D8'
-                    },
-                    fontFamily: {
-                        sans:    ['"Inter"', 'system-ui', 'sans-serif'],
-                        serif:   ['"Inter Tight"', 'system-ui', 'sans-serif'],
-                        display: ['"Inter Tight"', 'system-ui', 'sans-serif'],
-                        mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace']
-                    },
-                    boxShadow: {
-                        premium:  '0 1px 0 0 rgba(11, 15, 20, 0.04)',
-                        floating: '0 2px 0 0 rgba(11, 15, 20, 0.06)'
-                    },
-                    borderRadius: {
-                        DEFAULT: '0',
-                        sm: '2px',
-                        md: '4px',
-                        lg: '8px',
-                        xl: '8px',
-                        '2xl': '8px',
-                        '3xl': '8px'
-                    }
-                }
-            }
-        };
-    </script>
-    <style>
-        body {
-            background: #F7F5F0;
-            color: #0B0F14;
-            font-feature-settings: 'kern', 'ss01', 'cv11';
-            background-image:
-                radial-gradient(circle at 1px 1px, rgba(11, 15, 20, 0.025) 1px, transparent 0),
-                radial-gradient(circle at 12px 12px, rgba(11, 15, 20, 0.015) 1px, transparent 0);
-            background-size: 24px 24px, 32px 32px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #F7F5F0;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #D4CFC1;
-            border-radius: 0;
-        }
-
-        .legal-card {
-            box-shadow: 0 1px 0 0 rgba(11, 15, 20, 0.04);
-        }
-
-        .gsap-reveal {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-    </style>
+    <link rel="stylesheet" href="assets/legal.css" />
 </head>
 
-<body class="antialiased selection:bg-primary/20 selection:text-textPrimary">
-    <header
-        class="fixed top-0 left-0 right-0 z-[100] px-6 md:px-12 py-5 flex justify-between items-center bg-background/90 backdrop-blur-md border-b border-borderSubtle/60">
-        <a href="index.html" class="text-xl font-bold tracking-tight text-textPrimary">ACELERA</a>
-        <nav class="hidden md:flex items-center gap-10">
-            <a href="index.html#proceso"
-                class="text-sm font-medium text-textSecondary hover:text-textPrimary transition-colors">Cómo trabajamos</a>
-            <a href="index.html#sectores"
-                class="text-sm font-medium text-textSecondary hover:text-textPrimary transition-colors">Sectores</a>
-            <a href="index.html#equipo"
-                class="text-sm font-medium text-textSecondary hover:text-textPrimary transition-colors">Equipo</a>
-        </nav>
-        <a href="index.html#contacto"
-            class="hidden md:inline-flex items-center justify-center bg-textPrimary text-surface px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-black transition-colors duration-300">
-            Hablemos
-        </a>
+<body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="/" aria-label="Acelera — ir al inicio">Aceler<span>a</span></a>
+            <div class="header-actions">
+                <nav class="legal-switcher" aria-label="Documentos legales">
+                    <a href="/privacidad.html">Privacidad</a>
+                    <a href="/terminos.html" aria-current="page">Términos</a>
+                </nav>
+                <a class="back-link" href="/">Volver al sitio →</a>
+            </div>
+        </div>
     </header>
 
-    <main class="relative z-10 pt-28 pb-20 px-6 md:px-12">
-        <div class="max-w-3xl mx-auto">
-            <p class="font-mono text-[10px] text-textSecondary uppercase tracking-widest mb-4">Legal</p>
-            <h1 class="font-serif text-4xl md:text-5xl font-bold text-textPrimary mb-4 tracking-tight">Términos y
-                condiciones</h1>
-            <p class="text-textSecondary text-sm mb-10">Última actualización: abril de 2026 · República Argentina</p>
-
-            <div
-                class="legal-card bg-surface border border-borderSubtle rounded-2xl md:rounded-[1.75rem] p-8 md:p-10 mb-10">
-                <p class="text-textSecondary text-sm leading-relaxed">
-                    Los presentes términos regulan el acceso y uso del sitio web operado por <strong
-                        class="text-textPrimary">Acelera</strong> (en adelante, “<strong
-                        class="text-textPrimary">Acelera</strong>” o “nosotros”) y las interacciones iniciales derivadas
-                    del mismo (incluidos formularios de contacto o solicitud de diagnóstico). Al navegar o utilizar el
-                    sitio, reconocés haber leído y aceptado estas condiciones. Si no estás de acuerdo, te pedimos que no
-                    utilices el sitio.
-                </p>
-                <p class="text-textSecondary text-sm leading-relaxed mt-4">
-                    El tratamiento de datos personales se rige por nuestra <a
-                        class="text-primary underline underline-offset-2 hover:text-textPrimary transition-colors"
-                        href="privacidad">Política de privacidad</a>.
-                </p>
-                <p class="text-textSecondary text-sm leading-relaxed mt-4">
-                    <strong class="text-textPrimary">Nota:</strong> conviene revisión legal de datos societarios,
-                    jurisdicción y condiciones particulares de contratación antes de publicación definitiva.
-                </p>
+    <main id="contenido" class="legal-main">
+        <header class="legal-hero">
+            <div>
+                <span class="eyebrow">Legal / Uso del sitio</span>
+                <h1>Términos y condiciones</h1>
             </div>
+            <div>
+                <p class="hero-summary">Reglas claras para usar la página e iniciar una conversación con Acelera. Los
+                    proyectos se contratan siempre por separado.</p>
+                <time class="hero-meta" datetime="2026-07-12">Vigentes desde el 12 de julio de 2026 · Argentina</time>
+            </div>
+        </header>
 
-            <div class="space-y-12 text-textSecondary leading-relaxed">
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">1. Objeto y alcance</h2>
-                    <p class="text-[15px]">
-                        El sitio tiene finalidad informativa y comercial sobre adopción de inteligencia artificial,
-                        construcción de software a medida con IA, capacitación a equipos internos y aplicación
-                        de IA en procesos operativos en contextos B2B. Está dirigido principalmente a
-                        representantes de empresas u organizaciones con capacidad para contratar en nombre de dichas
-                        entidades.
-                    </p>
+        <div class="legal-layout">
+            <aside class="legal-toc">
+                <nav aria-label="Índice de los términos">
+                    <p class="meta-label">En esta página</p>
+                    <ol>
+                        <li><a href="#operador">Quién opera el sitio</a></li>
+                        <li><a href="#alcance">Objeto y alcance</a></li>
+                        <li><a href="#consultas">Consultas y contratación</a></li>
+                        <li><a href="#servicios">Información sobre servicios</a></li>
+                        <li><a href="#material">Material y confidencialidad</a></li>
+                        <li><a href="#uso">Uso permitido</a></li>
+                        <li><a href="#propiedad">Propiedad intelectual</a></li>
+                        <li><a href="#terceros">Servicios externos</a></li>
+                        <li><a href="#privacidad">Privacidad</a></li>
+                        <li><a href="#disponibilidad">Disponibilidad y seguridad</a></li>
+                        <li><a href="#responsabilidad">Responsabilidad</a></li>
+                        <li><a href="#consumidores">Consumidores</a></li>
+                        <li><a href="#cambios">Cambios y validez</a></li>
+                        <li><a href="#ley">Ley y jurisdicción</a></li>
+                    </ol>
+                </nav>
+            </aside>
+
+            <article class="legal-content">
+                <p class="legal-intro">Este sitio informa qué hace Acelera y permite enviar una consulta. No vende,
+                    factura ni perfecciona contratos en línea. Cada proyecto requiere una propuesta o acuerdo específico
+                    aceptado por las partes.</p>
+
+                <section id="operador" class="legal-section">
+                    <span class="section-number">01</span>
+                    <h2>Quién opera el sitio</h2>
+                    <p><strong>Acelera</strong> es el nombre comercial de una <strong>sociedad de hecho comprendida en la
+                            Sección IV del Capítulo I de la Ley General de Sociedades 19.550</strong>, integrada por
+                        <strong>Ignacio Estevo, Mauro Proto y Franco Ferreira</strong>. En estos términos, “Acelera”,
+                        “nosotros” o “nuestro” se refieren a esa sociedad.</p>
+                    <dl class="fact-grid">
+                        <div class="fact">
+                            <dt>Sede informada públicamente</dt>
+                            <dd>Buenos Aires, República Argentina</dd>
+                        </div>
+                        <div class="fact">
+                            <dt>Sitio</dt>
+                            <dd><a href="https://acelera.agency">acelera.agency</a></dd>
+                        </div>
+                        <div class="fact">
+                            <dt>Correo</dt>
+                            <dd><a href="mailto:contacto@acelera.agency">contacto@acelera.agency</a></dd>
+                        </div>
+                        <div class="fact">
+                            <dt>Teléfono</dt>
+                            <dd><a href="tel:+5491161758891">+54 9 11 6175 8891</a></dd>
+                        </div>
+                    </dl>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">2. Información y exactitud</h2>
-                    <p class="text-[15px]">
-                        Los contenidos del sitio se actualizan periódicamente, pero pueden contener imprecisiones o
-                        quedar desactualizados. La información no constituye asesoramiento legal, contable ni técnico
-                        específico salvo que se acuerde por escrito en un encargo profesional aparte.
-                    </p>
+                <section id="alcance" class="legal-section">
+                    <span class="section-number">02</span>
+                    <h2>Objeto y alcance</h2>
+                    <p>Estos términos regulan el acceso y uso del sitio público, sus contenidos, formularios y canales de
+                        contacto. El sitio está orientado principalmente a personas que actúan por sí o en representación
+                        de empresas y organizaciones interesadas en software a medida, automatización, datos e
+                        inteligencia artificial aplicada.</p>
+                    <p>La mera navegación no crea un contrato ni implica una renuncia a derechos. Al utilizar una función
+                        interactiva, como enviar un formulario, te comprometés a hacerlo de forma lícita y a respetar las
+                        condiciones directamente vinculadas con esa función.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">3. Uso permitido del sitio</h2>
-                    <p class="text-[15px] mb-3">Te comprometés a utilizar el sitio de buena fe y conforme a la ley. Queda
-                        prohibido, entre otros:</p>
-                    <ul class="list-disc pl-5 space-y-2 text-[15px]">
-                        <li>Introducir virus, malware o mecanismos que afecten la seguridad o el funcionamiento del sitio
-                            o de terceros.</li>
-                        <li>Realizar scraping, minería de datos o extracción masiva no autorizada de contenidos.</li>
-                        <li>Suplantar identidades, enviar información falsa de manera sistemática o interferir con el
-                            uso del sitio por otros usuarios.</li>
-                        <li>Utilizar el sitio para fines ilícitos o que vulneren derechos de terceros.</li>
+                <section id="consultas" class="legal-section">
+                    <span class="section-number">03</span>
+                    <h2>Consultas, reuniones y contratación</h2>
+                    <p>Enviar una consulta, escribir por correo o WhatsApp, o mantener una primera reunión
+                        <strong>no crea por sí mismo un contrato</strong> ni obliga a ninguna parte a iniciar un proyecto.
+                        Acelera puede aceptar, rechazar o pedir más información sobre una solicitud.</p>
+                    <p>Si existe interés mutuo, la contratación requerirá una propuesta, presupuesto, orden de trabajo o
+                        contrato que identifique, según corresponda:</p>
+                    <ul>
+                        <li>alcance, etapas, entregables y criterios de aceptación;</li>
+                        <li>precio, moneda, impuestos, forma y calendario de pago;</li>
+                        <li>plazos, dependencias, responsabilidades y gestión de cambios;</li>
+                        <li>propiedad intelectual, componentes preexistentes y licencias de terceros;</li>
+                        <li>confidencialidad, seguridad y tratamiento de datos;</li>
+                        <li>soporte, mantenimiento, garantías y terminación; y</li>
+                        <li>cualquier condición particular necesaria para el proyecto.</li>
                     </ul>
+                    <p>Ante una diferencia entre estos términos del sitio y un acuerdo de servicios aceptado por las
+                        partes, prevalece el acuerdo específico respecto del proyecto.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">4. Formularios, diagnóstico y
-                        propuestas</h2>
-                    <p class="text-[15px]">
-                        El envío de formularios o solicitudes de diagnóstico no genera por sí mismo obligación de
-                        contratación ni compromiso comercial vinculante para ninguna de las partes. Cualquier prestación
-                        de servicios quedará sujeta a propuesta, orden de trabajo o contrato escrito que acuerde
-                        alcance, honorarios, plazos y condiciones particulares, según el <strong
-                            class="text-textPrimary">Código Civil y Comercial de la Nación</strong> y la normativa
-                        aplicable a la relación comercial correspondiente.
-                    </p>
+                <section id="servicios" class="legal-section">
+                    <span class="section-number">04</span>
+                    <h2>Información sobre servicios y resultados</h2>
+                    <p>El sitio describe capacidades generales de consultoría, diseño, desarrollo, integración,
+                        automatización, datos, inteligencia artificial, puesta en producción, documentación y
+                        transferencia al equipo del cliente. Una descripción pública no significa que todas esas
+                        capacidades formen parte de cada proyecto.</p>
+                    <p>Los plazos, etapas, tecnologías, modalidades de entrega y resultados mencionados son referencias
+                        generales. Sólo serán compromisos contractuales cuando una propuesta o acuerdo los incorpore de
+                        forma expresa.</p>
+                    <p>Los sistemas de software e inteligencia artificial dependen, entre otros factores, de la calidad de
+                        los datos, decisiones humanas, infraestructura, integraciones y condiciones de uso. Acelera no
+                        promete que la inteligencia artificial sea adecuada para todos los casos ni garantiza un resultado
+                        comercial específico fuera de un compromiso escrito.</p>
+                    <p>El contenido del sitio no es asesoramiento jurídico, contable, fiscal, financiero, médico ni de
+                        otra profesión regulada.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">5. Propiedad intelectual</h2>
-                    <p class="text-[15px]">
-                        Los textos, diseño, marca, logotipos, compilaciones de contenido, código y demás elementos del
-                        sitio están protegidos por la normativa de propiedad intelectual y derechos conexos de la
-                        República Argentina. No se otorga licencia alguna salvo el derecho limitado a visualizar el sitio
-                        para fines personales o comerciales legítimos vinculados a evaluar servicios de Acelera, sin
-                        reproducir ni explotar el contenido fuera de lo permitido por ley.
-                    </p>
+                <section id="material" class="legal-section">
+                    <span class="section-number">05</span>
+                    <h2>Información que enviás y confidencialidad</h2>
+                    <p>Declarás que la información que enviás es correcta según tu conocimiento, que tenés autoridad para
+                        facilitarla y que su uso para responder la consulta no vulnera derechos de terceros.</p>
+                    <p>Otorgás a Acelera una autorización limitada para recibir, reproducir internamente y usar ese
+                        material sólo en la medida necesaria para contestar, evaluar el caso, preparar una propuesta y
+                        cumplir obligaciones legales. Conservás los derechos sobre tu contenido.</p>
+                    <div class="notice">
+                        <p><strong>El formulario no es una sala de datos ni crea por sí solo un acuerdo de
+                                confidencialidad.</strong> No envíes contraseñas, credenciales, código privado, secretos
+                            comerciales, datos sensibles ni datos de terceros sin autorización. Si el análisis requiere
+                            información reservada, primero acordaremos un canal y, si corresponde, un compromiso de
+                            confidencialidad.</p>
+                    </div>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">6. Enlaces y servicios de terceros
-                    </h2>
-                    <p class="text-[15px]">
-                        El sitio puede incluir enlaces a sitios de terceros. Acelera no controla esos sitios ni su
-                        contenido y no se responsabiliza por ellos. El acceso a enlaces externos es bajo tu propio
-                        riesgo.
-                    </p>
+                <section id="uso" class="legal-section">
+                    <span class="section-number">06</span>
+                    <h2>Uso permitido</h2>
+                    <p>Podés navegar, compartir enlaces públicos e imprimir contenidos para evaluar los servicios de
+                        Acelera o para otros fines lícitos. No podés:</p>
+                    <ul>
+                        <li>usar el sitio para fraude, suplantación, acoso o cualquier actividad ilícita;</li>
+                        <li>introducir malware, explotar vulnerabilidades o interferir con la disponibilidad del sitio;
+                        </li>
+                        <li>evadir controles, acceder a áreas no autorizadas o probar seguridad sin permiso escrito;</li>
+                        <li>extraer contenidos de forma automatizada y masiva cuando afecte el servicio o infrinja
+                            derechos;</li>
+                        <li>enviar spam, formularios falsos o cargas que degraden la infraestructura; o</li>
+                        <li>presentar contenidos, marca o trabajos de Acelera como propios.</li>
+                    </ul>
+                    <p>Podemos limitar solicitudes o accesos abusivos para proteger el sitio, sin afectar los derechos que
+                        no puedan restringirse por ley.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">7. Disponibilidad del sitio</h2>
-                    <p class="text-[15px]">
-                        Procuramos mantener el sitio operativo, pero no garantizamos ausencia de interrupciones,
-                        errores o vulnerabilidades. Podemos suspender o modificar el acceso por mantenimiento,
-                        seguridad o fuerza mayor.
-                    </p>
+                <section id="propiedad" class="legal-section">
+                    <span class="section-number">07</span>
+                    <h2>Propiedad intelectual</h2>
+                    <p>Salvo indicación distinta, el diseño, textos, estructura, código, gráficos y elementos de marca del
+                        sitio pertenecen a Acelera o se usan bajo autorización o licencia. La navegación no transfiere
+                        propiedad ni concede una licencia comercial sobre esos materiales.</p>
+                    <p>Los nombres, logotipos, capturas, tecnologías y marcas de terceros pertenecen a sus respectivos
+                        titulares. Su mención describe compatibilidad, experiencia o contexto y no implica patrocinio,
+                        certificación o asociación salvo que se indique expresamente.</p>
+                    <p>La titularidad del código, documentación, datos, modelos, configuraciones y demás entregables de un
+                        proyecto se define en su contrato. Estos términos no anticipan ni modifican esa asignación.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">8. Limitación de responsabilidad
-                    </h2>
-                    <p class="text-[15px] mb-3">
-                        En la medida en que la normativa aplicable lo permita, Acelera no será responsable por daños
-                        indirectos, lucro cesante, pérdida de datos o daños derivados del uso o imposibilidad de uso del
-                        sitio, salvo dolo o culpa grave demostrable atribuible a Acelera.
-                    </p>
-                    <p class="text-[15px]">
-                        Las limitaciones precedentes se interpretan de conformidad con las reglas de validez de las
-                        cláusulas de exoneración y limitación previstas en el ordenamiento argentino, sin perjuicio de
-                        derechos irrenunciables del consumidor cuando la relación corresponda a un consumidor en los
-                        términos de la <strong class="text-textPrimary">Ley N.º 24.240</strong> y normas complementarias.
-                    </p>
+                <section id="terceros" class="legal-section">
+                    <span class="section-number">08</span>
+                    <h2>Servicios y enlaces externos</h2>
+                    <p>El sitio utiliza infraestructura y recursos de terceros para funcionar, incluidos Vercel, Resend,
+                        Google Fonts, cdnjs y jsDelivr. También enlaza a LinkedIn y WhatsApp. Cada tercero opera bajo sus
+                        propias condiciones, disponibilidad y políticas.</p>
+                    <p>Acelera selecciona e integra esos servicios, pero no controla sus plataformas ni responde por
+                        contenidos, decisiones o interrupciones exclusivamente atribuibles a terceros ajenos. El hecho de
+                        incluir un enlace no implica aprobación de todo su contenido.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">9. Indemnidad</h2>
-                    <p class="text-[15px]">
-                        Te obligás a mantener indemne a Acelera frente a reclamos de terceros derivados de un uso del
-                        sitio que infrinja estos términos o la ley, cuando el reclamo sea imputable a tu conducta.
-                    </p>
+                <section id="privacidad" class="legal-section">
+                    <span class="section-number">09</span>
+                    <h2>Privacidad y comunicaciones</h2>
+                    <p>El tratamiento de datos del sitio se explica en la <a href="/privacidad.html">Política de
+                            Privacidad</a>, que identifica los datos, finalidades, proveedores, transferencias,
+                        conservación y derechos.</p>
+                    <p>Al enviar una consulta autorizás a Acelera a responder por el correo u otro canal que hayas usado.
+                        Esa autorización se limita a la consulta y a conversaciones profesionales relacionadas; no te
+                        suscribe a publicidad o newsletters.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">10. Fuerza mayor</h2>
-                    <p class="text-[15px]">
-                        Acelera no será responsable por el incumplimiento de obligaciones cuando medie causa de fuerza
-                        mayor o hecho del príncipe en los términos del ordenamiento jurídico argentino.
-                    </p>
+                <section id="disponibilidad" class="legal-section">
+                    <span class="section-number">10</span>
+                    <h2>Disponibilidad y seguridad del sitio</h2>
+                    <p>Procuramos mantener la página disponible, actualizada y razonablemente segura. Sin embargo, un
+                        sitio gratuito y público puede sufrir tareas de mantenimiento, errores, demoras, incompatibilidades
+                        o interrupciones.</p>
+                    <p>Podemos corregir, modificar o retirar contenidos y funciones del sitio. Cuando una comunicación sea
+                        importante, no dependas exclusivamente de la disponibilidad del formulario: también podés escribir
+                        a <a href="mailto:contacto@acelera.agency">contacto@acelera.agency</a>.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">11. Modificaciones</h2>
-                    <p class="text-[15px]">
-                        Podemos actualizar estos términos en cualquier momento. La versión vigente se publicará en esta
-                        página con la fecha de actualización. El uso continuado del sitio tras cambios sustanciales puede
-                        implicar, cuando la ley lo admita, la aceptación de los nuevos términos.
-                    </p>
+                <section id="responsabilidad" class="legal-section">
+                    <span class="section-number">11</span>
+                    <h2>Responsabilidad dentro de los límites legales</h2>
+                    <p>Acelera responde por sus obligaciones en la medida establecida por la ley y por los acuerdos
+                        específicos que celebre. Estos términos del sitio no limitan la responsabilidad que legalmente no
+                        pueda excluirse, ni la responsabilidad por dolo, culpa grave, incumplimientos propios, afectación
+                        de datos personales o derechos irrenunciables.</p>
+                    <p>En la máxima medida permitida, Acelera no responde por daños originados exclusivamente en:</p>
+                    <ul>
+                        <li>el uso ilícito o contrario a estos términos por parte del usuario;</li>
+                        <li>datos falsos, instrucciones incorrectas o material que el usuario no estaba autorizado a
+                            compartir;</li>
+                        <li>plataformas externas a las que se accede voluntariamente mediante enlaces; o</li>
+                        <li>la adopción de decisiones basada únicamente en contenido informativo del sitio, sin un análisis
+                            profesional aplicable al caso.</li>
+                    </ul>
+                    <p>Las responsabilidades derivadas de un servicio contratado se rigen por el acuerdo de ese proyecto y
+                        no por esta sección.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">12. Cesión</h2>
-                    <p class="text-[15px]">
-                        Acelera podrá ceder los derechos y obligaciones derivados de estos términos en el marco de
-                        reorganizaciones societarias, siempre que no perjudique derechos adquiridos por los usuarios en
-                        los términos permitidos por ley.
-                    </p>
+                <section id="consumidores" class="legal-section">
+                    <span class="section-number">12</span>
+                    <h2>Personas consumidoras</h2>
+                    <p>Acelera dirige su oferta principalmente a organizaciones que incorporan los servicios a su
+                        actividad. Aun así, cuando una persona califique legalmente como consumidora o usuaria final, se
+                        aplican la <a href="https://www.argentina.gob.ar/normativa/nacional/ley-24240-638/actualizacion"
+                            target="_blank" rel="noopener noreferrer">Ley 24.240</a>, el <a
+                            href="https://www.argentina.gob.ar/normativa/nacional/ley-26994-235975/actualizacion"
+                            target="_blank" rel="noopener noreferrer">Código Civil y Comercial</a> y demás normas
+                        imperativas.</p>
+                    <p>Nada en estos términos implica renuncia, restricción de jurisdicción, exclusión de responsabilidad
+                        o pérdida de un derecho que la normativa de consumo considere irrenunciable.</p>
+                    <p>Actualmente el sitio sólo recibe consultas: no muestra precios finales, cobra, acepta pedidos ni
+                        celebra contratos a distancia. Si esa operatoria cambia, Acelera incorporará antes de ofrecerla la
+                        información, confirmaciones y mecanismos exigidos para la contratación electrónica.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">13. Nulidad parcial</h2>
-                    <p class="text-[15px]">
-                        Si alguna cláusula fuera declarada inválida o ineficaz, el resto de los términos conservará su
-                        vigencia en lo posible.
-                    </p>
+                <section id="cambios" class="legal-section">
+                    <span class="section-number">13</span>
+                    <h2>Cambios, separación y falta de renuncia</h2>
+                    <p>Podemos actualizar estos términos para reflejar cambios del sitio, la operación o la normativa. La
+                        versión nueva regirá hacia el futuro desde la fecha indicada y no modificará por sí sola contratos
+                        ya celebrados.</p>
+                    <p>Si una disposición resulta inválida o inaplicable, se interpretará o separará en la mínima medida
+                        necesaria y el resto conservará su vigencia. Que Acelera no exija inmediatamente una condición no
+                        significa que renuncie a ejercer un derecho luego.</p>
                 </section>
 
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">14. Ley aplicable y jurisdicción
-                    </h2>
-                    <p class="text-[15px]">
-                        Estos términos se rigen por las leyes de la <strong class="text-textPrimary">República
-                            Argentina</strong>. Para cualquier controversia derivada del uso del sitio o de la relación
-                        precontractual iniciada a través del mismo, las partes se someten a los tribunales ordinarios
-                        competentes con sede en la <strong class="text-textPrimary">Ciudad Autónoma de Buenos Aires</strong>,
-                        renunciando a cualquier otro fuero o jurisdicción que pudiera corresponder, salvo normas
-                        imperativas en contrario (completar domicilio y fuero si la operatoria fuera en otra provincia).
-                    </p>
+                <section id="ley" class="legal-section">
+                    <span class="section-number">14</span>
+                    <h2>Ley aplicable, jurisdicción y contacto</h2>
+                    <p>Estos términos se rigen por las leyes de la <strong>República Argentina</strong>.</p>
+                    <p>Para relaciones no comprendidas en el régimen de consumo, cualquier controversia vinculada
+                        exclusivamente con el uso del sitio se someterá a los tribunales ordinarios competentes de la
+                        <strong>Ciudad Autónoma de Buenos Aires</strong>, salvo acuerdo escrito diferente. En relaciones de
+                        consumo y en cualquier otro supuesto protegido, serán competentes las autoridades y tribunales que
+                        determinen las normas imperativas, sin renuncia a la jurisdicción legal del usuario.</p>
+                    <p>Para preguntas, reclamos o avisos relacionados con estos términos, escribinos a <a
+                            href="mailto:contacto@acelera.agency?subject=T%C3%A9rminos%20del%20sitio">contacto@acelera.agency</a>
+                        o llamanos al <a href="tel:+5491161758891">+54 9 11 6175 8891</a>.</p>
                 </section>
-
-                <section>
-                    <h2 class="font-serif text-2xl font-bold text-textPrimary mb-4">15. Contacto</h2>
-                    <p class="text-[15px]">
-                        Para consultas sobre estos términos, podés contactarnos a través del formulario disponible en el
-                        sitio o al correo <a href="mailto:contacto@acelera.agency"
-                            class="text-primary underline underline-offset-2 hover:text-textPrimary transition-colors">contacto@acelera.agency</a>.
-                    </p>
-                </section>
-            </div>
+            </article>
         </div>
     </main>
 
-    <footer id="footer-section"
-        class="relative bg-surfaceAlt/30 pt-32 pb-10 px-6 md:px-12 overflow-hidden border-t border-borderSubtle">
-        <div id="footer-glow-1"
-            class="absolute w-[800px] h-[800px] rounded-full blur-[120px] bg-primary/10 opacity-0 top-0 left-0 mix-blend-normal pointer-events-none z-0">
-        </div>
-        <div id="footer-glow-2"
-            class="absolute w-[400px] h-[400px] rounded-full blur-[90px] bg-accent/20 opacity-0 top-0 left-0 mix-blend-normal pointer-events-none z-0">
-        </div>
-        <div
-            class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row justify-between items-start gap-16 mb-20 gsap-reveal">
-            <div class="max-w-sm">
-                <div class="text-2xl font-bold tracking-tight text-textPrimary mb-6 flex items-center gap-3">
-                    <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                    ACELERA
-                </div>
-                <p class="text-textSecondary font-light leading-relaxed">
-                    Desarrollamos productos con inteligencia artificial para diversos clientes: menos tareas manuales entre
-                    sistemas y documentos, más visibilidad cuando la IA aporta velocidad y criterio.
-                </p>
-                <p class="mt-5 font-mono text-sm md:text-base text-textSecondary">
-                    <a href="mailto:contacto@acelera.agency"
-                        class="hover:text-primary transition-colors">contacto@acelera.agency</a>
-                </p>
+    <footer class="legal-footer">
+        <div class="footer-inner">
+            <div>
+                <p class="footer-brand">Acelera</p>
+                <p class="footer-copy"><a href="mailto:contacto@acelera.agency">contacto@acelera.agency</a> · Buenos
+                    Aires, Argentina</p>
             </div>
-            <div class="flex gap-16">
-                <div class="flex flex-col gap-4">
-                    <span
-                        class="font-mono text-[10px] font-semibold tracking-widest uppercase text-textPrimary mb-2">Navegación</span>
-                    <a href="index.html#proceso"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Cómo
-                        trabajamos</a>
-                    <a href="index.html#sectores"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Sectores</a>
-                    <a href="index.html#equipo"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Equipo</a>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <span
-                        class="font-mono text-[10px] font-semibold tracking-widest uppercase text-textPrimary mb-2">Legal</span>
-                    <a href="privacidad"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Privacidad</a>
-                    <a href="terminos"
-                        class="text-sm text-textSecondary font-medium hover:text-primary transition-colors">Términos</a>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto relative z-10 border-t border-borderSubtle/50 pt-10 flex flex-col items-center">
-            <h2
-                class="font-serif text-[18vw] md:text-[15vw] leading-none text-textPrimary/5 tracking-tighter select-none mb-10 text-center w-full">
-                Acelera.
-            </h2>
-            <div class="w-full flex flex-col md:flex-row justify-between items-center gap-4 text-textSecondary">
-                <span class="font-mono text-[10px] tracking-widest uppercase">© 2026 Acelera</span>
-                <span class="font-mono text-[10px] tracking-widest uppercase flex items-center gap-2"><i
-                        data-lucide="globe" class="w-3 h-3"></i> Productos con IA para clientes B2B</span>
+            <div>
+                <nav class="footer-links" aria-label="Enlaces legales y de contacto">
+                    <a href="/">Inicio</a>
+                    <a href="/privacidad.html">Privacidad</a>
+                    <a href="/terminos.html" aria-current="page">Términos</a>
+                </nav>
+                <p class="footer-meta">© 2026 Acelera</p>
             </div>
         </div>
     </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script>
-        lucide.createIcons();
-        document.addEventListener("DOMContentLoaded", () => {
-            gsap.registerPlugin(ScrollTrigger);
-            document.querySelectorAll(".gsap-reveal").forEach((el) => {
-                gsap.to(el, {
-                    scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" },
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: "power3.out"
-                });
-            });
-            const setupCursorGlow = (section, glows, config = {}) => {
-                if (!section) {
-                    return;
-                }
-                const validGlows = glows.filter(Boolean);
-                if (!validGlows.length) {
-                    return;
-                }
-                const primaryDuration = config.primaryDuration ?? 1.8;
-                const secondaryDuration = config.secondaryDuration ?? 0.65;
-                const leaveDuration = config.leaveDuration ?? 1.4;
-                const primaryOpacity = config.primaryOpacity ?? 1;
-                const secondaryOpacity = config.secondaryOpacity ?? 1;
-                gsap.set(validGlows, { xPercent: -50, yPercent: -50 });
-                section.addEventListener("mousemove", (e) => {
-                    const rect = section.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    if (validGlows[0]) {
-                        gsap.to(validGlows[0], { x, y, opacity: primaryOpacity, duration: primaryDuration, ease: "power2.out" });
-                    }
-                    if (validGlows[1]) {
-                        gsap.to(validGlows[1], { x, y, opacity: secondaryOpacity, duration: secondaryDuration, ease: "power3.out" });
-                    }
-                });
-                section.addEventListener("mouseleave", () => {
-                    gsap.to(validGlows, { opacity: 0, duration: leaveDuration, ease: "power2.out" });
-                });
-            };
-            const footerSection = document.getElementById("footer-section");
-            if (footerSection) {
-                setupCursorGlow(footerSection, [
-                    document.getElementById("footer-glow-1"),
-                    document.getElementById("footer-glow-2")
-                ]);
-            }
-        });
-    </script>
 </body>
 
 </html>

@@ -31,10 +31,10 @@ module.exports = {
                 borderSubtle:  '#E5E1D8'
             },
             fontFamily: {
-                sans:    ['"Inter"', 'system-ui', 'sans-serif'],
-                serif:   ['"Inter Tight"', 'system-ui', 'sans-serif'],
-                display: ['"Inter Tight"', 'system-ui', 'sans-serif'],
-                mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+                sans:    ['"abcdFont"', '"Inter Variable"', '"Inter"', '"DM Sans"', 'system-ui', 'sans-serif'],
+                serif:   ['"ivarTextFont"', '"Freight Display Pro"', '"Fraunces"', 'Georgia', 'serif'],
+                display: ['"ivarTextFont"', '"Freight Display Pro"', '"Fraunces"', 'Georgia', 'serif'],
+                mono:    ['"Geist Mono"', 'ui-monospace', 'monospace']
             },
             boxShadow: {
                 // Brand kit pide nada dramático — bordes finos, no sombras grandes

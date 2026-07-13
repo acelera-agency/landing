@@ -65,7 +65,8 @@ test("sends a lead notification through Resend", async () => {
           proceso: "Clasificar pedidos entrantes",
           variant: "acelera-diagnostic",
           utm_source: "linkedin",
-          landing_url: "https://acelera.agency/"
+          landing_url: "https://acelera.agency/",
+          privacy_consent: "accepted"
         }
       };
       const res = createResponse();
@@ -88,6 +89,7 @@ test("sends a lead notification through Resend", async () => {
       assert.equal(payload.reply_to, "ana@example.com");
       assert.match(payload.subject, /Operaciones Norte/);
       assert.match(payload.text, /Clasificar pedidos entrantes/);
+      assert.match(payload.text, /Consentimiento de privacidad: Aceptado/);
     } finally {
       globalThis.fetch = originalFetch;
     }
@@ -108,7 +110,8 @@ test("rejects invalid lead payloads before calling Resend", async () => {
           nombre: "Ana Perez",
           empresa: "Operaciones Norte",
           email: "no-es-email",
-          proceso: "Clasificar pedidos entrantes"
+          proceso: "Clasificar pedidos entrantes",
+          privacy_consent: "accepted"
         }
       };
       const res = createResponse();
@@ -117,6 +120,38 @@ test("rejects invalid lead payloads before calling Resend", async () => {
 
       assert.equal(res.statusCode, 400);
       assert.equal(JSON.parse(res.body).error, "Ingresá un email válido.");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+});
+
+test("requires an explicit privacy consent", async () => {
+  await withLeadEnv(async () => {
+    const originalFetch = globalThis.fetch;
+    globalThis.fetch = async () => {
+      throw new Error("fetch should not be called");
+    };
+
+    try {
+      const req = {
+        method: "POST",
+        body: {
+          nombre: "Ana Perez",
+          empresa: "Operaciones Norte",
+          email: "ana@example.com",
+          proceso: "Clasificar pedidos entrantes"
+        }
+      };
+      const res = createResponse();
+
+      await handler(req, res);
+
+      assert.equal(res.statusCode, 400);
+      assert.equal(
+        JSON.parse(res.body).error,
+        "Necesitás aceptar la Política de Privacidad para enviar la consulta."
+      );
     } finally {
       globalThis.fetch = originalFetch;
     }
