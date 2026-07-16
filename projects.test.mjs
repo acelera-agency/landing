@@ -51,6 +51,26 @@ test("links public projects safely and leaves Lain without a fake destination", 
   assert.doesNotMatch(lainCard, /href=/);
 });
 
+test("uses an editorial Rely visual instead of the rejected dashboard screenshot", () => {
+  const relyCard = projectsSection.match(
+    /<article[^>]*data-project="rely"[\s\S]*?<\/article>/,
+  )?.[0];
+
+  assert.ok(relyCard, "Rely should have its own project card");
+  assert.match(relyCard, /data-rely-visual/);
+  assert.doesNotMatch(relyCard, /rely-card\.png/);
+});
+
+test("stacks the Rely workflow into two columns on narrow screens", () => {
+  const relyFlowRules = [...indexHtml.matchAll(/\.project-rely-visual__flow\s*\{([^}]*)\}/g)]
+    .map((match) => match[1]);
+
+  assert.ok(
+    relyFlowRules.some((rule) => /grid-template-columns:\s*repeat\(2,/.test(rule)),
+    "A narrow-screen rule should use two workflow columns",
+  );
+});
+
 test("provides English copy for the new project story", () => {
   for (const translation of [
     "Software already solving",

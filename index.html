@@ -1347,6 +1347,136 @@
             object-position: left top;
         }
 
+        .project-rely-visual {
+            position: relative;
+            display: flex;
+            height: 100%;
+            min-height: 22rem;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: clamp(1.5rem, 3.5vw, 3rem);
+            background:
+                radial-gradient(circle at 82% 16%, rgba(113, 222, 128, 0.34), transparent 26%),
+                linear-gradient(135deg, #F4F8F0 0%, #E2F0DF 100%);
+            color: #102016;
+        }
+
+        .project-rely-visual::before {
+            content: "";
+            position: absolute;
+            right: -7%;
+            bottom: -32%;
+            width: 48%;
+            aspect-ratio: 1;
+            border: 1px solid rgba(16, 32, 22, 0.12);
+            border-radius: 50%;
+            box-shadow: 0 0 0 2.5rem rgba(113, 222, 128, 0.08), 0 0 0 5rem rgba(113, 222, 128, 0.05);
+        }
+
+        .project-rely-visual__top,
+        .project-rely-visual__bottom {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .project-rely-visual__brand {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 6vw, 5.75rem);
+            font-weight: 600;
+            line-height: 0.82;
+            letter-spacing: -0.035em;
+        }
+
+        .project-rely-visual__status,
+        .project-rely-visual__caption {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .project-rely-visual__status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-rely-visual__status::before {
+            content: "";
+            width: 0.55rem;
+            height: 0.55rem;
+            border-radius: 50%;
+            background: #42B85A;
+            box-shadow: 0 0 0 0.25rem rgba(66, 184, 90, 0.14);
+        }
+
+        .project-rely-visual__flow {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin: clamp(2rem, 5vw, 4.5rem) 0;
+            border: 1px solid rgba(16, 32, 22, 0.22);
+            background: rgba(255, 255, 255, 0.48);
+            backdrop-filter: blur(8px);
+        }
+
+        .project-rely-visual__step {
+            position: relative;
+            min-width: 0;
+            padding: clamp(1rem, 2vw, 1.5rem);
+            border-right: 1px solid rgba(16, 32, 22, 0.16);
+        }
+
+        .project-rely-visual__step:last-child {
+            border-right: 0;
+        }
+
+        .project-rely-visual__step small {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: #4B6954;
+            font-family: var(--font-mono);
+            font-size: 0.52rem;
+            letter-spacing: 0.12em;
+        }
+
+        .project-rely-visual__step strong {
+            display: block;
+            font-size: clamp(0.7rem, 1vw, 0.88rem);
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .project-rely-visual__caption {
+            color: #36513E;
+        }
+
+        .project-rely-visual__seal {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+        }
+
+        .project-rely-visual__seal span {
+            display: inline-flex;
+            width: 1.5rem;
+            height: 1.5rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #102016;
+            color: #71DE80;
+        }
+
         .project-lain-canvas {
             position: relative;
             display: flex;
@@ -1625,6 +1755,48 @@
         @media (max-width: 767px) {
             .project-feature {
                 padding-top: 1rem;
+            }
+
+            .project-rely-visual {
+                min-height: 100%;
+                padding: 1rem 1.15rem;
+            }
+
+            .project-rely-visual__brand {
+                font-size: 2.65rem;
+            }
+
+            .project-rely-visual__status {
+                font-size: 0.48rem;
+            }
+
+            .project-rely-visual__flow {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                margin: 0.85rem 0 0;
+            }
+
+            .project-rely-visual__step {
+                padding: 0.55rem 0.7rem;
+            }
+
+            .project-rely-visual__step:nth-child(2) {
+                border-right: 0;
+            }
+
+            .project-rely-visual__step:nth-child(-n + 2) {
+                border-bottom: 1px solid rgba(16, 32, 22, 0.16);
+            }
+
+            .project-rely-visual__step small {
+                margin-bottom: 0.25rem;
+            }
+
+            .project-rely-visual__step strong {
+                font-size: 0.58rem;
+            }
+
+            .project-rely-visual__bottom {
+                display: none;
             }
 
             .project-feature__body {
@@ -3787,8 +3959,22 @@
                 <div class="projects-mosaic relative z-10">
                     <article class="project-feature gsap-reveal" data-project="rely">
                         <div class="project-media">
-                            <img src="assets/proyectos/rely-card.png" alt="Rely: plataforma para formar y administrar LLCs" width="1200" height="752" loading="lazy" decoding="async"
-                                class="w-full h-full object-cover object-left-top">
+                            <div class="project-rely-visual" data-rely-visual role="img" aria-label="Rely: flujo operativo desde la formación hasta el compliance">
+                                <div class="project-rely-visual__top">
+                                    <strong class="project-rely-visual__brand">Rely</strong>
+                                    <span class="project-rely-visual__status">Operación activa</span>
+                                </div>
+                                <div class="project-rely-visual__flow" aria-hidden="true">
+                                    <div class="project-rely-visual__step"><small>01</small><strong>Formación</strong></div>
+                                    <div class="project-rely-visual__step"><small>02</small><strong>Documentos</strong></div>
+                                    <div class="project-rely-visual__step"><small>03</small><strong>Pagos</strong></div>
+                                    <div class="project-rely-visual__step"><small>04</small><strong>Compliance</strong></div>
+                                </div>
+                                <div class="project-rely-visual__bottom">
+                                    <span class="project-rely-visual__caption">Una operación, un sistema.</span>
+                                    <span class="project-rely-visual__seal"><span>✓</span> USA LLC</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="project-feature__body">
                             <div>
