@@ -7,79 +7,134 @@ const i18nSource = await readFile(new URL("./assets/i18n.js", import.meta.url), 
 const projectsSection = indexHtml.match(
   /<section id="proyectos"[\s\S]*?<section id="proceso"/,
 )?.[0];
+const capabilitiesSection = indexHtml.match(
+  /<section id="construimos"[\s\S]*?<section id="proyectos"/,
+)?.[0];
 
-test("features the three Acelera flagship projects in the agreed order", () => {
+const projectCard = (slug) => projectsSection?.match(
+  new RegExp(`<article[^>]*data-project="${slug}"[\\s\\S]*?<\\/article>`),
+)?.[0];
+
+test("features four Acelera projects with equal card treatment", () => {
   assert.ok(projectsSection, "The projects section should exist");
 
-  const relyIndex = projectsSection.indexOf(">Rely<");
-  const lainIndex = projectsSection.indexOf(">Lain Canvas<");
-  const faroIndex = projectsSection.indexOf(">Faro<");
-
-  assert.ok(relyIndex >= 0, "Rely should be featured");
-  assert.ok(lainIndex > relyIndex, "Lain Canvas should follow Rely");
-  assert.ok(faroIndex > lainIndex, "Faro should follow Lain Canvas");
-  assert.doesNotMatch(projectsSection, />Vueltito</);
-  assert.doesNotMatch(projectsSection, />MUSA</);
-});
-
-test("attributes leadership without presenting projects as personal work", () => {
-  for (const leader of [
-    "Liderado por Franco Ferreira",
-    "Liderado por Ignacio Estevo",
-    "Liderado por Mauro Proto",
-  ]) {
-    assert.match(projectsSection, new RegExp(leader));
+  const projects = ["rely", "lain", "faro", "lemon"];
+  let previousIndex = -1;
+  for (const project of projects) {
+    const index = projectsSection.indexOf(`data-project="${project}"`);
+    assert.ok(index > previousIndex, `${project} should appear in the agreed order`);
+    previousIndex = index;
+    assert.match(projectCard(project), /class="project-card /);
   }
 
+  assert.doesNotMatch(projectsSection, />Vueltito</);
+  assert.doesNotMatch(projectsSection, />MUSA</);
+  assert.match(indexHtml, /@media \(min-width: 768px\)[\s\S]*?\.projects-mosaic\s*\{[^}]*grid-template-columns:\s*repeat\(2,/);
+});
+
+test("attributes each project to its verified lead", () => {
+  const expectedLeads = {
+    rely: "Liderado por Franco Ferreira",
+    lain: "Liderado por Mauro Proto",
+    faro: "Liderado por Ignacio Estevo",
+    lemon: "Liderado por Franco Ferreira",
+  };
+
+  for (const [project, leader] of Object.entries(expectedLeads)) {
+    assert.match(projectCard(project), new RegExp(leader));
+  }
+  assert.match(projectCard("lemon"), /Proyecto para Lemon/);
   assert.doesNotMatch(projectsSection, /proyecto personal/i);
 });
 
-test("links public projects safely and leaves Lain without a fake destination", () => {
-  assert.match(
-    projectsSection,
-    /href="https:\/\/rely\.business\/?"[\s\S]*?target="_blank"[\s\S]*?rel="noopener noreferrer"/,
-  );
-  assert.match(
-    projectsSection,
-    /href="https:\/\/faro-argentina\.vercel\.app\/?"[\s\S]*?target="_blank"[\s\S]*?rel="noopener noreferrer"/,
-  );
+test("links every public project to a real destination", () => {
+  const links = {
+    rely: "https://rely.business",
+    lain: "https://lainagent.com",
+    faro: "https://faro-argentina.vercel.app",
+    lemon: "https://github.com/frxnnk/lemon-display",
+  };
 
-  const lainCard = projectsSection.match(
-    /<article[^>]*data-project="lain"[\s\S]*?<\/article>/,
-  )?.[0];
-  assert.ok(lainCard, "Lain should have its own project card");
-  assert.doesNotMatch(lainCard, /href=/);
+  for (const [project, url] of Object.entries(links)) {
+    const escapedUrl = url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    assert.match(projectCard(project), new RegExp(`href="${escapedUrl}\\/?"[\\s\\S]*?target="_blank"[\\s\\S]*?rel="noopener noreferrer"`));
+  }
 });
 
-test("uses an editorial Rely visual instead of the rejected dashboard screenshot", () => {
-  const relyCard = projectsSection.match(
-    /<article[^>]*data-project="rely"[\s\S]*?<\/article>/,
-  )?.[0];
-
-  assert.ok(relyCard, "Rely should have its own project card");
-  assert.match(relyCard, /data-rely-visual/);
-  assert.doesNotMatch(relyCard, /rely-card\.png/);
+test("provides optimized looping video with poster fallbacks for every project", () => {
+  for (const project of ["rely", "lain", "faro", "lemon"]) {
+    const card = projectCard(project);
+    assert.match(card, /<video[^>]*data-project-video[^>]*autoplay[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
+    assert.match(card, new RegExp(`poster="assets/proyectos/${project}-poster\\.webp"`));
+    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.webm" type="video/webm">`));
+    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.mp4" type="video/mp4">`));
+  }
 });
 
-test("stacks the Rely workflow into two columns on narrow screens", () => {
-  const relyFlowRules = [...indexHtml.matchAll(/\.project-rely-visual__flow\s*\{([^}]*)\}/g)]
+test("maps all capability pills to one of the four featured cases", () => {
+  assert.ok(capabilitiesSection, "The capabilities section should exist");
+  const mappings = [...capabilitiesSection.matchAll(/class="capability-tab"[^>]*data-case="(rely|lain|faro|lemon)"/g)]
     .map((match) => match[1]);
 
-  assert.ok(
-    relyFlowRules.some((rule) => /grid-template-columns:\s*repeat\(2,/.test(rule)),
-    "A narrow-screen rule should use two workflow columns",
-  );
+  assert.equal(mappings.length, 12);
+  assert.deepEqual(mappings, [
+    "rely", "lain", "lemon", "lain", "faro", "faro",
+    "rely", "lain", "lemon", "lain", "rely", "rely",
+  ]);
+  assert.match(capabilitiesSection, /data-capability-video/);
+  assert.match(capabilitiesSection, /data-capability-project/);
 });
 
-test("provides English copy for the new project story", () => {
+test("controls project playback by viewport, motion preference and data saver", () => {
+  assert.match(indexHtml, /new IntersectionObserver/);
+  assert.match(indexHtml, /prefers-reduced-motion:\s*reduce/);
+  assert.match(indexHtml, /navigator\.connection\?\.saveData/);
+  assert.match(indexHtml, /video\.pause\(\)/);
+});
+
+test("ships a reusable, side-effect-safe demo capture pipeline", async () => {
+  const captureSource = await readFile(
+    new URL("./scripts/capture-project-demos.mjs", import.meta.url),
+    "utf8",
+  ).catch(() => "");
+  assert.match(captureSource, /rely[\s\S]*lain[\s\S]*faro[\s\S]*lemon/);
+  assert.match(captureSource, /FFMPEG_PATH|ffmpeg-static/);
+  assert.match(captureSource, /960/);
+  assert.doesNotMatch(captureSource, /click\([^\n]*(flash|submit|send)/i);
+});
+
+test("masks private network details in the Lemon demo", async () => {
+  const captureSource = await readFile(
+    new URL("./scripts/capture-project-demos.mjs", import.meta.url),
+    "utf8",
+  );
+  assert.match(captureSource, /maskPrivateNetworkDetails/);
+  assert.match(captureSource, /192\\\.168/);
+  assert.match(captureSource, /filter\s*=\s*"blur/);
+});
+
+test("provides English copy for the four-project story", () => {
   for (const translation of [
     "Software already solving",
     "real problems.",
     "Led by Franco Ferreira",
-    "Led by Ignacio Estevo",
     "Led by Mauro Proto",
-    "AI workspace",
+    "Led by Ignacio Estevo",
+    "A project for Lemon",
+    "Connected hardware",
   ]) {
     assert.match(i18nSource, new RegExp(translation.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   }
+});
+
+test("translates each project's case-specific capability copy", () => {
+  for (const translation of [
+    "In Rely, an internal platform connects",
+    "Lain turned a product idea into",
+    "Faro turns scattered public information into",
+    "Lemon Box integrates firmware",
+  ]) {
+    assert.match(i18nSource, new RegExp(translation));
+  }
+  assert.match(i18nSource, /"data-case-copy"/);
 });

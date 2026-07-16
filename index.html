@@ -3556,6 +3556,155 @@
             }
         }
 
+        /* Casos Acelera: cuatro piezas con la misma jerarquía y evidencia en movimiento. */
+        .projects-mosaic {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: clamp(1rem, 2vw, 1.5rem);
+            border: 0;
+        }
+
+        .project-card {
+            display: grid;
+            grid-template-rows: auto 1fr;
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid #B7B1A5;
+            background: #F7F5F0;
+            transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease;
+        }
+
+        .project-card .project-media {
+            aspect-ratio: 16 / 10;
+            border: 0;
+            border-bottom: 1px solid #D4CFC1;
+            background: #171B20;
+        }
+
+        .project-card .project-media::after {
+            content: "";
+            position: absolute;
+            inset: auto 0 0;
+            z-index: 1;
+            height: 24%;
+            pointer-events: none;
+            background: linear-gradient(to top, rgba(11, 15, 20, 0.24), transparent);
+        }
+
+        .project-card video,
+        .capability-preview__media video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #171B20;
+        }
+
+        .project-card__body {
+            display: flex;
+            min-height: 20rem;
+            flex-direction: column;
+            padding: clamp(1.25rem, 2.6vw, 2rem);
+        }
+
+        .project-card__title {
+            color: #0B0F14;
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3.4vw, 3.15rem);
+            font-weight: 600;
+            line-height: 0.95;
+        }
+
+        .project-card__copy {
+            max-width: 38rem;
+            margin-top: 1rem;
+            color: #4B5563;
+            font-size: 0.95rem;
+            line-height: 1.62;
+        }
+
+        .project-signals {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1.25rem;
+        }
+
+        .project-signals li {
+            padding: 0.38rem 0.55rem;
+            border: 1px solid #D4CFC1;
+            color: #626872;
+            font-family: var(--font-mono);
+            font-size: 0.54rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .project-card .project-footer {
+            margin-top: auto;
+        }
+
+        .project-card:hover {
+            transform: translateY(-0.35rem);
+            box-shadow: 0 1.5rem 3rem rgba(11, 15, 20, 0.09);
+        }
+
+        .capability-preview {
+            width: min(27rem, 42%);
+            max-width: 27rem;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .capability-preview__media {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-bottom: 1px solid #D4CFC1;
+            background: #171B20;
+        }
+
+        .capability-preview__media::after {
+            content: "Caso aplicado";
+            position: absolute;
+            right: 0.65rem;
+            bottom: 0.65rem;
+            padding: 0.3rem 0.45rem;
+            background: rgba(11, 15, 20, 0.86);
+            color: #F7F5F0;
+            font-family: var(--font-mono);
+            font-size: 0.48rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .capability-preview__body {
+            padding: 1.15rem 1.25rem 1.25rem;
+        }
+
+        @media (min-width: 768px) {
+            .projects-mosaic {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 767px) {
+            .project-card__body {
+                min-height: 0;
+            }
+
+            .project-card:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .project-card {
+                transition: none;
+            }
+        }
+
     </style>
 </head>
 
@@ -3832,73 +3981,85 @@
                     </label>
 
                     <div class="capability-tabs" role="group" aria-label="Capacidades de Acelera">
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="rely" type="button" aria-expanded="false"
+                            data-case-copy="En Rely, una plataforma interna conecta clientes, documentos, pagos y obligaciones en una operación trazable."
                             data-title="Plataformas internas" data-kicker="Información y procesos en un solo lugar"
                             data-copy="Desarrollamos una plataforma propia cuando la operación depende de planillas, mensajes y herramientas desconectadas."
                             data-delivery="Un sistema con usuarios, permisos, trazabilidad y documentación.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>Plataformas internas
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="lain" type="button" aria-expanded="false"
+                            data-case-copy="Lain convirtió una idea de producto en un workspace de IA que ya puede ser usado y validado por personas reales."
                             data-title="MVPs y productos digitales" data-kicker="Primera versión en producción"
                             data-copy="Tomamos una idea, definimos el alcance inicial y construimos una versión usable para probarla con usuarios reales."
                             data-delivery="Un producto desplegado, medible y listo para seguir desarrollando.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>MVPs y productos
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="lemon" type="button" aria-expanded="false"
+                            data-case-copy="Lemon Box integra firmware, interfaz táctil y una herramienta de configuración para operar el dispositivo."
                             data-title="Software operativo" data-kicker="Herramientas para el trabajo diario"
                             data-copy="Creamos software para tareas específicas de operaciones, ventas, administración o soporte."
                             data-delivery="Un flujo más claro, con menos pasos manuales y menos errores.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>Software operativo
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="lain" type="button" aria-expanded="false"
+                            data-case-copy="Lain combina una aplicación web responsive con herramientas de creación asistida y contexto persistente."
                             data-title="Aplicaciones web y mobile" data-kicker="Aplicaciones conectadas al negocio"
                             data-copy="Diseñamos y desarrollamos aplicaciones web y mobile integradas con los sistemas y datos de la empresa."
                             data-delivery="Una aplicación desplegada, documentada y preparada para crecer.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>Web y mobile
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="faro" type="button" aria-expanded="false"
+                            data-case-copy="Faro transforma información pública dispersa en una vista territorial preparada para explorar y decidir."
                             data-title="Dashboards y BI" data-kicker="Información para decidir"
                             data-copy="Reunimos datos de distintas fuentes y los presentamos en indicadores que el equipo puede consultar y verificar."
                             data-delivery="Un tablero actualizado, con métricas definidas y fuentes conectadas.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>Dashboards y BI
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="faro" type="button" aria-expanded="false"
+                            data-case-copy="Faro normaliza expedientes y fuentes públicas para convertirlos en información comparable y verificable."
                             data-title="Pipelines de datos" data-kicker="Datos ordenados y disponibles"
                             data-copy="Construimos los procesos que capturan, transforman y trasladan información entre sistemas."
                             data-delivery="Datos consistentes, procesos monitoreados y menos correcciones manuales.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>Pipelines de datos
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="rely" type="button" aria-expanded="false"
+                            data-case-copy="Rely conecta proveedores externos y sistemas propios detrás de una experiencia operativa única."
                             data-title="Integraciones y APIs" data-kicker="Sistemas conectados"
                             data-copy="Integramos CRM, ERP, WhatsApp, bases de datos y herramientas internas para evitar cargas duplicadas."
                             data-delivery="Información sincronizada y un registro claro de cada intercambio.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>Integraciones y APIs
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="lain" type="button" aria-expanded="false"
+                            data-case-copy="Lain reúne distintos modelos y modos de trabajo en un agente que mantiene el contexto del proyecto."
                             data-title="Agentes IA" data-kicker="IA dentro de un proceso"
                             data-copy="Desarrollamos asistentes que consultan información y ejecutan tareas concretas con permisos y revisión humana."
                             data-delivery="Un asistente integrado al flujo de trabajo, con controles y trazabilidad.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>Agentes IA
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="lemon" type="button" aria-expanded="false"
+                            data-case-copy="Lemon Box automatiza configuración, actualizaciones OTA y visualización de datos desde un dispositivo dedicado."
                             data-title="Automatización de procesos" data-kicker="Procesos con menos tareas manuales"
                             data-copy="Convertimos secuencias repetitivas de ventas, soporte y operaciones en flujos automáticos."
                             data-delivery="Un proceso automatizado, monitoreado y con puntos claros de intervención.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>Automatizaciones
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="lain" type="button" aria-expanded="false"
+                            data-case-copy="Lain conserva memoria por proyecto para trabajar con información propia sin perder control del contexto."
                             data-title="IA sobre datos propios" data-kicker="IA con información de la empresa"
                             data-copy="Conectamos modelos de IA con documentos, bases de datos y reglas propias para buscar, clasificar y responder."
                             data-delivery="Una herramienta con fuentes visibles, permisos definidos y respuestas basadas en datos propios.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>IA sobre tus datos
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="rely" type="button" aria-expanded="false"
+                            data-case-copy="Rely concentra reglas, estados e integraciones en servicios que sostienen toda la operación."
                             data-title="Backends y servicios" data-kicker="Infraestructura para aplicaciones y procesos"
                             data-copy="Construimos la lógica, las APIs y los servicios que conectan datos, usuarios y reglas de negocio."
                             data-delivery="Un backend desplegado, documentado y listo para integrarse con otros sistemas.">
                             <span class="capability-tab__dot" aria-hidden="true"></span>Backends y servicios
                         </button>
-                        <button class="capability-tab" type="button" aria-expanded="false"
+                        <button class="capability-tab" data-case="rely" type="button" aria-expanded="false"
+                            data-case-copy="Rely ofrece a cada cliente un portal para iniciar gestiones, entregar documentación y seguir su avance."
                             data-title="Portales y autogestión" data-kicker="Gestiones sin intercambios manuales"
                             data-copy="Creamos portales para que clientes, proveedores o equipos consulten información, inicien gestiones y sigan su estado."
                             data-delivery="Un portal conectado a la operación, con usuarios, permisos y trazabilidad.">
@@ -3917,14 +4078,13 @@
                     </div>
 
                     <article class="capability-preview" aria-live="polite" aria-hidden="true">
+                        <div class="capability-preview__media" aria-hidden="true">
+                            <video data-capability-video muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp"></video>
+                        </div>
                         <div class="capability-preview__body">
-                            <span data-capability-kicker class="font-mono text-[10px] text-accent uppercase tracking-[0.18em] block mb-3"></span>
-                            <h3 data-capability-title class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-ink leading-tight mb-3"></h3>
-                            <p data-capability-copy class="text-sm md:text-base text-mutedStrong leading-relaxed mb-5"></p>
-                            <div class="border-t border-rule pt-4">
-                                <span class="font-mono text-[9px] uppercase tracking-[0.18em] text-muted block mb-2">Resultado</span>
-                                <p data-capability-delivery class="text-sm font-medium text-ink leading-relaxed"></p>
-                            </div>
+                            <span data-capability-kicker class="font-mono text-[10px] text-accent uppercase tracking-[0.18em] block mb-2"></span>
+                            <h3 data-capability-project class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-ink leading-tight mb-2"></h3>
+                            <p data-capability-copy class="text-sm text-mutedStrong leading-relaxed"></p>
                         </div>
                     </article>
                 </div>
@@ -3957,92 +4117,85 @@
                 </div>
 
                 <div class="projects-mosaic relative z-10">
-                    <article class="project-feature gsap-reveal" data-project="rely">
+                    <article class="project-card gsap-reveal" data-project="rely">
                         <div class="project-media">
-                            <div class="project-rely-visual" data-rely-visual role="img" aria-label="Rely: flujo operativo desde la formación hasta el compliance">
-                                <div class="project-rely-visual__top">
-                                    <strong class="project-rely-visual__brand">Rely</strong>
-                                    <span class="project-rely-visual__status">Operación activa</span>
-                                </div>
-                                <div class="project-rely-visual__flow" aria-hidden="true">
-                                    <div class="project-rely-visual__step"><small>01</small><strong>Formación</strong></div>
-                                    <div class="project-rely-visual__step"><small>02</small><strong>Documentos</strong></div>
-                                    <div class="project-rely-visual__step"><small>03</small><strong>Pagos</strong></div>
-                                    <div class="project-rely-visual__step"><small>04</small><strong>Compliance</strong></div>
-                                </div>
-                                <div class="project-rely-visual__bottom">
-                                    <span class="project-rely-visual__caption">Una operación, un sistema.</span>
-                                    <span class="project-rely-visual__seal"><span>✓</span> USA LLC</span>
-                                </div>
-                            </div>
+                            <span class="project-code">01 / 04</span>
+                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp" aria-label="Demo de la plataforma Rely">
+                                <source src="assets/proyectos/rely-demo.webm" type="video/webm">
+                                <source src="assets/proyectos/rely-demo.mp4" type="video/mp4">
+                            </video>
                         </div>
-                        <div class="project-feature__body">
-                            <div>
-                                <span class="project-meta">Plataforma operativa · Fintech / Legaltech</span>
-                                <h3 class="project-feature__title">Rely</h3>
-                                <p class="project-feature__copy">Una plataforma para que founders internacionales formen y administren una LLC, conectando portal de clientes, operación interna, documentos, pagos y obligaciones fiscales en un mismo sistema.</p>
-                                <div class="project-footer">
-                                    <span class="project-lead">Liderado por Franco Ferreira</span>
-                                    <a class="project-link" href="https://rely.business" target="_blank" rel="noopener noreferrer" aria-label="Abrir Rely en una pestaña nueva">Ver Rely →</a>
-                                </div>
+                        <div class="project-card__body">
+                            <span class="project-meta">Plataforma operativa · Fintech / Legaltech</span>
+                            <h3 class="project-card__title">Rely</h3>
+                            <p class="project-card__copy">Una plataforma para que founders internacionales formen y administren una LLC, conectando clientes, operación interna, documentos, pagos y obligaciones fiscales.</p>
+                            <ul class="project-signals" aria-label="Aspectos destacados de Rely"><li>50+ formaciones</li><li>6+ integraciones</li><li>Operación trazable</li></ul>
+                            <div class="project-footer">
+                                <span class="project-lead">Liderado por Franco Ferreira</span>
+                                <a class="project-link" href="https://rely.business" target="_blank" rel="noopener noreferrer" aria-label="Abrir Rely en una pestaña nueva">Ver Rely →</a>
                             </div>
-                            <dl class="project-facts" aria-label="Datos del proyecto Rely">
-                                <div class="project-facts__item">
-                                    <dt>Formaciones</dt>
-                                    <dd>50+ completadas</dd>
-                                </div>
-                                <div class="project-facts__item">
-                                    <dt>Integraciones</dt>
-                                    <dd>6+ externas</dd>
-                                </div>
-                                <div class="project-facts__item">
-                                    <dt>Ecosistema</dt>
-                                    <dd>Rely · Rely Tax · ein.now</dd>
-                                </div>
-                            </dl>
                         </div>
                     </article>
-                    <div class="projects-side">
-                        <article class="project-compact gsap-reveal" data-project="lain">
-                            <div class="project-media">
-                                <div class="project-lain-canvas" role="img" aria-label="Lain Canvas: espacio de trabajo con inteligencia artificial">
-                                    <span class="project-lain-canvas__eyebrow">Workspace de IA</span>
-                                    <strong class="project-lain-canvas__mark">LAIN</strong>
-                                    <div class="project-lain-canvas__tools" aria-hidden="true">
-                                        <span>Chat</span><span>Code Canvas</span><span>Memoria</span>
-                                    </div>
-                                </div>
+
+                    <article class="project-card gsap-reveal" data-project="lain">
+                        <div class="project-media">
+                            <span class="project-code">02 / 04</span>
+                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/lain-poster.webp" aria-label="Demo del workspace de inteligencia artificial Lain">
+                                <source src="assets/proyectos/lain-demo.webm" type="video/webm">
+                                <source src="assets/proyectos/lain-demo.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="project-card__body">
+                            <span class="project-meta">Workspace de IA · Producto digital</span>
+                            <h3 class="project-card__title">Lain</h3>
+                            <p class="project-card__copy">Un espacio de trabajo con IA que reúne conversación, creación de interfaces, memoria por proyecto, estudio guiado y herramientas para construir sin perder contexto.</p>
+                            <ul class="project-signals" aria-label="Aspectos destacados de Lain"><li>Agentes IA</li><li>Memoria por proyecto</li><li>Creación visual</li></ul>
+                            <div class="project-footer">
+                                <span class="project-lead">Liderado por Mauro Proto</span>
+                                <a class="project-link" href="https://lainagent.com" target="_blank" rel="noopener noreferrer" aria-label="Abrir Lain en una pestaña nueva">Ver Lain →</a>
                             </div>
-                            <div>
-                                <span class="project-meta">Workspace de IA · Productividad</span>
-                                <div class="project-compact__head">
-                                    <h3 class="project-compact__title">Lain Canvas</h3>
-                                    <span class="project-compact__number">02 / 03</span>
-                                </div>
-                                <p class="project-compact__copy">Un espacio de trabajo con IA que reúne chat, creación de interfaces, memoria revisable por proyecto, estudio guiado y mejora de prompts sin perder control del contexto.</p>
-                                <div class="project-footer">
-                                    <span class="project-lead">Liderado por Ignacio Estevo</span>
-                                </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card gsap-reveal" data-project="faro">
+                        <div class="project-media">
+                            <span class="project-code">03 / 04</span>
+                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/faro-poster.webp" aria-label="Demo del explorador de obra pública Faro">
+                                <source src="assets/proyectos/faro-demo.webm" type="video/webm">
+                                <source src="assets/proyectos/faro-demo.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="project-card__body">
+                            <span class="project-meta">Datos públicos · Inteligencia territorial</span>
+                            <h3 class="project-card__title">Faro</h3>
+                            <p class="project-card__copy">Una plataforma que organiza expedientes de obra pública en un mapa interactivo para explorar señales de revisión y verificar cada caso directamente en su fuente oficial.</p>
+                            <ul class="project-signals" aria-label="Aspectos destacados de Faro"><li>Fuentes verificables</li><li>Explorador geográfico</li><li>Datos trazables</li></ul>
+                            <div class="project-footer">
+                                <span class="project-lead">Liderado por Ignacio Estevo</span>
+                                <a class="project-link" href="https://faro-argentina.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir Faro en una pestaña nueva">Ver Faro →</a>
                             </div>
-                        </article>
-                        <article class="project-compact gsap-reveal" data-project="faro">
-                            <div class="project-media">
-                                <img src="assets/proyectos/faro-card.webp" alt="Faro: mapa interactivo de contrataciones de obra pública" width="1200" height="675" loading="lazy" decoding="async">
+                        </div>
+                    </article>
+
+                    <article class="project-card gsap-reveal" data-project="lemon">
+                        <div class="project-media">
+                            <span class="project-code">04 / 04</span>
+                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/lemon-poster.webp" aria-label="Demo de Lemon Box y su entorno de configuración">
+                                <source src="assets/proyectos/lemon-demo.webm" type="video/webm">
+                                <source src="assets/proyectos/lemon-demo.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="project-card__body">
+                            <span class="project-meta">Proyecto para Lemon · Hardware conectado</span>
+                            <h3 class="project-card__title">Lemon Box</h3>
+                            <p class="project-card__copy">Un dispositivo táctil de cuatro pulgadas para visualizar datos y alertas en tiempo real, con Wi-Fi, audio, control local y actualizaciones remotas.</p>
+                            <ul class="project-signals" aria-label="Aspectos destacados de Lemon Box"><li>ESP32-S3</li><li>Pantalla 480×480</li><li>Actualizaciones OTA</li></ul>
+                            <div class="project-footer">
+                                <span class="project-lead">Liderado por Franco Ferreira</span>
+                                <a class="project-link" href="https://github.com/frxnnk/lemon-display" target="_blank" rel="noopener noreferrer" aria-label="Abrir el repositorio de Lemon Box en una pestaña nueva">Ver proyecto →</a>
                             </div>
-                            <div>
-                                <span class="project-meta">1er puesto · Hack@LATAM</span>
-                                <div class="project-compact__head">
-                                    <h3 class="project-compact__title">Faro</h3>
-                                    <span class="project-compact__number">03 / 03</span>
-                                </div>
-                                <p class="project-compact__copy">Una plataforma que reúne 426 expedientes de obra pública de Argentina, Chile y Perú en un mapa interactivo. Permite consultar señales de revisión y verificar cada caso en su fuente oficial.</p>
-                                <div class="project-footer">
-                                    <span class="project-lead">Liderado por Mauro Proto</span>
-                                    <a class="project-link" href="https://faro-argentina.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir Faro en una pestaña nueva">Ver Faro →</a>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
+                        </div>
+                    </article>
                 </div>
 
             </div>
@@ -4451,11 +4604,40 @@
                 const items = Array.from(capabilityMap.querySelectorAll(".capability-tab"));
                 const preview = capabilityMap.querySelector(".capability-preview");
                 const kicker = capabilityMap.querySelector("[data-capability-kicker]");
-                const title = capabilityMap.querySelector("[data-capability-title]");
+                const projectName = capabilityMap.querySelector("[data-capability-project]");
                 const copy = capabilityMap.querySelector("[data-capability-copy]");
-                const delivery = capabilityMap.querySelector("[data-capability-delivery]");
+                const capabilityVideo = capabilityMap.querySelector("[data-capability-video]");
                 const compactSelect = capabilityMap.querySelector("[data-capability-select]");
+                const capabilityCases = {
+                    rely: { name: "Rely", poster: "assets/proyectos/rely-poster.webp", webm: "assets/proyectos/rely-demo.webm", mp4: "assets/proyectos/rely-demo.mp4" },
+                    lain: { name: "Lain", poster: "assets/proyectos/lain-poster.webp", webm: "assets/proyectos/lain-demo.webm", mp4: "assets/proyectos/lain-demo.mp4" },
+                    faro: { name: "Faro", poster: "assets/proyectos/faro-poster.webp", webm: "assets/proyectos/faro-demo.webm", mp4: "assets/proyectos/faro-demo.mp4" },
+                    lemon: { name: "Lemon Box", poster: "assets/proyectos/lemon-poster.webp", webm: "assets/proyectos/lemon-demo.webm", mp4: "assets/proyectos/lemon-demo.mp4" }
+                };
+                const motionBlocked = window.matchMedia("(prefers-reduced-motion: reduce)").matches || Boolean(navigator.connection?.saveData);
                 let pinnedCapability = null;
+
+                function pauseCapabilityVideo(reset = false) {
+                    if (!capabilityVideo) return;
+                    capabilityVideo.pause();
+                    if (reset) capabilityVideo.currentTime = 0;
+                }
+
+                function showCapabilityCase(item) {
+                    const caseStudy = capabilityCases[item.dataset.case];
+                    if (!caseStudy) return;
+                    if (projectName) projectName.textContent = caseStudy.name;
+                    if (capabilityVideo && capabilityVideo.dataset.activeCase !== item.dataset.case) {
+                        pauseCapabilityVideo(true);
+                        capabilityVideo.poster = caseStudy.poster;
+                        capabilityVideo.src = capabilityVideo.canPlayType("video/webm") ? caseStudy.webm : caseStudy.mp4;
+                        capabilityVideo.dataset.activeCase = item.dataset.case;
+                        capabilityVideo.load();
+                    }
+                    if (!motionBlocked && window.matchMedia("(min-width: 1200px)").matches) {
+                        capabilityVideo?.play().catch(() => {});
+                    }
+                }
 
                 function hideCapability() {
                     pinnedCapability = null;
@@ -4463,16 +4645,16 @@
                     capabilityMap.classList.remove("has-preview");
                     preview && preview.classList.remove("is-visible");
                     preview && preview.setAttribute("aria-hidden", "true");
+                    pauseCapabilityVideo(true);
                 }
 
                 function showCapability(item, moveFocus = false) {
                     if (!item) return;
                     if (window.matchMedia("(min-width: 768px) and (max-width: 1199px)").matches) return;
                     items.forEach((button) => button.setAttribute("aria-expanded", String(button === item)));
-                    if (kicker) kicker.textContent = item.dataset.kicker || "";
-                    if (title) title.textContent = item.dataset.title || "";
-                    if (copy) copy.textContent = item.dataset.copy || "";
-                    if (delivery) delivery.textContent = item.dataset.delivery || "";
+                    if (kicker) kicker.textContent = item.dataset.title || "";
+                    if (copy) copy.textContent = item.dataset.caseCopy || "";
+                    showCapabilityCase(item);
                     capabilityMap.classList.add("has-preview");
                     preview && preview.classList.add("is-visible");
                     preview && preview.setAttribute("aria-hidden", "false");
@@ -4505,13 +4687,13 @@
                         showCapability(item);
                     });
                     item.addEventListener("mouseenter", () => {
-                        if (window.matchMedia("(min-width: 768px) and (hover: hover) and (pointer: fine)").matches) {
+                        if (window.matchMedia("(min-width: 1200px) and (hover: hover) and (pointer: fine)").matches) {
                             showCapability(item);
                         }
                     });
                     item.addEventListener("mouseleave", () => {
                         if (pinnedCapability === item) return;
-                        if (window.matchMedia("(min-width: 768px) and (hover: hover) and (pointer: fine)").matches && !item.matches(":focus-visible")) {
+                        if (window.matchMedia("(min-width: 1200px) and (hover: hover) and (pointer: fine)").matches && !item.matches(":focus-visible")) {
                             hideCapability();
                         }
                     });
@@ -4549,6 +4731,30 @@
                     }
                     showCapability(items[index]);
                 });
+            }
+
+            const projectVideos = Array.from(document.querySelectorAll("[data-project-video]"));
+            if (projectVideos.length) {
+                const motionBlocked = window.matchMedia("(prefers-reduced-motion: reduce)").matches || Boolean(navigator.connection?.saveData);
+                projectVideos.forEach((video) => video.pause());
+                if (!motionBlocked) {
+                    const projectVideoObserver = new IntersectionObserver((entries) => {
+                        entries.forEach((entry) => {
+                            const video = entry.target;
+                            if (entry.isIntersecting && entry.intersectionRatio >= 0.35 && !document.hidden) {
+                                video.play().catch(() => {});
+                            } else {
+                                video.pause();
+                            }
+                        });
+                    }, { threshold: [0, 0.35, 0.75] });
+                    projectVideos.forEach((video) => projectVideoObserver.observe(video));
+                    document.addEventListener("visibilitychange", () => {
+                        if (document.hidden) projectVideos.forEach((video) => video.pause());
+                    });
+                } else {
+                    projectVideos.forEach((video) => video.removeAttribute("autoplay"));
+                }
             }
 
             const desktopWidthMql = window.matchMedia("(min-width: 768px)");
