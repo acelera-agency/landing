@@ -47,7 +47,9 @@ async function maskPrivateNetworkDetails(page) {
       const value = "value" in element ? element.value : "";
       const ownText = element.childElementCount === 0 ? element.textContent || "" : "";
       if (privateIp.test(value) || privateIp.test(ownText)) {
-        element.style.filter = "blur(7px)";
+        if (privateIp.test(value)) element.value = "Red local";
+        if (privateIp.test(ownText)) element.textContent = "Dato local";
+        element.style.filter = "blur(2px)";
         element.setAttribute("aria-label", "Dato de red privada oculto");
       }
     }
@@ -57,9 +59,10 @@ async function maskPrivateNetworkDetails(page) {
 const projects = [
   {
     slug: "rely",
+    captureSize: { width: 1440, height: 810 },
     url: "https://www.rely.business/#plataforma",
     async perform(page) {
-      await page.mouse.wheel(0, 420);
+      await page.mouse.wheel(0, 180);
       await wait(800);
       await optionalClick(page, ["Documents", "Taxes", "Dashboard"]);
       await optionalClick(page, ["Form", "Documents", "Dashboard"]);
@@ -67,6 +70,7 @@ const projects = [
   },
   {
     slug: "lain",
+    captureSize: { width: 1360, height: 765 },
     url: "https://www.lainagent.com/",
     async perform(page) {
       await optionalClick(page, ["Crear sitio web", "Create website"]);
@@ -76,6 +80,7 @@ const projects = [
   },
   {
     slug: "faro",
+    captureSize: { width: 1200, height: 675 },
     url: "https://faro-argentina.vercel.app/pais/AR?mode=explorer&preset=selected",
     async perform(page) {
       await page.mouse.wheel(0, 460);
@@ -86,6 +91,7 @@ const projects = [
   },
   {
     slug: "lemon",
+    captureSize: { width: 1440, height: 810 },
     url: process.env.LEMON_STUDIO_URL || "http://127.0.0.1:8765",
     async perform(page) {
       await maskPrivateNetworkDetails(page);
@@ -107,10 +113,10 @@ function runFfmpeg(args) {
 }
 
 function buildFormats(slug, rawVideo, posterPng) {
-  const scale = "scale=960:600:force_original_aspect_ratio=increase,crop=960:600,fps=24";
+  const scale = "scale=960:540:force_original_aspect_ratio=increase,crop=960:540,fps=24";
   runFfmpeg(["-ss", "1", "-i", rawVideo, "-t", "8", "-vf", scale, "-an", "-c:v", "libvpx-vp9", "-crf", "38", "-b:v", "0", resolve(outputDir, `${slug}-demo.webm`)]);
   runFfmpeg(["-ss", "1", "-i", rawVideo, "-t", "8", "-vf", scale, "-an", "-c:v", "libx264", "-preset", "medium", "-crf", "27", "-pix_fmt", "yuv420p", "-movflags", "+faststart", resolve(outputDir, `${slug}-demo.mp4`)]);
-  runFfmpeg(["-i", posterPng, "-vf", "scale=960:600:force_original_aspect_ratio=increase,crop=960:600", "-frames:v", "1", "-quality", "78", resolve(outputDir, `${slug}-poster.webp`)]);
+  runFfmpeg(["-i", posterPng, "-vf", "scale=960:540:force_original_aspect_ratio=increase,crop=960:540", "-frames:v", "1", "-quality", "78", resolve(outputDir, `${slug}-poster.webp`)]);
 }
 
 async function capture(project) {
@@ -120,9 +126,9 @@ async function capture(project) {
 
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
-    viewport: { width: 960, height: 600 },
+    viewport: project.captureSize,
     deviceScaleFactor: 1,
-    recordVideo: { dir: videoDir, size: { width: 960, height: 600 } },
+    recordVideo: { dir: videoDir, size: project.captureSize },
     reducedMotion: "no-preference",
   });
   const page = await context.newPage();

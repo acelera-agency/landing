@@ -45,13 +45,20 @@ async function inspectViewport(width, height) {
     const preview = await page.evaluate(() => {
       const element = document.querySelector(".capability-preview");
       const video = document.querySelector("[data-capability-video]");
+      const previewRect = element.getBoundingClientRect();
+      const overlapCount = [...document.querySelectorAll(".capability-tab")].filter((pill) => {
+        const pillRect = pill.getBoundingClientRect();
+        return previewRect.left < pillRect.right && previewRect.right > pillRect.left
+          && previewRect.top < pillRect.bottom && previewRect.bottom > pillRect.top;
+      }).length;
       return {
         visible: element.classList.contains("is-visible") && element.getAttribute("aria-hidden") === "false",
         project: document.querySelector("[data-capability-project]").textContent,
         caseStudy: video.dataset.activeCase,
+        overlapCount,
       };
     });
-    assert.deepEqual(preview, { visible: true, project: "Rely", caseStudy: "rely" });
+    assert.deepEqual(preview, { visible: true, project: "Rely", caseStudy: "rely", overlapCount: 0 });
 
     await page.getByRole("button", { name: "EN", exact: true }).click();
     const englishCopy = await page.evaluate(() => ({

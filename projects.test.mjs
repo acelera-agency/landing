@@ -69,6 +69,7 @@ test("provides optimized looping video with poster fallbacks for every project",
     assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.webm" type="video/webm">`));
     assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.mp4" type="video/mp4">`));
   }
+  assert.match(indexHtml, /\.project-card \.project-media\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/);
 });
 
 test("maps all capability pills to one of the four featured cases", () => {
@@ -83,6 +84,13 @@ test("maps all capability pills to one of the four featured cases", () => {
   ]);
   assert.match(capabilitiesSection, /data-capability-video/);
   assert.match(capabilitiesSection, /data-capability-project/);
+});
+
+test("renders the capability case as a compact media overlay", () => {
+  assert.match(capabilitiesSection, /class="capability-preview__overlay"/);
+  assert.match(capabilitiesSection, /data-capability-project/);
+  assert.match(capabilitiesSection, /data-capability-copy/);
+  assert.doesNotMatch(capabilitiesSection, /class="capability-preview__body"/);
 });
 
 test("controls project playback by viewport, motion preference and data saver", () => {
@@ -103,6 +111,21 @@ test("ships a reusable, side-effect-safe demo capture pipeline", async () => {
   assert.doesNotMatch(captureSource, /click\([^\n]*(flash|submit|send)/i);
 });
 
+test("captures each product from a deliberate wider viewport", async () => {
+  const captureSource = await readFile(
+    new URL("./scripts/capture-project-demos.mjs", import.meta.url),
+    "utf8",
+  );
+  for (const contract of [
+    /slug: "rely"[\s\S]*?captureSize: \{ width: 1440, height: 810 \}/,
+    /slug: "lain"[\s\S]*?captureSize: \{ width: 1360, height: 765 \}/,
+    /slug: "faro"[\s\S]*?captureSize: \{ width: 1200, height: 675 \}/,
+    /slug: "lemon"[\s\S]*?captureSize: \{ width: 1440, height: 810 \}/,
+  ]) {
+    assert.match(captureSource, contract);
+  }
+});
+
 test("masks private network details in the Lemon demo", async () => {
   const captureSource = await readFile(
     new URL("./scripts/capture-project-demos.mjs", import.meta.url),
@@ -111,6 +134,7 @@ test("masks private network details in the Lemon demo", async () => {
   assert.match(captureSource, /maskPrivateNetworkDetails/);
   assert.match(captureSource, /192\\\.168/);
   assert.match(captureSource, /filter\s*=\s*"blur/);
+  assert.match(captureSource, /element\.value\s*=\s*"Red local"/);
 });
 
 test("provides English copy for the four-project story", () => {

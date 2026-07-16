@@ -687,7 +687,7 @@
             font-weight: 600;
             line-height: 1;
             white-space: nowrap;
-            transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+            transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
         }
 
         .capability-tab:hover {
@@ -3575,7 +3575,7 @@
         }
 
         .project-card .project-media {
-            aspect-ratio: 16 / 10;
+            aspect-ratio: 16 / 9;
             border: 0;
             border-bottom: 1px solid #D4CFC1;
             background: #171B20;
@@ -3602,7 +3602,7 @@
 
         .project-card__body {
             display: flex;
-            min-height: 20rem;
+            min-height: 18rem;
             flex-direction: column;
             padding: clamp(1.25rem, 2.6vw, 2rem);
         }
@@ -3650,36 +3650,82 @@
         }
 
         .capability-preview {
-            width: min(27rem, 42%);
-            max-width: 27rem;
+            width: min(20.5rem, 30%);
+            max-width: 20.5rem;
+            aspect-ratio: 16 / 9;
             overflow: hidden;
             padding: 0;
+            border-color: rgba(11, 15, 20, 0.56);
+            background: #0B0F14;
+            box-shadow: 0 1.15rem 3.5rem rgba(11, 15, 20, 0.2);
         }
 
         .capability-preview__media {
-            position: relative;
-            aspect-ratio: 16 / 9;
+            position: absolute;
+            inset: 0;
             overflow: hidden;
-            border-bottom: 1px solid #D4CFC1;
             background: #171B20;
         }
 
         .capability-preview__media::after {
-            content: "Caso aplicado";
+            content: "";
             position: absolute;
-            right: 0.65rem;
-            bottom: 0.65rem;
-            padding: 0.3rem 0.45rem;
-            background: rgba(11, 15, 20, 0.86);
+            inset: 28% 0 0;
+            background: linear-gradient(to top, rgba(11, 15, 20, 0.96), rgba(11, 15, 20, 0.08));
+        }
+
+        .capability-preview__overlay {
+            position: absolute;
+            z-index: 2;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 2.5rem 1rem 0.85rem;
             color: #F7F5F0;
+        }
+
+        .capability-preview__kicker {
+            display: block;
+            margin-bottom: 0.2rem;
+            color: #E69270;
             font-family: var(--font-mono);
             font-size: 0.48rem;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
         }
 
-        .capability-preview__body {
-            padding: 1.15rem 1.25rem 1.25rem;
+        .capability-preview__title {
+            font-family: var(--font-display);
+            font-size: 1.55rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .capability-preview__copy {
+            display: -webkit-box;
+            overflow: hidden;
+            margin-top: 0.35rem;
+            color: rgba(247, 245, 240, 0.76);
+            font-size: 0.68rem;
+            line-height: 1.4;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
+
+        .capability-map.has-preview .capability-tab:not([aria-expanded="true"]) {
+            opacity: 0.62;
+        }
+
+        .capability-tab[aria-expanded="true"] {
+            border-color: #C96A43;
+            background: rgba(247, 245, 240, 0.98);
+            color: #0B0F14;
+            box-shadow: 0 0 0 1px rgba(201, 106, 67, 0.24), 0 0.55rem 1.5rem rgba(11, 15, 20, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .capability-tab[aria-expanded="true"] .capability-tab__dot {
+            box-shadow: 0 0 0 0.25rem rgba(201, 106, 67, 0.12);
         }
 
         @media (min-width: 768px) {
@@ -4081,10 +4127,10 @@
                         <div class="capability-preview__media" aria-hidden="true">
                             <video data-capability-video muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp"></video>
                         </div>
-                        <div class="capability-preview__body">
-                            <span data-capability-kicker class="font-mono text-[10px] text-accent uppercase tracking-[0.18em] block mb-2"></span>
-                            <h3 data-capability-project class="font-serif text-2xl md:text-3xl font-semibold tracking-tight text-ink leading-tight mb-2"></h3>
-                            <p data-capability-copy class="text-sm text-mutedStrong leading-relaxed"></p>
+                        <div class="capability-preview__overlay">
+                            <span data-capability-kicker class="capability-preview__kicker"></span>
+                            <h3 data-capability-project class="capability-preview__title"></h3>
+                            <p data-capability-copy class="capability-preview__copy"></p>
                         </div>
                     </article>
                 </div>
