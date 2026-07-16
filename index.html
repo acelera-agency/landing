@@ -1347,6 +1347,73 @@
             object-position: left top;
         }
 
+        .project-lain-canvas {
+            position: relative;
+            display: flex;
+            height: 100%;
+            min-height: 11rem;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: clamp(1.25rem, 3vw, 2rem);
+            background:
+                linear-gradient(rgba(247, 245, 240, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(247, 245, 240, 0.08) 1px, transparent 1px),
+                #0B0F14;
+            background-size: 28px 28px;
+            color: #F7F5F0;
+        }
+
+        .project-lain-canvas::after {
+            content: "";
+            position: absolute;
+            right: -12%;
+            bottom: -45%;
+            width: 68%;
+            aspect-ratio: 1;
+            border: 1px solid rgba(201, 106, 67, 0.7);
+            border-radius: 50%;
+            box-shadow: 0 0 0 2rem rgba(201, 106, 67, 0.08), 0 0 0 4rem rgba(201, 106, 67, 0.04);
+        }
+
+        .project-lain-canvas__eyebrow,
+        .project-lain-canvas__tools {
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        .project-lain-canvas__eyebrow {
+            color: #C96A43;
+            font-size: 0.58rem;
+            letter-spacing: 0.18em;
+        }
+
+        .project-lain-canvas__mark {
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 600;
+            line-height: 0.82;
+        }
+
+        .project-lain-canvas__tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            color: rgba(247, 245, 240, 0.66);
+            font-size: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .project-lain-canvas__tools span {
+            padding: 0.3rem 0.45rem;
+            border: 1px solid rgba(247, 245, 240, 0.2);
+            background: rgba(11, 15, 20, 0.72);
+        }
+
         .project-code {
             position: absolute;
             top: 0;
@@ -1477,6 +1544,42 @@
             color: #4B5563;
             font-size: 0.9rem;
             line-height: 1.55;
+        }
+
+        .project-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem 1rem;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid #D4CFC1;
+        }
+
+        .project-lead,
+        .project-link {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .project-lead {
+            color: #6B7280;
+        }
+
+        .project-link {
+            color: #C96A43;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 0.25rem;
+            transition: color 180ms ease;
+        }
+
+        .project-link:hover,
+        .project-link:focus-visible {
+            color: #0B0F14;
         }
 
         .project-feature:hover .project-media img,
@@ -3673,67 +3776,84 @@
                     <div class="max-w-4xl gsap-reveal">
                         <span class="font-mono text-xs text-accent tracking-[0.18em] uppercase block mb-4 md:mb-6">Proyectos</span>
                         <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-ink leading-[0.95] mb-6 md:mb-8">
-                            Proyectos construidos para resolver <span class="accent-reveal">problemas reales</span>
+                            Software que ya está resolviendo <span class="accent-reveal">problemas reales.</span>
                         </h2>
                         <p class="text-mutedStrong text-lg sm:text-xl font-normal leading-relaxed max-w-2xl">
-                            Los tres proyectos fueron premiados en competencias nacionales e internacionales de tecnología e IA. En cada caso definimos el problema, construimos una solución usable y la presentamos funcionando.
+                            Desde operaciones societarias y fiscales hasta espacios de trabajo con IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.
                         </p>
                     </div>
                 </div>
 
                 <div class="projects-mosaic relative z-10">
-                    <article class="project-feature gsap-reveal">
+                    <article class="project-feature gsap-reveal" data-project="rely">
                         <div class="project-media">
-                            <img src="assets/proyectos/faro-card.webp" alt="Faro: mapa interactivo de contrataciones de obra pública" width="1200" height="752" loading="lazy" decoding="async"
+                            <img src="assets/proyectos/rely-card.png" alt="Rely: plataforma para formar y administrar LLCs" width="1200" height="752" loading="lazy" decoding="async"
                                 class="w-full h-full object-cover object-left-top">
                         </div>
                         <div class="project-feature__body">
                             <div>
-                                <span class="project-meta">1er puesto · Hack@LATAM</span>
-                                <h3 class="project-feature__title">Faro</h3>
-                                <p class="project-feature__copy">Una plataforma que reúne 426 expedientes de obra pública de Argentina, Chile y Perú en un mapa interactivo. Permite consultar señales de revisión y verificar cada caso en su fuente oficial.</p>
+                                <span class="project-meta">Plataforma operativa · Fintech / Legaltech</span>
+                                <h3 class="project-feature__title">Rely</h3>
+                                <p class="project-feature__copy">Una plataforma para que founders internacionales formen y administren una LLC, conectando portal de clientes, operación interna, documentos, pagos y obligaciones fiscales en un mismo sistema.</p>
+                                <div class="project-footer">
+                                    <span class="project-lead">Liderado por Franco Ferreira</span>
+                                    <a class="project-link" href="https://rely.business" target="_blank" rel="noopener noreferrer" aria-label="Abrir Rely en una pestaña nueva">Ver Rely →</a>
+                                </div>
                             </div>
-                            <dl class="project-facts" aria-label="Datos del proyecto Faro">
+                            <dl class="project-facts" aria-label="Datos del proyecto Rely">
                                 <div class="project-facts__item">
-                                    <dt>Expedientes</dt>
-                                    <dd>426</dd>
+                                    <dt>Formaciones</dt>
+                                    <dd>50+ completadas</dd>
                                 </div>
                                 <div class="project-facts__item">
-                                    <dt>Formato</dt>
-                                    <dd>Mapa navegable</dd>
+                                    <dt>Integraciones</dt>
+                                    <dd>6+ externas</dd>
                                 </div>
                                 <div class="project-facts__item">
-                                    <dt>Fuentes</dt>
-                                    <dd>Oficiales</dd>
+                                    <dt>Ecosistema</dt>
+                                    <dd>Rely · Rely Tax · ein.now</dd>
                                 </div>
                             </dl>
                         </div>
                     </article>
                     <div class="projects-side">
-                        <article class="project-compact gsap-reveal">
+                        <article class="project-compact gsap-reveal" data-project="lain">
                             <div class="project-media">
-                                <img src="assets/proyectos/vueltito-card.webp" alt="Vueltito: donaciones recurrentes a partir del vuelto" width="1200" height="675" loading="lazy" decoding="async">
+                                <div class="project-lain-canvas" role="img" aria-label="Lain Canvas: espacio de trabajo con inteligencia artificial">
+                                    <span class="project-lain-canvas__eyebrow">Workspace de IA</span>
+                                    <strong class="project-lain-canvas__mark">LAIN</strong>
+                                    <div class="project-lain-canvas__tools" aria-hidden="true">
+                                        <span>Chat</span><span>Code Canvas</span><span>Memoria</span>
+                                    </div>
+                                </div>
                             </div>
                             <div>
-                                <span class="project-meta">1er puesto · Paisanos ONG</span>
+                                <span class="project-meta">Workspace de IA · Productividad</span>
                                 <div class="project-compact__head">
-                                    <h3 class="project-compact__title">Vueltito</h3>
+                                    <h3 class="project-compact__title">Lain Canvas</h3>
                                     <span class="project-compact__number">02 / 03</span>
                                 </div>
-                                <p class="project-compact__copy">Una plataforma que convierte pequeños montos de compras cotidianas en donaciones recurrentes para ONG. La propuesta se definió después de conversar con más de 30 personas del sector.</p>
+                                <p class="project-compact__copy">Un espacio de trabajo con IA que reúne chat, creación de interfaces, memoria revisable por proyecto, estudio guiado y mejora de prompts sin perder control del contexto.</p>
+                                <div class="project-footer">
+                                    <span class="project-lead">Liderado por Ignacio Estevo</span>
+                                </div>
                             </div>
                         </article>
-                        <article class="project-compact gsap-reveal">
+                        <article class="project-compact gsap-reveal" data-project="faro">
                             <div class="project-media">
-                                <img src="assets/proyectos/musa-card.webp" alt="MUSA: letras sincronizadas y patrones hápticos" width="1200" height="675" loading="lazy" decoding="async">
+                                <img src="assets/proyectos/faro-card.webp" alt="Faro: mapa interactivo de contrataciones de obra pública" width="1200" height="675" loading="lazy" decoding="async">
                             </div>
                             <div>
-                                <span class="project-meta">Premio especial · AI Music Hackathon</span>
+                                <span class="project-meta">1er puesto · Hack@LATAM</span>
                                 <div class="project-compact__head">
-                                    <h3 class="project-compact__title">MUSA</h3>
+                                    <h3 class="project-compact__title">Faro</h3>
                                     <span class="project-compact__number">03 / 03</span>
                                 </div>
-                                <p class="project-compact__copy">Una experiencia móvil de accesibilidad musical para personas sordas o con hipoacusia. Combina letras sincronizadas, señales visuales y patrones hápticos.</p>
+                                <p class="project-compact__copy">Una plataforma que reúne 426 expedientes de obra pública de Argentina, Chile y Perú en un mapa interactivo. Permite consultar señales de revisión y verificar cada caso en su fuente oficial.</p>
+                                <div class="project-footer">
+                                    <span class="project-lead">Liderado por Mauro Proto</span>
+                                    <a class="project-link" href="https://faro-argentina.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir Faro en una pestaña nueva">Ver Faro →</a>
+                                </div>
                             </div>
                         </article>
                     </div>
