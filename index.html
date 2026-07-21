@@ -1298,10 +1298,27 @@
         /* Proyectos: tablero editorial con jerarquia y evidencia. */
         .projects-heading {
             display: grid;
-            grid-template-columns: minmax(0, 1fr);
-            gap: 1rem;
-            align-items: start;
-            margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+            grid-template-columns: minmax(0, 1.65fr) minmax(18rem, 0.75fr);
+            gap: clamp(2rem, 5vw, 5rem);
+            align-items: end;
+            margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
+        }
+
+        .projects-heading__title {
+            min-width: 0;
+            max-width: 52rem;
+        }
+
+        .projects-heading__title h2 {
+            margin-bottom: 0;
+            font-size: clamp(3.5rem, 4vw, 4rem);
+        }
+
+        .projects-heading__copy {
+            max-width: 34rem;
+            padding-bottom: 0.35rem;
+            line-height: 1.45;
+            text-wrap: pretty;
         }
 
         .project-code,
@@ -1677,39 +1694,58 @@
         }
 
         .project-footer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem 1rem;
-            align-items: center;
-            justify-content: space-between;
+            display: block;
             margin-top: 1rem;
-            padding-top: 0.85rem;
             border-top: 1px solid #D4CFC1;
         }
 
-        .project-lead,
         .project-link {
-            font-family: var(--font-mono);
-            font-size: 0.58rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .project-lead {
-            color: #6B7280;
-        }
-
-        .project-link {
-            color: #C96A43;
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 0.25rem;
+            display: flex;
+            width: 100%;
+            min-height: 3.35rem;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0.7rem;
+            color: #0B0F14;
+            text-decoration: none;
             transition: color 180ms ease;
         }
 
-        .project-link:hover,
+        .project-link__label {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .project-link__arrow {
+            display: inline-grid;
+            width: 1.85rem;
+            height: 1.85rem;
+            flex: 0 0 auto;
+            place-items: center;
+            border: 1px solid #D4CFC1;
+            color: #C96A43;
+            font-size: 0.9rem;
+            line-height: 1;
+            transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease, transform 180ms ease;
+        }
+
+        .project-link:hover {
+            color: #C96A43;
+        }
+
+        .project-link:hover .project-link__arrow {
+            border-color: #C96A43;
+            background: #C96A43;
+            color: #F7F5F0;
+            transform: translate(0.12rem, -0.12rem);
+        }
+
         .project-link:focus-visible {
-            color: #0B0F14;
+            outline: 2px solid #C96A43;
+            outline-offset: 4px;
         }
 
         .project-feature:hover .project-media img,
@@ -1724,6 +1760,13 @@
         @media (max-width: 1023px) {
             .projects-heading {
                 grid-template-columns: minmax(0, 1fr);
+                gap: 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .projects-heading__copy {
+                max-width: 42rem;
+                padding-bottom: 0;
             }
 
             .projects-heading__rail {
@@ -3557,18 +3600,107 @@
         }
 
         /* Casos Acelera: cuatro piezas con la misma jerarquía y evidencia en movimiento. */
-        .projects-mosaic {
+        .projects-carousel {
+            --projects-gap: clamp(1rem, 2vw, 1.5rem);
+            min-width: 0;
+        }
+
+        .projects-carousel__toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .projects-carousel__status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: #626872;
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+        }
+
+        .projects-carousel__controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .projects-carousel__button {
             display: grid;
-            grid-template-columns: minmax(0, 1fr);
-            gap: clamp(1rem, 2vw, 1.5rem);
+            width: 2.85rem;
+            height: 2.85rem;
+            place-items: center;
+            border: 1px solid #B7B1A5;
+            background: #F7F5F0;
+            color: #0B0F14;
+            transition: border-color 180ms ease, background-color 180ms ease, color 180ms ease, transform 180ms ease;
+        }
+
+        .projects-carousel__button svg {
+            width: 1.1rem;
+            height: 1.1rem;
+            fill: none;
+            stroke: currentColor;
+            stroke-linecap: square;
+            stroke-linejoin: miter;
+            stroke-width: 1.75;
+        }
+
+        .projects-carousel__button:hover:not(:disabled),
+        .projects-carousel__button:focus-visible {
+            border-color: #C96A43;
+            background: #C96A43;
+            color: #F7F5F0;
+        }
+
+        .projects-carousel__button:focus-visible,
+        .projects-carousel__viewport:focus-visible {
+            outline: 2px solid #C96A43;
+            outline-offset: 3px;
+        }
+
+        .projects-carousel__button:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+
+        .projects-carousel__button:disabled {
+            cursor: not-allowed;
+            opacity: 0.3;
+        }
+
+        .projects-carousel__viewport {
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-top: 0.5rem;
+            margin-top: -0.5rem;
+            overscroll-behavior-inline: contain;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            touch-action: pan-x pan-y;
+        }
+
+        .projects-carousel__viewport::-webkit-scrollbar {
+            display: none;
+        }
+
+        .projects-mosaic {
+            display: flex;
+            gap: var(--projects-gap);
             border: 0;
         }
 
         .project-card {
             display: grid;
+            flex: 0 0 100%;
             grid-template-rows: auto 1fr;
             min-width: 0;
             overflow: hidden;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
             border: 1px solid #B7B1A5;
             background: #F7F5F0;
             transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease;
@@ -3592,12 +3724,25 @@
         }
 
         .project-card video,
-        .capability-preview__media video {
+        .capability-preview__media img {
             display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
             background: #171B20;
+        }
+
+        .project-media__poster {
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 180ms ease;
+        }
+
+        .project-media.is-video-ready .project-media__poster {
+            opacity: 0;
         }
 
         .project-card__body {
@@ -3684,32 +3829,12 @@
             color: #F7F5F0;
         }
 
-        .capability-preview__kicker {
-            display: block;
-            margin-bottom: 0.2rem;
-            color: #E69270;
-            font-family: var(--font-mono);
-            font-size: 0.48rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-        }
-
         .capability-preview__title {
             font-family: var(--font-display);
-            font-size: 1.55rem;
+            font-size: 1.7rem;
             font-weight: 600;
             line-height: 1;
-        }
-
-        .capability-preview__copy {
-            display: -webkit-box;
-            overflow: hidden;
-            margin-top: 0.35rem;
-            color: rgba(247, 245, 240, 0.76);
-            font-size: 0.68rem;
-            line-height: 1.4;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
+            text-shadow: 0 0.15rem 1rem rgba(11, 15, 20, 0.52);
         }
 
         .capability-map.has-preview .capability-tab:not([aria-expanded="true"]) {
@@ -3729,8 +3854,8 @@
         }
 
         @media (min-width: 768px) {
-            .projects-mosaic {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+            .project-card {
+                flex-basis: calc((100% - var(--projects-gap)) / 2);
             }
         }
 
@@ -3745,8 +3870,36 @@
             }
         }
 
+        @media (min-width: 1200px) and (max-height: 760px) {
+            .projects-heading {
+                align-items: start;
+                margin-bottom: 0.75rem;
+            }
+
+            .projects-heading__title > .font-mono {
+                display: none;
+            }
+
+            .projects-heading__copy {
+                max-width: 20rem;
+                padding-bottom: 0;
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+
+            .projects-carousel__toolbar {
+                margin-bottom: 0.5rem;
+            }
+
+            .projects-carousel__button {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
-            .project-card {
+            .project-card,
+            .projects-carousel__button {
                 transition: none;
             }
         }
@@ -4125,12 +4278,10 @@
 
                     <article class="capability-preview" aria-live="polite" aria-hidden="true">
                         <div class="capability-preview__media" aria-hidden="true">
-                            <video data-capability-video muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp"></video>
+                            <img data-capability-poster src="assets/proyectos/rely-poster.webp" alt="" decoding="async">
                         </div>
                         <div class="capability-preview__overlay">
-                            <span data-capability-kicker class="capability-preview__kicker"></span>
                             <h3 data-capability-project class="capability-preview__title"></h3>
-                            <p data-capability-copy class="capability-preview__copy"></p>
                         </div>
                     </article>
                 </div>
@@ -4151,21 +4302,39 @@
         <section id="proyectos" data-header-scheme="light" class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-paper relative">
             <div class="max-w-7xl mx-auto">
                 <div class="projects-heading">
-                    <div class="max-w-4xl gsap-reveal">
+                    <div class="projects-heading__title gsap-reveal">
                         <span class="font-mono text-xs text-accent tracking-[0.18em] uppercase block mb-4 md:mb-6">Proyectos</span>
-                        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-ink leading-[0.95] mb-6 md:mb-8">
+                        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-ink leading-[0.95]">
                             Software que ya está resolviendo <span class="accent-reveal">problemas reales.</span>
                         </h2>
-                        <p class="text-mutedStrong text-lg sm:text-xl font-normal leading-relaxed max-w-2xl">
-                            Desde operaciones societarias y fiscales hasta espacios de trabajo con IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.
-                        </p>
                     </div>
+                    <p class="projects-heading__copy text-mutedStrong text-lg sm:text-xl font-normal leading-relaxed gsap-reveal">
+                        Desde operaciones societarias y fiscales hasta espacios de trabajo con IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.
+                    </p>
                 </div>
 
-                <div class="projects-mosaic relative z-10">
+                <div class="projects-carousel" data-projects-carousel>
+                    <div class="projects-carousel__toolbar">
+                        <div class="projects-carousel__status" aria-live="polite" aria-atomic="true">
+                            <span data-projects-current>01</span>
+                            <span aria-hidden="true">/</span>
+                            <span data-projects-total>04</span>
+                        </div>
+                        <div class="projects-carousel__controls">
+                            <button type="button" class="projects-carousel__button" data-projects-prev aria-controls="projects-carousel-track" aria-label="Proyecto anterior" disabled>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18 9 12l6-6"/></svg>
+                            </button>
+                            <button type="button" class="projects-carousel__button" data-projects-next aria-controls="projects-carousel-track" aria-label="Proyecto siguiente">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="projects-carousel__viewport" tabindex="0" aria-label="Proyectos destacados">
+                        <div id="projects-carousel-track" class="projects-mosaic relative z-10">
                     <article class="project-card gsap-reveal" data-project="rely">
                         <div class="project-media">
                             <span class="project-code">01 / 04</span>
+                            <img class="project-media__poster" data-project-poster src="assets/proyectos/rely-poster.webp" alt="" decoding="async">
                             <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp" aria-label="Demo de la plataforma Rely">
                                 <source src="assets/proyectos/rely-demo.webm" type="video/webm">
                                 <source src="assets/proyectos/rely-demo.mp4" type="video/mp4">
@@ -4177,8 +4346,7 @@
                             <p class="project-card__copy">Una plataforma para que founders internacionales formen y administren una LLC, conectando clientes, operación interna, documentos, pagos y obligaciones fiscales.</p>
                             <ul class="project-signals" aria-label="Aspectos destacados de Rely"><li>50+ formaciones</li><li>6+ integraciones</li><li>Operación trazable</li></ul>
                             <div class="project-footer">
-                                <span class="project-lead">Liderado por Franco Ferreira</span>
-                                <a class="project-link" href="https://rely.business" target="_blank" rel="noopener noreferrer" aria-label="Abrir Rely en una pestaña nueva">Ver Rely →</a>
+                                <a class="project-link" href="https://rely.business" target="_blank" rel="noopener noreferrer" aria-label="Abrir Rely en una pestaña nueva"><span class="project-link__label">Ver Rely</span><span class="project-link__arrow" aria-hidden="true">↗</span></a>
                             </div>
                         </div>
                     </article>
@@ -4186,6 +4354,7 @@
                     <article class="project-card gsap-reveal" data-project="lain">
                         <div class="project-media">
                             <span class="project-code">02 / 04</span>
+                            <img class="project-media__poster" data-project-poster src="assets/proyectos/lain-poster.webp" alt="" decoding="async">
                             <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/lain-poster.webp" aria-label="Demo del workspace de inteligencia artificial Lain">
                                 <source src="assets/proyectos/lain-demo.webm" type="video/webm">
                                 <source src="assets/proyectos/lain-demo.mp4" type="video/mp4">
@@ -4197,8 +4366,7 @@
                             <p class="project-card__copy">Un espacio de trabajo con IA que reúne conversación, creación de interfaces, memoria por proyecto, estudio guiado y herramientas para construir sin perder contexto.</p>
                             <ul class="project-signals" aria-label="Aspectos destacados de Lain"><li>Agentes IA</li><li>Memoria por proyecto</li><li>Creación visual</li></ul>
                             <div class="project-footer">
-                                <span class="project-lead">Liderado por Mauro Proto</span>
-                                <a class="project-link" href="https://lainagent.com" target="_blank" rel="noopener noreferrer" aria-label="Abrir Lain en una pestaña nueva">Ver Lain →</a>
+                                <a class="project-link" href="https://lainagent.com" target="_blank" rel="noopener noreferrer" aria-label="Abrir Lain en una pestaña nueva"><span class="project-link__label">Ver Lain</span><span class="project-link__arrow" aria-hidden="true">↗</span></a>
                             </div>
                         </div>
                     </article>
@@ -4206,6 +4374,7 @@
                     <article class="project-card gsap-reveal" data-project="faro">
                         <div class="project-media">
                             <span class="project-code">03 / 04</span>
+                            <img class="project-media__poster" data-project-poster src="assets/proyectos/faro-poster.webp" alt="" decoding="async">
                             <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/faro-poster.webp" aria-label="Demo del explorador de obra pública Faro">
                                 <source src="assets/proyectos/faro-demo.webm" type="video/webm">
                                 <source src="assets/proyectos/faro-demo.mp4" type="video/mp4">
@@ -4217,8 +4386,7 @@
                             <p class="project-card__copy">Una plataforma que organiza expedientes de obra pública en un mapa interactivo para explorar señales de revisión y verificar cada caso directamente en su fuente oficial.</p>
                             <ul class="project-signals" aria-label="Aspectos destacados de Faro"><li>Fuentes verificables</li><li>Explorador geográfico</li><li>Datos trazables</li></ul>
                             <div class="project-footer">
-                                <span class="project-lead">Liderado por Ignacio Estevo</span>
-                                <a class="project-link" href="https://faro-argentina.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir Faro en una pestaña nueva">Ver Faro →</a>
+                                <a class="project-link" href="https://faro-argentina.vercel.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir Faro en una pestaña nueva"><span class="project-link__label">Ver Faro</span><span class="project-link__arrow" aria-hidden="true">↗</span></a>
                             </div>
                         </div>
                     </article>
@@ -4226,6 +4394,7 @@
                     <article class="project-card gsap-reveal" data-project="lemon">
                         <div class="project-media">
                             <span class="project-code">04 / 04</span>
+                            <img class="project-media__poster" data-project-poster src="assets/proyectos/lemon-poster.webp" alt="" decoding="async">
                             <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/lemon-poster.webp" aria-label="Demo de Lemon Box y su entorno de configuración">
                                 <source src="assets/proyectos/lemon-demo.webm" type="video/webm">
                                 <source src="assets/proyectos/lemon-demo.mp4" type="video/mp4">
@@ -4237,11 +4406,12 @@
                             <p class="project-card__copy">Un dispositivo táctil de cuatro pulgadas para visualizar datos y alertas en tiempo real, con Wi-Fi, audio, control local y actualizaciones remotas.</p>
                             <ul class="project-signals" aria-label="Aspectos destacados de Lemon Box"><li>ESP32-S3</li><li>Pantalla 480×480</li><li>Actualizaciones OTA</li></ul>
                             <div class="project-footer">
-                                <span class="project-lead">Liderado por Franco Ferreira</span>
-                                <a class="project-link" href="https://github.com/frxnnk/lemon-display" target="_blank" rel="noopener noreferrer" aria-label="Abrir el repositorio de Lemon Box en una pestaña nueva">Ver proyecto →</a>
+                                <a class="project-link" href="https://github.com/frxnnk/lemon-display" target="_blank" rel="noopener noreferrer" aria-label="Abrir el repositorio de Lemon Box en una pestaña nueva"><span class="project-link__label">Ver proyecto</span><span class="project-link__arrow" aria-hidden="true">↗</span></a>
                             </div>
                         </div>
                     </article>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -4649,39 +4819,24 @@
             if (capabilityMap) {
                 const items = Array.from(capabilityMap.querySelectorAll(".capability-tab"));
                 const preview = capabilityMap.querySelector(".capability-preview");
-                const kicker = capabilityMap.querySelector("[data-capability-kicker]");
                 const projectName = capabilityMap.querySelector("[data-capability-project]");
-                const copy = capabilityMap.querySelector("[data-capability-copy]");
-                const capabilityVideo = capabilityMap.querySelector("[data-capability-video]");
+                const capabilityPoster = capabilityMap.querySelector("[data-capability-poster]");
                 const compactSelect = capabilityMap.querySelector("[data-capability-select]");
                 const capabilityCases = {
-                    rely: { name: "Rely", poster: "assets/proyectos/rely-poster.webp", webm: "assets/proyectos/rely-demo.webm", mp4: "assets/proyectos/rely-demo.mp4" },
-                    lain: { name: "Lain", poster: "assets/proyectos/lain-poster.webp", webm: "assets/proyectos/lain-demo.webm", mp4: "assets/proyectos/lain-demo.mp4" },
-                    faro: { name: "Faro", poster: "assets/proyectos/faro-poster.webp", webm: "assets/proyectos/faro-demo.webm", mp4: "assets/proyectos/faro-demo.mp4" },
-                    lemon: { name: "Lemon Box", poster: "assets/proyectos/lemon-poster.webp", webm: "assets/proyectos/lemon-demo.webm", mp4: "assets/proyectos/lemon-demo.mp4" }
+                    rely: { name: "Rely", poster: "assets/proyectos/rely-poster.webp" },
+                    lain: { name: "Lain", poster: "assets/proyectos/lain-poster.webp" },
+                    faro: { name: "Faro", poster: "assets/proyectos/faro-poster.webp" },
+                    lemon: { name: "Lemon Box", poster: "assets/proyectos/lemon-poster.webp" }
                 };
-                const motionBlocked = window.matchMedia("(prefers-reduced-motion: reduce)").matches || Boolean(navigator.connection?.saveData);
                 let pinnedCapability = null;
-
-                function pauseCapabilityVideo(reset = false) {
-                    if (!capabilityVideo) return;
-                    capabilityVideo.pause();
-                    if (reset) capabilityVideo.currentTime = 0;
-                }
 
                 function showCapabilityCase(item) {
                     const caseStudy = capabilityCases[item.dataset.case];
                     if (!caseStudy) return;
                     if (projectName) projectName.textContent = caseStudy.name;
-                    if (capabilityVideo && capabilityVideo.dataset.activeCase !== item.dataset.case) {
-                        pauseCapabilityVideo(true);
-                        capabilityVideo.poster = caseStudy.poster;
-                        capabilityVideo.src = capabilityVideo.canPlayType("video/webm") ? caseStudy.webm : caseStudy.mp4;
-                        capabilityVideo.dataset.activeCase = item.dataset.case;
-                        capabilityVideo.load();
-                    }
-                    if (!motionBlocked && window.matchMedia("(min-width: 1200px)").matches) {
-                        capabilityVideo?.play().catch(() => {});
+                    if (capabilityPoster && capabilityPoster.dataset.activeCase !== item.dataset.case) {
+                        capabilityPoster.src = caseStudy.poster;
+                        capabilityPoster.dataset.activeCase = item.dataset.case;
                     }
                 }
 
@@ -4691,15 +4846,12 @@
                     capabilityMap.classList.remove("has-preview");
                     preview && preview.classList.remove("is-visible");
                     preview && preview.setAttribute("aria-hidden", "true");
-                    pauseCapabilityVideo(true);
                 }
 
                 function showCapability(item, moveFocus = false) {
                     if (!item) return;
                     if (window.matchMedia("(min-width: 768px) and (max-width: 1199px)").matches) return;
                     items.forEach((button) => button.setAttribute("aria-expanded", String(button === item)));
-                    if (kicker) kicker.textContent = item.dataset.title || "";
-                    if (copy) copy.textContent = item.dataset.caseCopy || "";
                     showCapabilityCase(item);
                     capabilityMap.classList.add("has-preview");
                     preview && preview.classList.add("is-visible");
@@ -4779,10 +4931,105 @@
                 });
             }
 
+            const projectAnchorLinks = document.querySelectorAll('a[href="#proyectos"]');
+            const projectAnchorTarget = document.querySelector(".projects-heading");
+            const reducedAnchorMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+            const alignProjectsAnchor = (behavior = "auto") => {
+                if (!projectAnchorTarget) return;
+                const compactProjectsView = window.innerWidth >= 1200 && window.innerHeight <= 760;
+                const anchorOffset = compactProjectsView ? 8 : window.innerWidth >= 768 ? 96 : 76;
+                const targetTop = Math.max(0, projectAnchorTarget.getBoundingClientRect().top + window.scrollY - anchorOffset);
+                window.scrollTo({ top: targetTop, behavior });
+            };
+            const syncProjectsAnchor = () => {
+                if (window.location.hash !== "#proyectos") return;
+                window.requestAnimationFrame(() => window.requestAnimationFrame(() => alignProjectsAnchor("auto")));
+            };
+
+            projectAnchorLinks.forEach((link) => {
+                link.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    if (window.location.hash !== "#proyectos") {
+                        window.history.pushState(null, "", "#proyectos");
+                    }
+                    alignProjectsAnchor(reducedAnchorMotion.matches ? "auto" : "smooth");
+                });
+            });
+            window.addEventListener("hashchange", syncProjectsAnchor);
+            window.addEventListener("load", syncProjectsAnchor, { once: true });
+            document.fonts?.ready?.then(syncProjectsAnchor);
+            syncProjectsAnchor();
+
+            const projectsCarousel = document.querySelector("[data-projects-carousel]");
+            if (projectsCarousel) {
+                const projectsViewport = projectsCarousel.querySelector(".projects-carousel__viewport");
+                const projectCards = Array.from(projectsCarousel.querySelectorAll(".project-card"));
+                const previousProject = projectsCarousel.querySelector("[data-projects-prev]");
+                const nextProject = projectsCarousel.querySelector("[data-projects-next]");
+                const currentProject = projectsCarousel.querySelector("[data-projects-current]");
+                const totalProjects = projectsCarousel.querySelector("[data-projects-total]");
+                const reducedCarouselMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+                let carouselFrame = 0;
+
+                const visibleProjectCount = () => window.matchMedia("(min-width: 768px)").matches ? 2 : 1;
+                const maximumProjectIndex = () => Math.max(0, projectCards.length - visibleProjectCount());
+                const projectsStep = () => projectCards[1]
+                    ? projectCards[1].offsetLeft - projectCards[0].offsetLeft
+                    : projectsViewport.clientWidth;
+                const currentProjectIndex = () => {
+                    const step = projectsStep();
+                    if (!step) return 0;
+                    return Math.max(0, Math.min(maximumProjectIndex(), Math.round(projectsViewport.scrollLeft / step)));
+                };
+                const syncProjectsCarousel = () => {
+                    carouselFrame = 0;
+                    const index = currentProjectIndex();
+                    currentProject.textContent = String(index + 1).padStart(2, "0");
+                    totalProjects.textContent = String(projectCards.length).padStart(2, "0");
+                    previousProject.disabled = index === 0;
+                    nextProject.disabled = index === maximumProjectIndex();
+                };
+                const moveProjectsCarousel = (direction) => {
+                    const behavior = reducedCarouselMotion.matches ? "auto" : "smooth";
+                    projectsViewport.scrollBy({ left: direction * projectsStep(), behavior });
+                };
+
+                previousProject.addEventListener("click", () => moveProjectsCarousel(-1));
+                nextProject.addEventListener("click", () => moveProjectsCarousel(1));
+                projectsViewport.addEventListener("keydown", (event) => {
+                    if (event.target !== projectsViewport) return;
+                    if (event.key === "ArrowLeft") {
+                        event.preventDefault();
+                        moveProjectsCarousel(-1);
+                    }
+                    if (event.key === "ArrowRight") {
+                        event.preventDefault();
+                        moveProjectsCarousel(1);
+                    }
+                    if (event.key === "Home" || event.key === "End") {
+                        event.preventDefault();
+                        const index = event.key === "Home" ? 0 : maximumProjectIndex();
+                        projectCards[index]?.scrollIntoView({ behavior: reducedCarouselMotion.matches ? "auto" : "smooth", block: "nearest", inline: "start" });
+                    }
+                });
+                projectsViewport.addEventListener("scroll", () => {
+                    if (!carouselFrame) carouselFrame = window.requestAnimationFrame(syncProjectsCarousel);
+                }, { passive: true });
+                window.addEventListener("resize", syncProjectsCarousel);
+                syncProjectsCarousel();
+            }
+
             const projectVideos = Array.from(document.querySelectorAll("[data-project-video]"));
             if (projectVideos.length) {
                 const motionBlocked = window.matchMedia("(prefers-reduced-motion: reduce)").matches || Boolean(navigator.connection?.saveData);
-                projectVideos.forEach((video) => video.pause());
+                projectVideos.forEach((video) => {
+                    const media = video.closest(".project-media");
+                    video.pause();
+                    video.addEventListener("timeupdate", () => {
+                        if (video.currentTime >= 0.25) media?.classList.add("is-video-ready");
+                    });
+                    video.addEventListener("error", () => media?.classList.remove("is-video-ready"));
+                });
                 if (!motionBlocked) {
                     const projectVideoObserver = new IntersectionObserver((entries) => {
                         entries.forEach((entry) => {
