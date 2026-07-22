@@ -23,7 +23,7 @@ Toda la configuración operativa mínima está centralizada en `assets/app.js`:
 - `formEndpoint`
 - `calendlyUrl`
 
-El formulario de contacto publica en `/api/lead` y envía la notificación por Resend. En Vercel configurar:
+El formulario de contacto publica en el gateway de leads configurado en `assets/app.js` y envía la notificación por Resend. En el proyecto Vercel del gateway configurar:
 
 - `RESEND_API_KEY`
 - `LEAD_TO_EMAIL` — por ejemplo `contacto@acelera.agency`

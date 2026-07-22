@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const releaseToken = "v=20260713-2";
+const releaseToken = "v=20260722-1";
 
 test("mutable assets are revalidated instead of cached as immutable", async () => {
   const config = JSON.parse(await readFile(new URL("./vercel.json", import.meta.url), "utf8"));
@@ -25,4 +25,10 @@ test("legal pages invalidate their shared stylesheet", async () => {
     const html = await readFile(new URL(`./${page}`, import.meta.url), "utf8");
     assert.match(html, new RegExp(`assets/legal\\.css\\?${releaseToken}`));
   }
+});
+
+test("the public forms use the managed lead gateway", async () => {
+  const script = await readFile(new URL("./assets/app.js", import.meta.url), "utf8");
+
+  assert.match(script, /formEndpoint: "https:\/\/acelera-lead-gateway\.vercel\.app\/api\/lead"/);
 });
