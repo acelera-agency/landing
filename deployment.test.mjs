@@ -26,3 +26,9 @@ test("legal pages invalidate their shared stylesheet", async () => {
     assert.match(html, new RegExp(`assets/legal\\.css\\?${releaseToken}`));
   }
 });
+
+test("the public forms use the managed lead gateway", async () => {
+  const script = await readFile(new URL("./assets/app.js", import.meta.url), "utf8");
+
+  assert.match(script, /formEndpoint: "https:\/\/acelera-lead-gateway\.vercel\.app\/api\/lead"/);
+});

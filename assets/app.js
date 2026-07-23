@@ -1,7 +1,7 @@
 (function () {
   const siteConfig = {
     workingBrand: "Acelera",
-    formEndpoint: "/api/lead",
+    formEndpoint: "https://acelera-lead-gateway.vercel.app/api/lead",
     calendlyUrl: "https://calendly.com/contacto-acelera/30min"
   };
 
