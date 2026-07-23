@@ -81,3 +81,12 @@ No package or dependency changes were required; the existing `playwright` develo
 - Existing unrelated untracked workspace artifacts were left untouched and are not part of the commit.
 - The lead gateway was not called during verification, intentionally avoiding test PII or an external side effect. The native fallback contract is verified from the rendered form attributes; existing repository lead-gateway tests remain green.
 - All displayed operational values remain explicitly fictitious and are not production calculations or live logistics data.
+
+## P2 follow-up: resolved exposure card
+
+The Límite resolution now updates the visible daily-exposure card as well as the status/result copy:
+
+- Before resolution: `USD 185` and `3 días proyectados · USD 555 acumulables`.
+- After resolution: `USD 0` and `0 días proyectados · exposición contenida; controlar devolución`.
+
+The Playwright interaction test asserts both sides of this visible transition before it exercises restart. The new assertion first failed on the stale `USD 185` value, then `npm run test:logistica` passed 4/4 after the resolver update.

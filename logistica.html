@@ -268,10 +268,13 @@
 
     function resolveLimit() {
       const action = scene.querySelector("[data-limit-action]");
+      const exposure = scene.querySelector('[data-limit-milestone="daily-exposure"]');
       action.disabled = true;
       action.textContent = "Liberación y retiro confirmados";
       scene.querySelector("[data-risk-title]").textContent = "Liberación confirmada";
       scene.querySelector("[data-risk-copy]").textContent = "El retiro queda dentro del free time; resta controlar la devolución del vacío.";
+      exposure.querySelector(".number").textContent = "USD 0";
+      exposure.querySelector("p").textContent = "0 días proyectados · exposición contenida; controlar devolución.";
       scene.querySelector("[data-logistics-result]").innerHTML = "<strong class=\"resolved\">Exposición contenida</strong>Retiro confirmado dentro del free time. La devolución vacía mantiene su hito del 29 JUL.";
       announce("Liberación y retiro confirmados. La exposición diaria quedó contenida.");
     }

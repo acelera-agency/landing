@@ -189,8 +189,13 @@ test("las tres demos se pueden seleccionar, alterar y reiniciar", { timeout: 20_
     assert.equal(await page.locator('[data-forwarder-cost="handling"]').isChecked(), true);
 
     await page.locator('[data-logistics-product="limite"]').click();
+    const exposure = page.locator('[data-limit-milestone="daily-exposure"]');
+    assert.equal((await exposure.locator(".number").textContent())?.trim(), "USD 185");
+    assert.match(await exposure.locator("p").textContent(), /3 días proyectados · USD 555/i);
     await page.locator("[data-limit-action]").click();
     assert.equal(await page.locator("[data-limit-action]").isDisabled(), true);
+    assert.equal((await exposure.locator(".number").textContent())?.trim(), "USD 0");
+    assert.match(await exposure.locator("p").textContent(), /0 días proyectados · exposición contenida/i);
     await reset.click();
     assert.equal(await page.locator("[data-limit-action]").isEnabled(), true);
 
