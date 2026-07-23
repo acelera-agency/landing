@@ -434,6 +434,7 @@
 
     const textOriginals = new WeakMap();
     const attributeOriginals = new WeakMap();
+    let activeLanguage = "es";
     const translatedAttributes = ["placeholder", "aria-label", "title", "alt", "data-title", "data-kicker", "data-copy", "data-delivery", "data-case-copy"];
 
     function normalized(value) {
@@ -507,10 +508,13 @@
 
     function setLanguage(language, persist = true) {
         const next = language === "en" ? "en" : "es";
-        translateTextNodes(next);
-        translateAttributes(next);
+        if (next !== activeLanguage) {
+            translateTextNodes(next);
+            translateAttributes(next);
+            activeLanguage = next;
+        }
         syncCapabilityPreview();
-        document.documentElement.lang = next;
+        document.documentElement.lang = next === "en" ? "en" : "es-AR";
         document.title = next === "en" ? english["Acelera | IA con sentido, donde el negocio lo pide"] : "Acelera | IA con sentido, donde el negocio lo pide";
         updateControls(next);
         if (persist) {

@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { access, readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -21,13 +21,14 @@ const contentTypes = new Map([
   [".png", "image/png"],
   [".svg", "image/svg+xml"],
   [".txt", "text/plain; charset=utf-8"],
-  [".webp", "image/webp"]
+  [".webp", "image/webp"],
+  [".woff2", "font/woff2"],
+  [".xml", "application/xml; charset=utf-8"]
 ]);
 
 async function fileExists(filePath) {
   try {
-    await access(filePath);
-    return true;
+    return (await stat(filePath)).isFile();
   } catch {
     return false;
   }
