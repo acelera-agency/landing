@@ -43,6 +43,13 @@
     h2 { font-size: clamp(2.2rem, 4.2vw, 4.2rem); margin-bottom: 18px; }
     .intro { max-width: 610px; color: var(--muted); line-height: 1.55; font-size: 1.05rem; margin-bottom: 0; }
     .demo { padding: clamp(100px, 13vw, 190px) 0; }
+    .demo-heading { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px, .58fr); gap:3rem; align-items:end; margin-bottom:3.25rem; }
+    .demo-heading .intro { margin:0; }
+    .demo-toolbar { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1rem; }
+    .demo-count { font:600 .68rem/1 var(--font-mono); letter-spacing:.14em; color:var(--muted); }
+    .demo-arrows { display:flex; gap:.5rem; }
+    .demo-arrow { display:grid; width:2.8rem; height:2.8rem; place-items:center; border:1px solid var(--rule); background:var(--paper); color:var(--ink); font-size:1.3rem; }
+    .demo-arrow:hover { border-color:var(--accent); background:var(--accent); color:var(--paper); }
     .product-switch { display: flex; border: 1px solid var(--ink); margin-bottom: 24px; }
     .product-switch button { appearance: none; flex: 1; min-height: 58px; padding: 12px 18px; border: 0; border-right: 1px solid var(--ink); background: var(--paper); color: var(--ink); text-align: left; font-weight: 700; transition: background-color 160ms ease, color 160ms ease; }
     .product-switch button:last-child { border-right: 0; }
@@ -51,7 +58,7 @@
     .scene-tools { display: flex; justify-content: flex-end; margin: -10px 0 12px; }
     .reset { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); padding: 9px 12px; font-size: .8rem; font-weight: 700; }
     .reset:hover { background: var(--accent); color: var(--paper); }
-    .scene { min-height: 520px; border: 1px solid var(--ink); padding: clamp(28px, 5vw, 72px); background: var(--paper); }
+    .scene { min-height: 520px; border: 1px solid var(--ink); padding: clamp(28px, 5vw, 72px); background: var(--paper); box-shadow:0 1.5rem 3.5rem rgba(11,15,20,.08); }
     .scene__meta { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 28px; }
     .scene__meta p { margin: 0; color: var(--muted); font-size: .83rem; }
     .scene-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
@@ -91,7 +98,7 @@
     .site-footer { border-top: 1px solid var(--rule); padding: 24px 0; color: var(--muted); font-size: .8rem; }
     @media (max-width: 800px) {
       .shell { width: min(100% - 32px, 620px); }
-      .product-switch, .contact-grid, .audit__grid { grid-template-columns: 1fr; display: grid; }
+      .product-switch, .contact-grid, .audit__grid, .demo-heading { grid-template-columns: 1fr; display: grid; }
       .product-switch button { border-right: 0; border-bottom: 1px solid var(--ink); }
       .product-switch button:last-child { border-bottom: 0; }
       .scene-grid { grid-template-columns: 1fr; }
@@ -116,15 +123,15 @@
   <main>
     <section class="hero" aria-labelledby="page-title">
       <div class="shell hero__copy">
-        <p class="eyebrow">Laboratorio de operaciones / ficticio</p>
-        <h1 id="page-title">Señales antes de la próxima demora.</h1>
-        <p class="intro">Tres escenas para ensayar decisiones logísticas sin OCR, TMS, tracking real ni cálculos productivos. Los datos son deliberadamente ficticios.</p>
+        <p class="eyebrow">Soluciones para freight forwarders</p>
+        <h1 id="page-title">Menos cosas que se escapan en cada operación.</h1>
+        <p class="intro">Mostramos cómo tu equipo puede encontrar diferencias de documentos, costos y vencimientos antes de que se conviertan en correcciones, retrabajo o pérdida de margen.</p>
       </div>
     </section>
 
     <section class="demo shell" aria-labelledby="demo-title">
-      <p class="eyebrow">Selector de escena</p>
-      <h2 id="demo-title">Elegí la señal que querés revisar.</h2>
+      <div class="demo-heading"><div><p class="eyebrow">Demos de producto</p><h2 id="demo-title">Así se vería una herramienta hecha para tu operación.</h2></div><p class="intro">Cada caso parte de una operación realista. Navegá la demo, tocá un dato y mirá qué puede quedar bajo control.</p></div>
+      <div class="demo-toolbar"><span class="demo-count"><span data-demo-current>01</span> / 03 · DEMO OPERATIVA</span><div class="demo-arrows"><button type="button" class="demo-arrow" data-demo-prev aria-label="Demo anterior">←</button><button type="button" class="demo-arrow" data-demo-next aria-label="Demo siguiente">→</button></div></div>
       <div class="product-switch" role="group" aria-label="Demos logísticas">
         <button type="button" data-logistics-product="cruce" aria-pressed="true">Cruce</button>
         <button type="button" data-logistics-product="margen" aria-pressed="false">Margen</button>
@@ -234,6 +241,8 @@
     const status = document.querySelector("[data-logistics-status]");
     const productButtons = [...document.querySelectorAll("[data-logistics-product]")];
     const resetButton = document.querySelector("[data-reset-product]");
+    const productOrder = ["cruce", "margen", "limite"];
+    const currentDemo = document.querySelector("[data-demo-current]");
 
     function announce(message) {
       status.textContent = message;
@@ -293,6 +302,7 @@
       scene.dataset.product = slug;
       scene.innerHTML = product.render();
       productButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.logisticsProduct === slug)));
+      currentDemo.textContent = String(productOrder.indexOf(slug) + 1).padStart(2, "0");
       bindScene();
       announce(product.status);
     }
@@ -303,6 +313,16 @@
     }
 
     productButtons.forEach((button) => button.addEventListener("click", () => renderProduct(button.dataset.logisticsProduct)));
+    document.querySelector("[data-demo-prev]").addEventListener("click", () => {
+      const active = productButtons.find((button) => button.getAttribute("aria-pressed") === "true");
+      const index = productOrder.indexOf(active?.dataset.logisticsProduct || "cruce");
+      renderProduct(productOrder[(index + productOrder.length - 1) % productOrder.length]);
+    });
+    document.querySelector("[data-demo-next]").addEventListener("click", () => {
+      const active = productButtons.find((button) => button.getAttribute("aria-pressed") === "true");
+      const index = productOrder.indexOf(active?.dataset.logisticsProduct || "cruce");
+      renderProduct(productOrder[(index + 1) % productOrder.length]);
+    });
     resetButton.addEventListener("click", resetProduct);
     renderProduct("cruce");
     window.logisticsDemo = { renderProduct, selectFinding, resetProduct };
