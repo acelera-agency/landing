@@ -9,6 +9,7 @@ npm-debug.log*
 # Resultados de tests / capturas locales
 test-results/
 *.png.tmp
+output/project-demos/
 
 # Env
 .env

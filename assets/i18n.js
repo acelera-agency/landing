@@ -110,6 +110,18 @@
         "IA sobre tus datos": "AI on your data",
         "Backends y servicios": "Backends and services",
         "Portales y autogestión": "Portals and self-service",
+        "En Rely, una plataforma interna conecta clientes, documentos, pagos y obligaciones en una operación trazable.": "In Rely, an internal platform connects clients, documents, payments and obligations in a traceable operation.",
+        "Lain convirtió una idea de producto en un workspace de IA que ya puede ser usado y validado por personas reales.": "Lain turned a product idea into an AI workspace that real people can already use and validate.",
+        "Lemon Box integra firmware, interfaz táctil y una herramienta de configuración para operar el dispositivo.": "Lemon Box integrates firmware, a touch interface and a configuration tool to operate the device.",
+        "Lain combina una aplicación web responsive con herramientas de creación asistida y contexto persistente.": "Lain combines a responsive web application with assisted creation tools and persistent context.",
+        "Faro transforma información pública dispersa en una vista territorial preparada para explorar y decidir.": "Faro turns scattered public information into a territorial view built for exploration and decisions.",
+        "Faro normaliza expedientes y fuentes públicas para convertirlos en información comparable y verificable.": "Faro normalizes public records and sources into comparable, verifiable information.",
+        "Rely conecta proveedores externos y sistemas propios detrás de una experiencia operativa única.": "Rely connects external providers and proprietary systems behind one operational experience.",
+        "Lain reúne distintos modelos y modos de trabajo en un agente que mantiene el contexto del proyecto.": "Lain brings models and working modes together in an agent that maintains project context.",
+        "Lemon Box automatiza configuración, actualizaciones OTA y visualización de datos desde un dispositivo dedicado.": "Lemon Box automates configuration, OTA updates and data visualization from a dedicated device.",
+        "Lain conserva memoria por proyecto para trabajar con información propia sin perder control del contexto.": "Lain keeps per-project memory so teams can work with their own information without losing control of context.",
+        "Rely concentra reglas, estados e integraciones en servicios que sostienen toda la operación.": "Rely centralizes rules, states and integrations in services that support the entire operation.",
+        "Rely ofrece a cada cliente un portal para iniciar gestiones, entregar documentación y seguir su avance.": "Rely gives every client a portal to start processes, provide documents and track progress.",
         "Núcleo Acelera": "Acelera core",
         "Software, datos": "Software, data",
         "Software que": "Software that",
@@ -201,6 +213,59 @@
         "Un portal conectado a la operación, con usuarios, permisos y trazabilidad.": "A portal connected to operations, with users, permissions and traceability.",
         "Construir rápido, probado": "Built fast, proven",
         "Proyectos": "Projects",
+        "Proyectos destacados": "Featured projects",
+        "Proyecto anterior": "Previous project",
+        "Proyecto siguiente": "Next project",
+        "Software que ya está resolviendo": "Software already solving",
+        "problemas reales.": "real problems.",
+        "Desde operaciones societarias y fiscales hasta espacios de trabajo con IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.": "From company and tax operations to AI workspaces and public data analysis. In every case, we turn a complex problem into a usable, traceable product built to evolve.",
+        "Plataforma operativa · Fintech / Legaltech": "Operational platform · Fintech / Legaltech",
+        "Rely: plataforma para formar y administrar LLCs": "Rely: platform for forming and operating LLCs",
+        "Rely: flujo operativo desde la formación hasta el compliance": "Rely: operational flow from formation through compliance",
+        "Operación activa": "Active operation",
+        "Formación": "Formation",
+        "Documentos": "Documents",
+        "Pagos": "Payments",
+        "Una operación, un sistema.": "One operation, one system.",
+        "Una plataforma para que founders internacionales formen y administren una LLC, conectando clientes, operación interna, documentos, pagos y obligaciones fiscales.": "A platform for international founders to form and operate a US LLC, connecting clients, internal operations, documents, payments and tax obligations.",
+        "Abrir Rely en una pestaña nueva": "Open Rely in a new tab",
+        "Ver Rely": "View Rely",
+        "Datos del proyecto Rely": "Rely project facts",
+        "Formaciones": "Formations",
+        "50+ completadas": "50+ completed",
+        "Integraciones": "Integrations",
+        "6+ externas": "6+ external",
+        "Ecosistema": "Ecosystem",
+        "Workspace de IA": "AI workspace",
+        "Lain Canvas: espacio de trabajo con inteligencia artificial": "Lain Canvas: artificial intelligence workspace",
+        "Memoria": "Memory",
+        "Workspace de IA · Producto digital": "AI workspace · Digital product",
+        "Un espacio de trabajo con IA que reúne conversación, creación de interfaces, memoria por proyecto, estudio guiado y herramientas para construir sin perder contexto.": "An AI workspace that brings together conversation, interface creation, project memory, guided learning and building tools without losing context.",
+        "Abrir Lain en una pestaña nueva": "Open Lain in a new tab",
+        "Ver Lain": "View Lain",
+        "Abrir Faro en una pestaña nueva": "Open Faro in a new tab",
+        "Ver Faro": "View Faro",
+        "Datos públicos · Inteligencia territorial": "Public data · Territorial intelligence",
+        "Una plataforma que organiza expedientes de obra pública en un mapa interactivo para explorar señales de revisión y verificar cada caso directamente en su fuente oficial.": "A platform that organizes public works records on an interactive map to explore review signals and verify every case directly against its official source.",
+        "Proyecto para Lemon": "A project for Lemon",
+        "Hardware conectado": "Connected hardware",
+        "Proyecto para Lemon · Hardware conectado": "A project for Lemon · Connected hardware",
+        "Un dispositivo táctil de cuatro pulgadas para visualizar datos y alertas en tiempo real, con Wi-Fi, audio, control local y actualizaciones remotas.": "A four-inch touch device for real-time data and alerts, with Wi-Fi, audio, local controls and remote updates.",
+        "Pantalla 480×480": "480×480 display",
+        "Actualizaciones OTA": "OTA updates",
+        "Abrir el repositorio de Lemon Box en una pestaña nueva": "Open the Lemon Box repository in a new tab",
+        "Ver proyecto": "View project",
+        "Software ya resolviendo": "Software already solving",
+        "Software que ya está resolviendo": "Software already solving",
+        "problemas reales.": "real problems.",
+        "Demo de la plataforma Rely": "Rely platform demo",
+        "Demo del workspace de inteligencia artificial Lain": "Lain artificial intelligence workspace demo",
+        "Demo del explorador de obra pública Faro": "Faro public works explorer demo",
+        "Demo de Lemon Box y su entorno de configuración": "Lemon Box and configuration environment demo",
+        "Aspectos destacados de Rely": "Rely highlights",
+        "Aspectos destacados de Lain": "Lain highlights",
+        "Aspectos destacados de Faro": "Faro highlights",
+        "Aspectos destacados de Lemon Box": "Lemon Box highlights",
         "Proyectos construidos para resolver": "Projects built to solve",
         "problemas reales": "real problems",
         "Fueron desarrollados en competencias de tecnología e IA. En cada caso definimos el problema, construimos una solución usable y la presentamos funcionando.": "They were developed in technology and AI competitions. In each case, we defined the problem, built a usable solution and presented it working.",
@@ -369,7 +434,8 @@
 
     const textOriginals = new WeakMap();
     const attributeOriginals = new WeakMap();
-    const translatedAttributes = ["placeholder", "aria-label", "title", "alt", "data-title", "data-kicker", "data-copy", "data-delivery"];
+    let activeLanguage = "es";
+    const translatedAttributes = ["placeholder", "aria-label", "title", "alt", "data-title", "data-kicker", "data-copy", "data-delivery", "data-case-copy"];
 
     function normalized(value) {
         return value.replace(/\s+/g, " ").trim();
@@ -423,10 +489,9 @@
         const active = document.querySelector(".capability-tab[aria-expanded='true']");
         if (!active) return;
         const values = {
-            "[data-capability-kicker]": active.dataset.kicker,
-            "[data-capability-title]": active.dataset.title,
-            "[data-capability-copy]": active.dataset.copy,
-            "[data-capability-delivery]": active.dataset.delivery
+            "[data-capability-kicker]": active.dataset.title,
+            "[data-capability-project]": ({ rely: "Rely", lain: "Lain", faro: "Faro", lemon: "Lemon Box" })[active.dataset.case],
+            "[data-capability-copy]": active.dataset.caseCopy
         };
         Object.entries(values).forEach(([selector, value]) => {
             const target = document.querySelector(selector);
@@ -443,10 +508,13 @@
 
     function setLanguage(language, persist = true) {
         const next = language === "en" ? "en" : "es";
-        translateTextNodes(next);
-        translateAttributes(next);
+        if (next !== activeLanguage) {
+            translateTextNodes(next);
+            translateAttributes(next);
+            activeLanguage = next;
+        }
         syncCapabilityPreview();
-        document.documentElement.lang = next;
+        document.documentElement.lang = next === "en" ? "en" : "es-AR";
         document.title = next === "en" ? english["Acelera | IA con sentido, donde el negocio lo pide"] : "Acelera | IA con sentido, donde el negocio lo pide";
         updateControls(next);
         if (persist) {
