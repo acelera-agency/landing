@@ -14,7 +14,7 @@
       --ink: #0b0f14;
       --muted: #5c6470;
       --rule: #d4cfc1;
-      --accent: #c96a43;
+      --accent: #a3482c;
       --signal: #316b59;
       --font-ui: Inter, Arial, sans-serif;
       --font-display: Fraunces, Georgia, serif;
@@ -46,13 +46,17 @@
     .product-switch button { appearance: none; flex: 1; min-height: 58px; padding: 12px 18px; border: 0; border-right: 1px solid var(--ink); background: var(--paper); color: var(--ink); text-align: left; font-weight: 700; transition: background-color 160ms ease, color 160ms ease; }
     .product-switch button:last-child { border-right: 0; }
     .product-switch button[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
-    .product-switch button:focus-visible, .scene button:focus-visible, .lead-form input:focus-visible, .lead-form textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .product-switch button:focus-visible, .scene button:focus-visible, .scene-tools button:focus-visible, .lead-form input:focus-visible, .lead-form textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .scene-tools { display: flex; justify-content: flex-end; margin: -10px 0 12px; }
+    .reset { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); padding: 9px 12px; font-size: .8rem; font-weight: 700; }
+    .reset:hover { background: var(--accent); color: var(--paper); }
     .scene { min-height: 430px; border: 1px solid var(--ink); padding: clamp(20px, 4vw, 48px); background-color: var(--paper); background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 28px 28px; }
     .scene__meta { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 28px; }
     .scene__meta p { margin: 0; color: var(--muted); font-size: .83rem; }
     .scene-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
     .module { grid-column: span 4; min-height: 152px; padding: 18px; border: 1px solid var(--ink); background: var(--paper); display: flex; flex-direction: column; justify-content: space-between; }
     .module--wide { grid-column: span 8; }
+    .module--quarter { grid-column: span 3; }
     .module--signal { background: var(--ink); color: var(--paper); }
     .module h3 { font-size: 1.05rem; margin-bottom: 8px; }
     .module p { margin-bottom: 0; line-height: 1.45; font-size: .9rem; }
@@ -90,7 +94,7 @@
       .product-switch button { border-right: 0; border-bottom: 1px solid var(--ink); }
       .product-switch button:last-child { border-bottom: 0; }
       .scene-grid { grid-template-columns: 1fr; }
-      .module, .module--wide { grid-column: auto; min-height: 0; }
+      .module, .module--wide, .module--quarter { grid-column: auto; min-height: 0; }
       .scene__meta { display: block; }
       .scene__meta p { margin-top: 8px; }
     }
@@ -125,6 +129,9 @@
         <button type="button" data-logistics-product="margen" aria-pressed="false">Margen</button>
         <button type="button" data-logistics-product="limite" aria-pressed="false">Límite</button>
       </div>
+      <div class="scene-tools">
+        <button type="button" class="reset" data-reset-product aria-label="Reiniciar demo activa">Reiniciar escena</button>
+      </div>
       <div class="scene" data-logistics-scene aria-label="Escena logística interactiva"></div>
       <p data-logistics-status role="status" aria-live="polite" class="sr-only"></p>
     </section>
@@ -136,11 +143,11 @@
           <h2>Auditoría de cinco operaciones.</h2>
         </div>
         <ol class="audit-list">
-          <li>Pedido de Rosario: costo de espera sin confirmar.</li>
-          <li>Ruta Córdoba–AMBA: fuente de turno en conflicto.</li>
-          <li>Entrega Mendoza: margen bajo revisión manual.</li>
-          <li>Reprogramación Bahía Blanca: límite de crédito vencido.</li>
-          <li>Salida Neuquén: próximo responsable asignado.</li>
+          <li>Exportación EXP-1842: bultos del packing list por confirmar.</li>
+          <li>Draft HBL: peso y tax ID del notify en conflicto.</li>
+          <li>Embarque FCL 09-44: factura contra cotización conciliada.</li>
+          <li>Forwarder: carrier, terminal, agente y handling incorporados.</li>
+          <li>Contenedor MRKU 481902-7: liberación, retiro y devolución bajo control.</li>
         </ol>
       </div>
     </section>
@@ -152,7 +159,8 @@
           <h2 id="contact-title">Traé una operación real a la conversación.</h2>
           <p class="intro">Revisamos el proceso antes de prometer una automatización. No incluyas información sensible ni datos de terceros sin autorización.</p>
         </div>
-        <form data-lead-form class="lead-form" aria-label="Formulario de contacto para logística">
+        <form data-lead-form method="post" action="https://acelera-lead-gateway.vercel.app/api/lead" class="lead-form" aria-label="Formulario de contacto para logística">
+          <input type="hidden" name="variant" value="logistica">
           <div><label for="logistica-nombre">Nombre<input id="logistica-nombre" name="nombre" autocomplete="given-name" required></label></div>
           <div><label for="logistica-email">Email de trabajo<input id="logistica-email" name="email" type="email" autocomplete="email" required></label></div>
           <div><label for="logistica-empresa">Empresa<input id="logistica-empresa" name="empresa" autocomplete="organization" required></label></div>
@@ -173,48 +181,49 @@
   <script>
     const products = {
       cruce: {
-        title: "Cruce de fuentes",
-        summary: "Dos registros describen la misma salida, pero no están de acuerdo sobre el turno.",
-        status: "Escena Cruce lista. Elegí un hallazgo para ver el conflicto.",
+        title: "Cruce documental",
+        summary: "Factura, packing list, booking y draft HBL deben coincidir antes de liberar el documento.",
+        status: "Escena Cruce lista. Elegí un campo para reconciliar los documentos.",
         render() {
           return `
-            <div class="scene__meta"><strong>Cruce / orden 1842</strong><p>Escena ficticia · sin tracking real</p></div>
+            <div class="scene__meta"><strong>Cruce / embarque EXP-1842</strong><p>Escena ficticia · control documental</p></div>
             <div class="scene-grid">
-              <article class="module"><h3>Fuente A</h3><p>Planilla de despacho</p><span class="number">08:30</span></article>
-              <article class="module"><h3>Fuente B</h3><p>Mensaje de operador</p><span class="number">10:00</span></article>
-              <article class="module module--signal"><h3>Conflicto</h3><p>La ventana de carga no coincide.</p><span class="number">+90m</span></article>
-              <div class="module module--wide"><h3>Hallazgos</h3><button type="button" class="finding" data-finding="fuentes" aria-pressed="false">Mostrar fuentes consultadas</button><button type="button" class="finding" data-finding="conflicto" aria-pressed="false">Ver dato en conflicto</button></div>
-              <div class="module" data-logistics-result><p class="notice">Elegí un hallazgo para revisar la señal.</p></div>
+              <article class="module module--quarter" data-cruce-source="invoice"><h3>Factura</h3><ul class="data-list"><li><span>Bultos</span><strong>24</strong></li><li><span>Peso</span><strong>12.480 kg</strong></li><li><span>Notify tax ID</span><strong>30-70984521-8</strong></li></ul></article>
+              <article class="module module--quarter" data-cruce-source="packing-list"><h3>Packing list</h3><ul class="data-list"><li><span>Bultos</span><strong>26</strong></li><li><span>Peso</span><strong>12.480 kg</strong></li><li><span>Booking</span><strong>BK-7714</strong></li></ul></article>
+              <article class="module module--quarter" data-cruce-source="booking"><h3>Booking</h3><ul class="data-list"><li><span>Equipo</span><strong>1 × 40HC</strong></li><li><span>Peso</span><strong>12.480 kg</strong></li><li><span>Referencia</span><strong>BK-7714</strong></li></ul></article>
+              <article class="module module--quarter module--signal" data-cruce-source="draft-hbl"><h3>Draft HBL</h3><ul class="data-list"><li><span>Bultos</span><strong>24</strong></li><li><span>Peso</span><strong>12.840 kg</strong></li><li><span>Notify tax ID</span><strong>30-70984512-8</strong></li></ul></article>
+              <div class="module module--wide"><h3>Campos a reconciliar</h3><button type="button" class="finding" data-finding="bultos" aria-pressed="false">Bultos: factura 24 vs packing list 26</button><button type="button" class="finding" data-finding="peso" aria-pressed="false">Peso: fuentes 12.480 kg vs draft HBL 12.840 kg</button><button type="button" class="finding" data-finding="notify-tax-id" aria-pressed="false">Notify tax ID: factura vs draft HBL</button><button type="button" class="finding" data-finding="customer-rule" aria-pressed="false">Regla del cliente: bloquear emisión ante diferencias</button></div>
+              <div class="module" data-logistics-result><p class="notice">Elegí un campo para revisar la evidencia y la regla aplicable.</p></div>
             </div>`;
         }
       },
       margen: {
-        title: "Margen por viaje",
-        summary: "Probá costos fijos ficticios para ver cómo cambia una lectura de margen.",
-        status: "Escena Margen lista. Podés alternar costos para recalcular.",
+        title: "Margen de embarque",
+        summary: "Compara la cotización y la factura con los costos reales informados por el forwarder.",
+        status: "Escena Margen lista. Podés conciliar cada costo real para recalcular.",
         render() {
           return `
-            <div class="scene__meta"><strong>Margen / viaje 09-44</strong><p>Dataset fijo · cálculo demostrativo</p></div>
+            <div class="scene__meta"><strong>Margen / embarque FCL 09-44</strong><p>USD · dataset ficticio y fijo</p></div>
             <div class="scene-grid">
-              <div class="module module--wide"><h3>Costos incluidos</h3><label class="cost-toggle"><span>Peaje estimado <strong>$ 18.000</strong></span><input type="checkbox" data-cost="18000" checked></label><label class="cost-toggle"><span>Espera en planta <strong>$ 24.000</strong></span><input type="checkbox" data-cost="24000" checked></label><label class="cost-toggle"><span>Reentrega <strong>$ 31.000</strong></span><input type="checkbox" data-cost="31000"></label></div>
+              <div class="module module--wide"><h3>Costos reales del forwarder</h3><label class="cost-toggle"><span>Carrier <strong>USD 3.250</strong></span><input type="checkbox" data-forwarder-cost="carrier" data-cost="3250" checked></label><label class="cost-toggle"><span>Terminal <strong>USD 720</strong></span><input type="checkbox" data-forwarder-cost="terminal" data-cost="720" checked></label><label class="cost-toggle"><span>Agente <strong>USD 410</strong></span><input type="checkbox" data-forwarder-cost="agent" data-cost="410" checked></label><label class="cost-toggle"><span>Handling <strong>USD 290</strong></span><input type="checkbox" data-forwarder-cost="handling" data-cost="290" checked></label></div>
               <div class="module module--signal" data-logistics-result></div>
-              <article class="module"><h3>Facturación</h3><span class="number">$240k</span><p>Ingreso ficticio de la operación.</p></article>
-              <article class="module"><h3>Costo base</h3><span class="number">$156k</span><p>Base fija del dataset.</p></article>
+              <article class="module" data-margin-reference="quotation"><h3>Cotización</h3><span class="number">USD 5.600</span><p>Costo estimado USD 4.300 · margen proyectado USD 1.300.</p></article>
+              <article class="module" data-margin-reference="invoice"><h3>Factura cliente</h3><span class="number">USD 5.450</span><p>Importe finalmente facturado.</p></article>
             </div>`;
         }
       },
       limite: {
-        title: "Límite operativo",
-        summary: "Una acción pendiente mantiene el riesgo abierto hasta que un responsable la resuelva.",
-        status: "Escena Límite lista. Resolvé una acción para reducir el riesgo.",
+        title: "Límite de free time",
+        summary: "Gestiona la liberación aduanera, el retiro y la devolución del vacío antes de sumar exposición.",
+        status: "Escena Límite lista. Revisá los hitos del contenedor FCL y resolvé la exposición.",
         render() {
           return `
-            <div class="scene__meta"><strong>Límite / cuenta Norte</strong><p>Escena ficticia · sin integración financiera</p></div>
-            <div class="scene-grid">
-              <article class="module"><h3>Exposición</h3><span class="number">92%</span><p>Del límite interno ficticio.</p></article>
-              <article class="module"><h3>Próxima salida</h3><span class="number">17:00</span><p>Orden pendiente de confirmación.</p></article>
-              <article class="module module--signal"><h3 data-risk-title>Riesgo alto</h3><p data-risk-copy>Falta confirmar la ampliación antes de despachar.</p></article>
-              <div class="module module--wide"><h3>Acción recomendada</h3><button type="button" class="action" data-limit-action="confirmar">Confirmar ampliación con responsable</button><div class="result" data-logistics-result><strong class="risk">Sin resolver</strong>La orden sigue expuesta al límite ficticio.</div></div>
+            <div class="scene__meta"><strong>Límite / contenedor MRKU 481902-7</strong><p>Ocean FCL · importación ficticia</p></div>
+            <div class="scene-grid" data-limit-domain="ocean-fcl">
+              <article class="module" data-limit-milestone="free-time"><h3>Free time</h3><span class="number">26 JUL</span><p>Último día libre de demurrage.</p></article>
+              <article class="module" data-limit-milestone="customs-release"><h3 data-risk-title>Liberación pendiente</h3><span class="number">48h</span><p data-risk-copy>Aduana debe liberar antes del turno de retiro.</p></article>
+              <article class="module module--signal" data-limit-milestone="daily-exposure"><h3>Exposición diaria</h3><span class="number">USD 185</span><p>3 días proyectados · USD 555 acumulables.</p></article>
+              <div class="module module--wide"><h3>Secuencia del contenedor</h3><ul class="data-list"><li data-limit-milestone="pickup"><span>Retiro de terminal</span><strong>27 JUL · 08:00</strong></li><li data-limit-milestone="empty-return"><span>Devolución del vacío</span><strong>29 JUL · 16:00</strong></li></ul><button type="button" class="action" data-limit-action="confirmar">Confirmar liberación y turno de retiro</button><div class="result" data-logistics-result><strong class="risk">Exposición abierta</strong>Sin liberación, el retiro cae fuera del free time y suma USD 185 por día.</div></div>
             </div>`;
         }
       }
@@ -223,42 +232,48 @@
     const scene = document.querySelector("[data-logistics-scene]");
     const status = document.querySelector("[data-logistics-status]");
     const productButtons = [...document.querySelectorAll("[data-logistics-product]")];
+    const resetButton = document.querySelector("[data-reset-product]");
 
     function announce(message) {
       status.textContent = message;
     }
 
     function renderMargin() {
-      const fixedDataset = { revenue: 240000, baseCost: 156000 };
-      const extraCosts = [...scene.querySelectorAll("[data-cost]:checked")]
+      const fixedDataset = { quotation: 5600, estimatedCost: 4300, invoice: 5450 };
+      const actualCosts = [...scene.querySelectorAll("[data-cost]:checked")]
         .reduce((sum, input) => sum + Number(input.dataset.cost), 0);
-      const margin = fixedDataset.revenue - fixedDataset.baseCost - extraCosts;
+      const projectedMargin = fixedDataset.quotation - fixedDataset.estimatedCost;
+      const actualMargin = fixedDataset.invoice - actualCosts;
+      const variance = actualMargin - projectedMargin;
       const result = scene.querySelector("[data-logistics-result]");
-      result.innerHTML = `<h3>Margen estimado</h3><span class="number">$${(margin / 1000).toFixed(0)}k</span><p>${Math.round((margin / fixedDataset.revenue) * 100)}% sobre facturación ficticia.</p>`;
-      announce(`Margen demostrativo recalculado: ${Math.round((margin / fixedDataset.revenue) * 100)} por ciento.`);
+      result.innerHTML = `<h3>Margen real conciliado</h3><span class="number">USD ${actualMargin.toLocaleString("es-AR")}</span><p>${Math.round((actualMargin / fixedDataset.invoice) * 100)}% sobre factura · desvío USD ${variance.toLocaleString("es-AR")} frente a cotización.</p>`;
+      announce(`Margen real conciliado: ${actualMargin} dólares; desvío de ${variance} dólares frente a la cotización.`);
     }
 
     function selectFinding(id) {
       const result = scene.querySelector("[data-logistics-result]");
       const buttons = scene.querySelectorAll("[data-finding]");
       buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.finding === id)));
-      if (id === "fuentes") {
-        result.innerHTML = "<strong>Fuentes revisadas</strong>Planilla de despacho (08:30) y mensaje del operador (10:00). Ambas son entradas ficticias.";
-        announce("Fuentes mostradas: planilla de despacho y mensaje del operador.");
-      } else {
-        result.innerHTML = "<strong>Dato en conflicto</strong>La diferencia de 90 minutos cambia la ventana de carga y requiere una confirmación humana.";
-        announce("Dato en conflicto mostrado: diferencia de 90 minutos en la ventana de carga.");
-      }
+      const findings = {
+        bultos: ["Bultos en conflicto", "Factura y draft HBL declaran 24; packing list declara 26. Confirmar el packing antes de emitir.", "Bultos: hay una diferencia de dos unidades en el packing list."],
+        peso: ["Peso en conflicto", "Factura, packing list y booking indican 12.480 kg; draft HBL indica 12.840 kg.", "Peso: el draft HBL excede en 360 kilogramos a las demás fuentes."],
+        "notify-tax-id": ["Notify tax ID en conflicto", "Factura: 30-70984521-8. Draft HBL: 30-70984512-8. La transposición debe corregirse.", "Notify tax ID: el draft HBL no coincide con la factura."],
+        "customer-rule": ["Regla del cliente", "No emitir el HBL si bultos, peso o tax ID del notify difieren de la factura aprobada.", "Regla del cliente: la emisión queda bloqueada hasta reconciliar las diferencias."]
+      };
+      const finding = findings[id];
+      if (!finding) return;
+      result.innerHTML = `<strong>${finding[0]}</strong>${finding[1]}`;
+      announce(finding[2]);
     }
 
     function resolveLimit() {
       const action = scene.querySelector("[data-limit-action]");
       action.disabled = true;
-      action.textContent = "Ampliación confirmada";
-      scene.querySelector("[data-risk-title]").textContent = "Riesgo reducido";
-      scene.querySelector("[data-risk-copy]").textContent = "La salida puede pasar a revisión final del responsable.";
-      scene.querySelector("[data-logistics-result]").innerHTML = "<strong class=\"resolved\">Resuelto</strong>La acción ficticia bajó el riesgo de la salida.";
-      announce("Acción resuelta. El riesgo ficticio de la salida fue reducido.");
+      action.textContent = "Liberación y retiro confirmados";
+      scene.querySelector("[data-risk-title]").textContent = "Liberación confirmada";
+      scene.querySelector("[data-risk-copy]").textContent = "El retiro queda dentro del free time; resta controlar la devolución del vacío.";
+      scene.querySelector("[data-logistics-result]").innerHTML = "<strong class=\"resolved\">Exposición contenida</strong>Retiro confirmado dentro del free time. La devolución vacía mantiene su hito del 29 JUL.";
+      announce("Liberación y retiro confirmados. La exposición diaria quedó contenida.");
     }
 
     function bindScene() {
@@ -284,6 +299,7 @@
     }
 
     productButtons.forEach((button) => button.addEventListener("click", () => renderProduct(button.dataset.logisticsProduct)));
+    resetButton.addEventListener("click", resetProduct);
     renderProduct("cruce");
     window.logisticsDemo = { renderProduct, selectFinding, resetProduct };
   </script>
