@@ -59,6 +59,12 @@
     .reset { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); padding: 9px 12px; font-size: .8rem; font-weight: 700; }
     .reset:hover { background: var(--accent); color: var(--paper); }
     .scene { min-height: 520px; border: 1px solid var(--ink); padding: clamp(28px, 5vw, 72px); background: var(--paper); box-shadow:0 1.5rem 3.5rem rgba(11,15,20,.08); }
+    .app-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:-28px -28px 2rem; padding:1rem 1.25rem; background:var(--ink); color:var(--paper); font:600 .62rem/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; }
+    .app-bar__live { display:flex; gap:.45rem; align-items:center; color:#d7ddd8; }
+    .app-bar__live::before { content:""; width:.45rem; height:.45rem; border-radius:50%; background:#8cc29c; }
+    .scene[data-product="cruce"] .module--quarter { min-height:220px; }
+    .scene[data-product="margen"] .module--wide { min-height:340px; }
+    .scene[data-product="limite"] .module--wide { min-height:300px; }
     .scene__meta { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 28px; }
     .scene__meta p { margin: 0; color: var(--muted); font-size: .83rem; }
     .scene-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
@@ -104,6 +110,7 @@
       .scene-grid { grid-template-columns: 1fr; }
       .module, .module--wide, .module--quarter { grid-column: auto; min-height: 0; }
       .scene__meta { display: block; }
+      .app-bar { margin:-28px -28px 1.5rem; }
       .scene__meta p { margin-top: 8px; }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -189,29 +196,29 @@
   <script>
     const products = {
       cruce: {
-        title: "Cruce documental",
+        title: "Control documental",
         summary: "Factura, packing list, booking y draft HBL deben coincidir antes de liberar el documento.",
         status: "Escena Cruce lista. Elegí un campo para reconciliar los documentos.",
         render() {
           return `
-            <div class="scene__meta"><strong>Cruce / embarque EXP-1842</strong><p>Escena ficticia · control documental</p></div>
+            <div class="app-bar"><span>Control documental · Operaciones</span><span class="app-bar__live">File activo</span></div><div class="scene__meta"><strong>EXP-1842 · Shanghai → Buenos Aires</strong><p>5 archivos procesados · 4 controles pendientes</p></div>
             <div class="scene-grid">
               <article class="module module--quarter" data-cruce-source="invoice"><h3>Factura</h3><ul class="data-list"><li><span>Bultos</span><strong>24</strong></li><li><span>Peso</span><strong>12.480 kg</strong></li><li><span>Notify tax ID</span><strong>30-70984521-8</strong></li></ul></article>
               <article class="module module--quarter" data-cruce-source="packing-list"><h3>Packing list</h3><ul class="data-list"><li><span>Bultos</span><strong>26</strong></li><li><span>Peso</span><strong>12.480 kg</strong></li><li><span>Booking</span><strong>BK-7714</strong></li></ul></article>
               <article class="module module--quarter" data-cruce-source="booking"><h3>Booking</h3><ul class="data-list"><li><span>Equipo</span><strong>1 × 40HC</strong></li><li><span>Peso</span><strong>12.480 kg</strong></li><li><span>Referencia</span><strong>BK-7714</strong></li></ul></article>
               <article class="module module--quarter module--signal" data-cruce-source="draft-hbl"><h3>Draft HBL</h3><ul class="data-list"><li><span>Bultos</span><strong>24</strong></li><li><span>Peso</span><strong>12.840 kg</strong></li><li><span>Notify tax ID</span><strong>30-70984512-8</strong></li></ul></article>
-              <div class="module module--wide"><h3>Campos a reconciliar</h3><button type="button" class="finding" data-finding="bultos" aria-pressed="false">Bultos: factura 24 vs packing list 26</button><button type="button" class="finding" data-finding="peso" aria-pressed="false">Peso: fuentes 12.480 kg vs draft HBL 12.840 kg</button><button type="button" class="finding" data-finding="notify-tax-id" aria-pressed="false">Notify tax ID: factura vs draft HBL</button><button type="button" class="finding" data-finding="customer-rule" aria-pressed="false">Regla del cliente: bloquear emisión ante diferencias</button></div>
+              <div class="module module--wide"><h3>Excepciones para resolver antes de emitir</h3><button type="button" class="finding" data-finding="bultos" aria-pressed="false">Bultos: factura 24 vs packing list 26</button><button type="button" class="finding" data-finding="peso" aria-pressed="false">Peso: fuentes 12.480 kg vs draft HBL 12.840 kg</button><button type="button" class="finding" data-finding="notify-tax-id" aria-pressed="false">Notify tax ID: factura vs draft HBL</button><button type="button" class="finding" data-finding="customer-rule" aria-pressed="false">Regla del cliente: bloquear emisión ante diferencias</button></div>
               <div class="module" data-logistics-result><p class="notice">Elegí un campo para revisar la evidencia y la regla aplicable.</p></div>
             </div>`;
         }
       },
       margen: {
-        title: "Margen de embarque",
+        title: "Margen por operación",
         summary: "Compara la cotización y la factura con los costos reales informados por el forwarder.",
         status: "Escena Margen lista. Podés conciliar cada costo real para recalcular.",
         render() {
           return `
-            <div class="scene__meta"><strong>Margen / embarque FCL 09-44</strong><p>USD · dataset ficticio y fijo</p></div>
+            <div class="app-bar"><span>Job costing · Finanzas operativas</span><span class="app-bar__live">4 costos conciliados</span></div><div class="scene__meta"><strong>FCL 09-44 · ACME Argentina</strong><p>Venta, costo y margen final de una misma operación</p></div>
             <div class="scene-grid">
               <div class="module module--wide"><h3>Costos reales del forwarder</h3><label class="cost-toggle"><span>Carrier <strong>USD 3.250</strong></span><input type="checkbox" data-forwarder-cost="carrier" data-cost="3250" checked></label><label class="cost-toggle"><span>Terminal <strong>USD 720</strong></span><input type="checkbox" data-forwarder-cost="terminal" data-cost="720" checked></label><label class="cost-toggle"><span>Agente <strong>USD 410</strong></span><input type="checkbox" data-forwarder-cost="agent" data-cost="410" checked></label><label class="cost-toggle"><span>Handling <strong>USD 290</strong></span><input type="checkbox" data-forwarder-cost="handling" data-cost="290" checked></label></div>
               <div class="module module--signal" data-logistics-result></div>
@@ -221,12 +228,12 @@
         }
       },
       limite: {
-        title: "Límite de free time",
+        title: "Free time",
         summary: "Gestiona la liberación aduanera, el retiro y la devolución del vacío antes de sumar exposición.",
         status: "Escena Límite lista. Revisá los hitos del contenedor FCL y resolvé la exposición.",
         render() {
           return `
-            <div class="scene__meta"><strong>Límite / contenedor MRKU 481902-7</strong><p>Ocean FCL · importación ficticia</p></div>
+            <div class="app-bar"><span>Control de contenedores · Importación</span><span class="app-bar__live">1 acción crítica</span></div><div class="scene__meta"><strong>MRKU 481902-7 · Ocean FCL</strong><p>Retiro, devolución y exposición de un contenedor activo</p></div>
             <div class="scene-grid" data-limit-domain="ocean-fcl">
               <article class="module" data-limit-milestone="free-time"><h3>Free time</h3><span class="number">26 JUL</span><p>Último día libre de demurrage.</p></article>
               <article class="module" data-limit-milestone="customs-release"><h3 data-risk-title>Liberación pendiente</h3><span class="number">48h</span><p data-risk-copy>Aduana debe liberar antes del turno de retiro.</p></article>
