@@ -8,6 +8,7 @@ Este paquete contiene la landing pública actual de Acelera y sus páginas legal
 - `privacidad.html`
 - `terminos.html`
 - `tracking-demo.html`
+- `logistica.html` — demo interactiva ficticia para operaciones logísticas (`/logistica`)
 
 ## Posicionamiento vigente
 

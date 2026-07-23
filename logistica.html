@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Demos ficticias de operaciones logísticas para Acelera.">
+  <title>Logística operativa — Acelera</title>
+  <link rel="stylesheet" href="assets/tailwind.css?v=20260722-2">
+  <style>
+    :root {
+      --paper: #f7f5f0;
+      --paper-deep: #ece9e1;
+      --ink: #0b0f14;
+      --muted: #5c6470;
+      --rule: #d4cfc1;
+      --accent: #c96a43;
+      --signal: #316b59;
+      --font-ui: Inter, Arial, sans-serif;
+      --font-display: Fraunces, Georgia, serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--font-ui); }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+    .site-header { border-bottom: 1px solid var(--rule); padding: 18px 0; }
+    .site-header__row { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+    .wordmark { font-weight: 800; letter-spacing: -0.08em; font-size: 1.2rem; text-decoration: none; }
+    .wordmark span { color: var(--accent); }
+    .header-link, .eyebrow { font: 600 .7rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .header-link { text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 3px; }
+    .hero { padding: clamp(60px, 10vw, 130px) 0 42px; border-bottom: 1px solid var(--rule); background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 36px 36px; background-position: center; }
+    .hero__copy { max-width: 790px; background: color-mix(in srgb, var(--paper) 94%, transparent); }
+    .eyebrow { color: var(--accent); margin: 0 0 18px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -.055em; line-height: .95; }
+    h1 { font-size: clamp(3.1rem, 8vw, 7rem); max-width: 900px; margin-bottom: 22px; }
+    h2 { font-size: clamp(2.2rem, 4.2vw, 4.2rem); margin-bottom: 18px; }
+    .intro { max-width: 610px; color: var(--muted); line-height: 1.55; font-size: 1.05rem; margin-bottom: 0; }
+    .demo { padding: 54px 0 72px; }
+    .product-switch { display: flex; border: 1px solid var(--ink); margin-bottom: 24px; }
+    .product-switch button { appearance: none; flex: 1; min-height: 58px; padding: 12px 18px; border: 0; border-right: 1px solid var(--ink); background: var(--paper); color: var(--ink); text-align: left; font-weight: 700; transition: background-color 160ms ease, color 160ms ease; }
+    .product-switch button:last-child { border-right: 0; }
+    .product-switch button[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
+    .product-switch button:focus-visible, .scene button:focus-visible, .lead-form input:focus-visible, .lead-form textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .scene { min-height: 430px; border: 1px solid var(--ink); padding: clamp(20px, 4vw, 48px); background-color: var(--paper); background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 28px 28px; }
+    .scene__meta { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 28px; }
+    .scene__meta p { margin: 0; color: var(--muted); font-size: .83rem; }
+    .scene-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
+    .module { grid-column: span 4; min-height: 152px; padding: 18px; border: 1px solid var(--ink); background: var(--paper); display: flex; flex-direction: column; justify-content: space-between; }
+    .module--wide { grid-column: span 8; }
+    .module--signal { background: var(--ink); color: var(--paper); }
+    .module h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .module p { margin-bottom: 0; line-height: 1.45; font-size: .9rem; }
+    .number { font: 600 2rem/.9 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: -.1em; }
+    .data-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .data-list li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--rule); padding-bottom: 8px; font-size: .86rem; }
+    .finding, .action { width: 100%; padding: 11px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); text-align: left; transition: background-color 160ms ease, color 160ms ease; }
+    .finding:hover, .finding[aria-pressed="true"], .action:hover { background: var(--ink); color: var(--paper); }
+    .finding + .finding, .action + .action { margin-top: 8px; }
+    .result { border-left: 3px solid var(--accent); padding: 14px 16px; background: var(--paper-deep); line-height: 1.5; }
+    .result strong { display: block; margin-bottom: 4px; }
+    .cost-toggle { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--rule); padding: 11px 0; }
+    .cost-toggle input { accent-color: var(--accent); inline-size: 18px; block-size: 18px; }
+    .risk { color: #9f3e2c; } .resolved { color: var(--signal); }
+    .audit { padding: 52px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+    .audit__grid { display: grid; grid-template-columns: 1.1fr 1.9fr; gap: 24px; }
+    .audit-list { list-style: none; margin: 0; padding: 0; counter-reset: audit; }
+    .audit-list li { counter-increment: audit; border-top: 1px solid var(--rule); padding: 14px 0 14px 42px; position: relative; line-height: 1.4; }
+    .audit-list li::before { content: "0" counter(audit); position: absolute; left: 0; color: var(--accent); font: .75rem ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .contact { padding: 64px 0; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .lead-form { border: 1px solid var(--ink); padding: 24px; background: var(--paper); display: grid; gap: 14px; }
+    .lead-form label { font-size: .8rem; font-weight: 700; }
+    .lead-form input, .lead-form textarea { width: 100%; margin-top: 6px; padding: 11px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); }
+    .consent { display: grid; grid-template-columns: 18px 1fr; gap: 10px; border-top: 1px solid var(--rule); padding-top: 14px; color: var(--muted); font-size: .78rem; line-height: 1.45; }
+    .consent input { inline-size: 18px; block-size: 18px; margin: 0; accent-color: var(--accent); }
+    .submit { border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 14px; font-weight: 700; }
+    .submit:hover { background: var(--accent); }
+    .form-feedback { min-height: 1.25rem; color: var(--muted); font-size: .85rem; margin: 0; }
+    .notice { color: var(--muted); font-size: .8rem; line-height: 1.45; }
+    .site-footer { border-top: 1px solid var(--rule); padding: 24px 0; color: var(--muted); font-size: .8rem; }
+    @media (max-width: 800px) {
+      .shell { width: min(100% - 28px, 620px); }
+      .product-switch, .contact-grid, .audit__grid { grid-template-columns: 1fr; display: grid; }
+      .product-switch button { border-right: 0; border-bottom: 1px solid var(--ink); }
+      .product-switch button:last-child { border-bottom: 0; }
+      .scene-grid { grid-template-columns: 1fr; }
+      .module, .module--wide { grid-column: auto; min-height: 0; }
+      .scene__meta { display: block; }
+      .scene__meta p { margin-top: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition: none !important; transform: none !important; }
+    }
+  </style>
+</head>
+
+<body data-variant="logistica">
+  <header class="site-header">
+    <div class="shell site-header__row">
+      <a class="wordmark" href="/" aria-label="Acelera, inicio">acel<span>era</span></a>
+      <a class="header-link" href="#contacto">Hablar del caso</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="shell hero__copy">
+        <p class="eyebrow">Laboratorio de operaciones / ficticio</p>
+        <h1 id="page-title">Señales antes de la próxima demora.</h1>
+        <p class="intro">Tres escenas para ensayar decisiones logísticas sin OCR, TMS, tracking real ni cálculos productivos. Los datos son deliberadamente ficticios.</p>
+      </div>
+    </section>
+
+    <section class="demo shell" aria-labelledby="demo-title">
+      <p class="eyebrow">Selector de escena</p>
+      <h2 id="demo-title">Elegí la señal que querés revisar.</h2>
+      <div class="product-switch" role="group" aria-label="Demos logísticas">
+        <button type="button" data-logistics-product="cruce" aria-pressed="true">Cruce</button>
+        <button type="button" data-logistics-product="margen" aria-pressed="false">Margen</button>
+        <button type="button" data-logistics-product="limite" aria-pressed="false">Límite</button>
+      </div>
+      <div class="scene" data-logistics-scene aria-label="Escena logística interactiva"></div>
+      <p data-logistics-status role="status" aria-live="polite" class="sr-only"></p>
+    </section>
+
+    <section class="audit">
+      <div class="shell audit__grid">
+        <div>
+          <p class="eyebrow">Cierre de control</p>
+          <h2>Auditoría de cinco operaciones.</h2>
+        </div>
+        <ol class="audit-list">
+          <li>Pedido de Rosario: costo de espera sin confirmar.</li>
+          <li>Ruta Córdoba–AMBA: fuente de turno en conflicto.</li>
+          <li>Entrega Mendoza: margen bajo revisión manual.</li>
+          <li>Reprogramación Bahía Blanca: límite de crédito vencido.</li>
+          <li>Salida Neuquén: próximo responsable asignado.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="contacto" class="contact shell" aria-labelledby="contact-title">
+      <div class="contact-grid">
+        <div>
+          <p class="eyebrow">Siguiente paso</p>
+          <h2 id="contact-title">Traé una operación real a la conversación.</h2>
+          <p class="intro">Revisamos el proceso antes de prometer una automatización. No incluyas información sensible ni datos de terceros sin autorización.</p>
+        </div>
+        <form data-lead-form class="lead-form" aria-label="Formulario de contacto para logística">
+          <div><label for="logistica-nombre">Nombre<input id="logistica-nombre" name="nombre" autocomplete="given-name" required></label></div>
+          <div><label for="logistica-email">Email de trabajo<input id="logistica-email" name="email" type="email" autocomplete="email" required></label></div>
+          <div><label for="logistica-empresa">Empresa<input id="logistica-empresa" name="empresa" autocomplete="organization" required></label></div>
+          <div><label for="logistica-proceso">Proceso a revisar<textarea id="logistica-proceso" name="proceso" rows="3"></textarea></label></div>
+          <div class="consent">
+            <input id="logistica-consent" name="privacy_consent" type="checkbox" value="accepted" required>
+            <label for="logistica-consent">Consiento que Acelera trate mis datos para responder mi consulta, evaluar el proyecto y preparar una propuesta, conforme la <a href="/privacidad" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>.</label>
+          </div>
+          <button class="submit" type="submit">Enviar consulta</button>
+          <p data-feedback class="form-feedback" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="shell">Acelera · Escena de demostración con datos ficticios.</div></footer>
+
+  <script>
+    const products = {
+      cruce: {
+        title: "Cruce de fuentes",
+        summary: "Dos registros describen la misma salida, pero no están de acuerdo sobre el turno.",
+        status: "Escena Cruce lista. Elegí un hallazgo para ver el conflicto.",
+        render() {
+          return `
+            <div class="scene__meta"><strong>Cruce / orden 1842</strong><p>Escena ficticia · sin tracking real</p></div>
+            <div class="scene-grid">
+              <article class="module"><h3>Fuente A</h3><p>Planilla de despacho</p><span class="number">08:30</span></article>
+              <article class="module"><h3>Fuente B</h3><p>Mensaje de operador</p><span class="number">10:00</span></article>
+              <article class="module module--signal"><h3>Conflicto</h3><p>La ventana de carga no coincide.</p><span class="number">+90m</span></article>
+              <div class="module module--wide"><h3>Hallazgos</h3><button type="button" class="finding" data-finding="fuentes" aria-pressed="false">Mostrar fuentes consultadas</button><button type="button" class="finding" data-finding="conflicto" aria-pressed="false">Ver dato en conflicto</button></div>
+              <div class="module" data-logistics-result><p class="notice">Elegí un hallazgo para revisar la señal.</p></div>
+            </div>`;
+        }
+      },
+      margen: {
+        title: "Margen por viaje",
+        summary: "Probá costos fijos ficticios para ver cómo cambia una lectura de margen.",
+        status: "Escena Margen lista. Podés alternar costos para recalcular.",
+        render() {
+          return `
+            <div class="scene__meta"><strong>Margen / viaje 09-44</strong><p>Dataset fijo · cálculo demostrativo</p></div>
+            <div class="scene-grid">
+              <div class="module module--wide"><h3>Costos incluidos</h3><label class="cost-toggle"><span>Peaje estimado <strong>$ 18.000</strong></span><input type="checkbox" data-cost="18000" checked></label><label class="cost-toggle"><span>Espera en planta <strong>$ 24.000</strong></span><input type="checkbox" data-cost="24000" checked></label><label class="cost-toggle"><span>Reentrega <strong>$ 31.000</strong></span><input type="checkbox" data-cost="31000"></label></div>
+              <div class="module module--signal" data-logistics-result></div>
+              <article class="module"><h3>Facturación</h3><span class="number">$240k</span><p>Ingreso ficticio de la operación.</p></article>
+              <article class="module"><h3>Costo base</h3><span class="number">$156k</span><p>Base fija del dataset.</p></article>
+            </div>`;
+        }
+      },
+      limite: {
+        title: "Límite operativo",
+        summary: "Una acción pendiente mantiene el riesgo abierto hasta que un responsable la resuelva.",
+        status: "Escena Límite lista. Resolvé una acción para reducir el riesgo.",
+        render() {
+          return `
+            <div class="scene__meta"><strong>Límite / cuenta Norte</strong><p>Escena ficticia · sin integración financiera</p></div>
+            <div class="scene-grid">
+              <article class="module"><h3>Exposición</h3><span class="number">92%</span><p>Del límite interno ficticio.</p></article>
+              <article class="module"><h3>Próxima salida</h3><span class="number">17:00</span><p>Orden pendiente de confirmación.</p></article>
+              <article class="module module--signal"><h3 data-risk-title>Riesgo alto</h3><p data-risk-copy>Falta confirmar la ampliación antes de despachar.</p></article>
+              <div class="module module--wide"><h3>Acción recomendada</h3><button type="button" class="action" data-limit-action="confirmar">Confirmar ampliación con responsable</button><div class="result" data-logistics-result><strong class="risk">Sin resolver</strong>La orden sigue expuesta al límite ficticio.</div></div>
+            </div>`;
+        }
+      }
+    };
+
+    const scene = document.querySelector("[data-logistics-scene]");
+    const status = document.querySelector("[data-logistics-status]");
+    const productButtons = [...document.querySelectorAll("[data-logistics-product]")];
+
+    function announce(message) {
+      status.textContent = message;
+    }
+
+    function renderMargin() {
+      const fixedDataset = { revenue: 240000, baseCost: 156000 };
+      const extraCosts = [...scene.querySelectorAll("[data-cost]:checked")]
+        .reduce((sum, input) => sum + Number(input.dataset.cost), 0);
+      const margin = fixedDataset.revenue - fixedDataset.baseCost - extraCosts;
+      const result = scene.querySelector("[data-logistics-result]");
+      result.innerHTML = `<h3>Margen estimado</h3><span class="number">$${(margin / 1000).toFixed(0)}k</span><p>${Math.round((margin / fixedDataset.revenue) * 100)}% sobre facturación ficticia.</p>`;
+      announce(`Margen demostrativo recalculado: ${Math.round((margin / fixedDataset.revenue) * 100)} por ciento.`);
+    }
+
+    function selectFinding(id) {
+      const result = scene.querySelector("[data-logistics-result]");
+      const buttons = scene.querySelectorAll("[data-finding]");
+      buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.finding === id)));
+      if (id === "fuentes") {
+        result.innerHTML = "<strong>Fuentes revisadas</strong>Planilla de despacho (08:30) y mensaje del operador (10:00). Ambas son entradas ficticias.";
+        announce("Fuentes mostradas: planilla de despacho y mensaje del operador.");
+      } else {
+        result.innerHTML = "<strong>Dato en conflicto</strong>La diferencia de 90 minutos cambia la ventana de carga y requiere una confirmación humana.";
+        announce("Dato en conflicto mostrado: diferencia de 90 minutos en la ventana de carga.");
+      }
+    }
+
+    function resolveLimit() {
+      const action = scene.querySelector("[data-limit-action]");
+      action.disabled = true;
+      action.textContent = "Ampliación confirmada";
+      scene.querySelector("[data-risk-title]").textContent = "Riesgo reducido";
+      scene.querySelector("[data-risk-copy]").textContent = "La salida puede pasar a revisión final del responsable.";
+      scene.querySelector("[data-logistics-result]").innerHTML = "<strong class=\"resolved\">Resuelto</strong>La acción ficticia bajó el riesgo de la salida.";
+      announce("Acción resuelta. El riesgo ficticio de la salida fue reducido.");
+    }
+
+    function bindScene() {
+      scene.querySelectorAll("[data-finding]").forEach((button) => button.addEventListener("click", () => selectFinding(button.dataset.finding)));
+      scene.querySelectorAll("[data-cost]").forEach((input) => input.addEventListener("change", renderMargin));
+      scene.querySelector("[data-limit-action]")?.addEventListener("click", resolveLimit);
+      if (scene.dataset.product === "margen") renderMargin();
+    }
+
+    function renderProduct(slug) {
+      const product = products[slug];
+      if (!product) return;
+      scene.dataset.product = slug;
+      scene.innerHTML = product.render();
+      productButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.logisticsProduct === slug)));
+      bindScene();
+      announce(product.status);
+    }
+
+    function resetProduct() {
+      const active = productButtons.find((button) => button.getAttribute("aria-pressed") === "true");
+      renderProduct(active?.dataset.logisticsProduct || "cruce");
+    }
+
+    productButtons.forEach((button) => button.addEventListener("click", () => renderProduct(button.dataset.logisticsProduct)));
+    renderProduct("cruce");
+    window.logisticsDemo = { renderProduct, selectFinding, resetProduct };
+  </script>
+  <script defer src="assets/app.js?v=20260722-2"></script>
+</body>
+
+</html>
