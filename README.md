@@ -8,7 +8,14 @@ Este paquete contiene la landing pública actual de Acelera y sus páginas legal
 - `privacidad.html`
 - `terminos.html`
 - `tracking-demo.html`
-- `logistica.html` — demo interactiva ficticia para operaciones logísticas (`/logistica`)
+- `logistica.html` — hub de **Acelera Control** para freight forwarders (`/logistica`), presenta tres módulos demo con datos ficticios:
+  - `logistica/preflight.html` (`/logistica/preflight`) — **Control Documental** (cruce invoice/packing/instrucciones/HBL).
+  - `logistica/margin.html` (`/logistica/margin`) — **Control de Margen** (cotización vs costos reales vs venta).
+  - `logistica/freetime.html` (`/logistica/freetime`) — **Control de Contenedores** (free time, demurrage y devolución).
+
+La guía comercial (a quién ofrecer cada demo y templates de mail) está en `docs/guia-comercial-logistica.md`.
+
+Las tres demos comparten el app-shell y el dataset ficticio maestro en `assets/logistica/` (`data.js`, `shell.css`, `demo.js`). Todos los datos son ficticios: sin OCR, integración con TMS, tracking real ni cálculo productivo. Las subrutas funcionan por `cleanUrls` de Vercel y por el resolver de `scripts/dev-server.mjs`.
 
 ## Posicionamiento vigente
 
@@ -43,6 +50,8 @@ Antes de publicar:
 1. Desde la raíz del repo ejecutar `npm run dev`.
 2. Abrir `http://127.0.0.1:4173/`.
 3. Navegar home, términos y privacidad.
+   - Probar `Acelera Control`: `/logistica` y sus demos `/logistica/preflight`, `/logistica/margin`, `/logistica/freetime`.
+   - Correr el contrato con `npm run test:logistica` (incluye rutas 200 y recorridos de las 3 demos con Playwright).
 4. Probar una URL con UTM, por ejemplo:
    - `http://127.0.0.1:4173/?utm_source=email`
 5. Verificar que el formulario muestre mensaje de configuración si faltan variables de Resend.

@@ -4,185 +4,136 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Demos ficticias de operaciones logísticas para Acelera.">
-  <title>Logística operativa — Acelera</title>
-  <link rel="stylesheet" href="assets/tailwind.css?v=20260722-2">
-  <style>
-    @font-face { font-family: "Fraunces"; font-style: normal; font-weight: 400 700; font-display: optional; src: url("assets/fonts/fraunces-latin.woff2") format("woff2"); }
-    :root {
-      --paper: #f7f5f0;
-      --paper-deep: #efede7;
-      --ink: #0b0f14;
-      --muted: #5c6470;
-      --rule: #d4cfc1;
-      --accent: #d86a3a;
-      --signal: #316b59;
-      --font-ui: Inter, Arial, sans-serif;
-      --font-display: Fraunces, Georgia, serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--font-ui); background-image: radial-gradient(circle at 1px 1px, rgba(11,15,20,.025) 1px, transparent 0), radial-gradient(circle at 12px 12px, rgba(11,15,20,.015) 1px, transparent 0); background-size: 24px 24px, 32px 32px; }
-    button, input, textarea { font: inherit; }
-    button { cursor: pointer; }
-    a { color: inherit; }
-    .shell { width: min(1280px, calc(100% - 64px)); margin-inline: auto; }
-    .site-header { padding: 24px 0; }
-    .site-header__row { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
-    .wordmark { display: inline-flex; align-items: center; width: 104px; }
-    .wordmark img { display:block; width:100%; height:auto; }
-    .header-link, .eyebrow { font: 600 .7rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
-    .header-link { text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 3px; }
-    .hero { padding: clamp(120px, 17vw, 250px) 0 clamp(86px, 10vw, 150px); }
-    .hero__copy { max-width: 1000px; }
-    .eyebrow { color: var(--accent); margin: 0 0 18px; }
-    h1, h2, h3, p { margin-top: 0; }
-    h1, h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -.055em; line-height: .95; }
-    h1 { font-size: clamp(3.8rem, 8.8vw, 9rem); max-width: 1100px; margin-bottom: 34px; }
-    h2 { font-size: clamp(2.2rem, 4.2vw, 4.2rem); margin-bottom: 18px; }
-    .intro { max-width: 610px; color: var(--muted); line-height: 1.55; font-size: 1.05rem; margin-bottom: 0; }
-    .demo { padding: clamp(100px, 13vw, 190px) 0; }
-    .demo-heading { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px, .58fr); gap:3rem; align-items:end; margin-bottom:3.25rem; }
-    .demo-heading .intro { margin:0; }
-    .demo-toolbar { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:1rem; }
-    .demo-count { font:600 .68rem/1 var(--font-mono); letter-spacing:.14em; color:var(--muted); }
-    .demo-arrows { display:flex; gap:.5rem; }
-    .demo-arrow { display:grid; width:2.8rem; height:2.8rem; place-items:center; border:1px solid var(--rule); background:var(--paper); color:var(--ink); font-size:1.3rem; }
-    .demo-arrow:hover { border-color:var(--accent); background:var(--accent); color:var(--paper); }
-    .product-switch { display: flex; border: 1px solid var(--ink); margin-bottom: 24px; }
-    .product-switch button { appearance: none; flex: 1; min-height: 58px; padding: 12px 18px; border: 0; border-right: 1px solid var(--ink); background: var(--paper); color: var(--ink); text-align: left; font-weight: 700; transition: background-color 160ms ease, color 160ms ease; }
-    .product-switch button:last-child { border-right: 0; }
-    .product-switch button[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
-    .product-switch button:focus-visible, .scene button:focus-visible, .scene-tools button:focus-visible, .lead-form input:focus-visible, .lead-form textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-    .scene-tools { display: flex; justify-content: flex-end; margin: -10px 0 12px; }
-    .reset { border: 1px solid var(--accent); background: var(--paper); color: var(--accent); padding: 9px 12px; font-size: .8rem; font-weight: 700; }
-    .reset:hover { background: var(--accent); color: var(--paper); }
-    .scene { min-height: 520px; border: 1px solid var(--ink); padding: clamp(28px, 5vw, 72px); background: var(--paper); box-shadow:0 1.5rem 3.5rem rgba(11,15,20,.08); }
-    .app-bar { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:-28px -28px 2rem; padding:1rem 1.25rem; background:var(--ink); color:var(--paper); font:600 .62rem/1 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; }
-    .app-bar__live { display:flex; gap:.45rem; align-items:center; color:#d7ddd8; }
-    .app-bar__live::before { content:""; width:.45rem; height:.45rem; border-radius:50%; background:#8cc29c; }
-    .scene[data-product="cruce"] .module--quarter { min-height:220px; }
-    .scene[data-product="margen"] .module--wide { min-height:340px; }
-    .scene[data-product="limite"] .module--wide { min-height:300px; }
-    .scene__meta { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; border-bottom: 1px solid var(--ink); padding-bottom: 14px; margin-bottom: 28px; }
-    .scene__meta p { margin: 0; color: var(--muted); font-size: .83rem; }
-    .scene-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 14px; }
-    .module { grid-column: span 4; min-height: 152px; padding: 18px; border: 1px solid var(--ink); background: var(--paper); display: flex; flex-direction: column; justify-content: space-between; }
-    .module--wide { grid-column: span 8; }
-    .module--quarter { grid-column: span 3; }
-    .module--signal { background: var(--ink); color: var(--paper); }
-    .module h3 { font-size: 1.05rem; margin-bottom: 8px; }
-    .module p { margin-bottom: 0; line-height: 1.45; font-size: .9rem; }
-    .number { font: 600 2rem/.9 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: -.1em; }
-    .data-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
-    .data-list li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--rule); padding-bottom: 8px; font-size: .86rem; }
-    .finding, .action { width: 100%; padding: 11px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); text-align: left; transition: background-color 160ms ease, color 160ms ease; }
-    .finding:hover, .finding[aria-pressed="true"], .action:hover { background: var(--ink); color: var(--paper); }
-    .finding + .finding, .action + .action { margin-top: 8px; }
-    .result { border-left: 3px solid var(--accent); padding: 14px 16px; background: var(--paper-deep); line-height: 1.5; }
-    .result strong { display: block; margin-bottom: 4px; }
-    .cost-toggle { display: flex; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--rule); padding: 11px 0; }
-    .cost-toggle input { accent-color: var(--accent); inline-size: 18px; block-size: 18px; }
-    .risk { color: #9f3e2c; } .resolved { color: var(--signal); }
-    .audit { padding: 52px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-    .audit__grid { display: grid; grid-template-columns: 1.1fr 1.9fr; gap: 24px; }
-    .audit-list { list-style: none; margin: 0; padding: 0; counter-reset: audit; }
-    .audit-list li { counter-increment: audit; border-top: 1px solid var(--rule); padding: 14px 0 14px 42px; position: relative; line-height: 1.4; }
-    .audit-list li::before { content: "0" counter(audit); position: absolute; left: 0; color: var(--accent); font: .75rem ui-monospace, SFMono-Regular, Menlo, monospace; }
-    .contact { padding: 64px 0; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
-    .lead-form { border: 1px solid var(--ink); padding: 24px; background: var(--paper); display: grid; gap: 14px; }
-    .lead-form label { font-size: .8rem; font-weight: 700; }
-    .lead-form input, .lead-form textarea { width: 100%; margin-top: 6px; padding: 11px; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); }
-    .consent { display: grid; grid-template-columns: 18px 1fr; gap: 10px; border-top: 1px solid var(--rule); padding-top: 14px; color: var(--muted); font-size: .78rem; line-height: 1.45; }
-    .consent input { inline-size: 18px; block-size: 18px; margin: 0; accent-color: var(--accent); }
-    .submit { border: 1px solid var(--ink); background: var(--ink); color: var(--paper); padding: 14px; font-weight: 700; }
-    .submit:hover { background: var(--accent); }
-    .form-feedback { min-height: 1.25rem; color: var(--muted); font-size: .85rem; margin: 0; }
-    .notice { color: var(--muted); font-size: .8rem; line-height: 1.45; }
-    .site-footer { border-top: 1px solid var(--rule); padding: 24px 0; color: var(--muted); font-size: .8rem; }
-    @media (max-width: 800px) {
-      .shell { width: min(100% - 32px, 620px); }
-      .product-switch, .contact-grid, .audit__grid, .demo-heading { grid-template-columns: 1fr; display: grid; }
-      .product-switch button { border-right: 0; border-bottom: 1px solid var(--ink); }
-      .product-switch button:last-child { border-bottom: 0; }
-      .scene-grid { grid-template-columns: 1fr; }
-      .module, .module--wide, .module--quarter { grid-column: auto; min-height: 0; }
-      .scene__meta { display: block; }
-      .app-bar { margin:-28px -28px 1.5rem; }
-      .scene__meta p { margin-top: 8px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition: none !important; transform: none !important; }
-    }
-  </style>
+  <meta name="description" content="Acelera Control — demos para freight forwarders: control documental, margen y free time. Datos ficticios.">
+  <meta name="robots" content="noindex">
+  <title>Acelera Control — soluciones para freight forwarders</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/logistica/shell.css?v=20260723-11">
 </head>
 
-<body data-variant="logistica">
+<body data-variant="logistica" data-page="hub">
   <header class="site-header">
     <div class="shell site-header__row">
-      <a class="wordmark" href="/" aria-label="Acelera, inicio"><img src="assets/acelera-wordmark.png" alt="Acelera" width="552" height="213"></a>
-      <a class="header-link" href="#contacto">Hablar del caso</a>
+      <a class="wordmark" href="/" aria-label="Acelera, inicio"><img src="/assets/acelera-wordmark.png" alt="Acelera" width="552" height="213"></a>
+      <a class="header-link" href="#contacto">Traer un caso</a>
     </div>
   </header>
 
   <main>
-    <section class="hero" aria-labelledby="page-title">
-      <div class="shell hero__copy">
-        <p class="eyebrow">Soluciones para freight forwarders</p>
-        <h1 id="page-title">Menos cosas que se escapan en cada operación.</h1>
-        <p class="intro">Mostramos cómo tu equipo puede encontrar diferencias de documentos, costos y vencimientos antes de que se conviertan en correcciones, retrabajo o pérdida de margen.</p>
-      </div>
+    <section class="shell console-wrap" aria-labelledby="page-title">
+      <p class="eyebrow">Acelera Control · Para freight forwarders</p>
+      <h1 id="page-title" class="console-title">Encontrá los errores de tu operación antes de que cuesten plata.</h1>
+      <p class="console-sub">Tres herramientas con demos interactivas. Probalas ahora con una operación de ejemplo: Shanghái → Buenos Aires, un contenedor de 40 pies.</p>
     </section>
 
-    <section class="demo shell" aria-labelledby="demo-title">
-      <div class="demo-heading"><div><p class="eyebrow">Demos de producto</p><h2 id="demo-title">Así se vería una herramienta hecha para tu operación.</h2></div><p class="intro">Cada caso parte de una operación realista. Navegá la demo, tocá un dato y mirá qué puede quedar bajo control.</p></div>
-      <div class="demo-toolbar"><span class="demo-count"><span data-demo-current>01</span> / 03 · DEMO OPERATIVA</span><div class="demo-arrows"><button type="button" class="demo-arrow" data-demo-prev aria-label="Demo anterior">←</button><button type="button" class="demo-arrow" data-demo-next aria-label="Demo siguiente">→</button></div></div>
-      <div class="product-switch" role="group" aria-label="Demos logísticas">
-        <button type="button" data-logistics-product="cruce" aria-pressed="true">Cruce</button>
-        <button type="button" data-logistics-product="margen" aria-pressed="false">Margen</button>
-        <button type="button" data-logistics-product="limite" aria-pressed="false">Límite</button>
-      </div>
-      <div class="scene-tools">
-        <button type="button" class="reset" data-reset-product aria-label="Reiniciar demo activa">Reiniciar escena</button>
-      </div>
-      <div class="scene" data-logistics-scene aria-label="Escena logística interactiva"></div>
-      <p data-logistics-status role="status" aria-live="polite" class="sr-only"></p>
-    </section>
+    <section class="shell products" aria-label="Módulos de Acelera Control">
 
-    <section class="audit">
-      <div class="shell audit__grid">
-        <div>
-          <p class="eyebrow">Cierre de control</p>
-          <h2>Auditoría de cinco operaciones.</h2>
+      <article class="prow">
+        <div class="prow__left">
+          <span class="prow__index">01</span>
+          <h2 class="prow__headline">Encuentra los errores en los documentos antes de emitir el BL.</h2>
+          <span class="prow__name">Control Documental</span>
         </div>
-        <ol class="audit-list">
-          <li>Exportación EXP-1842: bultos del packing list por confirmar.</li>
-          <li>Draft HBL: peso y tax ID del notify en conflicto.</li>
-          <li>Embarque FCL 09-44: factura contra cotización conciliada.</li>
-          <li>Forwarder: carrier, terminal, agente y handling incorporados.</li>
-          <li>Contenedor MRKU 481902-7: liberación, retiro y devolución bajo control.</li>
-        </ol>
+        <div class="prow__right">
+          <p class="prow__today">Hoy tu equipo revisa los documentos a mano. Tarda <b>~35 minutos por operación</b>, y cada error que se escapa cuesta <b>USD 50–150</b> corregirlo.</p>
+          <p class="prow__demo">En la demo, el sistema lee 5 documentos y encuentra los 5 errores solo. Uno de ellos: 540 kg de diferencia en el peso.</p>
+          <a class="btn" href="/logistica/preflight">Abrir demo →</a>
+        </div>
+      </article>
+
+      <article class="prow">
+        <div class="prow__left">
+          <span class="prow__index">02</span>
+          <h2 class="prow__headline">Te muestra cuánto ganaste en cada embarque, sin esperar un mes.</h2>
+          <span class="prow__name">Control de Margen</span>
+        </div>
+        <div class="prow__right">
+          <p class="prow__today">Hoy el margen real se sabe <b>semanas después</b>, cuando llegan todas las facturas. Ya es tarde para reclamar o cobrar diferencias.</p>
+          <p class="prow__demo">En la demo, el margen esperado era 21,4% y terminó en 14,5%. El sistema muestra las 4 causas: <b>USD 730 para revisar</b>.</p>
+          <a class="btn" href="/logistica/margin">Abrir demo →</a>
+        </div>
+      </article>
+
+      <article class="prow">
+        <div class="prow__left">
+          <span class="prow__index">03</span>
+          <h2 class="prow__headline">Avisa antes de que un contenedor empiece a generar demurrage.</h2>
+          <span class="prow__name">Control de Contenedores</span>
+        </div>
+        <div class="prow__right">
+          <p class="prow__today">Si la liberación o el turno de retiro se atrasan, la naviera cobra <b>USD 100–300 por día</b>. Esa plata no se recupera.</p>
+          <p class="prow__demo">En la demo, un contenedor vence en 18 horas. Lo abrís, resolvés el bloqueo y la exposición baja a cero.</p>
+          <a class="btn" href="/logistica/freetime">Abrir demo →</a>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="shell hub-below" aria-label="Cómo funciona e integraciones">
+      <div class="how-strip">
+        <div class="how-step">
+          <span class="how-step__n">1</span>
+          <div><strong>Llegan los archivos</strong><p>Mails, PDFs, Excel y exportaciones del sistema que ya usás. Sin reemplazar tu TMS.</p></div>
+        </div>
+        <span class="how-arrow" aria-hidden="true">→</span>
+        <div class="how-step">
+          <span class="how-step__n">2</span>
+          <div><strong>Acelera los lee y cruza</strong><p>Extrae los datos y los compara entre documentos, tarifas y reglas de cada cliente.</p></div>
+        </div>
+        <span class="how-arrow" aria-hidden="true">→</span>
+        <div class="how-step">
+          <span class="how-step__n">3</span>
+          <div><strong>Tu equipo decide</strong><p>Cada hallazgo llega con evidencia, responsable y el mail listo para aprobar.</p></div>
+        </div>
+      </div>
+
+      <div class="integ-line">
+        <p class="eyebrow">Se conecta con lo que ya usás</p>
+        <div class="integ__chips">
+          <span class="integ-chip"><svg class="integ-chip__icon" aria-hidden="true" fill="#EA4335" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>Gmail</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#0F6CBD" aria-hidden="true">O</span>Outlook 365</span>
+          <span class="integ-chip"><svg class="integ-chip__icon" aria-hidden="true" fill="#25D366" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>WhatsApp Business</span>
+          <span class="integ-chip"><svg class="integ-chip__icon" aria-hidden="true" fill="#4285F4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.01 1.485c-2.082 0-3.754.02-3.743.047.01.02 1.708 3.001 3.774 6.62l3.76 6.574h3.76c2.081 0 3.753-.02 3.742-.047-.005-.02-1.708-3.001-3.775-6.62l-3.76-6.574zm-4.76 1.73a789.828 789.861 0 0 0-3.63 6.319L0 15.868l1.89 3.298 1.885 3.297 3.62-6.335 3.618-6.33-1.88-3.287C8.1 4.704 7.255 3.22 7.25 3.214zm2.259 12.653-.203.348c-.114.198-.96 1.672-1.88 3.287a423.93 423.948 0 0 1-1.698 2.97c-.01.026 3.24.042 7.222.042h7.244l1.796-3.157c.992-1.734 1.85-3.23 1.906-3.323l.104-.167h-7.249z"/></svg>Google Drive</span>
+          <span class="integ-chip"><svg class="integ-chip__icon" aria-hidden="true" fill="#34A853" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.318 12.545H7.91v-1.909h3.41v1.91zM14.728 0v6h6l-6-6zm1.363 10.636h-3.41v1.91h3.41v-1.91zm0 3.273h-3.41v1.91h3.41v-1.91zM20.727 6.5v15.864c0 .904-.732 1.636-1.636 1.636H4.909a1.636 1.636 0 0 1-1.636-1.636V1.636C3.273.732 4.005 0 4.909 0h9.318v6.5h6.5zm-3.273 2.773H6.545v7.909h10.91v-7.91zm-6.136 4.636H7.91v1.91h3.41v-1.91z"/></svg>Excel / Sheets</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#003049" aria-hidden="true">C</span>CargoWise</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#0072BC" aria-hidden="true">M</span>Magaya</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#42B0D5" aria-hidden="true">M</span>Maersk</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#13294B" aria-hidden="true">M</span>MSC</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#F47C20" aria-hidden="true">H</span>Hapag-Lloyd</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#0C2340" aria-hidden="true">C</span>CMA CGM</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#1A1A1A" aria-hidden="true">T</span>Terminal49</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#29ABE2" aria-hidden="true">X</span>Xubio</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#F5811F" aria-hidden="true">C</span>Colppy</span>
+          <span class="integ-chip"><svg class="integ-chip__icon" aria-hidden="true" fill="#2CA01C" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm.642 4.1335c.9554 0 1.7296.776 1.7296 1.7332v9.0667h1.6c1.614 0 2.9275-1.3156 2.9275-2.933 0-1.6173-1.3136-2.9333-2.9276-2.9333h-.6654V7.3334h.6654c2.5722 0 4.6577 2.0897 4.6577 4.667 0 2.5774-2.0855 4.6666-4.6577 4.6666H12.642zM7.9837 7.333h3.3291v12.533c-.9555 0-1.73-.7759-1.73-1.7332V9.0662H7.9837c-1.6146 0-2.9277 1.316-2.9277 2.9334 0 1.6175 1.3131 2.9333 2.9277 2.9333h.6654v1.7332h-.6654c-2.5725 0-4.6577-2.0892-4.6577-4.6665 0-2.5771 2.0852-4.6666 4.6577-4.6666Z"/></svg>QuickBooks</span>
+          <span class="integ-chip"><span class="integ-chip__logo integ-chip__logo--brand" style="background:#128BC8" aria-hidden="true">A</span>AFIP / ARCA</span>
+        </div>
       </div>
     </section>
 
-    <section id="contacto" class="contact shell" aria-labelledby="contact-title">
-      <div class="contact-grid">
+    <section id="contacto" class="cta shell" aria-labelledby="contact-title">
+      <div class="cta-grid">
         <div>
           <p class="eyebrow">Siguiente paso</p>
-          <h2 id="contact-title">Traé una operación real a la conversación.</h2>
-          <p class="intro">Revisamos el proceso antes de prometer una automatización. No incluyas información sensible ni datos de terceros sin autorización.</p>
+          <h2 id="contact-title">Probalo con tu operación: auditamos cinco operaciones gratis, sin integración.</h2>
+          <p>Mandanos files de operaciones ya cerradas y te mostramos qué errores y diferencias encuentra Acelera. No incluyas información sensible ni datos de terceros sin autorización.</p>
         </div>
         <form data-lead-form method="post" action="https://acelera-lead-gateway.vercel.app/api/lead" class="lead-form" aria-label="Formulario de contacto para logística">
           <input type="hidden" name="variant" value="logistica">
-          <div><label for="logistica-nombre">Nombre<input id="logistica-nombre" name="nombre" autocomplete="given-name" required></label></div>
-          <div><label for="logistica-email">Email de trabajo<input id="logistica-email" name="email" type="email" autocomplete="email" required></label></div>
-          <div><label for="logistica-empresa">Empresa<input id="logistica-empresa" name="empresa" autocomplete="organization" required></label></div>
-          <div><label for="logistica-proceso">Proceso a revisar<textarea id="logistica-proceso" name="proceso" rows="3"></textarea></label></div>
+          <div><label for="lg-nombre">Nombre<input id="lg-nombre" name="nombre" autocomplete="given-name" required></label></div>
+          <div><label for="lg-email">Email de trabajo<input id="lg-email" name="email" type="email" autocomplete="email" required></label></div>
+          <div><label for="lg-empresa">Empresa<input id="lg-empresa" name="empresa" autocomplete="organization" required></label></div>
+          <div><label for="lg-tipo">Tipo de operación
+            <select id="lg-tipo" name="tipo_operacion">
+              <option value="">Seleccioná una opción</option>
+              <option value="maritimo">Marítimo</option>
+              <option value="aereo">Aéreo</option>
+              <option value="ambos">Aéreo y marítimo</option>
+            </select>
+          </label></div>
+          <div><label for="lg-proceso">Proceso a revisar<textarea id="lg-proceso" name="proceso" rows="3"></textarea></label></div>
           <div class="consent">
-            <input id="logistica-consent" name="privacy_consent" type="checkbox" value="accepted" required>
-            <label for="logistica-consent">Consiento que Acelera trate mis datos para responder mi consulta, evaluar el proyecto y preparar una propuesta, conforme la <a href="/privacidad" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>.</label>
+            <input id="lg-consent" name="privacy_consent" type="checkbox" value="accepted" required>
+            <label for="lg-consent">Consiento que Acelera trate mis datos para responder mi consulta, evaluar el proyecto y preparar una propuesta, conforme la <a href="/privacidad" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>.</label>
           </div>
           <button class="submit" type="submit">Enviar consulta</button>
           <p data-feedback class="form-feedback" role="status" aria-live="polite"></p>
@@ -191,150 +142,15 @@
     </section>
   </main>
 
-  <footer class="site-footer"><div class="shell">Acelera · Escena de demostración con datos ficticios.</div></footer>
+  <footer class="site-footer">
+    <div class="shell">Acelera Control · Escena de demostración con datos ficticios. <a href="/">Volver al sitio</a></div>
+  </footer>
 
-  <script>
-    const products = {
-      cruce: {
-        title: "Control documental",
-        summary: "Factura, packing list, booking y draft HBL deben coincidir antes de liberar el documento.",
-        status: "Escena Cruce lista. Elegí un campo para reconciliar los documentos.",
-        render() {
-          return `
-            <div class="app-bar"><span>Control documental · Operaciones</span><span class="app-bar__live">File activo</span></div><div class="scene__meta"><strong>EXP-1842 · Shanghai → Buenos Aires</strong><p>5 archivos procesados · 4 controles pendientes</p></div>
-            <div class="scene-grid">
-              <article class="module module--quarter" data-cruce-source="invoice"><h3>Factura</h3><ul class="data-list"><li><span>Bultos</span><strong>24</strong></li><li><span>Peso</span><strong>12.480 kg</strong></li><li><span>Notify tax ID</span><strong>30-70984521-8</strong></li></ul></article>
-              <article class="module module--quarter" data-cruce-source="packing-list"><h3>Packing list</h3><ul class="data-list"><li><span>Bultos</span><strong>26</strong></li><li><span>Peso</span><strong>12.480 kg</strong></li><li><span>Booking</span><strong>BK-7714</strong></li></ul></article>
-              <article class="module module--quarter" data-cruce-source="booking"><h3>Booking</h3><ul class="data-list"><li><span>Equipo</span><strong>1 × 40HC</strong></li><li><span>Peso</span><strong>12.480 kg</strong></li><li><span>Referencia</span><strong>BK-7714</strong></li></ul></article>
-              <article class="module module--quarter module--signal" data-cruce-source="draft-hbl"><h3>Draft HBL</h3><ul class="data-list"><li><span>Bultos</span><strong>24</strong></li><li><span>Peso</span><strong>12.840 kg</strong></li><li><span>Notify tax ID</span><strong>30-70984512-8</strong></li></ul></article>
-              <div class="module module--wide"><h3>Excepciones para resolver antes de emitir</h3><button type="button" class="finding" data-finding="bultos" aria-pressed="false">Bultos: factura 24 vs packing list 26</button><button type="button" class="finding" data-finding="peso" aria-pressed="false">Peso: fuentes 12.480 kg vs draft HBL 12.840 kg</button><button type="button" class="finding" data-finding="notify-tax-id" aria-pressed="false">Notify tax ID: factura vs draft HBL</button><button type="button" class="finding" data-finding="customer-rule" aria-pressed="false">Regla del cliente: bloquear emisión ante diferencias</button></div>
-              <div class="module" data-logistics-result><p class="notice">Elegí un campo para revisar la evidencia y la regla aplicable.</p></div>
-            </div>`;
-        }
-      },
-      margen: {
-        title: "Margen por operación",
-        summary: "Compara la cotización y la factura con los costos reales informados por el forwarder.",
-        status: "Escena Margen lista. Podés conciliar cada costo real para recalcular.",
-        render() {
-          return `
-            <div class="app-bar"><span>Job costing · Finanzas operativas</span><span class="app-bar__live">4 costos conciliados</span></div><div class="scene__meta"><strong>FCL 09-44 · ACME Argentina</strong><p>Venta, costo y margen final de una misma operación</p></div>
-            <div class="scene-grid">
-              <div class="module module--wide"><h3>Costos reales del forwarder</h3><label class="cost-toggle"><span>Carrier <strong>USD 3.250</strong></span><input type="checkbox" data-forwarder-cost="carrier" data-cost="3250" checked></label><label class="cost-toggle"><span>Terminal <strong>USD 720</strong></span><input type="checkbox" data-forwarder-cost="terminal" data-cost="720" checked></label><label class="cost-toggle"><span>Agente <strong>USD 410</strong></span><input type="checkbox" data-forwarder-cost="agent" data-cost="410" checked></label><label class="cost-toggle"><span>Handling <strong>USD 290</strong></span><input type="checkbox" data-forwarder-cost="handling" data-cost="290" checked></label></div>
-              <div class="module module--signal" data-logistics-result></div>
-              <article class="module" data-margin-reference="quotation"><h3>Cotización</h3><span class="number">USD 5.600</span><p>Costo estimado USD 4.300 · margen proyectado USD 1.300.</p></article>
-              <article class="module" data-margin-reference="invoice"><h3>Factura cliente</h3><span class="number">USD 5.450</span><p>Importe finalmente facturado.</p></article>
-            </div>`;
-        }
-      },
-      limite: {
-        title: "Free time",
-        summary: "Gestiona la liberación aduanera, el retiro y la devolución del vacío antes de sumar exposición.",
-        status: "Escena Límite lista. Revisá los hitos del contenedor FCL y resolvé la exposición.",
-        render() {
-          return `
-            <div class="app-bar"><span>Control de contenedores · Importación</span><span class="app-bar__live">1 acción crítica</span></div><div class="scene__meta"><strong>MRKU 481902-7 · Ocean FCL</strong><p>Retiro, devolución y exposición de un contenedor activo</p></div>
-            <div class="scene-grid" data-limit-domain="ocean-fcl">
-              <article class="module" data-limit-milestone="free-time"><h3>Free time</h3><span class="number">26 JUL</span><p>Último día libre de demurrage.</p></article>
-              <article class="module" data-limit-milestone="customs-release"><h3 data-risk-title>Liberación pendiente</h3><span class="number">48h</span><p data-risk-copy>Aduana debe liberar antes del turno de retiro.</p></article>
-              <article class="module module--signal" data-limit-milestone="daily-exposure"><h3>Exposición diaria</h3><span class="number">USD 185</span><p>3 días proyectados · USD 555 acumulables.</p></article>
-              <div class="module module--wide"><h3>Secuencia del contenedor</h3><ul class="data-list"><li data-limit-milestone="pickup"><span>Retiro de terminal</span><strong>27 JUL · 08:00</strong></li><li data-limit-milestone="empty-return"><span>Devolución del vacío</span><strong>29 JUL · 16:00</strong></li></ul><button type="button" class="action" data-limit-action="confirmar">Confirmar liberación y turno de retiro</button><div class="result" data-logistics-result><strong class="risk">Exposición abierta</strong>Sin liberación, el retiro cae fuera del free time y suma USD 185 por día.</div></div>
-            </div>`;
-        }
-      }
-    };
-
-    const scene = document.querySelector("[data-logistics-scene]");
-    const status = document.querySelector("[data-logistics-status]");
-    const productButtons = [...document.querySelectorAll("[data-logistics-product]")];
-    const resetButton = document.querySelector("[data-reset-product]");
-    const productOrder = ["cruce", "margen", "limite"];
-    const currentDemo = document.querySelector("[data-demo-current]");
-
-    function announce(message) {
-      status.textContent = message;
-    }
-
-    function renderMargin() {
-      const fixedDataset = { quotation: 5600, estimatedCost: 4300, invoice: 5450 };
-      const actualCosts = [...scene.querySelectorAll("[data-cost]:checked")]
-        .reduce((sum, input) => sum + Number(input.dataset.cost), 0);
-      const projectedMargin = fixedDataset.quotation - fixedDataset.estimatedCost;
-      const actualMargin = fixedDataset.invoice - actualCosts;
-      const variance = actualMargin - projectedMargin;
-      const result = scene.querySelector("[data-logistics-result]");
-      result.innerHTML = `<h3>Margen real conciliado</h3><span class="number">USD ${actualMargin.toLocaleString("es-AR")}</span><p>${Math.round((actualMargin / fixedDataset.invoice) * 100)}% sobre factura · desvío USD ${variance.toLocaleString("es-AR")} frente a cotización.</p>`;
-      announce(`Margen real conciliado: ${actualMargin} dólares; desvío de ${variance} dólares frente a la cotización.`);
-    }
-
-    function selectFinding(id) {
-      const result = scene.querySelector("[data-logistics-result]");
-      const buttons = scene.querySelectorAll("[data-finding]");
-      buttons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.finding === id)));
-      const findings = {
-        bultos: ["Bultos en conflicto", "Factura y draft HBL declaran 24; packing list declara 26. Confirmar el packing antes de emitir.", "Bultos: hay una diferencia de dos unidades en el packing list."],
-        peso: ["Peso en conflicto", "Factura, packing list y booking indican 12.480 kg; draft HBL indica 12.840 kg.", "Peso: el draft HBL excede en 360 kilogramos a las demás fuentes."],
-        "notify-tax-id": ["Notify tax ID en conflicto", "Factura: 30-70984521-8. Draft HBL: 30-70984512-8. La transposición debe corregirse.", "Notify tax ID: el draft HBL no coincide con la factura."],
-        "customer-rule": ["Regla del cliente", "No emitir el HBL si bultos, peso o tax ID del notify difieren de la factura aprobada.", "Regla del cliente: la emisión queda bloqueada hasta reconciliar las diferencias."]
-      };
-      const finding = findings[id];
-      if (!finding) return;
-      result.innerHTML = `<strong>${finding[0]}</strong>${finding[1]}`;
-      announce(finding[2]);
-    }
-
-    function resolveLimit() {
-      const action = scene.querySelector("[data-limit-action]");
-      const exposure = scene.querySelector('[data-limit-milestone="daily-exposure"]');
-      action.disabled = true;
-      action.textContent = "Liberación y retiro confirmados";
-      scene.querySelector("[data-risk-title]").textContent = "Liberación confirmada";
-      scene.querySelector("[data-risk-copy]").textContent = "El retiro queda dentro del free time; resta controlar la devolución del vacío.";
-      exposure.querySelector(".number").textContent = "USD 0";
-      exposure.querySelector("p").textContent = "0 días proyectados · exposición contenida; controlar devolución.";
-      scene.querySelector("[data-logistics-result]").innerHTML = "<strong class=\"resolved\">Exposición contenida</strong>Retiro confirmado dentro del free time. La devolución vacía mantiene su hito del 29 JUL.";
-      announce("Liberación y retiro confirmados. La exposición diaria quedó contenida.");
-    }
-
-    function bindScene() {
-      scene.querySelectorAll("[data-finding]").forEach((button) => button.addEventListener("click", () => selectFinding(button.dataset.finding)));
-      scene.querySelectorAll("[data-cost]").forEach((input) => input.addEventListener("change", renderMargin));
-      scene.querySelector("[data-limit-action]")?.addEventListener("click", resolveLimit);
-      if (scene.dataset.product === "margen") renderMargin();
-    }
-
-    function renderProduct(slug) {
-      const product = products[slug];
-      if (!product) return;
-      scene.dataset.product = slug;
-      scene.innerHTML = product.render();
-      productButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.logisticsProduct === slug)));
-      currentDemo.textContent = String(productOrder.indexOf(slug) + 1).padStart(2, "0");
-      bindScene();
-      announce(product.status);
-    }
-
-    function resetProduct() {
-      const active = productButtons.find((button) => button.getAttribute("aria-pressed") === "true");
-      renderProduct(active?.dataset.logisticsProduct || "cruce");
-    }
-
-    productButtons.forEach((button) => button.addEventListener("click", () => renderProduct(button.dataset.logisticsProduct)));
-    document.querySelector("[data-demo-prev]").addEventListener("click", () => {
-      const active = productButtons.find((button) => button.getAttribute("aria-pressed") === "true");
-      const index = productOrder.indexOf(active?.dataset.logisticsProduct || "cruce");
-      renderProduct(productOrder[(index + productOrder.length - 1) % productOrder.length]);
-    });
-    document.querySelector("[data-demo-next]").addEventListener("click", () => {
-      const active = productButtons.find((button) => button.getAttribute("aria-pressed") === "true");
-      const index = productOrder.indexOf(active?.dataset.logisticsProduct || "cruce");
-      renderProduct(productOrder[(index + 1) % productOrder.length]);
-    });
-    resetButton.addEventListener("click", resetProduct);
-    renderProduct("cruce");
-    window.logisticsDemo = { renderProduct, selectFinding, resetProduct };
-  </script>
-  <script defer src="assets/app.js?v=20260722-2"></script>
+  <script defer src="/assets/app.js?v=20260723-11"></script>
 </body>
 
 </html>
+
+
+
+
