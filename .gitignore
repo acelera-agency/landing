@@ -9,7 +9,9 @@ npm-debug.log*
 # Resultados de tests / capturas locales
 test-results/
 *.png.tmp
-output/project-demos/
+output/
+.playwright-cli/
+*.bak
 
 # Env
 .env
