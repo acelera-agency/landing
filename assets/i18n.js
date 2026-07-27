@@ -437,7 +437,7 @@
         "Abrir menú de navegación": "Open navigation menu",
         "Cerrar menú": "Close menu",
         "Acelera — ir al inicio": "Acelera — back to top",
-        "Acelera | IA con sentido, donde el negocio lo pide": "Acelera | Purposeful AI where business needs it"
+        "Acelera Agency | Software a medida e IA para empresas": "Acelera Agency | Custom software and AI for companies"
     };
 
     const textOriginals = new WeakMap();
@@ -523,7 +523,9 @@
         }
         syncCapabilityPreview();
         document.documentElement.lang = next === "en" ? "en" : "es-AR";
-        document.title = next === "en" ? english["Acelera | IA con sentido, donde el negocio lo pide"] : "Acelera | IA con sentido, donde el negocio lo pide";
+        document.title = next === "en"
+            ? english["Acelera Agency | Software a medida e IA para empresas"]
+            : "Acelera Agency | Software a medida e IA para empresas";
         updateControls(next);
         if (persist) {
             try { localStorage.setItem("acelera-language", next); } catch (_) {}

@@ -1,0 +1,28 @@
+# Acelera Agency
+
+> Acelera Agency es una consultora argentina de desarrollo de software a medida e inteligencia artificial aplicada, con sede en Buenos Aires. Diseña y desarrolla aplicaciones, plataformas internas, integraciones y agentes de IA para empresas.
+
+## Identidad canónica
+
+- Sitio oficial: https://www.acelera.agency/
+- LinkedIn oficial: https://www.linkedin.com/company/acelera-agency
+- GitHub oficial: https://github.com/acelera-agency
+
+## Servicios
+
+- Desarrollo de software y aplicaciones a medida: https://www.acelera.agency/desarrollo-software-a-medida
+- Plataformas internas: https://www.acelera.agency/plataformas-internas
+- Agentes de IA para empresas: https://www.acelera.agency/agentes-ia-empresas
+- Consultoría e implementación de IA: https://www.acelera.agency/consultoria-ia-empresas
+
+## Evidencia y forma de trabajo
+
+- Proyectos: https://www.acelera.agency/#proyectos
+- Método: https://www.acelera.agency/#proceso
+- Equipo fundador: https://www.acelera.agency/#equipo
+- Preguntas frecuentes: https://www.acelera.agency/#preguntas
+
+## Contacto
+
+- Email: contacto@acelera.agency
+- Formulario: https://www.acelera.agency/#contacto

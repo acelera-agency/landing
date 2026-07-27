@@ -10,7 +10,7 @@ const servicePages = [
     route: "/desarrollo-software-a-medida",
     title: "Desarrollo de software a medida en Argentina | Acelera",
     description:
-      "Creamos sistemas, plataformas y aplicaciones a medida para empresas. Del diagnóstico a producción, con código, documentación y control para tu equipo.",
+      "Desarrollamos software y aplicaciones con IA a medida para empresas en Argentina. Del diagnóstico a producción, con código, documentación y control.",
     h1: "Desarrollo de software a medida para empresas",
     serviceType: "Desarrollo de software a medida",
   },
@@ -60,6 +60,7 @@ test("publishes crawl controls and only canonical indexable URLs", async () => {
     assert.match(sitemap, new RegExp(`<loc>${canonicalOrigin.replaceAll(".", "\\.")}${page.route}</loc>`));
   }
   assert.equal((sitemap.match(/<loc>/g) || []).length, servicePages.length + 1);
+  assert.equal((sitemap.match(/<lastmod>2026-07-27<\/lastmod>/g) || []).length, servicePages.length + 1);
   assert.doesNotMatch(sitemap, /privacidad|terminos|landing-prueba|tracking-demo/);
 });
 
@@ -79,6 +80,29 @@ test("keeps canonical metadata aligned with the final www host", async () => {
   for (const html of [home, privacy, terms]) {
     assert.doesNotMatch(html, /href="\/(?:privacidad|terminos)\.html"/);
   }
+});
+
+test("positions the homepage clearly and keeps footer contact data out of Google snippets", async () => {
+  const home = await read("index.html");
+  const title = "Acelera Agency | Software a medida e IA para empresas";
+  const description =
+    "Acelera Agency desarrolla software a medida, plataformas internas y soluciones con IA para empresas. Del problema concreto a producción.";
+
+  assert.match(home, new RegExp(`<title>${title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</title>`));
+  assert.match(
+    home,
+    new RegExp(
+      `<meta name="description"\\s+content="${description.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`,
+    ),
+  );
+  assert.match(home, /<meta property="og:title" content="Acelera Agency \| Software a medida e IA para empresas"/);
+  assert.match(home, /"name": "Acelera Agency \| Software a medida e IA para empresas"/);
+  assert.match(home, /<div class="max-w-md md:col-span-7" data-nosnippet>/);
+
+  const i18n = await read("assets/i18n.js");
+  assert.match(i18n, /"Acelera Agency \| Software a medida e IA para empresas"/);
+  assert.match(i18n, /"Acelera Agency \| Custom software and AI for companies"/);
+  assert.doesNotMatch(i18n, /document\.title\s*=[\s\S]*?"Acelera \| IA con sentido, donde el negocio lo pide"/);
 });
 
 test("publishes differentiated service pages for high-intent software and AI searches", async () => {
@@ -149,6 +173,31 @@ test("publishes differentiated service pages for high-intent software and AI sea
 
   assert.equal(titles.size, servicePages.length);
   assert.equal(descriptions.size, servicePages.length);
+});
+
+test("publishes a concise machine-readable guide without inventing a second content surface", async () => {
+  const llms = await read("llms.txt");
+
+  assert.match(llms, /^# Acelera Agency$/m);
+  assert.match(llms, /consultora argentina de desarrollo de software a medida e inteligencia artificial aplicada/);
+  assert.match(llms, /aplicaciones, plataformas internas, integraciones y agentes de IA/);
+  assert.match(llms, /https:\/\/www\.linkedin\.com\/company\/acelera-agency/);
+  assert.match(llms, /https:\/\/github\.com\/acelera-agency/);
+
+  for (const page of servicePages) {
+    assert.match(llms, new RegExp(`${canonicalOrigin.replaceAll(".", "\\.")}${page.route}`));
+  }
+});
+
+test("keeps repetitive service-page footer copy out of result snippets", async () => {
+  for (const page of servicePages) {
+    const html = await read(page.file);
+    assert.match(
+      html,
+      /<footer class="site-footer">[\s\S]*?<div class="shell footer-main">[\s\S]*?<div data-nosnippet>/,
+      `${page.file} should exclude its generic footer brand copy from snippets`,
+    );
+  }
 });
 
 test("exposes a linked organization, services and projects JSON-LD graph without changing visible copy", async () => {
