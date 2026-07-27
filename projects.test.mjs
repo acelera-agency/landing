@@ -97,12 +97,18 @@ test("links every public project to a real destination", () => {
 test("keeps a poster layer visible until every project video is ready", () => {
   for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
     const card = projectCard(project);
+    const sourceVersion = project === "harness" ? "\\?v=20260727-2" : "";
     assert.match(card, new RegExp(`<img[^>]*data-project-poster[^>]*src="assets/proyectos/${project}-poster\\.webp"[^>]*alt=""`));
     assert.match(card, /<video[^>]*data-project-video[^>]*autoplay[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
     assert.match(card, new RegExp(`poster="assets/proyectos/${project}-poster\\.webp"`));
-    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.webm" type="video/webm">`));
-    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.mp4" type="video/mp4">`));
+    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.webm${sourceVersion}" type="video/webm">`));
+    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.mp4${sourceVersion}" type="video/mp4">`));
   }
+  assert.match(
+    projectCard("harness"),
+    /harness-demo\.mp4\?v=20260727-2" type="video\/mp4">[\s\S]*harness-demo\.webm\?v=20260727-2" type="video\/webm">/,
+    "Harness should prefer the verified source MP4 before its WebM fallback",
+  );
   assert.match(indexHtml, /\.project-card \.project-media\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/);
   assert.match(indexHtml, /\.project-media\.is-video-ready \.project-media__poster\s*\{[^}]*opacity:\s*0/);
   assert.match(indexHtml, /video\.currentTime\s*>=\s*0\.25/);
@@ -129,8 +135,13 @@ test("renders the capability case as an unobstructed layered motion preview", ()
   assert.match(capabilitiesSection, /capability-preview__layer--middle/);
   assert.match(capabilitiesSection, /<img[^>]*data-capability-poster/);
   assert.match(capabilitiesSection, /<video[^>]*data-capability-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
-  assert.match(capabilitiesSection, /data-capability-source-webm[^>]*harness-demo\.webm/);
-  assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*harness-demo\.mp4/);
+  assert.match(capabilitiesSection, /data-capability-source-webm[^>]*harness-demo\.webm\?v=20260727-2/);
+  assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*harness-demo\.mp4\?v=20260727-2/);
+  assert.match(
+    capabilitiesSection,
+    /data-capability-source-mp4[^>]*harness-demo\.mp4\?v=20260727-2[\s\S]*data-capability-source-webm[^>]*harness-demo\.webm\?v=20260727-2/,
+    "The Harness capability preview should prefer its verified MP4",
+  );
   assert.doesNotMatch(capabilitiesSection, /capability-preview__overlay/);
   assert.doesNotMatch(capabilitiesSection, /data-capability-label/);
   assert.doesNotMatch(capabilitiesSection, /data-capability-project/);
@@ -150,6 +161,15 @@ test("controls project playback by viewport, motion preference and data saver", 
   assert.match(indexHtml, /prefers-reduced-motion:\s*reduce/);
   assert.match(indexHtml, /navigator\.connection\?\.saveData/);
   assert.match(indexHtml, /video\.pause\(\)/);
+});
+
+test("serves project demos with explicit video MIME types locally", async () => {
+  const devServerSource = await readFile(
+    new URL("./scripts/dev-server.mjs", import.meta.url),
+    "utf8",
+  );
+  assert.match(devServerSource, /\["\.mp4", "video\/mp4"\]/);
+  assert.match(devServerSource, /\["\.webm", "video\/webm"\]/);
 });
 
 test("ships a reusable, side-effect-safe demo capture pipeline", async () => {

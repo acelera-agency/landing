@@ -103,6 +103,24 @@ async function inspectViewport(width, height) {
   await page.locator("[data-projects-next]").click();
   await page.waitForFunction(() => document.querySelector(".projects-carousel__viewport").scrollLeft > 0);
   assert.ok(await projectsViewport.evaluate((element) => element.scrollLeft > 0), `${width}px next should move the rail`);
+  if (width >= 768) {
+    await page.waitForTimeout(1000);
+    const harnessPlayback = await page.evaluate(() => {
+      const video = document.querySelector('[data-project="harness"] [data-project-video]');
+      return {
+        currentTime: video.currentTime,
+        errorCode: video.error?.code ?? null,
+        paused: video.paused,
+        readyState: video.readyState,
+        posterHidden: video.closest(".project-media").classList.contains("is-video-ready"),
+      };
+    });
+    assert.equal(harnessPlayback.errorCode, null, `${width}px Harness video should decode without errors`);
+    assert.equal(harnessPlayback.paused, false, `${width}px Harness video should be playing when visible`);
+    assert.ok(harnessPlayback.currentTime >= 0.25, `${width}px Harness video should advance beyond its poster`);
+    assert.ok(harnessPlayback.readyState >= 2, `${width}px Harness video should have playable frame data`);
+    assert.equal(harnessPlayback.posterHidden, true, `${width}px Harness poster should hide once playback advances`);
+  }
   await projectsViewport.focus();
   const firstStep = await projectsViewport.evaluate((element) => element.scrollLeft);
   await page.keyboard.press("ArrowRight");
