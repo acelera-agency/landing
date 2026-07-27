@@ -99,7 +99,8 @@ test("keeps a poster layer visible until every project video is ready", () => {
     const card = projectCard(project);
     const sourceVersion = project === "harness" ? "\\?v=20260727-2" : "";
     assert.match(card, new RegExp(`<img[^>]*data-project-poster[^>]*src="assets/proyectos/${project}-poster\\.webp"[^>]*alt=""`));
-    assert.match(card, /<video[^>]*data-project-video[^>]*autoplay[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
+    assert.match(card, /<video[^>]*data-project-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="none"/);
+    assert.doesNotMatch(card, /<video[^>]*data-project-video[^>]*autoplay/);
     assert.match(card, new RegExp(`poster="assets/proyectos/${project}-poster\\.webp"`));
     assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.webm${sourceVersion}" type="video/webm">`));
     assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.mp4${sourceVersion}" type="video/mp4">`));
@@ -134,9 +135,11 @@ test("renders the capability case as an unobstructed layered motion preview", ()
   assert.match(capabilitiesSection, /capability-preview__layer--back/);
   assert.match(capabilitiesSection, /capability-preview__layer--middle/);
   assert.match(capabilitiesSection, /<img[^>]*data-capability-poster/);
-  assert.match(capabilitiesSection, /<video[^>]*data-capability-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
+  assert.match(capabilitiesSection, /<video[^>]*data-capability-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="none"/);
   assert.match(capabilitiesSection, /data-capability-source-webm[^>]*harness-demo\.webm\?v=20260727-2/);
   assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*harness-demo\.mp4\?v=20260727-2/);
+  assert.match(indexHtml, /if \(!capabilityMotionBlocked\)\s*\{[\s\S]*?capabilityVideo\.load\(\)/);
+  assert.match(indexHtml, /item\.dataset\.case === "harness"[\s\S]*?\[capabilityVideoMp4, capabilityVideoWebm\][\s\S]*?\[capabilityVideoWebm, capabilityVideoMp4\]/);
   assert.match(
     capabilitiesSection,
     /data-capability-source-mp4[^>]*harness-demo\.mp4\?v=20260727-2[\s\S]*data-capability-source-webm[^>]*harness-demo\.webm\?v=20260727-2/,

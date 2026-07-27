@@ -137,6 +137,25 @@ async function inspectViewport(width, height) {
   })));
   assert.deepEqual(playback.filter(({ paused }) => !paused).map(({ project }) => project), width >= 768 ? ["rely", "lain"] : ["rely"]);
 
+  if (width === 1440) {
+    for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
+      await page.locator(`[data-project="${project}"]`).evaluate((card) => {
+        card.scrollIntoView({ behavior: "auto", block: "nearest", inline: "center" });
+      });
+      await page.waitForFunction((slug) => {
+        const video = document.querySelector(`[data-project="${slug}"] [data-project-video]`);
+        return video
+          && video.error === null
+          && !video.paused
+          && video.currentTime >= 0.25
+          && video.readyState >= 2
+          && video.closest(".project-media").classList.contains("is-video-ready");
+      }, project, { timeout: 10_000 });
+    }
+    await projectsViewport.evaluate((element) => element.scrollTo({ left: 0, behavior: "auto" }));
+    await page.waitForFunction(() => document.querySelector(".projects-carousel__viewport").scrollLeft < 2);
+  }
+
   if (width >= 1200) {
     await page.locator('.capability-tab[data-case="harness"]').filter({ hasText: "Plataformas internas" }).hover();
     const preview = await page.evaluate(() => {

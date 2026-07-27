@@ -4746,7 +4746,7 @@
                         <div class="capability-preview__frame">
                             <div class="capability-preview__media" aria-hidden="true">
                                 <img data-capability-poster src="assets/proyectos/harness-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                                <video data-capability-video muted loop playsinline preload="metadata" poster="assets/proyectos/harness-poster.webp" aria-label="Demo del proyecto Harness">
+                                <video data-capability-video muted loop playsinline preload="none" poster="assets/proyectos/harness-poster.webp" aria-label="Demo del proyecto Harness">
                                     <source data-capability-source-mp4 src="assets/proyectos/harness-demo.mp4?v=20260727-2" type="video/mp4">
                                     <source data-capability-source-webm src="assets/proyectos/harness-demo.webm?v=20260727-2" type="video/webm">
                                 </video>
@@ -4798,7 +4798,7 @@
                     <article class="project-card gsap-reveal" data-project="rely">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/rely-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp" aria-label="Demo de la plataforma Rely">
+                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/rely-poster.webp" aria-label="Demo de la plataforma Rely">
                                 <source src="assets/proyectos/rely-demo.webm" type="video/webm">
                                 <source src="assets/proyectos/rely-demo.mp4" type="video/mp4">
                             </video>
@@ -4817,7 +4817,7 @@
                     <article class="project-card gsap-reveal" data-project="lain">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/lain-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/lain-poster.webp" aria-label="Demo del workspace de inteligencia artificial Lain">
+                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/lain-poster.webp" aria-label="Demo del workspace de inteligencia artificial Lain">
                                 <source src="assets/proyectos/lain-demo.webm" type="video/webm">
                                 <source src="assets/proyectos/lain-demo.mp4" type="video/mp4">
                             </video>
@@ -4836,7 +4836,7 @@
                     <article class="project-card gsap-reveal" data-project="harness">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/harness-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/harness-poster.webp" aria-label="Demo de la plataforma Harness">
+                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/harness-poster.webp" aria-label="Demo de la plataforma Harness">
                                 <source src="assets/proyectos/harness-demo.mp4?v=20260727-2" type="video/mp4">
                                 <source src="assets/proyectos/harness-demo.webm?v=20260727-2" type="video/webm">
                             </video>
@@ -4855,7 +4855,7 @@
                     <article class="project-card gsap-reveal" data-project="faro">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/faro-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/faro-poster.webp" aria-label="Demo del explorador de obra pública Faro">
+                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/faro-poster.webp" aria-label="Demo del explorador de obra pública Faro">
                                 <source src="assets/proyectos/faro-demo.webm" type="video/webm">
                                 <source src="assets/proyectos/faro-demo.mp4" type="video/mp4">
                             </video>
@@ -4874,7 +4874,7 @@
                     <article class="project-card gsap-reveal" data-project="lemon">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/lemon-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/lemon-poster.webp" aria-label="Demo de Lemon Box y su entorno de configuración">
+                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/lemon-poster.webp" aria-label="Demo de Lemon Box y su entorno de configuración">
                                 <source src="assets/proyectos/lemon-demo.webm" type="video/webm">
                                 <source src="assets/proyectos/lemon-demo.mp4" type="video/mp4">
                             </video>
@@ -5363,9 +5363,15 @@
                         capabilityMedia?.classList.remove("is-video-ready");
                         capabilityVideo.poster = caseStudy.poster;
                         capabilityVideo.setAttribute("aria-label", `Demo del proyecto ${caseStudy.name}`);
-                        if (capabilityVideoWebm) capabilityVideoWebm.src = caseStudy.webm;
-                        if (capabilityVideoMp4) capabilityVideoMp4.src = caseStudy.mp4;
-                        capabilityVideo.load();
+                        if (!capabilityMotionBlocked) {
+                            if (capabilityVideoWebm) capabilityVideoWebm.src = caseStudy.webm;
+                            if (capabilityVideoMp4) capabilityVideoMp4.src = caseStudy.mp4;
+                            const sources = item.dataset.case === "harness"
+                                ? [capabilityVideoMp4, capabilityVideoWebm]
+                                : [capabilityVideoWebm, capabilityVideoMp4];
+                            sources.forEach((source) => source && capabilityVideo.append(source));
+                            capabilityVideo.load();
+                        }
                     }
                     if (preview) {
                         preview.classList.remove("is-switching");
