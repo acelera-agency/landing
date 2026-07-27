@@ -119,6 +119,7 @@ test("publishes differentiated service pages for high-intent software and AI sea
 
     assert.equal(organization["@id"], `${canonicalOrigin}/#organization`);
     assert.equal(organization.alternateName, "Acelera Agency");
+    assert.ok(organization.sameAs.includes("https://github.com/acelera-agency"));
     assert.equal(website["@id"], `${canonicalOrigin}/#website`);
     assert.equal(webpage.url, canonicalUrl);
     assert.equal(webpage.mainEntity["@id"], service["@id"]);
@@ -184,9 +185,11 @@ test("exposes a linked organization, services and projects JSON-LD graph without
   assert.equal(organization.email, "contacto@acelera.agency");
   assert.equal(organization.areaServed.name, "Argentina");
   assert.ok(organization.sameAs.includes("https://www.linkedin.com/company/acelera-agency"));
+  assert.ok(organization.sameAs.includes("https://github.com/acelera-agency"));
   assert.ok(organization.knowsAbout.includes("Desarrollo de software a medida"));
   assert.ok(organization.knowsAbout.includes("Plataformas internas"));
   assert.ok(organization.knowsAbout.includes("Agentes IA"));
+  assert.ok(organization.knowsAbout.includes("Consultoría de inteligencia artificial"));
   assert.equal(organization.hasOfferCatalog["@id"], servicesId);
 
   assert.equal(organization.founder.length, 3);
