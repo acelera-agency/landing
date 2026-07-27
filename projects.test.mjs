@@ -15,10 +15,10 @@ const projectCard = (slug) => projectsSection?.match(
   new RegExp(`<article[^>]*data-project="${slug}"[\\s\\S]*?<\\/article>`),
 )?.[0];
 
-test("features four Acelera projects with equal card treatment", () => {
+test("features five Acelera projects with equal card treatment", () => {
   assert.ok(projectsSection, "The projects section should exist");
 
-  const projects = ["rely", "lain", "faro", "lemon"];
+  const projects = ["rely", "lain", "harness", "faro", "lemon"];
   let previousIndex = -1;
   for (const project of projects) {
     const index = projectsSection.indexOf(`data-project="${project}"`);
@@ -68,7 +68,7 @@ test("lands on the project overview and cards when navigating to the projects se
 });
 
 test("keeps project cards under the Acelera brand without personal credits", () => {
-  for (const project of ["rely", "lain", "faro", "lemon"]) {
+  for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
     assert.match(projectCard(project), /class="project-footer"/);
     assert.match(projectCard(project), /class="project-link__label"/);
   }
@@ -91,31 +91,39 @@ test("links every public project to a real destination", () => {
     const escapedUrl = url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     assert.match(projectCard(project), new RegExp(`href="${escapedUrl}\\/?"[\\s\\S]*?target="_blank"[\\s\\S]*?rel="noopener noreferrer"`));
   }
+  assert.doesNotMatch(projectCard("harness"), /href=/);
 });
 
 test("keeps a poster layer visible until every project video is ready", () => {
-  for (const project of ["rely", "lain", "faro", "lemon"]) {
+  for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
     const card = projectCard(project);
+    const sourceVersion = project === "harness" ? "\\?v=20260727-2" : "";
     assert.match(card, new RegExp(`<img[^>]*data-project-poster[^>]*src="assets/proyectos/${project}-poster\\.webp"[^>]*alt=""`));
     assert.match(card, /<video[^>]*data-project-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="none"/);
     assert.match(card, new RegExp(`poster="assets/proyectos/${project}-poster\\.webp"`));
-    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.webm" type="video/webm">`));
-    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.mp4" type="video/mp4">`));
+    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.webm${sourceVersion}" type="video/webm">`));
+    assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.mp4${sourceVersion}" type="video/mp4">`));
   }
-  assert.match(indexHtml, /\.project-card \.project-media\s*\{[^}]*aspect-ratio:\s*2\.21/);
+  assert.match(
+    projectCard("harness"),
+    /harness-demo\.mp4\?v=20260727-2" type="video\/mp4">[\s\S]*harness-demo\.webm\?v=20260727-2" type="video\/webm">/,
+    "Harness should prefer the verified source MP4 before its WebM fallback",
+  );
+  assert.match(indexHtml, /\.project-card \.project-media\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/);
+  assert.match(indexHtml, /data-project="rely"[\s\S]*data-project="lain"[\s\S]*data-project="faro"[\s\S]*data-project="lemon"[\s\S]*aspect-ratio:\s*2\.21/);
   assert.match(indexHtml, /\.project-media\.is-video-ready \.project-media__poster\s*\{[^}]*opacity:\s*0/);
   assert.match(indexHtml, /video\.currentTime\s*>=\s*0\.25/);
   assert.match(indexHtml, /media\?\.classList\.add\("is-video-ready"\)/);
 });
 
-test("maps all capability pills to one of the four featured cases", () => {
+test("maps all capability pills to one of the five featured cases", () => {
   assert.ok(capabilitiesSection, "The capabilities section should exist");
-  const mappings = [...capabilitiesSection.matchAll(/class="capability-tab"[^>]*data-case="(rely|lain|faro|lemon)"/g)]
+  const mappings = [...capabilitiesSection.matchAll(/class="capability-tab"[^>]*data-case="(harness|rely|lain|faro|lemon)"/g)]
     .map((match) => match[1]);
 
   assert.equal(mappings.length, 12);
   assert.deepEqual(mappings, [
-    "rely", "lain", "lemon", "lain", "faro", "faro",
+    "harness", "lain", "lemon", "lain", "faro", "faro",
     "rely", "lain", "lemon", "lain", "rely", "rely",
   ]);
   assert.match(capabilitiesSection, /data-capability-poster/);
@@ -127,9 +135,14 @@ test("renders the capability case as an unobstructed layered motion preview", ()
   assert.match(capabilitiesSection, /capability-preview__layer--back/);
   assert.match(capabilitiesSection, /capability-preview__layer--middle/);
   assert.match(capabilitiesSection, /<img[^>]*data-capability-poster/);
-  assert.match(capabilitiesSection, /<video[^>]*data-capability-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
-  assert.match(capabilitiesSection, /data-capability-source-webm[^>]*rely-demo\.webm/);
-  assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*rely-demo\.mp4/);
+  assert.match(capabilitiesSection, /<video[^>]*data-capability-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="none"/);
+  assert.match(capabilitiesSection, /data-capability-source-webm[^>]*harness-demo\.webm\?v=20260727-2/);
+  assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*harness-demo\.mp4\?v=20260727-2/);
+  assert.match(
+    capabilitiesSection,
+    /data-capability-source-mp4[^>]*harness-demo\.mp4\?v=20260727-2[\s\S]*data-capability-source-webm[^>]*harness-demo\.webm\?v=20260727-2/,
+    "The Harness capability preview should prefer its verified MP4",
+  );
   assert.doesNotMatch(capabilitiesSection, /capability-preview__overlay/);
   assert.doesNotMatch(capabilitiesSection, /data-capability-label/);
   assert.doesNotMatch(capabilitiesSection, /data-capability-project/);
@@ -149,6 +162,15 @@ test("controls project playback by viewport, motion preference and data saver", 
   assert.match(indexHtml, /prefers-reduced-motion:\s*reduce/);
   assert.match(indexHtml, /navigator\.connection\?\.saveData/);
   assert.match(indexHtml, /video\.pause\(\)/);
+});
+
+test("serves project demos with explicit video MIME types locally", async () => {
+  const devServerSource = await readFile(
+    new URL("./scripts/dev-server.mjs", import.meta.url),
+    "utf8",
+  );
+  assert.match(devServerSource, /\["\.mp4", "video\/mp4"\]/);
+  assert.match(devServerSource, /\["\.webm", "video\/webm"\]/);
 });
 
 test("ships a reusable, side-effect-safe demo capture pipeline", async () => {
@@ -228,7 +250,7 @@ test("masks private network details in the Lemon demo", async () => {
   assert.match(captureSource, /element\.value\s*=\s*"Red local"/);
 });
 
-test("provides English copy for the four-project story", () => {
+test("provides English copy for the five-project story", () => {
   for (const translation of [
     "Software already solving",
     "real problems.",
@@ -236,6 +258,8 @@ test("provides English copy for the four-project story", () => {
     "View Lain",
     "View Faro",
     "View project",
+    "Internal platform · AI agent management",
+    "Video demo",
     "A project for Lemon",
     "Connected hardware",
     "Featured projects",
@@ -248,7 +272,7 @@ test("provides English copy for the four-project story", () => {
 
 test("translates each project's case-specific capability copy", () => {
   for (const translation of [
-    "In Rely, an internal platform connects",
+    "Harness lets teams define and sync rules",
     "Lain turned a product idea into",
     "Faro turns scattered public information into",
     "Lemon Box integrates firmware",

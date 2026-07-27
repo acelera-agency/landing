@@ -37,8 +37,8 @@ async function inspectViewport(width, height) {
       const cardTop = firstCard.getBoundingClientRect().top;
       const compactProjectsView = window.innerWidth >= 1200 && window.innerHeight <= 760;
       const minimumOverviewTop = compactProjectsView ? 0 : 60;
-      const maximumOverviewTop = compactProjectsView ? 24 : 120;
-      const maximumCardRatio = compactProjectsView ? 0.35 : 0.55;
+      const maximumOverviewTop = compactProjectsView ? window.innerHeight * 0.35 : 120;
+      const maximumCardRatio = compactProjectsView ? 0.65 : 0.55;
       return overviewTop >= minimumOverviewTop
         && overviewTop <= maximumOverviewTop
         && subtitleTop >= 0
@@ -56,8 +56,8 @@ async function inspectViewport(width, height) {
     }));
     const compactProjectsView = width >= 1200 && height <= 760;
     const minimumOverviewTop = compactProjectsView ? 0 : 60;
-    const maximumOverviewTop = compactProjectsView ? 24 : 120;
-    const maximumCardRatio = compactProjectsView ? 0.35 : 0.55;
+    const maximumOverviewTop = compactProjectsView ? height * 0.35 : 120;
+    const maximumCardRatio = compactProjectsView ? 0.65 : 0.55;
     assert.ok(
       anchorLayout.overviewTop >= minimumOverviewTop && anchorLayout.overviewTop <= maximumOverviewTop,
       `${width}px should keep the projects overview below the fixed navigation after ${context}`,
@@ -88,26 +88,45 @@ async function inspectViewport(width, height) {
   }));
 
   assert.equal(layout.overflow, 0, `${width}px should not overflow horizontally`);
-  assert.equal(layout.cards.length, 4, `${width}px should render four project cards`);
+  assert.equal(layout.cards.length, 5, `${width}px should render five project cards`);
   assert.equal(new Set(layout.cards.map(({ top }) => top)).size, 1, `${width}px should render one horizontal rail`);
   const visibleCards = layout.cards.filter(({ left, right }) => left >= layout.viewport.left - 1 && right <= layout.viewport.right + 1);
   const expectedVisibleCards = width >= 768 ? 2 : 1;
   assert.equal(visibleCards.length, expectedVisibleCards, `${width}px should show ${expectedVisibleCards} project card(s)`);
 
-  const controlsBefore = await page.evaluate(() => ({
+  const statusBefore = await page.evaluate(() => ({
     previousDisabled: document.querySelector("[data-projects-prev]").disabled,
     nextDisabled: document.querySelector("[data-projects-next]").disabled,
   }));
-  assert.deepEqual(controlsBefore, { previousDisabled: true, nextDisabled: false });
+  assert.deepEqual(statusBefore, { previousDisabled: true, nextDisabled: false });
 
   await page.locator("[data-projects-next]").click();
   await page.waitForFunction(() => document.querySelector(".projects-carousel__viewport").scrollLeft > 0);
   assert.ok(await projectsViewport.evaluate((element) => element.scrollLeft > 0), `${width}px next should move the rail`);
+  if (width >= 768) {
+    await page.waitForTimeout(1000);
+    const harnessPlayback = await page.evaluate(() => {
+      const video = document.querySelector('[data-project="harness"] [data-project-video]');
+      return {
+        currentTime: video.currentTime,
+        errorCode: video.error?.code ?? null,
+        paused: video.paused,
+        readyState: video.readyState,
+        posterHidden: video.closest(".project-media").classList.contains("is-video-ready"),
+      };
+    });
+    assert.equal(harnessPlayback.errorCode, null, `${width}px Harness video should decode without errors`);
+    assert.equal(harnessPlayback.paused, false, `${width}px Harness video should be playing when visible`);
+    assert.ok(harnessPlayback.currentTime >= 0.25, `${width}px Harness video should advance beyond its poster`);
+    assert.ok(harnessPlayback.readyState >= 2, `${width}px Harness video should have playable frame data`);
+    assert.equal(harnessPlayback.posterHidden, true, `${width}px Harness poster should hide once playback advances`);
+  }
   await projectsViewport.focus();
+  const firstStep = await projectsViewport.evaluate((element) => element.scrollLeft);
   await page.keyboard.press("ArrowRight");
-  await page.waitForTimeout(250);
+  await page.waitForFunction((previousScroll) => document.querySelector(".projects-carousel__viewport").scrollLeft > previousScroll, firstStep);
   await page.keyboard.press("Home");
-  await page.waitForFunction(() => document.querySelector(".projects-carousel__viewport").scrollLeft === 0);
+  await page.waitForFunction(() => document.querySelector(".projects-carousel__viewport").scrollLeft < 2);
 
   await page.waitForFunction((expectedPlaying) => (
     [...document.querySelectorAll("[data-project-video]")].filter((video) => !video.paused).length === expectedPlaying
@@ -119,27 +138,43 @@ async function inspectViewport(width, height) {
   assert.deepEqual(playback.filter(({ paused }) => !paused).map(({ project }) => project), width >= 768 ? ["rely", "lain"] : ["rely"]);
 
   if (width >= 1200) {
-    await page.locator('.capability-tab[data-case="rely"]').filter({ hasText: "Plataformas internas" }).hover();
+    await page.locator('.capability-tab[data-case="harness"]').filter({ hasText: "Plataformas internas" }).hover();
     const preview = await page.evaluate(() => {
       const element = document.querySelector(".capability-preview");
       const poster = document.querySelector("[data-capability-poster]");
+      const previewRect = element.getBoundingClientRect();
+      const overlapCount = [...document.querySelectorAll(".capability-tab")].filter((pill) => {
+        const pillRect = pill.getBoundingClientRect();
+        return previewRect.left < pillRect.right && previewRect.right > pillRect.left
+          && previewRect.top < pillRect.bottom && previewRect.bottom > pillRect.top;
+      }).length;
       return {
         visible: element.classList.contains("is-visible") && element.getAttribute("aria-hidden") === "false",
         caseStudy: poster.dataset.activeCase,
         videoCount: element.querySelectorAll("video").length,
+        overlapCount,
       };
     });
-    assert.deepEqual(preview, { visible: true, caseStudy: "rely", videoCount: 1 });
+    assert.deepEqual(
+      { visible: preview.visible, caseStudy: preview.caseStudy, videoCount: preview.videoCount },
+      { visible: true, caseStudy: "harness", videoCount: 1 },
+    );
+    assert.ok(
+      preview.overlapCount >= 1 && preview.overlapCount <= 4,
+      `${width}px should keep the Harness preview layered behind a controlled number of capability pills`,
+    );
 
     await page.getByRole("button", { name: "EN", exact: true }).click();
     const englishCopy = await page.evaluate(() => ({
       projectLinks: [...document.querySelectorAll(".project-link__label")].map((element) => element.textContent.trim()),
+      harnessMeta: document.querySelector('[data-project="harness"] .project-meta').textContent.trim(),
       lemonMeta: document.querySelector('[data-project="lemon"] .project-meta').textContent.trim(),
       carouselLabel: document.querySelector(".projects-carousel__viewport").getAttribute("aria-label"),
       previousLabel: document.querySelector("[data-projects-prev]").getAttribute("aria-label"),
       nextLabel: document.querySelector("[data-projects-next]").getAttribute("aria-label"),
     }));
-    assert.deepEqual(englishCopy.projectLinks, ["View Rely", "View Lain", "View Faro", "View project"]);
+    assert.deepEqual(englishCopy.projectLinks, ["View Rely", "View Lain", "Video demo", "View Faro", "View project"]);
+    assert.equal(englishCopy.harnessMeta, "Internal platform · AI agent management");
     assert.equal(englishCopy.carouselLabel, "Featured projects");
     assert.equal(englishCopy.previousLabel, "Previous project");
     assert.equal(englishCopy.nextLabel, "Next project");

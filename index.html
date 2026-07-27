@@ -43,6 +43,9 @@
                     "@type": "Organization",
                     "@id": "https://www.acelera.agency/#organization",
                     "name": "Acelera",
+                    "alternateName": "Acelera Agency",
+                    "description": "Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.",
+                    "slogan": "IA con sentido, donde el negocio lo pide",
                     "url": "https://www.acelera.agency/",
                     "logo": {
                         "@type": "ImageObject",
@@ -58,26 +61,42 @@
                         "addressLocality": "Buenos Aires",
                         "addressCountry": "AR"
                     },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    },
+                    "knowsAbout": [
+                        "Desarrollo de software a medida",
+                        "Plataformas internas",
+                        "MVPs y productos",
+                        "Software operativo",
+                        "Web y mobile",
+                        "Dashboards y BI",
+                        "Pipelines de datos",
+                        "Integraciones y APIs",
+                        "Agentes IA",
+                        "Automatizaciones",
+                        "IA sobre tus datos",
+                        "Backends y servicios",
+                        "Portales y autogestión"
+                    ],
                     "sameAs": [
                         "https://www.linkedin.com/company/acelera-agency"
                     ],
                     "founder": [
                         {
-                            "@type": "Person",
-                            "name": "Ignacio Estevo",
-                            "sameAs": "https://www.linkedin.com/in/ignacio-estevo/"
+                            "@id": "https://www.acelera.agency/#ignacio-estevo"
                         },
                         {
-                            "@type": "Person",
-                            "name": "Mauro Proto",
-                            "sameAs": "https://www.linkedin.com/in/mauroprotocassina/"
+                            "@id": "https://www.acelera.agency/#mauro-proto"
                         },
                         {
-                            "@type": "Person",
-                            "name": "Franco Ferreira",
-                            "sameAs": "https://www.linkedin.com/in/franco-ferreira/"
+                            "@id": "https://www.acelera.agency/#franco-ferreira"
                         }
                     ],
+                    "hasOfferCatalog": {
+                        "@id": "https://www.acelera.agency/#services"
+                    },
                     "contactPoint": {
                         "@type": "ContactPoint",
                         "contactType": "sales",
@@ -87,12 +106,288 @@
                     }
                 },
                 {
+                    "@type": "Person",
+                    "@id": "https://www.acelera.agency/#ignacio-estevo",
+                    "name": "Ignacio Estevo",
+                    "jobTitle": "Ingeniería de software",
+                    "sameAs": "https://www.linkedin.com/in/ignacio-estevo/",
+                    "worksFor": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "Person",
+                    "@id": "https://www.acelera.agency/#mauro-proto",
+                    "name": "Mauro Proto",
+                    "jobTitle": "IA y producto",
+                    "sameAs": "https://www.linkedin.com/in/mauroprotocassina/",
+                    "worksFor": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "Person",
+                    "@id": "https://www.acelera.agency/#franco-ferreira",
+                    "name": "Franco Ferreira",
+                    "jobTitle": "Procesos y datos",
+                    "sameAs": "https://www.linkedin.com/in/franco-ferreira/",
+                    "worksFor": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "OfferCatalog",
+                    "@id": "https://www.acelera.agency/#services",
+                    "name": "Qué desarrollamos",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-custom-software"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-operational-software"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-product-teams"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-internal-platforms"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-integrations"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-ai-agents"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-custom-software",
+                    "name": "Desarrollo a medida para empresas",
+                    "serviceType": "Desarrollo de software a medida",
+                    "description": "Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-operational-software",
+                    "name": "Software para procesos operativos",
+                    "serviceType": "Software para procesos operativos",
+                    "description": "Herramientas internas e integraciones para reemplazar procesos manuales por un sistema propio.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-product-teams",
+                    "name": "Desarrollo junto a equipos de producto",
+                    "serviceType": "Desarrollo junto a equipos de producto",
+                    "description": "Tomamos una parte concreta del producto y la llevamos a producción junto al equipo interno.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-internal-platforms",
+                    "name": "Plataformas internas",
+                    "serviceType": "Plataformas internas",
+                    "description": "Desarrollamos una plataforma propia cuando la operación depende de planillas, mensajes y herramientas desconectadas.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-integrations",
+                    "name": "Integraciones y APIs",
+                    "serviceType": "Integraciones y APIs",
+                    "description": "Integramos CRM, ERP, WhatsApp, bases de datos y herramientas internas para evitar cargas duplicadas.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-ai-agents",
+                    "name": "Agentes IA",
+                    "serviceType": "Agentes de inteligencia artificial",
+                    "description": "Desarrollamos asistentes que consultan información y ejecutan tareas concretas con permisos y revisión humana.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
                     "@type": "WebSite",
                     "@id": "https://www.acelera.agency/#website",
                     "url": "https://www.acelera.agency/",
                     "name": "Acelera",
-                    "inLanguage": "es-AR",
+                    "alternateName": "Acelera Agency",
+                    "inLanguage": ["es-AR", "en"],
                     "publisher": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "WebPage",
+                    "@id": "https://www.acelera.agency/#webpage",
+                    "url": "https://www.acelera.agency/",
+                    "name": "Acelera | IA con sentido, donde el negocio lo pide",
+                    "description": "Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.",
+                    "inLanguage": "es-AR",
+                    "isPartOf": {
+                        "@id": "https://www.acelera.agency/#website"
+                    },
+                    "about": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "mainEntity": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "ItemList",
+                    "@id": "https://www.acelera.agency/#projects",
+                    "name": "Software que ya está resolviendo problemas reales.",
+                    "numberOfItems": 5,
+                    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+                    "mainEntityOfPage": {
+                        "@id": "https://www.acelera.agency/#webpage"
+                    },
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-rely"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-lain"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-harness"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 4,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-faro"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 5,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-lemon-box"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-rely",
+                    "name": "Rely",
+                    "description": "Una plataforma para que founders internacionales formen y administren una LLC, conectando clientes, operación interna, documentos, pagos y obligaciones fiscales.",
+                    "url": "https://rely.business",
+                    "image": "https://www.acelera.agency/assets/proyectos/rely-poster.webp",
+                    "creator": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-lain",
+                    "name": "Lain",
+                    "description": "Un espacio de trabajo con IA que reúne conversación, creación de interfaces, memoria por proyecto, estudio guiado y herramientas para construir sin perder contexto.",
+                    "url": "https://lainagent.com",
+                    "image": "https://www.acelera.agency/assets/proyectos/lain-poster.webp",
+                    "creator": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-harness",
+                    "name": "Harness",
+                    "description": "Una plataforma para que managers definan reglas, herramientas, conocimiento y zonas restringidas para los agentes de IA de cada developer, sin cambiar Cursor, Claude Code o Codex.",
+                    "image": "https://www.acelera.agency/assets/proyectos/harness-poster.webp",
+                    "creator": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-faro",
+                    "name": "Faro",
+                    "description": "Una plataforma que organiza expedientes de obra pública en un mapa interactivo para explorar señales de revisión y verificar cada caso directamente en su fuente oficial.",
+                    "url": "https://faro-argentina.vercel.app",
+                    "image": "https://www.acelera.agency/assets/proyectos/faro-poster.webp",
+                    "creator": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-lemon-box",
+                    "name": "Lemon Box",
+                    "description": "Un dispositivo táctil de cuatro pulgadas para visualizar datos y alertas en tiempo real, con Wi-Fi, audio, control local y actualizaciones remotas.",
+                    "url": "https://github.com/frxnnk/lemon-display",
+                    "image": "https://www.acelera.agency/assets/proyectos/lemon-poster.webp",
+                    "creator": {
                         "@id": "https://www.acelera.agency/#organization"
                     }
                 }
@@ -1820,6 +2115,22 @@
         .project-link:focus-visible {
             outline: 2px solid #C96A43;
             outline-offset: 4px;
+        }
+
+        .project-link--static {
+            color: #626872;
+            cursor: default;
+        }
+
+        .project-link--static:hover {
+            color: #626872;
+        }
+
+        .project-link__status {
+            color: #C96A43;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.08em;
         }
 
         .project-feature:hover .project-media img,
@@ -3769,10 +4080,17 @@
         }
 
         .project-card .project-media {
-            aspect-ratio: 2.21;
+            aspect-ratio: 16 / 9;
             border: 0;
             border-bottom: 1px solid #D4CFC1;
             background: #171B20;
+        }
+
+        .project-card[data-project="rely"] .project-media,
+        .project-card[data-project="lain"] .project-media,
+        .project-card[data-project="faro"] .project-media,
+        .project-card[data-project="lemon"] .project-media {
+            aspect-ratio: 2.21;
         }
 
         .project-card .project-media::after {
@@ -4326,8 +4644,8 @@
                     </label>
 
                     <div class="capability-tabs" role="group" aria-label="Capacidades de Acelera">
-                        <button class="capability-tab" data-case="rely" type="button" aria-expanded="false"
-                            data-case-copy="En Rely, una plataforma interna conecta clientes, documentos, pagos y obligaciones en una operación trazable."
+                        <button class="capability-tab" data-case="harness" type="button" aria-expanded="false"
+                            data-case-copy="Harness permite definir y sincronizar reglas, herramientas, conocimiento y restricciones para los agentes de IA de cada developer."
                             data-title="Plataformas internas" data-kicker="Información y procesos en un solo lugar"
                             data-copy="Desarrollamos una plataforma propia cuando la operación depende de planillas, mensajes y herramientas desconectadas."
                             data-delivery="Un sistema con usuarios, permisos, trazabilidad y documentación.">
@@ -4429,10 +4747,10 @@
                         </div>
                         <div class="capability-preview__frame">
                             <div class="capability-preview__media" aria-hidden="true">
-                                <img data-capability-poster src="assets/proyectos/rely-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                                <video data-capability-video muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp" aria-label="Demo del proyecto Rely">
-                                    <source data-capability-source-webm src="assets/proyectos/rely-demo.webm" type="video/webm">
-                                    <source data-capability-source-mp4 src="assets/proyectos/rely-demo.mp4" type="video/mp4">
+                                <img data-capability-poster src="assets/proyectos/harness-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                                <video data-capability-video muted loop playsinline preload="none" poster="assets/proyectos/harness-poster.webp" aria-label="Demo del proyecto Harness">
+                                    <source data-capability-source-mp4 src="assets/proyectos/harness-demo.mp4?v=20260727-2" type="video/mp4">
+                                    <source data-capability-source-webm src="assets/proyectos/harness-demo.webm?v=20260727-2" type="video/webm">
                                 </video>
                             </div>
                         </div>
@@ -4462,7 +4780,7 @@
                         </h2>
                     </div>
                     <p class="projects-heading__copy text-mutedStrong text-lg sm:text-xl font-normal leading-relaxed gsap-reveal">
-                        Desde operaciones societarias y fiscales hasta espacios de trabajo con IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.
+                        Desde operaciones societarias y fiscales hasta plataformas internas para gobernar agentes de IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.
                     </p>
                 </div>
 
@@ -4513,6 +4831,25 @@
                             <ul class="project-signals" aria-label="Aspectos destacados de Lain"><li>Agentes IA</li><li>Memoria por proyecto</li><li>Creación visual</li></ul>
                             <div class="project-footer">
                                 <a class="project-link" href="https://lainagent.com" target="_blank" rel="noopener noreferrer" aria-label="Abrir Lain en una pestaña nueva"><span class="project-link__label">Ver Lain</span><span class="project-link__arrow" aria-hidden="true">↗</span></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card gsap-reveal" data-project="harness">
+                        <div class="project-media">
+                            <img class="project-media__poster" data-project-poster src="assets/proyectos/harness-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/harness-poster.webp" aria-label="Demo de la plataforma Harness">
+                                <source src="assets/proyectos/harness-demo.mp4?v=20260727-2" type="video/mp4">
+                                <source src="assets/proyectos/harness-demo.webm?v=20260727-2" type="video/webm">
+                            </video>
+                        </div>
+                        <div class="project-card__body">
+                            <span class="project-meta">Plataforma interna · Gestión de agentes IA</span>
+                            <h3 class="project-card__title">Harness</h3>
+                            <p class="project-card__copy">Una plataforma para que managers definan reglas, herramientas, conocimiento y zonas restringidas para los agentes de IA de cada developer, sin cambiar Cursor, Claude Code o Codex.</p>
+                            <ul class="project-signals" aria-label="Aspectos destacados de Harness"><li>Perfiles por developer</li><li>Políticas sincronizadas</li><li>Cursor · Claude · Codex</li></ul>
+                            <div class="project-footer">
+                                <span class="project-link project-link--static"><span class="project-link__label">Demo disponible</span><span class="project-link__status" aria-hidden="true">● Video</span></span>
                             </div>
                         </div>
                     </article>
@@ -4970,6 +5307,12 @@
                 const capabilityMedia = capabilityMap.querySelector(".capability-preview__media");
                 const compactSelect = capabilityMap.querySelector("[data-capability-select]");
                 const capabilityCases = {
+                    harness: {
+                        name: "Harness",
+                        poster: "assets/proyectos/harness-poster.webp",
+                        webm: "assets/proyectos/harness-demo.webm?v=20260727-2",
+                        mp4: "assets/proyectos/harness-demo.mp4?v=20260727-2"
+                    },
                     rely: {
                         name: "Rely",
                         poster: "assets/proyectos/rely-poster.webp",
