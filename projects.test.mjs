@@ -15,10 +15,10 @@ const projectCard = (slug) => projectsSection?.match(
   new RegExp(`<article[^>]*data-project="${slug}"[\\s\\S]*?<\\/article>`),
 )?.[0];
 
-test("features four Acelera projects with equal card treatment", () => {
+test("features five Acelera projects with equal card treatment", () => {
   assert.ok(projectsSection, "The projects section should exist");
 
-  const projects = ["rely", "lain", "faro", "lemon"];
+  const projects = ["rely", "lain", "harness", "faro", "lemon"];
   let previousIndex = -1;
   for (const project of projects) {
     const index = projectsSection.indexOf(`data-project="${project}"`);
@@ -68,7 +68,7 @@ test("lands on the project overview and cards when navigating to the projects se
 });
 
 test("keeps project cards under the Acelera brand without personal credits", () => {
-  for (const project of ["rely", "lain", "faro", "lemon"]) {
+  for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
     assert.match(projectCard(project), /class="project-footer"/);
     assert.match(projectCard(project), /class="project-link__label"/);
   }
@@ -91,10 +91,11 @@ test("links every public project to a real destination", () => {
     const escapedUrl = url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     assert.match(projectCard(project), new RegExp(`href="${escapedUrl}\\/?"[\\s\\S]*?target="_blank"[\\s\\S]*?rel="noopener noreferrer"`));
   }
+  assert.doesNotMatch(projectCard("harness"), /href=/);
 });
 
 test("keeps a poster layer visible until every project video is ready", () => {
-  for (const project of ["rely", "lain", "faro", "lemon"]) {
+  for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
     const card = projectCard(project);
     assert.match(card, new RegExp(`<img[^>]*data-project-poster[^>]*src="assets/proyectos/${project}-poster\\.webp"[^>]*alt=""`));
     assert.match(card, /<video[^>]*data-project-video[^>]*autoplay[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
@@ -108,14 +109,14 @@ test("keeps a poster layer visible until every project video is ready", () => {
   assert.match(indexHtml, /media\?\.classList\.add\("is-video-ready"\)/);
 });
 
-test("maps all capability pills to one of the four featured cases", () => {
+test("maps all capability pills to one of the five featured cases", () => {
   assert.ok(capabilitiesSection, "The capabilities section should exist");
-  const mappings = [...capabilitiesSection.matchAll(/class="capability-tab"[^>]*data-case="(rely|lain|faro|lemon)"/g)]
+  const mappings = [...capabilitiesSection.matchAll(/class="capability-tab"[^>]*data-case="(harness|rely|lain|faro|lemon)"/g)]
     .map((match) => match[1]);
 
   assert.equal(mappings.length, 12);
   assert.deepEqual(mappings, [
-    "rely", "lain", "lemon", "lain", "faro", "faro",
+    "harness", "lain", "lemon", "lain", "faro", "faro",
     "rely", "lain", "lemon", "lain", "rely", "rely",
   ]);
   assert.match(capabilitiesSection, /data-capability-poster/);
@@ -128,8 +129,8 @@ test("renders the capability case as an unobstructed layered motion preview", ()
   assert.match(capabilitiesSection, /capability-preview__layer--middle/);
   assert.match(capabilitiesSection, /<img[^>]*data-capability-poster/);
   assert.match(capabilitiesSection, /<video[^>]*data-capability-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
-  assert.match(capabilitiesSection, /data-capability-source-webm[^>]*rely-demo\.webm/);
-  assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*rely-demo\.mp4/);
+  assert.match(capabilitiesSection, /data-capability-source-webm[^>]*harness-demo\.webm/);
+  assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*harness-demo\.mp4/);
   assert.doesNotMatch(capabilitiesSection, /capability-preview__overlay/);
   assert.doesNotMatch(capabilitiesSection, /data-capability-label/);
   assert.doesNotMatch(capabilitiesSection, /data-capability-project/);
@@ -228,7 +229,7 @@ test("masks private network details in the Lemon demo", async () => {
   assert.match(captureSource, /element\.value\s*=\s*"Red local"/);
 });
 
-test("provides English copy for the four-project story", () => {
+test("provides English copy for the five-project story", () => {
   for (const translation of [
     "Software already solving",
     "real problems.",
@@ -236,6 +237,8 @@ test("provides English copy for the four-project story", () => {
     "View Lain",
     "View Faro",
     "View project",
+    "Internal platform · AI agent management",
+    "Video demo",
     "A project for Lemon",
     "Connected hardware",
     "Featured projects",
@@ -248,7 +251,7 @@ test("provides English copy for the four-project story", () => {
 
 test("translates each project's case-specific capability copy", () => {
   for (const translation of [
-    "In Rely, an internal platform connects",
+    "Harness lets teams define and sync rules",
     "Lain turned a product idea into",
     "Faro turns scattered public information into",
     "Lemon Box integrates firmware",

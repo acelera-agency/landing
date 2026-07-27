@@ -110,7 +110,7 @@
         "IA sobre tus datos": "AI on your data",
         "Backends y servicios": "Backends and services",
         "Portales y autogestión": "Portals and self-service",
-        "En Rely, una plataforma interna conecta clientes, documentos, pagos y obligaciones en una operación trazable.": "In Rely, an internal platform connects clients, documents, payments and obligations in a traceable operation.",
+        "Harness permite definir y sincronizar reglas, herramientas, conocimiento y restricciones para los agentes de IA de cada developer.": "Harness lets teams define and sync rules, tools, knowledge and restrictions for each developer's AI agents.",
         "Lain convirtió una idea de producto en un workspace de IA que ya puede ser usado y validado por personas reales.": "Lain turned a product idea into an AI workspace that real people can already use and validate.",
         "Lemon Box integra firmware, interfaz táctil y una herramienta de configuración para operar el dispositivo.": "Lemon Box integrates firmware, a touch interface and a configuration tool to operate the device.",
         "Lain combina una aplicación web responsive con herramientas de creación asistida y contexto persistente.": "Lain combines a responsive web application with assisted creation tools and persistent context.",
@@ -218,7 +218,7 @@
         "Proyecto siguiente": "Next project",
         "Software que ya está resolviendo": "Software already solving",
         "problemas reales.": "real problems.",
-        "Desde operaciones societarias y fiscales hasta espacios de trabajo con IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.": "From company and tax operations to AI workspaces and public data analysis. In every case, we turn a complex problem into a usable, traceable product built to evolve.",
+        "Desde operaciones societarias y fiscales hasta plataformas internas para gobernar agentes de IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.": "From company and tax operations to internal platforms for governing AI agents and public data analysis. In every case, we turn a complex problem into a usable, traceable product built to evolve.",
         "Plataforma operativa · Fintech / Legaltech": "Operational platform · Fintech / Legaltech",
         "Rely: plataforma para formar y administrar LLCs": "Rely: platform for forming and operating LLCs",
         "Rely: flujo operativo desde la formación hasta el compliance": "Rely: operational flow from formation through compliance",
@@ -243,6 +243,14 @@
         "Un espacio de trabajo con IA que reúne conversación, creación de interfaces, memoria por proyecto, estudio guiado y herramientas para construir sin perder contexto.": "An AI workspace that brings together conversation, interface creation, project memory, guided learning and building tools without losing context.",
         "Abrir Lain en una pestaña nueva": "Open Lain in a new tab",
         "Ver Lain": "View Lain",
+        "Plataforma interna · Gestión de agentes IA": "Internal platform · AI agent management",
+        "Una plataforma para que managers definan reglas, herramientas, conocimiento y zonas restringidas para los agentes de IA de cada developer, sin cambiar Cursor, Claude Code o Codex.": "A platform where managers define rules, tools, knowledge and restricted areas for each developer's AI agents without changing Cursor, Claude Code or Codex.",
+        "Aspectos destacados de Harness": "Harness highlights",
+        "Perfiles por developer": "Profiles by developer",
+        "Políticas sincronizadas": "Synchronized policies",
+        "Demo disponible": "Video demo",
+        "Demo de la plataforma Harness": "Harness platform demo",
+        "Demo del proyecto Harness": "Harness project demo",
         "Abrir Faro en una pestaña nueva": "Open Faro in a new tab",
         "Ver Faro": "View Faro",
         "Datos públicos · Inteligencia territorial": "Public data · Territorial intelligence",
@@ -490,7 +498,7 @@
         if (!active) return;
         const values = {
             "[data-capability-kicker]": active.dataset.title,
-            "[data-capability-project]": ({ rely: "Rely", lain: "Lain", faro: "Faro", lemon: "Lemon Box" })[active.dataset.case],
+            "[data-capability-project]": ({ harness: "Harness", rely: "Rely", lain: "Lain", faro: "Faro", lemon: "Lemon Box" })[active.dataset.case],
             "[data-capability-copy]": active.dataset.caseCopy
         };
         Object.entries(values).forEach(([selector, value]) => {

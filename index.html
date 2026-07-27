@@ -1822,6 +1822,22 @@
             outline-offset: 4px;
         }
 
+        .project-link--static {
+            color: #626872;
+            cursor: default;
+        }
+
+        .project-link--static:hover {
+            color: #626872;
+        }
+
+        .project-link__status {
+            color: #C96A43;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.08em;
+        }
+
         .project-feature:hover .project-media img,
         .project-compact:hover .project-media img {
             transform: scale(1.025);
@@ -4326,8 +4342,8 @@
                     </label>
 
                     <div class="capability-tabs" role="group" aria-label="Capacidades de Acelera">
-                        <button class="capability-tab" data-case="rely" type="button" aria-expanded="false"
-                            data-case-copy="En Rely, una plataforma interna conecta clientes, documentos, pagos y obligaciones en una operación trazable."
+                        <button class="capability-tab" data-case="harness" type="button" aria-expanded="false"
+                            data-case-copy="Harness permite definir y sincronizar reglas, herramientas, conocimiento y restricciones para los agentes de IA de cada developer."
                             data-title="Plataformas internas" data-kicker="Información y procesos en un solo lugar"
                             data-copy="Desarrollamos una plataforma propia cuando la operación depende de planillas, mensajes y herramientas desconectadas."
                             data-delivery="Un sistema con usuarios, permisos, trazabilidad y documentación.">
@@ -4429,10 +4445,10 @@
                         </div>
                         <div class="capability-preview__frame">
                             <div class="capability-preview__media" aria-hidden="true">
-                                <img data-capability-poster src="assets/proyectos/rely-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                                <video data-capability-video muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp" aria-label="Demo del proyecto Rely">
-                                    <source data-capability-source-webm src="assets/proyectos/rely-demo.webm" type="video/webm">
-                                    <source data-capability-source-mp4 src="assets/proyectos/rely-demo.mp4" type="video/mp4">
+                                <img data-capability-poster src="assets/proyectos/harness-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                                <video data-capability-video muted loop playsinline preload="metadata" poster="assets/proyectos/harness-poster.webp" aria-label="Demo del proyecto Harness">
+                                    <source data-capability-source-webm src="assets/proyectos/harness-demo.webm" type="video/webm">
+                                    <source data-capability-source-mp4 src="assets/proyectos/harness-demo.mp4" type="video/mp4">
                                 </video>
                             </div>
                         </div>
@@ -4462,7 +4478,7 @@
                         </h2>
                     </div>
                     <p class="projects-heading__copy text-mutedStrong text-lg sm:text-xl font-normal leading-relaxed gsap-reveal">
-                        Desde operaciones societarias y fiscales hasta espacios de trabajo con IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.
+                        Desde operaciones societarias y fiscales hasta plataformas internas para gobernar agentes de IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.
                     </p>
                 </div>
 
@@ -4513,6 +4529,25 @@
                             <ul class="project-signals" aria-label="Aspectos destacados de Lain"><li>Agentes IA</li><li>Memoria por proyecto</li><li>Creación visual</li></ul>
                             <div class="project-footer">
                                 <a class="project-link" href="https://lainagent.com" target="_blank" rel="noopener noreferrer" aria-label="Abrir Lain en una pestaña nueva"><span class="project-link__label">Ver Lain</span><span class="project-link__arrow" aria-hidden="true">↗</span></a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="project-card gsap-reveal" data-project="harness">
+                        <div class="project-media">
+                            <img class="project-media__poster" data-project-poster src="assets/proyectos/harness-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                            <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/harness-poster.webp" aria-label="Demo de la plataforma Harness">
+                                <source src="assets/proyectos/harness-demo.webm" type="video/webm">
+                                <source src="assets/proyectos/harness-demo.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="project-card__body">
+                            <span class="project-meta">Plataforma interna · Gestión de agentes IA</span>
+                            <h3 class="project-card__title">Harness</h3>
+                            <p class="project-card__copy">Una plataforma para que managers definan reglas, herramientas, conocimiento y zonas restringidas para los agentes de IA de cada developer, sin cambiar Cursor, Claude Code o Codex.</p>
+                            <ul class="project-signals" aria-label="Aspectos destacados de Harness"><li>Perfiles por developer</li><li>Políticas sincronizadas</li><li>Cursor · Claude · Codex</li></ul>
+                            <div class="project-footer">
+                                <span class="project-link project-link--static"><span class="project-link__label">Demo disponible</span><span class="project-link__status" aria-hidden="true">● Video</span></span>
                             </div>
                         </div>
                     </article>
@@ -4970,6 +5005,12 @@
                 const capabilityMedia = capabilityMap.querySelector(".capability-preview__media");
                 const compactSelect = capabilityMap.querySelector("[data-capability-select]");
                 const capabilityCases = {
+                    harness: {
+                        name: "Harness",
+                        poster: "assets/proyectos/harness-poster.webp",
+                        webm: "assets/proyectos/harness-demo.webm",
+                        mp4: "assets/proyectos/harness-demo.mp4"
+                    },
                     rely: {
                         name: "Rely",
                         poster: "assets/proyectos/rely-poster.webp",
