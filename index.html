@@ -4091,6 +4091,10 @@
             background: #171B20;
         }
 
+        .project-card[data-media-format="panoramic"] .project-media {
+            aspect-ratio: 2.21 / 1;
+        }
+
         .project-card .project-media::after {
             content: "";
             position: absolute;
@@ -4852,7 +4856,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card gsap-reveal" data-project="faro">
+                    <article class="project-card gsap-reveal" data-project="faro" data-media-format="panoramic">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/faro-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
                             <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/faro-poster.webp" aria-label="Demo del explorador de obra pública Faro">
@@ -4871,7 +4875,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card gsap-reveal" data-project="lemon">
+                    <article class="project-card gsap-reveal" data-project="lemon" data-media-format="panoramic">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/lemon-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
                             <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/lemon-poster.webp" aria-label="Demo de Lemon Box y su entorno de configuración">

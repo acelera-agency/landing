@@ -77,7 +77,15 @@ async function inspectViewport(width, height) {
     overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
     cards: [...document.querySelectorAll(".project-card")].map((card) => {
       const rect = card.getBoundingClientRect();
-      return { left: Math.round(rect.left), right: Math.round(rect.right), top: Math.round(rect.top), width: Math.round(rect.width) };
+      const mediaRect = card.querySelector(".project-media").getBoundingClientRect();
+      return {
+        project: card.dataset.project,
+        left: Math.round(rect.left),
+        right: Math.round(rect.right),
+        top: Math.round(rect.top),
+        width: Math.round(rect.width),
+        mediaRatio: Number((mediaRect.width / mediaRect.height).toFixed(2)),
+      };
     }),
     viewport: (() => {
       const element = document.querySelector(".projects-carousel__viewport");
@@ -90,6 +98,12 @@ async function inspectViewport(width, height) {
   assert.equal(layout.overflow, 0, `${width}px should not overflow horizontally`);
   assert.equal(layout.cards.length, 5, `${width}px should render five project cards`);
   assert.equal(new Set(layout.cards.map(({ top }) => top)).size, 1, `${width}px should render one horizontal rail`);
+  const mediaRatios = Object.fromEntries(layout.cards.map(({ project, mediaRatio }) => [project, mediaRatio]));
+  assert.deepEqual(
+    mediaRatios,
+    { rely: 1.78, lain: 1.78, harness: 1.78, faro: 2.21, lemon: 2.21 },
+    `${width}px should use the source-appropriate format for every project`,
+  );
   const visibleCards = layout.cards.filter(({ left, right }) => left >= layout.viewport.left - 1 && right <= layout.viewport.right + 1);
   const expectedVisibleCards = width >= 768 ? 2 : 1;
   assert.equal(visibleCards.length, expectedVisibleCards, `${width}px should show ${expectedVisibleCards} project card(s)`);
