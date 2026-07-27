@@ -43,6 +43,9 @@
                     "@type": "Organization",
                     "@id": "https://www.acelera.agency/#organization",
                     "name": "Acelera",
+                    "alternateName": "Acelera Agency",
+                    "description": "Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.",
+                    "slogan": "IA con sentido, donde el negocio lo pide",
                     "url": "https://www.acelera.agency/",
                     "logo": {
                         "@type": "ImageObject",
@@ -58,26 +61,42 @@
                         "addressLocality": "Buenos Aires",
                         "addressCountry": "AR"
                     },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    },
+                    "knowsAbout": [
+                        "Desarrollo de software a medida",
+                        "Plataformas internas",
+                        "MVPs y productos",
+                        "Software operativo",
+                        "Web y mobile",
+                        "Dashboards y BI",
+                        "Pipelines de datos",
+                        "Integraciones y APIs",
+                        "Agentes IA",
+                        "Automatizaciones",
+                        "IA sobre tus datos",
+                        "Backends y servicios",
+                        "Portales y autogestión"
+                    ],
                     "sameAs": [
                         "https://www.linkedin.com/company/acelera-agency"
                     ],
                     "founder": [
                         {
-                            "@type": "Person",
-                            "name": "Ignacio Estevo",
-                            "sameAs": "https://www.linkedin.com/in/ignacio-estevo/"
+                            "@id": "https://www.acelera.agency/#ignacio-estevo"
                         },
                         {
-                            "@type": "Person",
-                            "name": "Mauro Proto",
-                            "sameAs": "https://www.linkedin.com/in/mauroprotocassina/"
+                            "@id": "https://www.acelera.agency/#mauro-proto"
                         },
                         {
-                            "@type": "Person",
-                            "name": "Franco Ferreira",
-                            "sameAs": "https://www.linkedin.com/in/franco-ferreira/"
+                            "@id": "https://www.acelera.agency/#franco-ferreira"
                         }
                     ],
+                    "hasOfferCatalog": {
+                        "@id": "https://www.acelera.agency/#services"
+                    },
                     "contactPoint": {
                         "@type": "ContactPoint",
                         "contactType": "sales",
@@ -87,12 +106,288 @@
                     }
                 },
                 {
+                    "@type": "Person",
+                    "@id": "https://www.acelera.agency/#ignacio-estevo",
+                    "name": "Ignacio Estevo",
+                    "jobTitle": "Ingeniería de software",
+                    "sameAs": "https://www.linkedin.com/in/ignacio-estevo/",
+                    "worksFor": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "Person",
+                    "@id": "https://www.acelera.agency/#mauro-proto",
+                    "name": "Mauro Proto",
+                    "jobTitle": "IA y producto",
+                    "sameAs": "https://www.linkedin.com/in/mauroprotocassina/",
+                    "worksFor": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "Person",
+                    "@id": "https://www.acelera.agency/#franco-ferreira",
+                    "name": "Franco Ferreira",
+                    "jobTitle": "Procesos y datos",
+                    "sameAs": "https://www.linkedin.com/in/franco-ferreira/",
+                    "worksFor": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "OfferCatalog",
+                    "@id": "https://www.acelera.agency/#services",
+                    "name": "Qué desarrollamos",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-custom-software"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-operational-software"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-product-teams"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-internal-platforms"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-integrations"
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@id": "https://www.acelera.agency/#service-ai-agents"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-custom-software",
+                    "name": "Desarrollo a medida para empresas",
+                    "serviceType": "Desarrollo de software a medida",
+                    "description": "Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-operational-software",
+                    "name": "Software para procesos operativos",
+                    "serviceType": "Software para procesos operativos",
+                    "description": "Herramientas internas e integraciones para reemplazar procesos manuales por un sistema propio.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-product-teams",
+                    "name": "Desarrollo junto a equipos de producto",
+                    "serviceType": "Desarrollo junto a equipos de producto",
+                    "description": "Tomamos una parte concreta del producto y la llevamos a producción junto al equipo interno.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-internal-platforms",
+                    "name": "Plataformas internas",
+                    "serviceType": "Plataformas internas",
+                    "description": "Desarrollamos una plataforma propia cuando la operación depende de planillas, mensajes y herramientas desconectadas.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-integrations",
+                    "name": "Integraciones y APIs",
+                    "serviceType": "Integraciones y APIs",
+                    "description": "Integramos CRM, ERP, WhatsApp, bases de datos y herramientas internas para evitar cargas duplicadas.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://www.acelera.agency/#service-ai-agents",
+                    "name": "Agentes IA",
+                    "serviceType": "Agentes de inteligencia artificial",
+                    "description": "Desarrollamos asistentes que consultan información y ejecutan tareas concretas con permisos y revisión humana.",
+                    "provider": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "areaServed": {
+                        "@type": "Country",
+                        "name": "Argentina"
+                    }
+                },
+                {
                     "@type": "WebSite",
                     "@id": "https://www.acelera.agency/#website",
                     "url": "https://www.acelera.agency/",
                     "name": "Acelera",
-                    "inLanguage": "es-AR",
+                    "alternateName": "Acelera Agency",
+                    "inLanguage": ["es-AR", "en"],
                     "publisher": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "WebPage",
+                    "@id": "https://www.acelera.agency/#webpage",
+                    "url": "https://www.acelera.agency/",
+                    "name": "Acelera | IA con sentido, donde el negocio lo pide",
+                    "description": "Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.",
+                    "inLanguage": "es-AR",
+                    "isPartOf": {
+                        "@id": "https://www.acelera.agency/#website"
+                    },
+                    "about": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    },
+                    "mainEntity": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "ItemList",
+                    "@id": "https://www.acelera.agency/#projects",
+                    "name": "Software que ya está resolviendo problemas reales.",
+                    "numberOfItems": 5,
+                    "itemListOrder": "https://schema.org/ItemListOrderAscending",
+                    "mainEntityOfPage": {
+                        "@id": "https://www.acelera.agency/#webpage"
+                    },
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-rely"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-lain"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 3,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-harness"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 4,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-faro"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 5,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-lemon-box"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-rely",
+                    "name": "Rely",
+                    "description": "Una plataforma para que founders internacionales formen y administren una LLC, conectando clientes, operación interna, documentos, pagos y obligaciones fiscales.",
+                    "url": "https://rely.business",
+                    "image": "https://www.acelera.agency/assets/proyectos/rely-poster.webp",
+                    "creator": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-lain",
+                    "name": "Lain",
+                    "description": "Un espacio de trabajo con IA que reúne conversación, creación de interfaces, memoria por proyecto, estudio guiado y herramientas para construir sin perder contexto.",
+                    "url": "https://lainagent.com",
+                    "image": "https://www.acelera.agency/assets/proyectos/lain-poster.webp",
+                    "creator": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-harness",
+                    "name": "Harness",
+                    "description": "Una plataforma para que managers definan reglas, herramientas, conocimiento y zonas restringidas para los agentes de IA de cada developer, sin cambiar Cursor, Claude Code o Codex.",
+                    "image": "https://www.acelera.agency/assets/proyectos/harness-poster.webp",
+                    "creator": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-faro",
+                    "name": "Faro",
+                    "description": "Una plataforma que organiza expedientes de obra pública en un mapa interactivo para explorar señales de revisión y verificar cada caso directamente en su fuente oficial.",
+                    "url": "https://faro-argentina.vercel.app",
+                    "image": "https://www.acelera.agency/assets/proyectos/faro-poster.webp",
+                    "creator": {
+                        "@id": "https://www.acelera.agency/#organization"
+                    }
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-lemon-box",
+                    "name": "Lemon Box",
+                    "description": "Un dispositivo táctil de cuatro pulgadas para visualizar datos y alertas en tiempo real, con Wi-Fi, audio, control local y actualizaciones remotas.",
+                    "url": "https://github.com/frxnnk/lemon-display",
+                    "image": "https://www.acelera.agency/assets/proyectos/lemon-poster.webp",
+                    "creator": {
                         "@id": "https://www.acelera.agency/#organization"
                     }
                 }
