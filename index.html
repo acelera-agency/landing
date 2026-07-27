@@ -4909,14 +4909,14 @@
                     </div>
                 </div>
 
-                <p class="sr-only">Trabajamos con AWS, Claude, ChatGPT, n8n, Cloudflare, Vercel, Hugging Face, ElevenLabs y GitHub, según las necesidades de cada solución.</p>
+                <p class="sr-only">Las tecnologías se eligen según cada solución: AWS, Claude, ChatGPT, n8n, Cloudflare, Vercel, Hugging Face, ElevenLabs y GitHub.</p>
 
                 <div class="method-story" data-method-story>
                     <div class="method-copy">
                         <article class="method-step is-active" data-method-step="0">
                             <div class="method-step__panel">
                                 <div class="method-step__header flex items-center justify-between gap-4">
-                                    <span class="method-step__meta">Diagnóstico</span>
+                                    <span class="method-step__meta">Entender</span>
                                     <span class="method-step__number">01 / 04</span>
                                 </div>
                                 <h3 class="method-step__title">Definimos el problema antes de construir</h3>
@@ -4964,7 +4964,7 @@
                                 <canvas data-method-canvas aria-hidden="true"></canvas>
                                 <span class="method-scene__tech-caption">Tecnología que respalda nuestros desarrollos</span>
                                 <div class="method-scene__fallback" aria-hidden="true">
-                                    <span>01 · Diagnóstico</span>
+                                    <span>01 · Entender</span>
                                     <span>02 · Diseño</span>
                                     <span>03 · Construcción</span>
                                     <span>04 · Producción</span>
@@ -5095,7 +5095,7 @@
                                     ¿Cuánto tiempo lleva un proyecto?
                                     <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
                                 </summary>
-                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Depende del alcance. El diagnóstico suele llevar una semana y una primera versión entre dos y seis semanas. Antes de empezar acordamos etapas, entregables y fechas.</p>
+                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Depende del alcance. La primera etapa suele llevar una semana y una primera versión entre dos y seis semanas. Antes de empezar acordamos etapas, entregables y fechas.</p>
                             </details>
                             <details class="faq-item">
                                 <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 font-serif text-lg md:text-xl font-semibold text-ink tracking-tight leading-snug">
@@ -5123,7 +5123,7 @@
                                     ¿Cómo eligen las tecnologías?
                                     <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
                                 </summary>
-                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Primero definimos qué hace falta construir. Después elegimos la tecnología adecuada. Trabajamos con AWS, React, Node.js, Python, PostgreSQL, Anthropic, OpenAI y otras plataformas según el proyecto.</p>
+                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Primero definimos qué hace falta construir. La arquitectura se decide según el producto, las integraciones, el costo operativo y el equipo que va a mantenerlo. AWS, React, Node.js, Python, PostgreSQL y modelos de Anthropic u OpenAI son algunas opciones, no una lista obligatoria.</p>
                             </details>
                             <details class="faq-item">
                                 <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 font-serif text-lg md:text-xl font-semibold text-ink tracking-tight leading-snug">
@@ -6183,9 +6183,9 @@
                         return layer;
                     };
 
-                    const diagnosticLayer = createLayer({
+                    const understandingLayer = createLayer({
                         role: "frame-top",
-                        kicker: "01 · Diagnóstico",
+                        kicker: "01 · Entender",
                         title: "Problema definido",
                         copy: "Proceso, usuarios y criterio de éxito acordados.",
                         width: 7.35, height: 1.14, x: 0, y: 2.12, start: 0, end: 0, step: 0
@@ -6302,7 +6302,7 @@
                             const isFrame = layer.role === "frame-top" || layer.role === "frame-bottom";
                             const reveal = isFrame ? 1 : smooth(layer.start, layer.end, progress);
                             let targetY = layer.y;
-                            if (layer === diagnosticLayer) targetY = mix(0.64, layer.y, split);
+                            if (layer === understandingLayer) targetY = mix(0.64, layer.y, split);
                             if (layer === productionLayer) {
                                 targetY = mix(-0.64, -1.78, split);
                                 targetY = mix(targetY, layer.y, baseOpen);

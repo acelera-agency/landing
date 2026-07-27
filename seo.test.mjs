@@ -10,7 +10,7 @@ const servicePages = [
     route: "/desarrollo-software-a-medida",
     title: "Desarrollo de software a medida en Argentina | Acelera",
     description:
-      "Desarrollamos software y aplicaciones con IA a medida para empresas en Argentina. Del diagnóstico a producción, con código, documentación y control.",
+      "Desarrollamos software y aplicaciones con IA a medida para empresas en Argentina. Del problema a producción, con código, documentación y control.",
     h1: "Desarrollo de software a medida para empresas",
     serviceType: "Desarrollo de software a medida",
   },
@@ -187,6 +187,39 @@ test("publishes a concise machine-readable guide without inventing a second cont
   for (const page of servicePages) {
     assert.match(llms, new RegExp(`${canonicalOrigin.replaceAll(".", "\\.")}${page.route}`));
   }
+});
+
+test("answers the applications-with-AI intent in the final visible FAQ", async () => {
+  const html = await read("desarrollo-software-a-medida.html");
+  const visibleHtml = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, "");
+
+  assert.match(
+    visibleHtml,
+    /<details>\s*<summary>¿Desarrollan aplicaciones con IA\?<\/summary>\s*<p>Sí\. Acelera diseña y desarrolla aplicaciones web, plataformas internas y productos digitales que incorporan IA cuando resuelve una necesidad concreta\.[\s\S]*?<\/p>\s*<\/details>\s*<\/div>\s*<\/section>/,
+  );
+  assert.match(visibleHtml, /agentes, automatizaciones, integraciones o funciones sobre datos propios/);
+  assert.match(visibleHtml, /permisos, evaluación y revisión humana/);
+});
+
+test("uses direct language instead of diagnosis and generic work-with phrasing", async () => {
+  const publicFiles = [
+    "index.html",
+    "desarrollo-software-a-medida.html",
+    "plataformas-internas.html",
+    "agentes-ia-empresas.html",
+    "consultoria-ia-empresas.html",
+    "assets/i18n.js",
+  ];
+
+  for (const file of publicFiles) {
+    const content = await read(file);
+    assert.doesNotMatch(content, /diagn[oó]stico/i, `${file} should avoid diagnosis wording`);
+    assert.doesNotMatch(content, /trabajamos con/i, `${file} should avoid generic work-with wording`);
+  }
+
+  const home = await read("index.html");
+  assert.match(home, /<span class="method-step__meta">Entender<\/span>/);
+  assert.match(home, /La arquitectura se decide según el producto, las integraciones, el costo operativo y el equipo que va a mantenerlo\./);
 });
 
 test("keeps repetitive service-page footer copy out of result snippets", async () => {
