@@ -4091,8 +4091,18 @@
             background: #171B20;
         }
 
-        .project-card[data-media-format="panoramic"] .project-media {
-            aspect-ratio: 2.21 / 1;
+        .project-card[data-project="faro"] {
+            --project-media-focus-x: 25%;
+        }
+
+        .project-card[data-project="lemon"] {
+            --project-media-focus-x: 0%;
+        }
+
+        .project-card[data-media-crop="panoramic-cover"] .project-media > video,
+        .project-card[data-media-crop="panoramic-cover"] .project-media > .project-media__poster {
+            transform: scale(1.25);
+            transform-origin: var(--project-media-focus-x, 50%) 50%;
         }
 
         .project-card .project-media::after {
@@ -4856,7 +4866,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card gsap-reveal" data-project="faro" data-media-format="panoramic">
+                    <article class="project-card gsap-reveal" data-project="faro" data-media-crop="panoramic-cover">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/faro-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
                             <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/faro-poster.webp" aria-label="Demo del explorador de obra pública Faro">
@@ -4875,7 +4885,7 @@
                         </div>
                     </article>
 
-                    <article class="project-card gsap-reveal" data-project="lemon" data-media-format="panoramic">
+                    <article class="project-card gsap-reveal" data-project="lemon" data-media-crop="panoramic-cover">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/lemon-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
                             <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/lemon-poster.webp" aria-label="Demo de Lemon Box y su entorno de configuración">

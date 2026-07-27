@@ -111,11 +111,13 @@ test("keeps a poster layer visible until every project video is ready", () => {
     "Harness should prefer the verified source MP4 before its WebM fallback",
   );
   assert.match(indexHtml, /\.project-card \.project-media\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/);
-  assert.match(indexHtml, /\.project-card\[data-media-format="panoramic"\] \.project-media\s*\{[^}]*aspect-ratio:\s*2\.21\s*\/\s*1/);
-  assert.match(projectCard("faro"), /data-media-format="panoramic"/);
-  assert.match(projectCard("lemon"), /data-media-format="panoramic"/);
+  assert.match(indexHtml, /\.project-card\[data-media-crop="panoramic-cover"\][\s\S]*?transform:\s*scale\(1\.25\)/);
+  assert.match(indexHtml, /data-project="faro"[\s\S]*?--project-media-focus-x:\s*25%/);
+  assert.match(indexHtml, /data-project="lemon"[\s\S]*?--project-media-focus-x:\s*0%/);
+  assert.match(projectCard("faro"), /data-media-crop="panoramic-cover"/);
+  assert.match(projectCard("lemon"), /data-media-crop="panoramic-cover"/);
   for (const project of ["rely", "lain", "harness"]) {
-    assert.doesNotMatch(projectCard(project), /data-media-format=/);
+    assert.doesNotMatch(projectCard(project), /data-media-crop=/);
   }
   assert.match(indexHtml, /\.project-media\.is-video-ready \.project-media__poster\s*\{[^}]*opacity:\s*0/);
   assert.match(indexHtml, /video\.currentTime\s*>=\s*0\.25/);

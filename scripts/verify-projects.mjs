@@ -101,8 +101,8 @@ async function inspectViewport(width, height) {
   const mediaRatios = Object.fromEntries(layout.cards.map(({ project, mediaRatio }) => [project, mediaRatio]));
   assert.deepEqual(
     mediaRatios,
-    { rely: 1.78, lain: 1.78, harness: 1.78, faro: 2.21, lemon: 2.21 },
-    `${width}px should use the source-appropriate format for every project`,
+    { rely: 1.78, lain: 1.78, harness: 1.78, faro: 1.78, lemon: 1.78 },
+    `${width}px should keep every project box at the same 16:9 format`,
   );
   const visibleCards = layout.cards.filter(({ left, right }) => left >= layout.viewport.left - 1 && right <= layout.viewport.right + 1);
   const expectedVisibleCards = width >= 768 ? 2 : 1;
