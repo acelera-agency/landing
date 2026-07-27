@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caso Faro: plataforma de datos públicos | Acelera</title>
+  <meta name="description" content="Cómo integrantes de Acelera y colaboradores construyeron Faro: datos públicos convertidos en expedientes verificables, con fuentes y trazabilidad.">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://www.acelera.agency/casos/faro">
+  <meta name="theme-color" content="#f7f5f0">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Acelera">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:title" content="Caso Faro: plataforma de datos públicos | Acelera">
+  <meta property="og:description" content="De fuentes oficiales dispersas a expedientes verificables con Explorer, mapa, receipts y límites explícitos.">
+  <meta property="og:url" content="https://www.acelera.agency/casos/faro">
+  <meta property="og:image" content="https://www.acelera.agency/assets/proyectos/faro-hero.png">
+  <meta property="article:published_time" content="2026-07-27">
+  <meta property="article:modified_time" content="2026-07-27">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Caso Faro: plataforma de datos públicos | Acelera">
+  <meta name="twitter:description" content="Un caso verificable de producto, ingeniería de datos y trazabilidad sobre fuentes públicas.">
+  <meta name="twitter:image" content="https://www.acelera.agency/assets/proyectos/faro-hero.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/service-pages.css?v=20260727-2">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.acelera.agency/#organization",
+        "name": "Acelera",
+        "alternateName": "Acelera Agency",
+        "url": "https://www.acelera.agency/",
+        "logo": "https://www.acelera.agency/assets/acelera-wordmark.png",
+        "sameAs": [
+          "https://www.linkedin.com/company/acelera-agency",
+          "https://github.com/acelera-agency"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.acelera.agency/#website",
+        "url": "https://www.acelera.agency/",
+        "name": "Acelera",
+        "publisher": {"@id": "https://www.acelera.agency/#organization"},
+        "inLanguage": "es-AR"
+      },
+      {
+        "@type": "CreativeWork",
+        "@id": "https://www.acelera.agency/casos/faro#project",
+        "name": "Faro",
+        "description": "Plataforma que convierte datos oficiales de gasto público en expedientes verificables con Explorer, mapa, fuentes, receipts, caveats e informes exportables.",
+        "url": "https://faro-argentina.vercel.app",
+        "image": [
+          "https://www.acelera.agency/assets/proyectos/faro-hero.png",
+          "https://www.acelera.agency/assets/proyectos/faro-mapa.png",
+          "https://www.acelera.agency/assets/proyectos/faro-expediente.jpg"
+        ],
+        "award": "Ganador del track Transparencia y Corrupción de Hack@LATAM",
+        "sameAs": [
+          "https://faro-argentina.vercel.app",
+          "https://github.com/NachoEstevo/Faro-Argentina"
+        ],
+        "contributor": [
+          {
+            "@type": "Person",
+            "name": "Ignacio Estevo",
+            "sameAs": "https://github.com/NachoEstevo"
+          },
+          {
+            "@type": "Person",
+            "name": "Mauro Proto",
+            "sameAs": "https://github.com/MauroProto"
+          },
+          {
+            "@type": "Person",
+            "name": "Franco Ferreira",
+            "sameAs": "https://www.linkedin.com/in/franco-ferreira/"
+          },
+          {
+            "@type": "Person",
+            "name": "Juan Giorgio",
+            "sameAs": "https://github.com/JuanGiorgio"
+          }
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://www.acelera.agency/casos/faro#article",
+        "headline": "Faro: de datos públicos dispersos a expedientes verificables",
+        "description": "Caso verificable sobre el diseño y desarrollo de Faro por integrantes de Acelera y colaboradores.",
+        "url": "https://www.acelera.agency/casos/faro",
+        "datePublished": "2026-07-27",
+        "dateModified": "2026-07-27",
+        "inLanguage": "es-AR",
+        "image": "https://www.acelera.agency/assets/proyectos/faro-hero.png",
+        "author": {"@id": "https://www.acelera.agency/#organization"},
+        "publisher": {"@id": "https://www.acelera.agency/#organization"},
+        "about": {"@id": "https://www.acelera.agency/casos/faro#project"},
+        "mainEntityOfPage": {"@id": "https://www.acelera.agency/casos/faro#webpage"},
+        "citation": [
+          "https://github.com/NachoEstevo/Faro-Argentina",
+          "https://es.linkedin.com/posts/ai-playgrounds-tech_hack-activity-7465177592455835648-2Asl",
+          "https://www.linkedin.com/in/franco-ferreira/"
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://www.acelera.agency/casos/faro#webpage",
+        "url": "https://www.acelera.agency/casos/faro",
+        "name": "Caso Faro: plataforma de datos públicos | Acelera",
+        "description": "Cómo integrantes de Acelera y colaboradores construyeron Faro: datos públicos convertidos en expedientes verificables, con fuentes y trazabilidad.",
+        "isPartOf": {"@id": "https://www.acelera.agency/#website"},
+        "about": {"@id": "https://www.acelera.agency/casos/faro#project"},
+        "mainEntity": {"@id": "https://www.acelera.agency/casos/faro#article"},
+        "breadcrumb": {"@id": "https://www.acelera.agency/casos/faro#breadcrumb"},
+        "inLanguage": "es-AR"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.acelera.agency/casos/faro#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Inicio",
+            "item": "https://www.acelera.agency/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Faro",
+            "item": "https://www.acelera.agency/casos/faro"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="case-page">
+  <a class="skip-link" href="#contenido">Ir al contenido</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="/" aria-label="Acelera, inicio">Aceler<span>a</span></a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <a href="/#proyectos">Proyectos</a>
+        <a href="/#proceso">Cómo trabajamos</a>
+        <a class="header-cta" href="/#contacto">Hablemos</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="shell service-hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Caso verificable · Datos públicos</p>
+        <h1 id="page-title">Faro: de datos dispersos a expedientes verificables</h1>
+        <p class="hero-lead">Integrantes de Acelera y colaboradores construyeron una plataforma que ordena fuentes oficiales de gasto público, conserva la trazabilidad y deja explícito qué puede afirmarse y qué falta verificar.</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="https://faro-argentina.vercel.app" target="_blank" rel="noopener noreferrer">Abrir Faro ↗</a>
+          <a class="secondary-action" href="#evidencia">Revisar la evidencia ↓</a>
+        </div>
+      </div>
+      <aside class="hero-aside" aria-label="Estado público del caso Faro">
+        <p class="aside-label">Transparencia del caso</p>
+        <p>Proyecto premiado y verificable públicamente.</p>
+        <dl>
+          <div>
+            <dt>Tipo</dt>
+            <dd>Producto del equipo y colaboradores, no caso de cliente.</dd>
+          </div>
+          <div>
+            <dt>Validación</dt>
+            <dd>Ganador del track Transparencia y Corrupción de Hack@LATAM.</dd>
+          </div>
+          <div>
+            <dt>Fuentes</dt>
+            <dd>Plataforma, repositorio y reconocimiento públicos.</dd>
+          </div>
+        </dl>
+      </aside>
+    </section>
+
+    <nav class="shell page-index" aria-label="Contenido de la página">
+      <span>En este caso</span>
+      <a href="#problema">Problema</a>
+      <a href="#solucion">Solución</a>
+      <a href="#criterio">Criterio</a>
+      <a href="#evidencia">Evidencia</a>
+      <a href="#fuentes">Fuentes</a>
+    </nav>
+
+    <section class="shell content-section" id="problema">
+      <div class="section-heading">
+        <p class="section-kicker">El problema</p>
+        <div>
+          <h2>Los datos existen, pero comprobar una pista lleva demasiado trabajo</h2>
+          <p class="section-intro">La información sobre obras, contratos, organismos y proveedores está repartida entre portales, archivos y formatos incompatibles. Encontrar un registro no alcanza: hay que conservar su origen, entender sus límites y poder reproducir el recorrido.</p>
+        </div>
+      </div>
+      <div class="decision-grid">
+        <ul class="signal-list">
+          <li>Una misma investigación obliga a saltar entre portales, CSV, APIs y documentos.</li>
+          <li>Los identificadores, nombres y montos no siempre utilizan el mismo formato.</li>
+          <li>Un contrato o una adjudicación puede confundirse con un pago si no se conserva el contexto.</li>
+          <li>Muchos registros no tienen una geometría oficial suficientemente precisa para mostrarlos en un mapa.</li>
+        </ul>
+        <aside class="decision-note">
+          <p class="aside-label">Objetivo de producto</p>
+          <h3>Reducir la distancia entre una pista y su verificación.</h3>
+          <p>Faro no reemplaza la investigación. Organiza el recorrido para que cada afirmación vuelva a una fuente y muestre sus límites.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="shell content-section" id="solucion">
+      <div class="section-heading">
+        <p class="section-kicker">Lo construido</p>
+        <div>
+          <h2>Un flujo completo desde la búsqueda hasta la evidencia exportable</h2>
+          <p class="section-intro">El producto combina exploración, normalización de datos y trazabilidad. El mapa orienta cuando existe geometría válida; el Explorer mantiene accesibles también los registros que no pueden dibujarse con seguridad.</p>
+        </div>
+      </div>
+      <div class="service-lines">
+        <article class="service-line">
+          <h3>Explorer</h3>
+          <p>Búsqueda por organismo, proveedor, fuente, señal o texto libre para encontrar una pista sin depender del mapa.</p>
+        </article>
+        <article class="service-line">
+          <h3>Expedientes</h3>
+          <p>Cada caso reúne resumen, datos clave, fuentes, límites y próximos pasos de verificación.</p>
+        </article>
+        <article class="service-line">
+          <h3>Receipts</h3>
+          <p>Hashes, rutas, identificadores y versión del parser conservan un rastro técnico reproducible.</p>
+        </article>
+        <article class="service-line">
+          <h3>Evidence packs</h3>
+          <p>El expediente puede exportarse con la matriz de afirmaciones, caveats y checklist investigativo.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-media-section" aria-label="Vistas del producto Faro">
+      <div class="shell case-media-grid">
+        <figure class="case-figure case-figure--wide">
+          <img src="/assets/proyectos/faro-hero.png" alt="Portada de Faro con acceso al mapa y al explorador de datos públicos" width="1400" height="787" loading="lazy" decoding="async">
+          <figcaption>Entrada pública a Faro.</figcaption>
+        </figure>
+        <figure class="case-figure">
+          <img src="/assets/proyectos/faro-mapa.png" alt="Mapa interactivo de Faro con expedientes y filtros territoriales" width="2000" height="1253" loading="lazy" decoding="async">
+          <figcaption>El mapa muestra únicamente geometría que supera los controles de integridad.</figcaption>
+        </figure>
+        <figure class="case-figure">
+          <img src="/assets/proyectos/faro-expediente.jpg" alt="Expediente de Faro con organismo, proveedor, monto, fuente y pasos de verificación" width="2000" height="1255" loading="lazy" decoding="async">
+          <figcaption>El expediente conecta la pista con su fuente y sus límites.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="shell content-section" id="criterio">
+      <div class="section-heading">
+        <p class="section-kicker">Decisión central</p>
+        <div>
+          <h2>Priorizar verificabilidad antes que una conclusión llamativa</h2>
+          <p class="section-intro">En un dominio sensible, la interfaz también define qué afirmaciones parecen válidas. Faro evita puntajes de corrupción o culpabilidad y separa lo sostenido por una fuente, lo parcial y lo que todavía no puede afirmarse.</p>
+        </div>
+      </div>
+      <div class="deliverables">
+        <div>
+          <p class="section-kicker">Regla de producto</p>
+          <h2>Faro no acusa. Muestra dónde mirar.</h2>
+        </div>
+        <div class="deliverables-copy">
+          <p>La trazabilidad no quedó como documentación técnica separada: forma parte del producto que ve y exporta el usuario.</p>
+          <ul class="deliverable-list">
+            <li>Fuente oficial visible para cada registro integrado.</li>
+            <li>Caveats sobre lo que esa fuente no permite concluir.</li>
+            <li>Geometría inválida conservada como brecha, no dibujada como certeza.</li>
+            <li>Matriz de afirmaciones con estados supported, partial y not supported.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="evidence-section" id="evidencia">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="section-kicker">Evidencia pública</p>
+          <div>
+            <h2>Resultados que se pueden revisar en la fuente</h2>
+            <p class="section-intro">La línea base publicada por el repositorio corresponde al snapshot regenerado el 14 de julio de 2026. Son métricas de cobertura técnica, no resultados comerciales.</p>
+          </div>
+        </div>
+        <div class="case-list">
+          <article class="case-row">
+            <p class="case-kicker">Corpus</p>
+            <div>
+              <h3>7.935 registros</h3>
+              <p>Registros y relaciones de Argentina organizados desde seis datasets generados.</p>
+            </div>
+            <a href="https://github.com/NachoEstevo/Faro-Argentina#estado-actual" target="_blank" rel="noopener noreferrer">Ver fuente ↗</a>
+          </article>
+          <article class="case-row">
+            <p class="case-kicker">Trazabilidad</p>
+            <div>
+              <h3>9.634 receipts</h3>
+              <p>Rastros reproducibles con identificadores, hashes, rutas y versión del parser.</p>
+            </div>
+            <a href="https://github.com/NachoEstevo/Faro-Argentina#estado-actual" target="_blank" rel="noopener noreferrer">Ver fuente ↗</a>
+          </article>
+          <article class="case-row">
+            <p class="case-kicker">Mapa prudente</p>
+            <div>
+              <h3>180 expedientes</h3>
+              <p>Casos elegibles para mapa después de aplicar el control de integridad geográfica.</p>
+            </div>
+            <a href="https://github.com/NachoEstevo/Faro-Argentina#estado-actual" target="_blank" rel="noopener noreferrer">Ver fuente ↗</a>
+          </article>
+          <article class="case-row">
+            <p class="case-kicker">Validación externa</p>
+            <div>
+              <h3>Ganador de track</h3>
+              <p>Hack@LATAM reconoció a Faro como ganador del track Transparencia y Corrupción.</p>
+            </div>
+            <a href="https://es.linkedin.com/posts/ai-playgrounds-tech_hack-activity-7465177592455835648-2Asl" target="_blank" rel="noopener noreferrer">Ver anuncio ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell content-section" aria-labelledby="attribution-title">
+      <div class="section-heading">
+        <p class="section-kicker">Atribución</p>
+        <div>
+          <h2 id="attribution-title">Qué participación está documentada</h2>
+          <p class="section-intro">Faro se presenta como un proyecto construido por integrantes del equipo que hoy forma Acelera junto con colaboradores. No se presenta como trabajo exclusivo de la agencia ni como caso de cliente.</p>
+        </div>
+      </div>
+      <div class="decision-grid">
+        <ul class="signal-list">
+          <li>El repositorio público registra contribuciones principales de Ignacio Estevo, Mauro Proto y Juan Giorgio.</li>
+          <li>Franco Ferreira documenta públicamente Faro, su construcción y el reconocimiento obtenido.</li>
+          <li>El organizador publicó de forma independiente el resultado del track.</li>
+          <li>La plataforma y el código pueden revisarse sin depender de afirmaciones de Acelera.</li>
+        </ul>
+        <aside class="decision-note">
+          <p class="aside-label">Límite explícito</p>
+          <h3>No es un caso de cliente.</h3>
+          <p>Demuestra capacidad de producto, datos e ingeniería. No demuestra por sí solo resultados comerciales, ahorro o impacto dentro de una empresa.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="related-section" id="fuentes" aria-labelledby="sources-title">
+      <div class="shell">
+        <div class="related-heading">
+          <h2 id="sources-title">Fuentes para comprobar el caso</h2>
+          <a href="/#proyectos">Volver a proyectos →</a>
+        </div>
+        <div class="related-grid">
+          <a class="related-link" href="https://faro-argentina.vercel.app" target="_blank" rel="noopener noreferrer">
+            <span>Plataforma pública</span>
+            <span>Abrir Faro ↗</span>
+          </a>
+          <a class="related-link" href="https://github.com/NachoEstevo/Faro-Argentina" target="_blank" rel="noopener noreferrer">
+            <span>Repositorio y documentación</span>
+            <span>Revisar código y datos ↗</span>
+          </a>
+          <a class="related-link" href="https://es.linkedin.com/posts/ai-playgrounds-tech_hack-activity-7465177592455835648-2Asl" target="_blank" rel="noopener noreferrer">
+            <span>Reconocimiento externo</span>
+            <span>Ver anuncio oficial ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="shell contact-inner">
+        <div>
+          <h2>¿Tenés datos dispersos que deberían convertirse en una herramienta?</h2>
+          <p>Podemos revisar las fuentes, los usuarios y las decisiones que el sistema necesita sostener antes de definir qué construir.</p>
+        </div>
+        <a class="primary-action" href="/#contacto">Hablar con Acelera</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-main">
+      <div data-nosnippet>
+        <p class="footer-brand">Acelera</p>
+        <p class="footer-copy">Software a medida e inteligencia artificial aplicada a problemas concretos.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <span class="footer-label">Acelera</span>
+          <a href="/#proyectos">Proyectos</a>
+          <a href="/#proceso">Cómo trabajamos</a>
+          <a href="/#equipo">Equipo</a>
+          <a href="/#contacto">Contacto</a>
+        </div>
+        <div>
+          <span class="footer-label">Legal</span>
+          <a href="/privacidad">Privacidad</a>
+          <a href="/terminos">Términos</a>
+        </div>
+      </div>
+    </div>
+    <div class="shell footer-bottom">
+      <span>© 2026 Acelera</span>
+      <span>Buenos Aires, Argentina</span>
+    </div>
+  </footer>
+</body>
+</html>

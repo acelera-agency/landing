@@ -640,6 +640,43 @@ summary:focus-visible {
   color: var(--ink);
 }
 
+.case-page .service-hero h1 {
+  max-width: 15ch;
+  font-size: clamp(3.2rem, 6.5vw, 6.6rem);
+}
+
+.case-media-section {
+  padding-block: clamp(2rem, 5vw, 4rem) clamp(4.5rem, 9vw, 8rem);
+}
+
+.case-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.case-figure {
+  margin: 0;
+  overflow: hidden;
+  background: var(--ink);
+  border-radius: 0.5rem;
+}
+
+.case-figure--wide {
+  grid-column: 1 / -1;
+}
+
+.case-figure img {
+  width: 100%;
+  height: auto;
+}
+
+.case-figure figcaption {
+  padding: 0.9rem 1rem 1rem;
+  color: rgb(247 245 240 / 68%);
+  font-size: 0.78rem;
+}
+
 .contact-section {
   padding-block: clamp(4.5rem, 8vw, 7rem);
   background: var(--accent);
@@ -764,6 +801,14 @@ summary:focus-visible {
 
   .related-grid {
     grid-template-columns: 1fr;
+  }
+
+  .case-media-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .case-figure--wide {
+    grid-column: auto;
   }
 
   .related-link {

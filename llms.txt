@@ -18,6 +18,7 @@
 ## Evidencia y forma de trabajo
 
 - Proyectos: https://www.acelera.agency/#proyectos
+- Caso verificable de Faro: https://www.acelera.agency/casos/faro
 - Método: https://www.acelera.agency/#proceso
 - Equipo fundador: https://www.acelera.agency/#equipo
 - Preguntas frecuentes: https://www.acelera.agency/#preguntas

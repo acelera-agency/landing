@@ -4,6 +4,7 @@ import test from "node:test";
 
 const indexHtml = await readFile(new URL("./index.html", import.meta.url), "utf8");
 const i18nSource = await readFile(new URL("./assets/i18n.js", import.meta.url), "utf8");
+const faroCaseHtml = await readFile(new URL("./casos/faro.html", import.meta.url), "utf8");
 const projectsSection = indexHtml.match(
   /<section id="proyectos"[\s\S]*?<section id="proceso"/,
 )?.[0];
@@ -83,7 +84,6 @@ test("links every public project to a real destination", () => {
   const links = {
     rely: "https://rely.business",
     lain: "https://lainagent.com",
-    faro: "https://faro-argentina.vercel.app",
     lemon: "https://github.com/frxnnk/lemon-display",
   };
 
@@ -91,6 +91,8 @@ test("links every public project to a real destination", () => {
     const escapedUrl = url.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     assert.match(projectCard(project), new RegExp(`href="${escapedUrl}\\/?"[\\s\\S]*?target="_blank"[\\s\\S]*?rel="noopener noreferrer"`));
   }
+  assert.match(projectCard("faro"), /href="\/casos\/faro"[^>]*aria-label="Leer el caso completo de Faro"/);
+  assert.match(faroCaseHtml, /href="https:\/\/faro-argentina\.vercel\.app\/?"[^>]*target="_blank"[^>]*rel="noopener noreferrer"/);
   assert.doesNotMatch(projectCard("harness"), /href=/);
 });
 
