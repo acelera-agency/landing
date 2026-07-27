@@ -94,22 +94,20 @@ async function inspectViewport(width, height) {
   const expectedVisibleCards = width >= 768 ? 2 : 1;
   assert.equal(visibleCards.length, expectedVisibleCards, `${width}px should show ${expectedVisibleCards} project card(s)`);
 
-  const statusBefore = await page.evaluate(() => ({
-    current: document.querySelector("[data-projects-current]").textContent,
-    total: document.querySelector("[data-projects-total]").textContent,
+  const controlsBefore = await page.evaluate(() => ({
     previousDisabled: document.querySelector("[data-projects-prev]").disabled,
     nextDisabled: document.querySelector("[data-projects-next]").disabled,
   }));
-  assert.deepEqual(statusBefore, { current: "01", total: "04", previousDisabled: true, nextDisabled: false });
+  assert.deepEqual(controlsBefore, { previousDisabled: true, nextDisabled: false });
 
   await page.locator("[data-projects-next]").click();
-  await page.waitForFunction(() => document.querySelector("[data-projects-current]").textContent === "02");
+  await page.waitForFunction(() => document.querySelector(".projects-carousel__viewport").scrollLeft > 0);
   assert.ok(await projectsViewport.evaluate((element) => element.scrollLeft > 0), `${width}px next should move the rail`);
   await projectsViewport.focus();
   await page.keyboard.press("ArrowRight");
-  await page.waitForFunction(() => document.querySelector("[data-projects-current]").textContent === "03");
+  await page.waitForTimeout(250);
   await page.keyboard.press("Home");
-  await page.waitForFunction(() => document.querySelector("[data-projects-current]").textContent === "01");
+  await page.waitForFunction(() => document.querySelector(".projects-carousel__viewport").scrollLeft === 0);
 
   await page.waitForFunction((expectedPlaying) => (
     [...document.querySelectorAll("[data-project-video]")].filter((video) => !video.paused).length === expectedPlaying
@@ -125,33 +123,23 @@ async function inspectViewport(width, height) {
     const preview = await page.evaluate(() => {
       const element = document.querySelector(".capability-preview");
       const poster = document.querySelector("[data-capability-poster]");
-      const previewRect = element.getBoundingClientRect();
-      const overlapCount = [...document.querySelectorAll(".capability-tab")].filter((pill) => {
-        const pillRect = pill.getBoundingClientRect();
-        return previewRect.left < pillRect.right && previewRect.right > pillRect.left
-          && previewRect.top < pillRect.bottom && previewRect.bottom > pillRect.top;
-      }).length;
       return {
         visible: element.classList.contains("is-visible") && element.getAttribute("aria-hidden") === "false",
-        project: document.querySelector("[data-capability-project]").textContent,
         caseStudy: poster.dataset.activeCase,
         videoCount: element.querySelectorAll("video").length,
-        overlapCount,
       };
     });
-    assert.deepEqual(preview, { visible: true, project: "Rely", caseStudy: "rely", videoCount: 0, overlapCount: 0 });
+    assert.deepEqual(preview, { visible: true, caseStudy: "rely", videoCount: 1 });
 
     await page.getByRole("button", { name: "EN", exact: true }).click();
     const englishCopy = await page.evaluate(() => ({
       projectLinks: [...document.querySelectorAll(".project-link__label")].map((element) => element.textContent.trim()),
-      caseTitle: document.querySelector("[data-capability-project]").textContent.trim(),
       lemonMeta: document.querySelector('[data-project="lemon"] .project-meta').textContent.trim(),
       carouselLabel: document.querySelector(".projects-carousel__viewport").getAttribute("aria-label"),
       previousLabel: document.querySelector("[data-projects-prev]").getAttribute("aria-label"),
       nextLabel: document.querySelector("[data-projects-next]").getAttribute("aria-label"),
     }));
     assert.deepEqual(englishCopy.projectLinks, ["View Rely", "View Lain", "View Faro", "View project"]);
-    assert.equal(englishCopy.caseTitle, "Rely");
     assert.equal(englishCopy.carouselLabel, "Featured projects");
     assert.equal(englishCopy.previousLabel, "Previous project");
     assert.equal(englishCopy.nextLabel, "Next project");

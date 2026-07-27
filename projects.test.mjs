@@ -97,12 +97,12 @@ test("keeps a poster layer visible until every project video is ready", () => {
   for (const project of ["rely", "lain", "faro", "lemon"]) {
     const card = projectCard(project);
     assert.match(card, new RegExp(`<img[^>]*data-project-poster[^>]*src="assets/proyectos/${project}-poster\\.webp"[^>]*alt=""`));
-    assert.match(card, /<video[^>]*data-project-video[^>]*autoplay[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
+    assert.match(card, /<video[^>]*data-project-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="none"/);
     assert.match(card, new RegExp(`poster="assets/proyectos/${project}-poster\\.webp"`));
     assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.webm" type="video/webm">`));
     assert.match(card, new RegExp(`<source src="assets/proyectos/${project}-demo\\.mp4" type="video/mp4">`));
   }
-  assert.match(indexHtml, /\.project-card \.project-media\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/);
+  assert.match(indexHtml, /\.project-card \.project-media\s*\{[^}]*aspect-ratio:\s*2\.21/);
   assert.match(indexHtml, /\.project-media\.is-video-ready \.project-media__poster\s*\{[^}]*opacity:\s*0/);
   assert.match(indexHtml, /video\.currentTime\s*>=\s*0\.25/);
   assert.match(indexHtml, /media\?\.classList\.add\("is-video-ready"\)/);
