@@ -32,3 +32,11 @@ test("the public forms use the managed lead gateway", async () => {
 
   assert.match(script, /formEndpoint: "https:\/\/acelera-lead-gateway\.vercel\.app\/api\/lead"/);
 });
+
+test("keeps the hero canvas safe while responsive layouts collapse it", async () => {
+  const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
+
+  assert.match(html, /if \(w <= 0 \|\| h <= 0\) \{[\s\S]*?return false;/);
+  assert.match(html, /if \(resize\(\)\) draw\(\);/);
+  assert.match(html, /connectorCanvas\.width <= 0 \|\| connectorCanvas\.height <= 0\) return;/);
+});

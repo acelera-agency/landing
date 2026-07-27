@@ -37,8 +37,9 @@ test("renders project cases in an accessible carousel", () => {
   assert.match(projectsSection, /id="projects-carousel-track"[^>]*class="projects-mosaic/);
   assert.match(projectsSection, /data-projects-prev[^>]*aria-controls="projects-carousel-track"[^>]*disabled/);
   assert.match(projectsSection, /data-projects-next[^>]*aria-controls="projects-carousel-track"/);
-  assert.match(projectsSection, /data-projects-current[^>]*>01</);
-  assert.match(projectsSection, /data-projects-total[^>]*>04</);
+  assert.doesNotMatch(projectsSection, /data-projects-current/);
+  assert.doesNotMatch(projectsSection, /data-projects-total/);
+  assert.doesNotMatch(projectsSection, /class="project-code"/);
 });
 
 test("shows one project on mobile, two on desktop and supports manual navigation", () => {
@@ -49,7 +50,6 @@ test("shows one project on mobile, two on desktop and supports manual navigation
   assert.match(indexHtml, /projectsViewport\.scrollBy\(\{ left: direction \* projectsStep\(\), behavior \}\)/);
   assert.match(indexHtml, /event\.key === "ArrowLeft"/);
   assert.match(indexHtml, /event\.key === "ArrowRight"/);
-  assert.match(indexHtml, /data-projects-current/);
 });
 
 test("lands on the project overview and cards when navigating to the projects section", () => {
@@ -119,16 +119,29 @@ test("maps all capability pills to one of the four featured cases", () => {
     "rely", "lain", "lemon", "lain", "rely", "rely",
   ]);
   assert.match(capabilitiesSection, /data-capability-poster/);
-  assert.match(capabilitiesSection, /data-capability-project/);
+  assert.doesNotMatch(capabilitiesSection, /data-capability-project/);
 });
 
-test("renders the capability case as a static image with only its project title", () => {
-  assert.match(capabilitiesSection, /class="capability-preview__overlay"/);
+test("renders the capability case as an unobstructed layered motion preview", () => {
+  assert.match(capabilitiesSection, /class="capability-preview__stack"/);
+  assert.match(capabilitiesSection, /capability-preview__layer--back/);
+  assert.match(capabilitiesSection, /capability-preview__layer--middle/);
   assert.match(capabilitiesSection, /<img[^>]*data-capability-poster/);
-  assert.match(capabilitiesSection, /data-capability-project/);
-  assert.doesNotMatch(capabilitiesSection, /data-capability-video/);
+  assert.match(capabilitiesSection, /<video[^>]*data-capability-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="metadata"/);
+  assert.match(capabilitiesSection, /data-capability-source-webm[^>]*rely-demo\.webm/);
+  assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*rely-demo\.mp4/);
+  assert.doesNotMatch(capabilitiesSection, /capability-preview__overlay/);
+  assert.doesNotMatch(capabilitiesSection, /data-capability-label/);
+  assert.doesNotMatch(capabilitiesSection, /data-capability-project/);
   assert.doesNotMatch(capabilitiesSection, /data-capability-copy/);
   assert.doesNotMatch(capabilitiesSection, /data-capability-kicker/);
+  assert.match(indexHtml, /capabilityMotionBlocked[\s\S]*prefers-reduced-motion:\s*reduce/);
+  assert.match(indexHtml, /capabilityVideo\?\.play\(\)\.catch/);
+  assert.match(indexHtml, /capabilityVideo\?\.pause\(\)/);
+  assert.match(indexHtml, /\.capability-preview__frame\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9;[^}]*background:\s*transparent;[^}]*box-shadow:\s*none;/);
+  assert.match(indexHtml, /\.capability-preview__media\s*\{[^}]*background:\s*transparent;/);
+  assert.match(indexHtml, /\.capability-preview__media img,\s*\.capability-preview__media video\s*\{[^}]*object-fit:\s*contain;/);
+  assert.match(indexHtml, /\.capability-preview__media::after\s*\{[^}]*content:\s*none;/);
 });
 
 test("controls project playback by viewport, motion preference and data saver", () => {

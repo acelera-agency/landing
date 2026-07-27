@@ -1411,7 +1411,6 @@
             text-wrap: pretty;
         }
 
-        .project-code,
         .project-meta {
             font-family: var(--font-mono);
             text-transform: uppercase;
@@ -1651,21 +1650,6 @@
             background: rgba(11, 15, 20, 0.72);
         }
 
-        .project-code {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-            display: inline-flex;
-            min-width: 4.25rem;
-            min-height: 2.25rem;
-            align-items: center;
-            justify-content: center;
-            background: #0B0F14;
-            color: #F7F5F0;
-            font-size: 0.62rem;
-        }
-
         .project-feature__body {
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(155px, 0.36fr);
@@ -1760,7 +1744,7 @@
             display: flex;
             gap: 1rem;
             align-items: baseline;
-            justify-content: space-between;
+            justify-content: flex-end;
         }
 
         .project-compact__title {
@@ -2488,7 +2472,6 @@
                 background: transparent;
             }
 
-            .project-code,
             .project-compact__number,
             .project-facts {
                 display: none;
@@ -3703,17 +3686,6 @@
             margin-bottom: 1rem;
         }
 
-        .projects-carousel__status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            color: #626872;
-            font-family: var(--font-mono);
-            font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-        }
-
         .projects-carousel__controls {
             display: flex;
             gap: 0.5rem;
@@ -3885,46 +3857,122 @@
         }
 
         .capability-preview {
-            width: min(20.5rem, 30%);
-            max-width: 20.5rem;
+            width: min(25.5rem, 37%);
+            max-width: 25.5rem;
+            aspect-ratio: auto;
+            overflow: visible;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+            isolation: isolate;
+        }
+
+        .capability-preview__stack {
+            position: absolute;
+            z-index: 0;
+            inset: -1.15rem -1.35rem -1rem;
+            pointer-events: none;
+        }
+
+        .capability-preview__layer {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            background-color: #D8D1C4;
+            background-image:
+                linear-gradient(145deg, rgba(247, 245, 240, 0.18), rgba(11, 15, 20, 0.26)),
+                var(--capability-poster);
+            background-position: center;
+            background-size: cover;
+            box-shadow: 0 1.2rem 2.7rem rgba(64, 48, 39, 0.13);
+            filter: saturate(0.72) contrast(0.92);
+            opacity: 0;
+            transition: opacity 240ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .capability-preview__layer--back {
+            border-radius: 1.2rem 0.75rem 1.35rem 0.9rem;
+            transform: translate3d(0.3rem, 0.25rem, 0) rotate(0deg) scale(0.9);
+        }
+
+        .capability-preview__layer--middle {
+            border-radius: 0.75rem 1.25rem 0.85rem 1.15rem;
+            transform: translate3d(-0.2rem, 0.2rem, 0) rotate(0deg) scale(0.93);
+        }
+
+        .capability-preview.is-visible .capability-preview__layer--back {
+            opacity: 0.18;
+            transform: translate3d(1.55rem, -1rem, 0) rotate(4.2deg) scale(0.9);
+        }
+
+        .capability-preview.is-visible .capability-preview__layer--middle {
+            opacity: 0.34;
+            transform: translate3d(-1.45rem, 0.9rem, 0) rotate(-4.5deg) scale(0.94);
+        }
+
+        .capability-preview__frame {
+            position: relative;
+            z-index: 1;
             aspect-ratio: 16 / 9;
             overflow: hidden;
-            padding: 0;
-            border-color: rgba(11, 15, 20, 0.56);
-            background: #0B0F14;
-            box-shadow: 0 1.15rem 3.5rem rgba(11, 15, 20, 0.2);
+            border-radius: 0.9rem 0.9rem 0.65rem 0.9rem;
+            background: transparent;
+            box-shadow: none;
+            transform-origin: 25% 85%;
+        }
+
+        @keyframes capabilityCardLift {
+            0% {
+                opacity: 0;
+                transform: translate3d(-1.4rem, 1.7rem, 0) rotate(-3.5deg) scale(0.88);
+            }
+            62% {
+                opacity: 1;
+                transform: translate3d(0.18rem, -0.18rem, 0) rotate(0.7deg) scale(1.015);
+            }
+            100% {
+                opacity: 1;
+                transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+            }
+        }
+
+        .capability-preview.is-visible.is-switching .capability-preview__frame {
+            animation: capabilityCardLift 540ms cubic-bezier(0.22, 1, 0.36, 1) both;
         }
 
         .capability-preview__media {
             position: absolute;
             inset: 0;
             overflow: hidden;
-            background: #171B20;
+            background: transparent;
+        }
+
+        .capability-preview__media img,
+        .capability-preview__media video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .capability-preview__media img {
+            z-index: 1;
+            opacity: 1;
+            transition: opacity 220ms ease;
+        }
+
+        .capability-preview__media video {
+            z-index: 0;
+        }
+
+        .capability-preview__media.is-video-ready img {
+            opacity: 0;
         }
 
         .capability-preview__media::after {
-            content: "";
-            position: absolute;
-            inset: 28% 0 0;
-            background: linear-gradient(to top, rgba(11, 15, 20, 0.96), rgba(11, 15, 20, 0.08));
-        }
-
-        .capability-preview__overlay {
-            position: absolute;
-            z-index: 2;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            padding: 2.5rem 1rem 0.85rem;
-            color: #F7F5F0;
-        }
-
-        .capability-preview__title {
-            font-family: var(--font-display);
-            font-size: 1.7rem;
-            font-weight: 600;
-            line-height: 1;
-            text-shadow: 0 0.15rem 1rem rgba(11, 15, 20, 0.52);
+            content: none;
         }
 
         .capability-map.has-preview .capability-tab:not([aria-expanded="true"]) {
@@ -3941,6 +3989,14 @@
 
         .capability-tab[aria-expanded="true"] .capability-tab__dot {
             box-shadow: 0 0 0 0.25rem rgba(201, 106, 67, 0.12);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .capability-preview__layer,
+            .capability-preview.is-visible.is-switching .capability-preview__frame {
+                animation: none;
+                transition: none;
+            }
         }
 
         @media (min-width: 768px) {
@@ -4367,11 +4423,18 @@
                     </div>
 
                     <article class="capability-preview" aria-live="polite" aria-hidden="true">
-                        <div class="capability-preview__media" aria-hidden="true">
-                            <img data-capability-poster src="assets/proyectos/rely-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                        <div class="capability-preview__stack" aria-hidden="true">
+                            <span class="capability-preview__layer capability-preview__layer--back"></span>
+                            <span class="capability-preview__layer capability-preview__layer--middle"></span>
                         </div>
-                        <div class="capability-preview__overlay">
-                            <h3 data-capability-project class="capability-preview__title"></h3>
+                        <div class="capability-preview__frame">
+                            <div class="capability-preview__media" aria-hidden="true">
+                                <img data-capability-poster src="assets/proyectos/rely-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                                <video data-capability-video muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp" aria-label="Demo del proyecto Rely">
+                                    <source data-capability-source-webm src="assets/proyectos/rely-demo.webm" type="video/webm">
+                                    <source data-capability-source-mp4 src="assets/proyectos/rely-demo.mp4" type="video/mp4">
+                                </video>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -4405,11 +4468,6 @@
 
                 <div class="projects-carousel" data-projects-carousel>
                     <div class="projects-carousel__toolbar">
-                        <div class="projects-carousel__status" aria-live="polite" aria-atomic="true">
-                            <span data-projects-current>01</span>
-                            <span aria-hidden="true">/</span>
-                            <span data-projects-total>04</span>
-                        </div>
                         <div class="projects-carousel__controls">
                             <button type="button" class="projects-carousel__button" data-projects-prev aria-controls="projects-carousel-track" aria-label="Proyecto anterior" disabled>
                                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18 9 12l6-6"/></svg>
@@ -4420,10 +4478,9 @@
                         </div>
                     </div>
                     <div class="projects-carousel__viewport" tabindex="0" aria-label="Proyectos destacados">
-                        <div id="projects-carousel-track" class="projects-mosaic relative z-10">
+                    <div id="projects-carousel-track" class="projects-mosaic relative z-10">
                     <article class="project-card gsap-reveal" data-project="rely">
                         <div class="project-media">
-                            <span class="project-code">01 / 04</span>
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/rely-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
                             <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/rely-poster.webp" aria-label="Demo de la plataforma Rely">
                                 <source src="assets/proyectos/rely-demo.webm" type="video/webm">
@@ -4443,7 +4500,6 @@
 
                     <article class="project-card gsap-reveal" data-project="lain">
                         <div class="project-media">
-                            <span class="project-code">02 / 04</span>
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/lain-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
                             <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/lain-poster.webp" aria-label="Demo del workspace de inteligencia artificial Lain">
                                 <source src="assets/proyectos/lain-demo.webm" type="video/webm">
@@ -4463,7 +4519,6 @@
 
                     <article class="project-card gsap-reveal" data-project="faro">
                         <div class="project-media">
-                            <span class="project-code">03 / 04</span>
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/faro-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
                             <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/faro-poster.webp" aria-label="Demo del explorador de obra pública Faro">
                                 <source src="assets/proyectos/faro-demo.webm" type="video/webm">
@@ -4483,7 +4538,6 @@
 
                     <article class="project-card gsap-reveal" data-project="lemon">
                         <div class="project-media">
-                            <span class="project-code">04 / 04</span>
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/lemon-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
                             <video data-project-video autoplay muted loop playsinline preload="metadata" poster="assets/proyectos/lemon-poster.webp" aria-label="Demo de Lemon Box y su entorno de configuración">
                                 <source src="assets/proyectos/lemon-demo.webm" type="video/webm">
@@ -4909,24 +4963,63 @@
             if (capabilityMap) {
                 const items = Array.from(capabilityMap.querySelectorAll(".capability-tab"));
                 const preview = capabilityMap.querySelector(".capability-preview");
-                const projectName = capabilityMap.querySelector("[data-capability-project]");
                 const capabilityPoster = capabilityMap.querySelector("[data-capability-poster]");
+                const capabilityVideo = capabilityMap.querySelector("[data-capability-video]");
+                const capabilityVideoWebm = capabilityMap.querySelector("[data-capability-source-webm]");
+                const capabilityVideoMp4 = capabilityMap.querySelector("[data-capability-source-mp4]");
+                const capabilityMedia = capabilityMap.querySelector(".capability-preview__media");
                 const compactSelect = capabilityMap.querySelector("[data-capability-select]");
                 const capabilityCases = {
-                    rely: { name: "Rely", poster: "assets/proyectos/rely-poster.webp" },
-                    lain: { name: "Lain", poster: "assets/proyectos/lain-poster.webp" },
-                    faro: { name: "Faro", poster: "assets/proyectos/faro-poster.webp" },
-                    lemon: { name: "Lemon Box", poster: "assets/proyectos/lemon-poster.webp" }
+                    rely: {
+                        name: "Rely",
+                        poster: "assets/proyectos/rely-poster.webp",
+                        webm: "assets/proyectos/rely-demo.webm",
+                        mp4: "assets/proyectos/rely-demo.mp4"
+                    },
+                    lain: {
+                        name: "Lain",
+                        poster: "assets/proyectos/lain-poster.webp",
+                        webm: "assets/proyectos/lain-demo.webm",
+                        mp4: "assets/proyectos/lain-demo.mp4"
+                    },
+                    faro: {
+                        name: "Faro",
+                        poster: "assets/proyectos/faro-poster.webp",
+                        webm: "assets/proyectos/faro-demo.webm",
+                        mp4: "assets/proyectos/faro-demo.mp4"
+                    },
+                    lemon: {
+                        name: "Lemon Box",
+                        poster: "assets/proyectos/lemon-poster.webp",
+                        webm: "assets/proyectos/lemon-demo.webm",
+                        mp4: "assets/proyectos/lemon-demo.mp4"
+                    }
                 };
+                const capabilityMotionBlocked = window.matchMedia("(prefers-reduced-motion: reduce)").matches || Boolean(navigator.connection?.saveData);
                 let pinnedCapability = null;
 
                 function showCapabilityCase(item) {
                     const caseStudy = capabilityCases[item.dataset.case];
                     if (!caseStudy) return;
-                    if (projectName) projectName.textContent = caseStudy.name;
-                    if (capabilityPoster && capabilityPoster.dataset.activeCase !== item.dataset.case) {
+                    if (preview) preview.style.setProperty("--capability-poster", `url("${caseStudy.poster}")`);
+                    const projectChanged = capabilityPoster?.dataset.activeCase !== item.dataset.case;
+                    if (capabilityPoster && projectChanged) {
                         capabilityPoster.src = caseStudy.poster;
                         capabilityPoster.dataset.activeCase = item.dataset.case;
+                    }
+                    if (capabilityVideo && projectChanged) {
+                        capabilityVideo.pause();
+                        capabilityMedia?.classList.remove("is-video-ready");
+                        capabilityVideo.poster = caseStudy.poster;
+                        capabilityVideo.setAttribute("aria-label", `Demo del proyecto ${caseStudy.name}`);
+                        if (capabilityVideoWebm) capabilityVideoWebm.src = caseStudy.webm;
+                        if (capabilityVideoMp4) capabilityVideoMp4.src = caseStudy.mp4;
+                        capabilityVideo.load();
+                    }
+                    if (preview) {
+                        preview.classList.remove("is-switching");
+                        void preview.offsetWidth;
+                        preview.classList.add("is-switching");
                     }
                 }
 
@@ -4935,7 +5028,9 @@
                     items.forEach((item) => item.setAttribute("aria-expanded", "false"));
                     capabilityMap.classList.remove("has-preview");
                     preview && preview.classList.remove("is-visible");
+                    preview && preview.classList.remove("is-switching");
                     preview && preview.setAttribute("aria-hidden", "true");
+                    capabilityVideo?.pause();
                 }
 
                 function showCapability(item, moveFocus = false) {
@@ -4946,8 +5041,14 @@
                     capabilityMap.classList.add("has-preview");
                     preview && preview.classList.add("is-visible");
                     preview && preview.setAttribute("aria-hidden", "false");
+                    if (!capabilityMotionBlocked) capabilityVideo?.play().catch(() => {});
                     if (moveFocus) item.focus();
                 }
+
+                capabilityVideo?.addEventListener("timeupdate", () => {
+                    if (capabilityVideo.currentTime >= 0.12) capabilityMedia?.classList.add("is-video-ready");
+                });
+                capabilityVideo?.addEventListener("error", () => capabilityMedia?.classList.remove("is-video-ready"));
 
                 items.forEach((item, index) => {
                     let pointerDown = false;
@@ -5056,8 +5157,6 @@
                 const projectCards = Array.from(projectsCarousel.querySelectorAll(".project-card"));
                 const previousProject = projectsCarousel.querySelector("[data-projects-prev]");
                 const nextProject = projectsCarousel.querySelector("[data-projects-next]");
-                const currentProject = projectsCarousel.querySelector("[data-projects-current]");
-                const totalProjects = projectsCarousel.querySelector("[data-projects-total]");
                 const reducedCarouselMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
                 let carouselFrame = 0;
 
@@ -5074,8 +5173,6 @@
                 const syncProjectsCarousel = () => {
                     carouselFrame = 0;
                     const index = currentProjectIndex();
-                    currentProject.textContent = String(index + 1).padStart(2, "0");
-                    totalProjects.textContent = String(projectCards.length).padStart(2, "0");
                     previousProject.disabled = index === 0;
                     nextProject.disabled = index === maximumProjectIndex();
                 };
@@ -6035,6 +6132,11 @@
 
             function resize() {
                 var w = wrap.clientWidth, h = wrap.clientHeight;
+                if (w <= 0 || h <= 0) {
+                    geometry = [];
+                    cachedConnectorCount = -1;
+                    return false;
+                }
                 cvs.width = w * dpr;
                 cvs.height = h * dpr;
                 connectorCanvas.width = w * dpr;
@@ -6045,11 +6147,11 @@
                 connectorCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
                 rebuildGeometry(w, h);
                 cachedConnectorCount = -1;
+                return true;
             }
             resize();
             window.addEventListener("resize", function () {
-                resize();
-                draw();
+                if (resize()) draw();
             });
 
             function drawConnectors(maxRect, w, h) {
@@ -6077,6 +6179,7 @@
 
             function draw() {
                 var w = cvs.width / dpr, h = cvs.height / dpr;
+                if (w <= 0 || h <= 0 || !geometry.length || connectorCanvas.width <= 0 || connectorCanvas.height <= 0) return;
                 ctx.clearRect(0, 0, w, h);
                 ctx.save();
                 ctx.translate((w * 0.49) + 4, (h * 0.43) - 4);
