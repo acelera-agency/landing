@@ -10,6 +10,7 @@ npm-debug.log*
 test-results/
 *.png.tmp
 output/project-demos/
+output/playwright/.playwright-cli/
 
 # Env
 .env
