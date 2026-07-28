@@ -97,14 +97,18 @@ test("links every public project to a real destination", () => {
 });
 
 test("keeps a poster layer visible until every project video is ready", () => {
+  const releaseVersions = {
+    rely: "\\?v=20260727-4",
+    faro: "\\?v=20260727-3",
+    lemon: "\\?v=20260727-4",
+  };
+
   for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
     const card = projectCard(project);
-    const posterVersion = project === "faro" ? "\\?v=20260727-3" : "";
+    const posterVersion = releaseVersions[project] ?? "";
     const sourceVersion = project === "harness"
       ? "\\?v=20260727-2"
-      : project === "faro"
-        ? "\\?v=20260727-3"
-        : "";
+      : posterVersion;
     assert.match(card, new RegExp(`<img[^>]*data-project-poster[^>]*src="assets/proyectos/${project}-poster\\.webp${posterVersion}"[^>]*alt=""`));
     assert.match(card, /<video[^>]*data-project-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="none"/);
     assert.doesNotMatch(card, /<video[^>]*data-project-video[^>]*autoplay/);
@@ -118,12 +122,10 @@ test("keeps a poster layer visible until every project video is ready", () => {
     "Harness should prefer the verified source MP4 before its WebM fallback",
   );
   assert.match(indexHtml, /\.project-card \.project-media\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/);
-  assert.match(indexHtml, /\.project-card\[data-media-crop="panoramic-cover"\][\s\S]*?transform:\s*scale\(1\.25\)/);
-  assert.match(indexHtml, /data-project="lemon"[\s\S]*?--project-media-focus-x:\s*0%/);
-  assert.match(projectCard("lemon"), /data-media-crop="panoramic-cover"/);
-  for (const project of ["rely", "lain", "harness", "faro"]) {
+  for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
     assert.doesNotMatch(projectCard(project), /data-media-crop=/);
   }
+  assert.doesNotMatch(indexHtml, /\.project-card\[data-media-crop=/);
   assert.match(indexHtml, /\.project-media\.is-video-ready \.project-media__poster\s*\{[^}]*opacity:\s*0/);
   assert.match(indexHtml, /video\.currentTime\s*>=\s*0\.25/);
   assert.match(indexHtml, /media\?\.classList\.add\("is-video-ready"\)/);
@@ -155,6 +157,12 @@ test("renders the capability case as an unobstructed layered motion preview", ()
     indexHtml,
     /faro:\s*\{[\s\S]*?faro-poster\.webp\?v=20260727-3[\s\S]*?faro-demo\.webm\?v=20260727-3[\s\S]*?faro-demo\.mp4\?v=20260727-3/,
   );
+  for (const project of ["rely", "lemon"]) {
+    assert.match(
+      indexHtml,
+      new RegExp(`${project}:\\s*\\{[\\s\\S]*?${project}-poster\\.webp\\?v=20260727-4[\\s\\S]*?${project}-demo\\.webm\\?v=20260727-4[\\s\\S]*?${project}-demo\\.mp4\\?v=20260727-4`),
+    );
+  }
   assert.match(indexHtml, /if \(!capabilityMotionBlocked\)\s*\{[\s\S]*?capabilityVideo\.load\(\)/);
   assert.match(indexHtml, /item\.dataset\.case === "harness"[\s\S]*?\[capabilityVideoMp4, capabilityVideoWebm\][\s\S]*?\[capabilityVideoWebm, capabilityVideoMp4\]/);
   assert.match(

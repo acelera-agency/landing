@@ -4080,16 +4080,6 @@
             background: #171B20;
         }
 
-        .project-card[data-project="lemon"] {
-            --project-media-focus-x: 0%;
-        }
-
-        .project-card[data-media-crop="panoramic-cover"] .project-media > video,
-        .project-card[data-media-crop="panoramic-cover"] .project-media > .project-media__poster {
-            transform: scale(1.25);
-            transform-origin: var(--project-media-focus-x, 50%) 50%;
-        }
-
         .project-card .project-media::after {
             content: "";
             position: absolute;
@@ -4796,10 +4786,10 @@
                     <div id="projects-carousel-track" class="projects-mosaic relative z-10">
                     <article class="project-card gsap-reveal" data-project="rely">
                         <div class="project-media">
-                            <img class="project-media__poster" data-project-poster src="assets/proyectos/rely-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/rely-poster.webp" aria-label="Demo de la plataforma Rely">
-                                <source src="assets/proyectos/rely-demo.webm" type="video/webm">
-                                <source src="assets/proyectos/rely-demo.mp4" type="video/mp4">
+                            <img class="project-media__poster" data-project-poster src="assets/proyectos/rely-poster.webp?v=20260727-4" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/rely-poster.webp?v=20260727-4" aria-label="Demo de la plataforma Rely">
+                                <source src="assets/proyectos/rely-demo.webm?v=20260727-4" type="video/webm">
+                                <source src="assets/proyectos/rely-demo.mp4?v=20260727-4" type="video/mp4">
                             </video>
                         </div>
                         <div class="project-card__body">
@@ -4870,12 +4860,12 @@
                         </div>
                     </article>
 
-                    <article class="project-card gsap-reveal" data-project="lemon" data-media-crop="panoramic-cover">
+                    <article class="project-card gsap-reveal" data-project="lemon">
                         <div class="project-media">
-                            <img class="project-media__poster" data-project-poster src="assets/proyectos/lemon-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/lemon-poster.webp" aria-label="Demo de Lemon Box y su entorno de configuración">
-                                <source src="assets/proyectos/lemon-demo.webm" type="video/webm">
-                                <source src="assets/proyectos/lemon-demo.mp4" type="video/mp4">
+                            <img class="project-media__poster" data-project-poster src="assets/proyectos/lemon-poster.webp?v=20260727-4" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/lemon-poster.webp?v=20260727-4" aria-label="Demo de Lemon Box y su entorno de configuración">
+                                <source src="assets/proyectos/lemon-demo.webm?v=20260727-4" type="video/webm">
+                                <source src="assets/proyectos/lemon-demo.mp4?v=20260727-4" type="video/mp4">
                             </video>
                         </div>
                         <div class="project-card__body">
@@ -5322,9 +5312,9 @@
                     },
                     rely: {
                         name: "Rely",
-                        poster: "assets/proyectos/rely-poster.webp",
-                        webm: "assets/proyectos/rely-demo.webm",
-                        mp4: "assets/proyectos/rely-demo.mp4"
+                        poster: "assets/proyectos/rely-poster.webp?v=20260727-4",
+                        webm: "assets/proyectos/rely-demo.webm?v=20260727-4",
+                        mp4: "assets/proyectos/rely-demo.mp4?v=20260727-4"
                     },
                     lain: {
                         name: "Lain",
@@ -5340,9 +5330,9 @@
                     },
                     lemon: {
                         name: "Lemon Box",
-                        poster: "assets/proyectos/lemon-poster.webp",
-                        webm: "assets/proyectos/lemon-demo.webm",
-                        mp4: "assets/proyectos/lemon-demo.mp4"
+                        poster: "assets/proyectos/lemon-poster.webp?v=20260727-4",
+                        webm: "assets/proyectos/lemon-demo.webm?v=20260727-4",
+                        mp4: "assets/proyectos/lemon-demo.mp4?v=20260727-4"
                     }
                 };
                 const capabilityMotionBlocked = window.matchMedia("(prefers-reduced-motion: reduce)").matches || Boolean(navigator.connection?.saveData);
