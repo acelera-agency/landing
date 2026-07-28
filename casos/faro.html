@@ -27,8 +27,9 @@
   <link rel="preload" href="/assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/service-pages.css?v=20260727-2">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="stylesheet" href="/assets/service-pages.css?v=20260728-1">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -253,15 +254,33 @@
     <section class="case-media-section" aria-label="Vistas del producto Faro">
       <div class="shell case-media-grid">
         <figure class="case-figure case-figure--wide">
-          <img src="/assets/proyectos/faro-hero.png" alt="Portada de Faro con acceso al mapa y al explorador de datos públicos" width="1400" height="787" loading="lazy" decoding="async">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/assets/proyectos/faro-hero-720.webp 720w, /assets/proyectos/faro-hero-1080.webp 1080w, /assets/proyectos/faro-hero.webp 1400w"
+              sizes="(max-width: 1280px) calc(100vw - 2rem), 1248px">
+            <img src="/assets/proyectos/faro-hero.png" alt="Portada de Faro con acceso al mapa y al explorador de datos públicos" width="1400" height="787" loading="lazy" decoding="async">
+          </picture>
           <figcaption>Entrada pública a Faro.</figcaption>
         </figure>
         <figure class="case-figure">
-          <img src="/assets/proyectos/faro-mapa.png" alt="Mapa interactivo de Faro con expedientes y filtros territoriales" width="2000" height="1253" loading="lazy" decoding="async">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/assets/proyectos/faro-mapa-720.webp 720w, /assets/proyectos/faro-mapa-1080.webp 1080w, /assets/proyectos/faro-mapa-1440.webp 1440w"
+              sizes="(max-width: 700px) calc(100vw - 2rem), (max-width: 1280px) calc((100vw - 4rem) / 2), 608px">
+            <img src="/assets/proyectos/faro-mapa.png" alt="Mapa interactivo de Faro con expedientes y filtros territoriales" width="2000" height="1253" loading="lazy" decoding="async">
+          </picture>
           <figcaption>El mapa muestra únicamente geometría que supera los controles de integridad.</figcaption>
         </figure>
         <figure class="case-figure">
-          <img src="/assets/proyectos/faro-expediente.jpg" alt="Expediente de Faro con organismo, proveedor, monto, fuente y pasos de verificación" width="2000" height="1255" loading="lazy" decoding="async">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/assets/proyectos/faro-expediente-720.webp 720w, /assets/proyectos/faro-expediente-1080.webp 1080w, /assets/proyectos/faro-expediente-1440.webp 1440w"
+              sizes="(max-width: 700px) calc(100vw - 2rem), (max-width: 1280px) calc((100vw - 4rem) / 2), 608px">
+            <img src="/assets/proyectos/faro-expediente.jpg" alt="Expediente de Faro con organismo, proveedor, monto, fuente y pasos de verificación" width="2000" height="1255" loading="lazy" decoding="async">
+          </picture>
           <figcaption>El expediente conecta la pista con su fuente y sus límites.</figcaption>
         </figure>
       </div>

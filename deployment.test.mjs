@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const releaseToken = "v=20260727-3";
+const releaseToken = "v=20260728-1";
 
 test("mutable assets are revalidated instead of cached as immutable", async () => {
   const config = JSON.parse(await readFile(new URL("./vercel.json", import.meta.url), "utf8"));
@@ -24,6 +24,19 @@ test("legal pages invalidate their shared stylesheet", async () => {
   for (const page of ["privacidad.html", "terminos.html"]) {
     const html = await readFile(new URL(`./${page}`, import.meta.url), "utf8");
     assert.match(html, new RegExp(`assets/legal\\.css\\?${releaseToken}`));
+  }
+});
+
+test("service and case pages invalidate their shared stylesheet", async () => {
+  for (const page of [
+    "desarrollo-software-a-medida.html",
+    "plataformas-internas.html",
+    "agentes-ia-empresas.html",
+    "consultoria-ia-empresas.html",
+    "casos/faro.html",
+  ]) {
+    const html = await readFile(new URL(`./${page}`, import.meta.url), "utf8");
+    assert.match(html, new RegExp(`assets/service-pages\\.css\\?${releaseToken}`));
   }
 });
 

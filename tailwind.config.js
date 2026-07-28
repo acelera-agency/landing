@@ -17,7 +17,7 @@ module.exports = {
                 accent:      '#C96A43',
                 accentSoft:  '#EFD8CD',
                 signal:      '#C2410C',
-                muted:       '#6B7280',
+                muted:       '#686F7D',
                 mutedStrong: '#4B5563',
                 rule:        '#E5E1D8',
                 ruleStrong:  '#D4CFC1',
@@ -27,7 +27,7 @@ module.exports = {
                 surfaceAlt:    '#EFEBE0',
                 primary:       '#C96A43',
                 textPrimary:   '#0B0F14',
-                textSecondary: '#6B7280',
+                textSecondary: '#686F7D',
                 borderSubtle:  '#E5E1D8'
             },
             fontFamily: {

@@ -21,8 +21,9 @@
   --paper-pure: #ffffff;
   --paper-muted: #eeeae1;
   --accent: #c96a43;
+  --accent-strong: #a64f2d;
   --muted: #505864;
-  --quiet: #747b84;
+  --quiet: #626973;
   --rule: #d8d2c6;
   --font-ui: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -76,7 +77,7 @@ a {
 }
 
 a:hover {
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 a:focus-visible,
@@ -170,7 +171,7 @@ summary:focus-visible {
 }
 
 .site-nav .header-cta:hover {
-  background: var(--accent);
+  background: var(--accent-strong);
   color: var(--paper);
 }
 
@@ -188,12 +189,17 @@ summary:focus-visible {
 .case-kicker,
 .footer-label {
   margin: 0;
-  color: var(--accent);
+  color: var(--accent-strong);
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 650;
   letter-spacing: 0.17em;
   text-transform: uppercase;
+}
+
+.case-kicker,
+.footer-label {
+  color: var(--accent);
 }
 
 .service-hero h1 {
@@ -237,7 +243,7 @@ summary:focus-visible {
 }
 
 .primary-action:hover {
-  background: var(--accent);
+  background: var(--accent-strong);
   color: var(--paper);
 }
 
@@ -439,6 +445,10 @@ summary:focus-visible {
   color: var(--paper);
 }
 
+.evidence-section .section-kicker {
+  color: var(--accent);
+}
+
 .evidence-section .section-intro {
   color: rgb(247 245 240 / 66%);
 }
@@ -496,7 +506,7 @@ summary:focus-visible {
 }
 
 .process-number {
-  color: var(--accent);
+  color: var(--accent-strong);
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.12em;
@@ -679,7 +689,7 @@ summary:focus-visible {
 
 .contact-section {
   padding-block: clamp(4.5rem, 8vw, 7rem);
-  background: var(--accent);
+  background: var(--accent-strong);
   color: #fffaf5;
 }
 
@@ -701,7 +711,7 @@ summary:focus-visible {
 .contact-inner p {
   max-width: 42rem;
   margin: 1.25rem 0 0;
-  color: rgb(255 250 245 / 78%);
+  color: #fffaf5;
 }
 
 .contact-inner .primary-action {
@@ -765,7 +775,7 @@ summary:focus-visible {
   justify-content: space-between;
   margin-top: 4rem;
   padding-top: 1.5rem;
-  color: rgb(247 245 240 / 46%);
+  color: rgb(247 245 240 / 48%);
   font-family: var(--font-mono);
   font-size: 0.64rem;
   letter-spacing: 0.08em;

@@ -150,28 +150,6 @@
     }
   }
 
-  const warmDeferredImages = () => {
-    document.querySelectorAll("#proyectos img, #equipo img").forEach((image) => {
-      image.fetchPriority = "low";
-      image.loading = "eager";
-
-      const decode = () => {
-        if (typeof image.decode === "function") image.decode().catch(() => {});
-      };
-
-      if (image.complete) decode();
-      else image.addEventListener("load", decode, { once: true });
-    });
-  };
-
-  window.addEventListener("load", () => {
-    if ("requestIdleCallback" in window) {
-      window.requestIdleCallback(warmDeferredImages, { timeout: 2500 });
-    } else {
-      window.setTimeout(warmDeferredImages, 1200);
-    }
-  }, { once: true });
-
   document.querySelectorAll("[data-lead-form]").forEach((form) => {
     applyTrackingContext(form);
 

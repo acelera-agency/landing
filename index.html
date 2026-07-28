@@ -390,7 +390,7 @@
     </script>
     <link rel="preload" as="font" type="font/woff2" crossorigin
         href="assets/fonts/fraunces-latin-600.woff2">
-    <link rel="stylesheet" href="assets/tailwind.css?v=20260727-3">
+    <link rel="stylesheet" href="assets/tailwind.css?v=20260728-1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style"
@@ -416,7 +416,7 @@
         };
         if (window.matchMedia("(min-width: 1200px)").matches) window.loadThree();
     </script>
-    <script defer src="assets/lucide-sprite.js?v=20260727-3"></script>
+    <script defer src="assets/lucide-sprite.js?v=20260728-1"></script>
     <style>
         @font-face {
             font-family: "Fraunces";
@@ -639,7 +639,7 @@
 
         .situation-item__examples {
             margin-top: 1.15rem;
-            color: #6B7280;
+            color: #686F7D;
             font-family: var(--font-mono);
             font-size: 0.64rem;
             letter-spacing: 0.1em;
@@ -1060,7 +1060,7 @@
             border: 1px solid var(--rule-strong, #D4CFC1);
             border-radius: 999px;
             background: #F7F5F0;
-            color: #6B7280;
+            color: #686F7D;
             font-family: var(--font-ui);
             font-size: 0.94rem;
             font-weight: 600;
@@ -1150,6 +1150,15 @@
             padding-inline: 0.22em;
             background: #F7F5F0;
             box-shadow: 0 0 0 2px #F7F5F0;
+        }
+
+        .capability-map__endpoint.text-muted,
+        .capability-center-intro .text-muted {
+            color: #686F7D;
+        }
+
+        .capability-center-intro .text-accent {
+            color: #A64F2D;
         }
 
         .capability-map.has-preview .capability-center-intro {
@@ -1336,17 +1345,26 @@
         }
 
         .method-step__meta {
-            color: #C96A43;
+            color: #A64F2D;
             font-size: 0.67rem;
         }
 
         .method-step__number {
-            color: #8A8F98;
+            color: #646A73;
             font-size: 0.64rem;
+        }
+
+        .method-step.is-active .method-step__meta {
+            color: #C96A43;
         }
 
         .method-step.is-active .method-step__number {
             color: #D4CFC1;
+        }
+
+        .capability-heading__eyebrow,
+        .method-heading__eyebrow {
+            color: #A64F2D;
         }
 
         .method-step__title {
@@ -1360,7 +1378,7 @@
         .method-step__copy {
             margin-top: 1.25rem;
             max-width: 34rem;
-            color: #6B7280;
+            color: #686F7D;
             font-size: 1rem;
             line-height: 1.65;
         }
@@ -1480,7 +1498,7 @@
 
         .method-module__copy {
             margin-top: 0.35rem;
-            color: #6B7280;
+            color: #686F7D;
             font-size: 0.75rem;
             line-height: 1.45;
         }
@@ -1515,7 +1533,7 @@
         .method-stack__label {
             display: block;
             margin-bottom: 0.55rem;
-            color: #6B7280;
+            color: #686F7D;
         }
 
         .method-stack__grid {
@@ -1595,7 +1613,7 @@
             min-height: 5rem;
             padding: 1rem;
             border: 1px dashed #B7B1A5;
-            color: #6B7280;
+            color: #686F7D;
             font-family: var(--font-mono);
             font-size: 0.65rem;
             letter-spacing: 0.12em;
@@ -1636,7 +1654,15 @@
             }
 
             .method-step.is-active .method-step__copy {
-                color: #6B7280;
+                color: #686F7D;
+            }
+
+            .method-step.is-active .method-step__meta {
+                color: #A64F2D;
+            }
+
+            .method-step.is-active .method-step__number {
+                color: #646A73;
             }
 
             .method-stage {
@@ -2376,12 +2402,16 @@
             gap: 0.45rem;
         }
 
+        #footer-watermark::before {
+            content: "Acelera";
+        }
+
         .contact-form__row--message {
             align-items: start;
         }
 
         .contact-form label {
-            color: #6B7280;
+            color: #686F7D;
             font-family: var(--font-mono);
             font-size: 0.64rem;
             letter-spacing: 0.14em;
@@ -2624,7 +2654,7 @@
             }
 
             .capability-select-wrap > span {
-                color: #6B7280;
+                color: #686F7D;
                 font-family: var(--font-mono);
                 font-size: 0.62rem;
                 letter-spacing: 0.14em;
@@ -2738,7 +2768,7 @@
             }
 
             .method-step.is-active .method-step__copy {
-                color: #6B7280;
+                color: #686F7D;
             }
 
             .projects-mosaic {
@@ -3033,7 +3063,7 @@
                 margin-bottom: 0;
             }
 
-            .team-member h4 {
+            .team-member h3 {
                 font-size: 1.25rem;
                 line-height: 1.05;
             }
@@ -4365,7 +4395,11 @@
     </a>
     <div id="floating-controls" class="floating-controls">
         <a class="floating-pill floating-pill--brand floating-brand" href="#hero-section" aria-label="Acelera — ir al inicio">
-            <img class="floating-brand__wordmark" src="assets/acelera-wordmark.png" alt="" width="552" height="213">
+            <img class="floating-brand__wordmark"
+                src="assets/acelera-wordmark.webp"
+                srcset="assets/acelera-wordmark-184.webp 184w, assets/acelera-wordmark-256.webp 256w, assets/acelera-wordmark.webp 552w"
+                sizes="74px"
+                alt="" width="552" height="213">
         </a>
         <div class="floating-pill floating-pill--actions">
             <div class="language-switcher" role="group" aria-label="Idioma">
@@ -4990,17 +5024,21 @@
                     <div class="team-member group gsap-reveal">
                         <div
                             class="aspect-[4/5] w-full overflow-hidden bg-surfaceAlt rounded-[2rem] mb-6 relative border border-borderSubtle">
-                            <img src="assets/estevo_profile.webp" alt="Ignacio" width="671" height="816" loading="lazy" decoding="async" fetchpriority="low"
+                            <img src="assets/estevo_profile.webp"
+                                srcset="assets/estevo_profile-320.webp 320w, assets/estevo_profile-640.webp 640w, assets/estevo_profile.webp 671w"
+                                sizes="(max-width: 767px) 104px, (max-width: 1279px) 28vw, 320px"
+                                alt="Ignacio" width="671" height="816" loading="lazy" decoding="async" fetchpriority="low"
                                 class="w-full h-full object-cover grayscale mix-blend-multiply group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-700 opacity-90 group-hover:scale-105">
                         </div>
                         <div class="flex items-center justify-between mb-1">
-                            <h4 class="text-2xl font-bold text-textPrimary">Ignacio Estevo</h4>
+                            <h3 class="text-2xl font-bold text-textPrimary">Ignacio Estevo</h3>
                             <a href="https://www.linkedin.com/in/ignacio-estevo/" target="_blank"
                                 rel="noopener noreferrer"
+                                aria-label="LinkedIn de Ignacio Estevo"
                                 class="text-textSecondary hover:text-primary transition-colors hover:scale-110 inline-flex items-center justify-center min-h-[44px] min-w-[44px] p-2 -m-2 md:min-h-0 md:min-w-0 md:p-0 md:m-0 rounded-md md:rounded-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-linkedin">
+                                    stroke-linejoin="round" class="lucide lucide-linkedin" aria-hidden="true">
                                     <path
                                         d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
                                     </path>
@@ -5017,17 +5055,20 @@
                         <div
                             class="aspect-[4/5] w-full overflow-hidden bg-surfaceAlt rounded-[2rem] mb-6 relative border border-borderSubtle">
                             <img src="assets/aaaaa_recortada_8_balanceada.webp"
+                                srcset="assets/mauro_profile-320.webp 320w, assets/mauro_profile-640.webp 640w, assets/aaaaa_recortada_8_balanceada.webp 800w"
+                                sizes="(max-width: 767px) 104px, (max-width: 1279px) 28vw, 320px"
                                 alt="Mauro" width="800" height="925" loading="lazy" decoding="async" fetchpriority="low"
                                 class="w-full h-full object-cover grayscale mix-blend-multiply group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-700 opacity-90 group-hover:scale-105">
                         </div>
                         <div class="flex items-center justify-between mb-1">
-                            <h4 class="text-2xl font-bold text-textPrimary">Mauro Proto</h4>
+                            <h3 class="text-2xl font-bold text-textPrimary">Mauro Proto</h3>
                             <a href="https://www.linkedin.com/in/mauroprotocassina/" target="_blank"
                                 rel="noopener noreferrer"
+                                aria-label="LinkedIn de Mauro Proto"
                                 class="text-textSecondary hover:text-primary transition-colors hover:scale-110 inline-flex items-center justify-center min-h-[44px] min-w-[44px] p-2 -m-2 md:min-h-0 md:min-w-0 md:p-0 md:m-0 rounded-md md:rounded-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-linkedin">
+                                    stroke-linejoin="round" class="lucide lucide-linkedin" aria-hidden="true">
                                     <path
                                         d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
                                     </path>
@@ -5043,17 +5084,20 @@
                         <div
                             class="aspect-[4/5] w-full overflow-hidden bg-surfaceAlt rounded-[2rem] mb-6 relative border border-borderSubtle">
                             <img src="assets/franco_profile.webp"
+                                srcset="assets/franco_profile-320.webp 320w, assets/franco_profile-640.webp 640w, assets/franco_profile.webp 800w"
+                                sizes="(max-width: 767px) 104px, (max-width: 1279px) 28vw, 320px"
                                 alt="Franco" width="800" height="1079" loading="lazy" decoding="async" fetchpriority="low"
                                 class="w-full h-full object-cover grayscale mix-blend-multiply group-hover:grayscale-0 group-hover:mix-blend-normal transition-all duration-700 opacity-90 group-hover:scale-105">
                         </div>
                         <div class="flex items-center justify-between mb-1">
-                            <h4 class="text-2xl font-bold text-textPrimary">Franco Ferreira</h4>
+                            <h3 class="text-2xl font-bold text-textPrimary">Franco Ferreira</h3>
                             <a href="https://www.linkedin.com/in/franco-ferreira/" target="_blank"
                                 rel="noopener noreferrer"
+                                aria-label="LinkedIn de Franco Ferreira"
                                 class="text-textSecondary hover:text-primary transition-colors hover:scale-110 inline-flex items-center justify-center min-h-[44px] min-w-[44px] p-2 -m-2 md:min-h-0 md:min-w-0 md:p-0 md:m-0 rounded-md md:rounded-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="lucide lucide-linkedin">
+                                    stroke-linejoin="round" class="lucide lucide-linkedin" aria-hidden="true">
                                     <path
                                         d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
                                     </path>
@@ -5275,10 +5319,9 @@
             </div>
         </div>
         <div class="footer-bottom max-w-7xl mx-auto relative z-10 pt-6 md:pt-16 flex flex-col items-center w-full min-w-0 overflow-x-hidden">
-            <h2 id="footer-watermark"
+            <div id="footer-watermark" aria-hidden="true"
                 class="font-serif text-[18vw] md:text-[clamp(15rem,15vw,20rem)] leading-none text-paper/5 tracking-tighter select-none mb-6 md:mb-10 text-center w-full max-w-full font-semibold px-1">
-                Acelera
-            </h2>
+            </div>
             <div class="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-between text-center md:text-left w-full gap-4 text-paper/55">
                 <span class="font-mono text-[10px] tracking-[0.18em] uppercase">© 2026 Acelera — Adopción de IA con sentido</span>
                 <span class="font-mono text-[10px] tracking-[0.18em] uppercase flex items-center gap-2"><i
@@ -5286,7 +5329,7 @@
             </div>
         </div>
     </footer>
-    <script src="assets/i18n.js?v=20260727-3"></script>
+    <script src="assets/i18n.js?v=20260728-1"></script>
     <script defer>
         if (window.lucide && typeof window.lucide.createIcons === "function") {
             window.lucide.createIcons();
@@ -6199,7 +6242,7 @@
                         kicker: "Seguimiento",
                         title: "Decisiones claras",
                         copy: "",
-                        logoSrc: "assets/acelera-wordmark.png",
+                        logoSrc: "assets/acelera-wordmark.webp",
                         logoAspect: 552 / 213,
                         width: 2.34, height: 2.24, x: 2.51, y: 0.14,
                         start: 0.22, end: 0.38, step: 1, centered: true
@@ -6606,7 +6649,7 @@
             }
         });
     </script>
-    <script defer src="assets/app.js?v=20260727-3"></script>
+    <script defer src="assets/app.js?v=20260728-1"></script>
 </body>
 
 </html>
