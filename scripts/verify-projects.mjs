@@ -97,6 +97,11 @@ async function inspectViewport(width, height) {
 
   assert.equal(layout.overflow, 0, `${width}px should not overflow horizontally`);
   assert.equal(layout.cards.length, 5, `${width}px should render five project cards`);
+  assert.deepEqual(
+    layout.cards.map(({ project }) => project),
+    ["rely", "lemon", "lain", "harness", "faro"],
+    `${width}px should lead with Rely and Lemon Box`,
+  );
   assert.equal(new Set(layout.cards.map(({ top }) => top)).size, 1, `${width}px should render one horizontal rail`);
   const mediaRatios = Object.fromEntries(layout.cards.map(({ project, mediaRatio }) => [project, mediaRatio]));
   assert.deepEqual(
@@ -119,8 +124,8 @@ async function inspectViewport(width, height) {
   assert.ok(await projectsViewport.evaluate((element) => element.scrollLeft > 0), `${width}px next should move the rail`);
   if (width >= 768) {
     await page.waitForTimeout(1000);
-    const harnessPlayback = await page.evaluate(() => {
-      const video = document.querySelector('[data-project="harness"] [data-project-video]');
+    const lainPlayback = await page.evaluate(() => {
+      const video = document.querySelector('[data-project="lain"] [data-project-video]');
       return {
         currentTime: video.currentTime,
         errorCode: video.error?.code ?? null,
@@ -129,11 +134,11 @@ async function inspectViewport(width, height) {
         posterHidden: video.closest(".project-media").classList.contains("is-video-ready"),
       };
     });
-    assert.equal(harnessPlayback.errorCode, null, `${width}px Harness video should decode without errors`);
-    assert.equal(harnessPlayback.paused, false, `${width}px Harness video should be playing when visible`);
-    assert.ok(harnessPlayback.currentTime >= 0.25, `${width}px Harness video should advance beyond its poster`);
-    assert.ok(harnessPlayback.readyState >= 2, `${width}px Harness video should have playable frame data`);
-    assert.equal(harnessPlayback.posterHidden, true, `${width}px Harness poster should hide once playback advances`);
+    assert.equal(lainPlayback.errorCode, null, `${width}px Lain video should decode without errors`);
+    assert.equal(lainPlayback.paused, false, `${width}px Lain video should be playing when visible`);
+    assert.ok(lainPlayback.currentTime >= 0.25, `${width}px Lain video should advance beyond its poster`);
+    assert.ok(lainPlayback.readyState >= 2, `${width}px Lain video should have playable frame data`);
+    assert.equal(lainPlayback.posterHidden, true, `${width}px Lain poster should hide once playback advances`);
   }
   await projectsViewport.focus();
   const firstStep = await projectsViewport.evaluate((element) => element.scrollLeft);
@@ -149,7 +154,7 @@ async function inspectViewport(width, height) {
     project: video.closest("[data-project]").dataset.project,
     paused: video.paused,
   })));
-  assert.deepEqual(playback.filter(({ paused }) => !paused).map(({ project }) => project), width >= 768 ? ["rely", "lain"] : ["rely"]);
+  assert.deepEqual(playback.filter(({ paused }) => !paused).map(({ project }) => project), width >= 768 ? ["rely", "lemon"] : ["rely"]);
 
   if (width === 1440) {
     for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
@@ -206,7 +211,7 @@ async function inspectViewport(width, height) {
       previousLabel: document.querySelector("[data-projects-prev]").getAttribute("aria-label"),
       nextLabel: document.querySelector("[data-projects-next]").getAttribute("aria-label"),
     }));
-    assert.deepEqual(englishCopy.projectLinks, ["View Rely", "View Lain", "Video demo", "View Faro", "View project"]);
+    assert.deepEqual(englishCopy.projectLinks, ["View Rely", "View project", "View Lain", "Video demo", "View full case"]);
     assert.equal(englishCopy.harnessMeta, "Internal platform · AI agent management");
     assert.equal(englishCopy.carouselLabel, "Featured projects");
     assert.equal(englishCopy.previousLabel, "Previous project");

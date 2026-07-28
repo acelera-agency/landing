@@ -19,7 +19,7 @@ const projectCard = (slug) => projectsSection?.match(
 test("features five Acelera projects with equal card treatment", () => {
   assert.ok(projectsSection, "The projects section should exist");
 
-  const projects = ["rely", "lain", "harness", "faro", "lemon"];
+  const projects = ["rely", "lemon", "lain", "harness", "faro"];
   let previousIndex = -1;
   for (const project of projects) {
     const index = projectsSection.indexOf(`data-project="${project}"`);
@@ -284,6 +284,7 @@ test("provides English copy for the five-project story", () => {
     "View Rely",
     "View Lain",
     "View Faro",
+    "View full case",
     "View project",
     "Internal platform · AI agent management",
     "Video demo",

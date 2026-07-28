@@ -253,6 +253,7 @@
         "Demo del proyecto Harness": "Harness project demo",
         "Abrir Faro en una pestaña nueva": "Open Faro in a new tab",
         "Ver Faro": "View Faro",
+        "Ver caso completo": "View full case",
         "Datos públicos · Inteligencia territorial": "Public data · Territorial intelligence",
         "Una plataforma que organiza expedientes de obra pública en un mapa interactivo para explorar señales de revisión y verificar cada caso directamente en su fuente oficial.": "A platform that organizes public works records on an interactive map to explore review signals and verify every case directly against its official source.",
         "Proyecto para Lemon": "A project for Lemon",
