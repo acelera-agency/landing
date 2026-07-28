@@ -99,6 +99,7 @@ test("links every public project to a real destination", () => {
 test("keeps a poster layer visible until every project video is ready", () => {
   const releaseVersions = {
     rely: "\\?v=20260727-4",
+    lain: "\\?v=20260728-1",
     faro: "\\?v=20260727-3",
     lemon: "\\?v=20260727-4",
   };
@@ -163,6 +164,10 @@ test("renders the capability case as an unobstructed layered motion preview", ()
       new RegExp(`${project}:\\s*\\{[\\s\\S]*?${project}-poster\\.webp\\?v=20260727-4[\\s\\S]*?${project}-demo\\.webm\\?v=20260727-4[\\s\\S]*?${project}-demo\\.mp4\\?v=20260727-4`),
     );
   }
+  assert.match(
+    indexHtml,
+    /lain:\s*\{[\s\S]*?lain-poster\.webp\?v=20260728-1[\s\S]*?lain-demo\.webm\?v=20260728-1[\s\S]*?lain-demo\.mp4\?v=20260728-1/,
+  );
   assert.match(indexHtml, /if \(!capabilityMotionBlocked\)\s*\{[\s\S]*?capabilityVideo\.load\(\)/);
   assert.match(indexHtml, /item\.dataset\.case === "harness"[\s\S]*?\[capabilityVideoMp4, capabilityVideoWebm\][\s\S]*?\[capabilityVideoWebm, capabilityVideoMp4\]/);
   assert.match(
