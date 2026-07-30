@@ -1,4 +1,5 @@
 output/
+.playwright-cli/
 docs/
 landing-prueba/
 tracking-demo.html

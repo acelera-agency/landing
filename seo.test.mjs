@@ -93,6 +93,24 @@ test("keeps canonical metadata aligned with the final www host", async () => {
   }
 });
 
+test("keeps every public page free of phone contact data", async () => {
+  const publicPages = [
+    "index.html",
+    "privacidad.html",
+    "terminos.html",
+    ...indexablePages.map(({ file }) => file),
+  ];
+
+  for (const page of publicPages) {
+    const html = await read(page);
+    assert.doesNotMatch(
+      html,
+      /(?:href="tel:|wa\.me\/|["']telephone["']\s*:|\+54\s*(?:9\s*)?11\s*\d{4})/i,
+      `${page} should not expose a phone contact`,
+    );
+  }
+});
+
 test("positions the homepage clearly and keeps footer contact data out of Google snippets", async () => {
   const home = await read("index.html");
   const title = "Acelera Agency | Software a medida e IA para empresas";
@@ -405,10 +423,10 @@ test("exposes a linked organization, services and projects JSON-LD graph without
   }
 });
 
-test("keeps non-public previews out of Vercel deployments", async () => {
+test("keeps non-public previews and browser artifacts out of Vercel deployments", async () => {
   const ignore = await read(".vercelignore");
 
-  for (const path of ["output/", "docs/", "landing-prueba/", "tracking-demo.html", "*.bak"]) {
+  for (const path of ["output/", ".playwright-cli/", "docs/", "landing-prueba/", "tracking-demo.html", "*.bak"]) {
     assert.match(ignore, new RegExp(`^${path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`, "m"));
   }
 });

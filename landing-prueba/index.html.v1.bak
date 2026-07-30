@@ -898,10 +898,6 @@
                 <span class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/40 w-14 shrink-0">email</span>
                 <span class="font-mono text-sm md:text-base text-ink group-hover:text-accent transition-colors">contacto@acelera.agency</span>
               </a>
-              <a href="tel:+5491161758891" class="flex items-baseline gap-6 group">
-                <span class="font-mono text-[10px] uppercase tracking-extra-wide text-ink/40 w-14 shrink-0">tel</span>
-                <span class="font-mono text-sm md:text-base text-ink group-hover:text-accent transition-colors">+54 9 11 6175 8891</span>
-              </a>
             </div>
 
             <!-- CTA principal -->
@@ -1058,7 +1054,6 @@
 
             <ul class="flex flex-col gap-1.5 font-mono text-[12px] uppercase tracking-wider2 text-paper/70">
               <li><a href="mailto:hola@acelera.ar" class="hover:text-accent transition-colors">hola@acelera.ar</a></li>
-              <li><a href="tel:+541140000000" class="hover:text-accent transition-colors">+54 11 4000 0000</a></li>
               <li class="text-paper/45">Buenos Aires · Argentina</li>
             </ul>
 
