@@ -457,40 +457,58 @@
         }
 
         .cursor-aura {
-            --cursor-aura-size: clamp(34rem, 58vw, 52rem);
-            --cursor-aura-core: rgba(194, 65, 12, 0.055);
-            --cursor-aura-ring: rgba(201, 106, 67, 0.15);
-            --cursor-aura-edge: rgba(194, 65, 12, 0.035);
+            --cursor-aura-width: clamp(38rem, 60vw, 56rem);
+            --cursor-aura-height: clamp(24rem, 39vw, 35rem);
+            --cursor-aura-angle: -8deg;
+            --cursor-aura-warm: rgba(194, 65, 12, 0.09);
+            --cursor-aura-copper: rgba(201, 106, 67, 0.105);
+            --cursor-aura-ember: rgba(194, 65, 12, 0.055);
+            --cursor-aura-trail: rgba(201, 106, 67, 0.04);
             position: absolute;
             top: 0;
             left: 0;
             z-index: 0;
-            width: var(--cursor-aura-size);
-            height: var(--cursor-aura-size);
-            border-radius: 50%;
+            width: var(--cursor-aura-width);
+            height: var(--cursor-aura-height);
             pointer-events: none;
             opacity: 0;
             transform: translate3d(-200vw, -200vh, 0) translate3d(-50%, -50%, 0);
-            background:
-                radial-gradient(circle at center,
-                    var(--cursor-aura-core) 0%,
-                    rgba(194, 65, 12, 0.025) 20%,
-                    transparent 31%),
-                radial-gradient(circle at center,
-                    transparent 20%,
-                    var(--cursor-aura-ring) 38%,
-                    var(--cursor-aura-edge) 55%,
-                    transparent 72%);
             will-change: transform, opacity;
             backface-visibility: hidden;
             contain: strict;
         }
 
+        .cursor-aura::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 46% 27% at 35% 56%,
+                    var(--cursor-aura-warm) 0%,
+                    rgba(194, 65, 12, 0.038) 45%,
+                    transparent 78%),
+                radial-gradient(ellipse 25% 47% at 68% 34%,
+                    var(--cursor-aura-copper) 0%,
+                    rgba(201, 106, 67, 0.04) 42%,
+                    transparent 76%),
+                radial-gradient(ellipse 22% 20% at 66% 76%,
+                    var(--cursor-aura-ember) 0%,
+                    transparent 74%),
+                radial-gradient(ellipse 25% 16% at 13% 49%,
+                    var(--cursor-aura-trail) 0%,
+                    transparent 74%);
+            transform: rotate(var(--cursor-aura-angle));
+            transform-origin: center;
+        }
+
         .cursor-aura--footer {
-            --cursor-aura-size: clamp(30rem, 52vw, 46rem);
-            --cursor-aura-core: rgba(201, 106, 67, 0.105);
-            --cursor-aura-ring: rgba(201, 106, 67, 0.22);
-            --cursor-aura-edge: rgba(194, 65, 12, 0.06);
+            --cursor-aura-width: clamp(36rem, 56vw, 52rem);
+            --cursor-aura-height: clamp(25rem, 41vw, 38rem);
+            --cursor-aura-angle: 11deg;
+            --cursor-aura-warm: rgba(194, 65, 12, 0.15);
+            --cursor-aura-copper: rgba(201, 106, 67, 0.17);
+            --cursor-aura-ember: rgba(194, 65, 12, 0.09);
+            --cursor-aura-trail: rgba(201, 106, 67, 0.07);
         }
 
         @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {

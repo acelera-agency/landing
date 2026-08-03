@@ -24,11 +24,16 @@ test("critical CSS and JavaScript assets use a release cache key", async () => {
 test("uses one compositor-friendly cursor aura in the hero and footer", async () => {
   const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
   const script = await readFile(new URL("./assets/app.js", import.meta.url), "utf8");
+  const auraCss = html.match(/\.cursor-aura\s*\{([\s\S]*?)\n\s*\}/)?.[1] || "";
+  const auraPaintCss = html.match(/\.cursor-aura::before\s*\{([\s\S]*?)\n\s*\}/)?.[1] || "";
 
   assert.equal((html.match(/data-cursor-aura-zone/g) || []).length, 2);
   assert.equal((html.match(/data-cursor-aura(?:\s|>)/g) || []).length, 2);
   assert.doesNotMatch(html, /id="(?:hero|footer)-glow-[12]"/);
   assert.doesNotMatch(html, /cursor-aura[^}]*filter:\s*blur/s);
+  assert.doesNotMatch(auraCss, /border-radius:\s*50%/);
+  assert.doesNotMatch(auraPaintCss, /radial-gradient\(circle/);
+  assert.match(auraPaintCss, /radial-gradient\(ellipse/);
   assert.match(script, /function initCursorAuras\(\)/);
   assert.match(script, /requestAnimationFrame\(render\)/);
   assert.match(script, /translate3d\(/);
