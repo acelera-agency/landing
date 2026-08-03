@@ -456,63 +456,19 @@
             background-size: 24px 24px, 32px 32px;
         }
 
-        .cursor-aura {
-            --cursor-aura-width: clamp(38rem, 60vw, 56rem);
-            --cursor-aura-height: clamp(24rem, 39vw, 35rem);
-            --cursor-aura-angle: -8deg;
-            --cursor-aura-warm: rgba(194, 65, 12, 0.09);
-            --cursor-aura-copper: rgba(201, 106, 67, 0.105);
-            --cursor-aura-ember: rgba(194, 65, 12, 0.055);
-            --cursor-aura-trail: rgba(201, 106, 67, 0.04);
+        .cursor-trail {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             z-index: 0;
-            width: var(--cursor-aura-width);
-            height: var(--cursor-aura-height);
+            display: block;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
-            opacity: 0;
-            transform: translate3d(-200vw, -200vh, 0) translate3d(-50%, -50%, 0);
-            will-change: transform, opacity;
-            backface-visibility: hidden;
             contain: strict;
         }
 
-        .cursor-aura::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 46% 27% at 35% 56%,
-                    var(--cursor-aura-warm) 0%,
-                    rgba(194, 65, 12, 0.038) 45%,
-                    transparent 78%),
-                radial-gradient(ellipse 25% 47% at 68% 34%,
-                    var(--cursor-aura-copper) 0%,
-                    rgba(201, 106, 67, 0.04) 42%,
-                    transparent 76%),
-                radial-gradient(ellipse 22% 20% at 66% 76%,
-                    var(--cursor-aura-ember) 0%,
-                    transparent 74%),
-                radial-gradient(ellipse 25% 16% at 13% 49%,
-                    var(--cursor-aura-trail) 0%,
-                    transparent 74%);
-            transform: rotate(var(--cursor-aura-angle));
-            transform-origin: center;
-        }
-
-        .cursor-aura--footer {
-            --cursor-aura-width: clamp(36rem, 56vw, 52rem);
-            --cursor-aura-height: clamp(25rem, 41vw, 38rem);
-            --cursor-aura-angle: 11deg;
-            --cursor-aura-warm: rgba(194, 65, 12, 0.15);
-            --cursor-aura-copper: rgba(201, 106, 67, 0.17);
-            --cursor-aura-ember: rgba(194, 65, 12, 0.09);
-            --cursor-aura-trail: rgba(201, 106, 67, 0.07);
-        }
-
         @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
-            .cursor-aura {
+            .cursor-trail {
                 display: none;
             }
         }
@@ -4558,10 +4514,10 @@
     </div>
 
     <main class="relative z-10">
-        <section id="hero-section" data-header-scheme="light" data-cursor-aura-zone
+        <section id="hero-section" data-header-scheme="light" data-cursor-trail-zone
             class="w-full min-h-[80vh] md:min-h-screen relative flex items-center overflow-hidden pt-20 md:pt-24 pb-16 md:pb-20">
             <div class="absolute inset-0 z-0 pointer-events-none">
-                <div class="cursor-aura" data-cursor-aura aria-hidden="true"></div>
+                <canvas class="cursor-trail" data-cursor-trail aria-hidden="true"></canvas>
             </div>
             <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 z-10 relative">
                 <div class="relative">
@@ -5281,9 +5237,9 @@
             </div>
         </section>
     </main>
-    <footer id="footer-section" data-header-scheme="dark" data-cursor-aura-zone
+    <footer id="footer-section" data-header-scheme="dark" data-cursor-trail-zone data-cursor-trail-tone="dark"
         class="relative bg-inkDeep text-paper pt-20 pb-10 px-4 sm:px-6 md:px-12 overflow-hidden border-t border-rule">
-        <div class="cursor-aura cursor-aura--footer" data-cursor-aura aria-hidden="true"></div>
+        <canvas class="cursor-trail" data-cursor-trail aria-hidden="true"></canvas>
         <div
             class="footer-primary max-w-7xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-start px-4 sm:px-6 md:px-12 mb-20 gsap-reveal">
             <div class="max-w-md md:col-span-7" data-nosnippet>
@@ -6545,7 +6501,7 @@
             }
         });
     </script>
-    <script defer src="assets/app.js?v=20260803-1"></script>
+    <script defer src="assets/app.js?v=20260803-2"></script>
 </body>
 
 </html>

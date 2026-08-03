@@ -18,27 +18,27 @@ test("critical CSS and JavaScript assets use a release cache key", async () => {
   for (const asset of ["tailwind.css", "lucide-sprite.js", "i18n.js"]) {
     assert.match(html, new RegExp(`assets/${asset.replace(".", "\\.")}\\?${releaseToken}`));
   }
-  assert.match(html, /assets\/app\.js\?v=20260803-1/);
+  assert.match(html, /assets\/app\.js\?v=20260803-2/);
 });
 
-test("uses one compositor-friendly cursor aura in the hero and footer", async () => {
+test("draws a fading mouse trail in the hero and footer without a fixed cursor shape", async () => {
   const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
   const script = await readFile(new URL("./assets/app.js", import.meta.url), "utf8");
-  const auraCss = html.match(/\.cursor-aura\s*\{([\s\S]*?)\n\s*\}/)?.[1] || "";
-  const auraPaintCss = html.match(/\.cursor-aura::before\s*\{([\s\S]*?)\n\s*\}/)?.[1] || "";
 
-  assert.equal((html.match(/data-cursor-aura-zone/g) || []).length, 2);
-  assert.equal((html.match(/data-cursor-aura(?:\s|>)/g) || []).length, 2);
-  assert.doesNotMatch(html, /id="(?:hero|footer)-glow-[12]"/);
-  assert.doesNotMatch(html, /cursor-aura[^}]*filter:\s*blur/s);
-  assert.doesNotMatch(auraCss, /border-radius:\s*50%/);
-  assert.doesNotMatch(auraPaintCss, /radial-gradient\(circle/);
-  assert.match(auraPaintCss, /radial-gradient\(ellipse/);
-  assert.match(script, /function initCursorAuras\(\)/);
+  assert.equal((html.match(/data-cursor-trail-zone/g) || []).length, 2);
+  assert.equal((html.match(/data-cursor-trail(?:\s|>)/g) || []).length, 2);
+  assert.equal((html.match(/<canvas class="cursor-trail"/g) || []).length, 2);
+  assert.doesNotMatch(html, /cursor-aura|data-cursor-aura/);
+  assert.doesNotMatch(html, /cursor-trail[^}]*filter:\s*blur/s);
+  assert.match(script, /function initCursorTrails\(\)/);
+  assert.match(script, /TRAIL_LIFETIME\s*=\s*680/);
+  assert.match(script, /getCoalescedEvents/);
+  assert.match(script, /quadraticCurveTo/);
+  assert.match(script, /devicePixelRatio/);
+  assert.match(script, /performance\.now\(\)/);
   assert.match(script, /requestAnimationFrame\(render\)/);
-  assert.match(script, /translate3d\(/);
   assert.match(script, /prefers-reduced-motion: reduce/);
-  assert.doesNotMatch(script, /getElementById\("hero-glow-[12]"\)/);
+  assert.doesNotMatch(script, /initCursorAuras|data-cursor-aura/);
 });
 
 test("legal pages invalidate their shared stylesheet", async () => {

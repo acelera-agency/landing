@@ -391,97 +391,191 @@
     }
   })();
 
-  // Cursor aura — a single pre-rendered radial gradient follows the pointer.
-  // Only transform and opacity change, so movement stays on the compositor and
-  // avoids repainting the large CSS blur surfaces used by the previous effect.
-  (function initCursorAuras() {
+  // Cursor trail — draws the pointer's recent route and then lets it disappear.
+  // There is no fixed shape attached to the cursor; the canvas only renders
+  // while a real path exists and is cleared as soon as that path expires.
+  (function initCursorTrails() {
     var precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (!precisePointer.matches || reducedMotion.matches) return;
 
-    document.querySelectorAll("[data-cursor-aura-zone]").forEach(function (zone) {
-      var aura = zone.querySelector("[data-cursor-aura]");
-      if (!aura) return;
+    var TRAIL_LIFETIME = 680;
+    var MAX_POINTS = 110;
+    var SAMPLE_DISTANCE = 8;
+
+    document.querySelectorAll("[data-cursor-trail-zone]").forEach(function (zone) {
+      var canvas = zone.querySelector("[data-cursor-trail]");
+      if (!canvas) return;
+
+      var context = canvas.getContext("2d", { alpha: true, desynchronized: true });
+      if (!context) return;
 
       var bounds = null;
-      var targetX = 0;
-      var targetY = 0;
-      var currentX = 0;
-      var currentY = 0;
-      var targetOpacity = 0;
-      var currentOpacity = 0;
+      var points = [];
+      var lastPoint = null;
       var frameId = 0;
-      var previousTime = 0;
       var isVisible = true;
+      var width = 0;
+      var height = 0;
+      var dpr = 1;
+      var darkTone = zone.dataset.cursorTrailTone === "dark";
 
       function measure() {
         bounds = zone.getBoundingClientRect();
         return bounds;
       }
 
-      function setPointerTarget(event, immediate) {
-        var rect = bounds || measure();
-        targetX = event.clientX - rect.left;
-        targetY = event.clientY - rect.top;
-        if (immediate) {
-          currentX = targetX;
-          currentY = targetY;
+      function clear() {
+        context.clearRect(0, 0, width, height);
+      }
+
+      function resize() {
+        width = Math.max(1, zone.clientWidth);
+        height = Math.max(1, zone.clientHeight);
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        var pixelWidth = Math.max(1, Math.round(width * dpr));
+        var pixelHeight = Math.max(1, Math.round(height * dpr));
+        if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
+          canvas.width = pixelWidth;
+          canvas.height = pixelHeight;
         }
+
+        context.setTransform(dpr, 0, 0, dpr, 0, 0);
+        context.imageSmoothingEnabled = true;
+        context.imageSmoothingQuality = "high";
+        context.lineCap = "round";
+        context.lineJoin = "round";
+        points = [];
+        lastPoint = null;
+        bounds = null;
+        clear();
       }
 
       function schedule() {
         if (isVisible && !frameId) frameId = window.requestAnimationFrame(render);
       }
 
-      function render(time) {
+      function addPoint(x, y, createdAt) {
+        if (!lastPoint) {
+          lastPoint = { x: x, y: y, createdAt: createdAt };
+          points.push(lastPoint);
+          schedule();
+          return;
+        }
+
+        var deltaX = x - lastPoint.x;
+        var deltaY = y - lastPoint.y;
+        var distance = Math.hypot(deltaX, deltaY);
+        if (distance < 1.25) return;
+
+        var steps = Math.min(18, Math.max(1, Math.ceil(distance / SAMPLE_DISTANCE)));
+        var origin = lastPoint;
+        for (var step = 1; step <= steps; step += 1) {
+          var progress = step / steps;
+          points.push({
+            x: origin.x + deltaX * progress,
+            y: origin.y + deltaY * progress,
+            createdAt: createdAt - (steps - step) * 0.4
+          });
+        }
+
+        lastPoint = points[points.length - 1];
+        if (points.length > MAX_POINTS) points.splice(0, points.length - MAX_POINTS);
+        schedule();
+      }
+
+      function track(event) {
+        var rect = bounds || measure();
+        var coalesced = typeof event.getCoalescedEvents === "function" ? event.getCoalescedEvents() : [];
+        var samples = coalesced.length ? coalesced : [event];
+        var now = performance.now();
+
+        samples.forEach(function (sample, index) {
+          addPoint(
+            sample.clientX - rect.left,
+            sample.clientY - rect.top,
+            now - (samples.length - index - 1) * 0.6
+          );
+        });
+      }
+
+      function strokeSegment(start, control, end, widthValue, alpha, color) {
+        context.beginPath();
+        context.moveTo(start.x, start.y);
+        context.quadraticCurveTo(control.x, control.y, end.x, end.y);
+        context.lineWidth = widthValue;
+        context.strokeStyle = "rgba(" + color + "," + alpha.toFixed(3) + ")";
+        context.stroke();
+      }
+
+      function render(now) {
         frameId = 0;
-        var elapsed = previousTime ? Math.min((time - previousTime) / 1000, 0.064) : 1 / 60;
-        previousTime = time;
-        var positionBlend = 1 - Math.exp(-22 * elapsed);
-        var opacityBlend = 1 - Math.exp(-14 * elapsed);
+        clear();
+        points = points.filter(function (point) {
+          return now - point.createdAt < TRAIL_LIFETIME;
+        });
 
-        currentX += (targetX - currentX) * positionBlend;
-        currentY += (targetY - currentY) * positionBlend;
-        currentOpacity += (targetOpacity - currentOpacity) * opacityBlend;
+        if (points.length > 1) {
+          for (var index = 1; index < points.length; index += 1) {
+            var previous = points[Math.max(0, index - 2)];
+            var control = points[index - 1];
+            var current = points[index];
+            var start = index === 1
+              ? control
+              : { x: (previous.x + control.x) / 2, y: (previous.y + control.y) / 2 };
+            var end = index === points.length - 1
+              ? current
+              : { x: (control.x + current.x) / 2, y: (control.y + current.y) / 2 };
+            var life = Math.max(0, 1 - (now - control.createdAt) / TRAIL_LIFETIME);
+            var alpha = life * life;
+            var lineWidth = 0.6 + life * 2.15;
 
-        aura.style.transform =
-          "translate3d(" + currentX.toFixed(2) + "px," + currentY.toFixed(2) + "px,0) translate3d(-50%,-50%,0)";
-        aura.style.opacity = currentOpacity.toFixed(3);
+            strokeSegment(
+              start,
+              control,
+              end,
+              lineWidth * 3.4,
+              alpha * (darkTone ? 0.13 : 0.09),
+              darkTone ? "229,127,83" : "201,106,67"
+            );
+            strokeSegment(
+              start,
+              control,
+              end,
+              lineWidth,
+              alpha * (darkTone ? 0.72 : 0.58),
+              darkTone ? "239,143,101" : "194,65,12"
+            );
+          }
+        }
 
-        var positionSettled = Math.abs(targetX - currentX) < 0.1 && Math.abs(targetY - currentY) < 0.1;
-        var opacitySettled = Math.abs(targetOpacity - currentOpacity) < 0.004;
-        if (!positionSettled || !opacitySettled) schedule();
-      }
-
-      function enter(event) {
-        bounds = null;
-        previousTime = 0;
-        setPointerTarget(event, true);
-        targetOpacity = 1;
-        schedule();
-      }
-
-      function move(event) {
-        setPointerTarget(event, false);
-        schedule();
-      }
-
-      function leave() {
-        targetOpacity = 0;
-        bounds = null;
-        schedule();
+        if (points.length) schedule();
       }
 
       function invalidateBounds() {
         bounds = null;
       }
 
-      zone.addEventListener("pointerenter", enter, { passive: true });
-      zone.addEventListener("pointermove", move, { passive: true });
-      zone.addEventListener("pointerleave", leave, { passive: true });
-      zone.addEventListener("pointercancel", leave, { passive: true });
-      window.addEventListener("resize", invalidateBounds, { passive: true });
+      function endTrail() {
+        lastPoint = null;
+        bounds = null;
+        schedule();
+      }
+
+      zone.addEventListener("pointerenter", track, { passive: true });
+      zone.addEventListener("pointermove", track, { passive: true });
+      zone.addEventListener("pointerleave", endTrail, { passive: true });
+      zone.addEventListener("pointercancel", endTrail, { passive: true });
       window.addEventListener("scroll", invalidateBounds, { passive: true });
+
+      if ("ResizeObserver" in window) {
+        new ResizeObserver(resize).observe(zone);
+      } else {
+        window.addEventListener("resize", resize, { passive: true });
+      }
+
+      resize();
 
       if ("IntersectionObserver" in window) {
         new IntersectionObserver(function (entries) {
@@ -489,10 +583,9 @@
           if (!isVisible) {
             if (frameId) window.cancelAnimationFrame(frameId);
             frameId = 0;
-            previousTime = 0;
-            targetOpacity = 0;
-            currentOpacity = 0;
-            aura.style.opacity = "0";
+            points = [];
+            lastPoint = null;
+            clear();
           }
         }).observe(zone);
       }
