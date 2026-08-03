@@ -391,51 +391,120 @@
     }
   })();
 
+  // Cursor aura — a single pre-rendered radial gradient follows the pointer.
+  // Only transform and opacity change, so movement stays on the compositor and
+  // avoids repainting the large CSS blur surfaces used by the previous effect.
+  (function initCursorAuras() {
+    var precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (!precisePointer.matches || reducedMotion.matches) return;
+
+    document.querySelectorAll("[data-cursor-aura-zone]").forEach(function (zone) {
+      var aura = zone.querySelector("[data-cursor-aura]");
+      if (!aura) return;
+
+      var bounds = null;
+      var targetX = 0;
+      var targetY = 0;
+      var currentX = 0;
+      var currentY = 0;
+      var targetOpacity = 0;
+      var currentOpacity = 0;
+      var frameId = 0;
+      var previousTime = 0;
+      var isVisible = true;
+
+      function measure() {
+        bounds = zone.getBoundingClientRect();
+        return bounds;
+      }
+
+      function setPointerTarget(event, immediate) {
+        var rect = bounds || measure();
+        targetX = event.clientX - rect.left;
+        targetY = event.clientY - rect.top;
+        if (immediate) {
+          currentX = targetX;
+          currentY = targetY;
+        }
+      }
+
+      function schedule() {
+        if (isVisible && !frameId) frameId = window.requestAnimationFrame(render);
+      }
+
+      function render(time) {
+        frameId = 0;
+        var elapsed = previousTime ? Math.min((time - previousTime) / 1000, 0.064) : 1 / 60;
+        previousTime = time;
+        var positionBlend = 1 - Math.exp(-22 * elapsed);
+        var opacityBlend = 1 - Math.exp(-14 * elapsed);
+
+        currentX += (targetX - currentX) * positionBlend;
+        currentY += (targetY - currentY) * positionBlend;
+        currentOpacity += (targetOpacity - currentOpacity) * opacityBlend;
+
+        aura.style.transform =
+          "translate3d(" + currentX.toFixed(2) + "px," + currentY.toFixed(2) + "px,0) translate3d(-50%,-50%,0)";
+        aura.style.opacity = currentOpacity.toFixed(3);
+
+        var positionSettled = Math.abs(targetX - currentX) < 0.1 && Math.abs(targetY - currentY) < 0.1;
+        var opacitySettled = Math.abs(targetOpacity - currentOpacity) < 0.004;
+        if (!positionSettled || !opacitySettled) schedule();
+      }
+
+      function enter(event) {
+        bounds = null;
+        previousTime = 0;
+        setPointerTarget(event, true);
+        targetOpacity = 1;
+        schedule();
+      }
+
+      function move(event) {
+        setPointerTarget(event, false);
+        schedule();
+      }
+
+      function leave() {
+        targetOpacity = 0;
+        bounds = null;
+        schedule();
+      }
+
+      function invalidateBounds() {
+        bounds = null;
+      }
+
+      zone.addEventListener("pointerenter", enter, { passive: true });
+      zone.addEventListener("pointermove", move, { passive: true });
+      zone.addEventListener("pointerleave", leave, { passive: true });
+      zone.addEventListener("pointercancel", leave, { passive: true });
+      window.addEventListener("resize", invalidateBounds, { passive: true });
+      window.addEventListener("scroll", invalidateBounds, { passive: true });
+
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+          isVisible = entries.some(function (entry) { return entry.isIntersecting; });
+          if (!isVisible) {
+            if (frameId) window.cancelAnimationFrame(frameId);
+            frameId = 0;
+            previousTime = 0;
+            targetOpacity = 0;
+            currentOpacity = 0;
+            aura.style.opacity = "0";
+          }
+        }).observe(zone);
+      }
+    });
+  })();
+
   // ====================================================================
-  // GSAP — hero glows y cards (las entradas .gsap-reveal van en index.html
-  // para no duplicar ScrollTrigger con el script inline).
+  // GSAP fallback. Las entradas .gsap-reveal viven en index.html para no
+  // duplicar ScrollTrigger con este archivo.
   // ====================================================================
   if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
-
-    // Hero glows
-    var glow1 = document.getElementById("hero-glow-1");
-    var glow2 = document.getElementById("hero-glow-2");
-    if (glow1) {
-      gsap.to(glow1, {
-        opacity: 1,
-        x: "15%",
-        y: "10%",
-        duration: 1.2,
-        ease: "power2.out",
-        delay: 0.3
-      });
-    }
-    if (glow2) {
-      gsap.to(glow2, {
-        opacity: 1,
-        x: "20%",
-        y: "15%",
-        duration: 1.4,
-        ease: "power2.out",
-        delay: 0.5
-      });
-    }
-
-    // Card glow on hover (proceso + sector cards)
-    gsap.utils.toArray(".proceso-card, .sector-card").forEach(function (card) {
-      var primary = card.querySelector(".proceso-glow-primary, .sector-glow-primary");
-      var secondary = card.querySelector(".proceso-glow-secondary, .sector-glow-secondary");
-
-      card.addEventListener("mouseenter", function () {
-        if (primary) gsap.to(primary, { opacity: 1, x: "-10%", y: "-10%", duration: 0.5, ease: "power2.out" });
-        if (secondary) gsap.to(secondary, { opacity: 1, x: "5%", y: "5%", duration: 0.6, ease: "power2.out" });
-      });
-      card.addEventListener("mouseleave", function () {
-        if (primary) gsap.to(primary, { opacity: 0, x: 0, y: 0, duration: 0.4, ease: "power2.in" });
-        if (secondary) gsap.to(secondary, { opacity: 0, x: 0, y: 0, duration: 0.4, ease: "power2.in" });
-      });
-    });
 
   } else {
     document.querySelectorAll(".gsap-reveal").forEach(function (el) {

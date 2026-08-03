@@ -456,11 +456,47 @@
             background-size: 24px 24px, 32px 32px;
         }
 
-        #hero-glow-1,
-        #hero-glow-2,
-        #footer-glow-1,
-        #footer-glow-2 {
+        .cursor-aura {
+            --cursor-aura-size: clamp(34rem, 58vw, 52rem);
+            --cursor-aura-core: rgba(194, 65, 12, 0.055);
+            --cursor-aura-ring: rgba(201, 106, 67, 0.15);
+            --cursor-aura-edge: rgba(194, 65, 12, 0.035);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            width: var(--cursor-aura-size);
+            height: var(--cursor-aura-size);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate3d(-200vw, -200vh, 0) translate3d(-50%, -50%, 0);
+            background:
+                radial-gradient(circle at center,
+                    var(--cursor-aura-core) 0%,
+                    rgba(194, 65, 12, 0.025) 20%,
+                    transparent 31%),
+                radial-gradient(circle at center,
+                    transparent 20%,
+                    var(--cursor-aura-ring) 38%,
+                    var(--cursor-aura-edge) 55%,
+                    transparent 72%);
             will-change: transform, opacity;
+            backface-visibility: hidden;
+            contain: strict;
+        }
+
+        .cursor-aura--footer {
+            --cursor-aura-size: clamp(30rem, 52vw, 46rem);
+            --cursor-aura-core: rgba(201, 106, 67, 0.105);
+            --cursor-aura-ring: rgba(201, 106, 67, 0.22);
+            --cursor-aura-edge: rgba(194, 65, 12, 0.06);
+        }
+
+        @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+            .cursor-aura {
+                display: none;
+            }
         }
 
         /* Display headlines — custom display stack with editorial fallback. */
@@ -4504,15 +4540,10 @@
     </div>
 
     <main class="relative z-10">
-        <section id="hero-section" data-header-scheme="light"
+        <section id="hero-section" data-header-scheme="light" data-cursor-aura-zone
             class="w-full min-h-[80vh] md:min-h-screen relative flex items-center overflow-hidden pt-20 md:pt-24 pb-16 md:pb-20">
             <div class="absolute inset-0 z-0 pointer-events-none">
-                <div id="hero-glow-1"
-                    class="absolute w-[800px] h-[800px] rounded-full blur-[170px] bg-accent/[0.08] opacity-0 top-0 left-0 mix-blend-normal">
-                </div>
-                <div id="hero-glow-2"
-                    class="absolute w-[450px] h-[450px] rounded-full blur-[120px] bg-accent/[0.16] opacity-0 top-0 left-0 mix-blend-normal">
-                </div>
+                <div class="cursor-aura" data-cursor-aura aria-hidden="true"></div>
             </div>
             <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 z-10 relative">
                 <div class="relative">
@@ -5232,14 +5263,9 @@
             </div>
         </section>
     </main>
-    <footer id="footer-section" data-header-scheme="dark"
+    <footer id="footer-section" data-header-scheme="dark" data-cursor-aura-zone
         class="relative bg-inkDeep text-paper pt-20 pb-10 px-4 sm:px-6 md:px-12 overflow-hidden border-t border-rule">
-        <div id="footer-glow-1"
-            class="absolute w-[800px] h-[800px] rounded-full blur-[120px] bg-accent/10 opacity-0 top-0 left-0 mix-blend-normal pointer-events-none z-0">
-        </div>
-        <div id="footer-glow-2"
-            class="absolute w-[400px] h-[400px] rounded-full blur-[90px] bg-accent/20 opacity-0 top-0 left-0 mix-blend-normal pointer-events-none z-0">
-        </div>
+        <div class="cursor-aura cursor-aura--footer" data-cursor-aura aria-hidden="true"></div>
         <div
             class="footer-primary max-w-7xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-start px-4 sm:px-6 md:px-12 mb-20 gsap-reveal">
             <div class="max-w-md md:col-span-7" data-nosnippet>
@@ -5706,139 +5732,6 @@
                 if (e.key === "Escape" && leadModal && !leadModal.classList.contains("hidden")) {
                     closeLeadModal();
                 }
-            });
-
-            const setupCursorGlow = (section, glows, config = {}) => {
-                if (!section) {
-                    return;
-                }
-                const validGlows = glows.filter(Boolean);
-                const precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-                if (!validGlows.length || !precisePointer.matches) {
-                    return;
-                }
-
-                const primaryDuration = config.primaryDuration ?? 0.72;
-                const secondaryDuration = config.secondaryDuration ?? 0.28;
-                const enterDuration = config.enterDuration ?? 0.42;
-                const leaveDuration = config.leaveDuration ?? 1.15;
-                const primaryOpacity = config.primaryOpacity ?? 1;
-                const secondaryOpacity = config.secondaryOpacity ?? 1;
-                const primaryEase = config.primaryEase ?? "power3.out";
-                const secondaryEase = config.secondaryEase ?? "power4.out";
-                const leaveEase = config.leaveEase ?? "sine.inOut";
-
-                gsap.set(validGlows, { xPercent: -50, yPercent: -50, opacity: 0 });
-                const followers = validGlows.map((glow, index) => {
-                    const duration = index === 0 ? primaryDuration : secondaryDuration;
-                    const ease = index === 0 ? primaryEase : secondaryEase;
-                    return {
-                        glow,
-                        xTo: gsap.quickTo(glow, "x", { duration, ease }),
-                        yTo: gsap.quickTo(glow, "y", { duration, ease })
-                    };
-                });
-                let positioned = false;
-                let bounds = null;
-                let boundsScrollY = window.scrollY;
-                let pointerFrame = 0;
-                let pendingPointer = null;
-
-                const measureBounds = () => {
-                    bounds = section.getBoundingClientRect();
-                    boundsScrollY = window.scrollY;
-                    return bounds;
-                };
-
-                const moveFollowers = (point, immediate = false) => {
-                    const rect = !bounds || boundsScrollY !== window.scrollY ? measureBounds() : bounds;
-                    const x = point.clientX - rect.left;
-                    const y = point.clientY - rect.top;
-
-                    followers.forEach((follower) => {
-                        if (immediate || !positioned) gsap.set(follower.glow, { x, y });
-                        else {
-                            follower.xTo(x);
-                            follower.yTo(y);
-                        }
-                    });
-                    positioned = true;
-                };
-
-                section.addEventListener("pointerenter", (e) => {
-                    positioned = false;
-                    measureBounds();
-                    moveFollowers(e, true);
-                    if (validGlows[0]) gsap.to(validGlows[0], { opacity: primaryOpacity, duration: enterDuration, ease: "sine.out", overwrite: "auto" });
-                    if (validGlows[1]) gsap.to(validGlows[1], { opacity: secondaryOpacity, duration: enterDuration * 0.8, ease: "sine.out", overwrite: "auto" });
-                });
-
-                section.addEventListener("pointermove", (e) => {
-                    pendingPointer = { clientX: e.clientX, clientY: e.clientY };
-                    if (pointerFrame) return;
-                    pointerFrame = requestAnimationFrame(() => {
-                        pointerFrame = 0;
-                        if (pendingPointer) moveFollowers(pendingPointer);
-                        pendingPointer = null;
-                    });
-                });
-
-                section.addEventListener("pointerleave", () => {
-                    positioned = false;
-                    pendingPointer = null;
-                    if (pointerFrame) cancelAnimationFrame(pointerFrame);
-                    pointerFrame = 0;
-                    gsap.to(validGlows, { opacity: 0, duration: leaveDuration, ease: leaveEase, overwrite: "auto" });
-                });
-
-                window.addEventListener("resize", () => {
-                    bounds = null;
-                }, { passive: true });
-            };
-
-            const heroSection = document.getElementById("hero-section");
-            const footerSection = document.getElementById("footer-section");
-            setupCursorGlow(heroSection, [
-                document.getElementById("hero-glow-1"),
-                document.getElementById("hero-glow-2")
-            ], {
-                primaryDuration: 0.82,
-                secondaryDuration: 0.3,
-                enterDuration: 0.5,
-                leaveDuration: 1.25,
-                primaryOpacity: 0.82,
-                secondaryOpacity: 0.72
-            });
-
-            setupCursorGlow(footerSection, [
-                document.getElementById("footer-glow-1"),
-                document.getElementById("footer-glow-2")
-            ]);
-
-            document.querySelectorAll(".sector-card").forEach((card) => {
-                const primary = card.querySelector(".sector-glow-primary");
-                const secondary = card.querySelector(".sector-glow-secondary");
-                setupCursorGlow(card, [primary, secondary], {
-                    primaryDuration: 0.45,
-                    secondaryDuration: 0.25,
-                    leaveDuration: 1.2,
-                    primaryEase: "power3.out",
-                    secondaryEase: "power2.out",
-                    leaveEase: "sine.out"
-                });
-            });
-
-            document.querySelectorAll(".proceso-card").forEach((card) => {
-                const primary = card.querySelector(".proceso-glow-primary");
-                const secondary = card.querySelector(".proceso-glow-secondary");
-                setupCursorGlow(card, [primary, secondary], {
-                    primaryDuration: 0.45,
-                    secondaryDuration: 0.25,
-                    leaveDuration: 1.2,
-                    primaryEase: "power3.out",
-                    secondaryEase: "power2.out",
-                    leaveEase: "sine.out"
-                });
             });
 
             // Hero intro is now pure CSS — see .gsap-hero-text @keyframes heroIntro.
@@ -6634,7 +6527,7 @@
             }
         });
     </script>
-    <script defer src="assets/app.js?v=20260728-1"></script>
+    <script defer src="assets/app.js?v=20260803-1"></script>
 </body>
 
 </html>

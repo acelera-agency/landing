@@ -15,9 +15,25 @@ test("mutable assets are revalidated instead of cached as immutable", async () =
 test("critical CSS and JavaScript assets use a release cache key", async () => {
   const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
 
-  for (const asset of ["tailwind.css", "lucide-sprite.js", "i18n.js", "app.js"]) {
+  for (const asset of ["tailwind.css", "lucide-sprite.js", "i18n.js"]) {
     assert.match(html, new RegExp(`assets/${asset.replace(".", "\\.")}\\?${releaseToken}`));
   }
+  assert.match(html, /assets\/app\.js\?v=20260803-1/);
+});
+
+test("uses one compositor-friendly cursor aura in the hero and footer", async () => {
+  const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
+  const script = await readFile(new URL("./assets/app.js", import.meta.url), "utf8");
+
+  assert.equal((html.match(/data-cursor-aura-zone/g) || []).length, 2);
+  assert.equal((html.match(/data-cursor-aura(?:\s|>)/g) || []).length, 2);
+  assert.doesNotMatch(html, /id="(?:hero|footer)-glow-[12]"/);
+  assert.doesNotMatch(html, /cursor-aura[^}]*filter:\s*blur/s);
+  assert.match(script, /function initCursorAuras\(\)/);
+  assert.match(script, /requestAnimationFrame\(render\)/);
+  assert.match(script, /translate3d\(/);
+  assert.match(script, /prefers-reduced-motion: reduce/);
+  assert.doesNotMatch(script, /getElementById\("hero-glow-[12]"\)/);
 });
 
 test("legal pages invalidate their shared stylesheet", async () => {
