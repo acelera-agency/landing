@@ -391,17 +391,34 @@
     }
   })();
 
-  // Cursor trail — draws the pointer's recent route and then lets it disappear.
-  // There is no fixed shape attached to the cursor; the canvas only renders
-  // while a real path exists and is cleared as soon as that path expires.
+  // Cursor trail — a soft terracotta wake that follows the pointer with inertia.
+  // The shape is not a recording of the route: it is a chain of nodes where each
+  // one chases the previous, so the tail always reads as a smooth ribbon, tapers
+  // to nothing and retracts into the pointer as soon as the movement stops.
   (function initCursorTrails() {
     var precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (!precisePointer.matches || reducedMotion.matches) return;
 
-    var TRAIL_LIFETIME = 680;
-    var MAX_POINTS = 110;
-    var SAMPLE_DISTANCE = 8;
+    var NODES = 26;            // length of the chain
+    var HEAD_EASE = 0.38;      // how fast the head chases the pointer
+    var TAIL_EASE = 0.26;      // how fast each node chases the previous one
+    var MAX_LINK = 13;         // px between nodes, caps how far the wake stretches
+    var HEAD_WIDTH = 8;        // px at the thickest point
+    var SPEED_FOR_FULL = 11;   // px/frame needed for the trail at full opacity
+    var TONES = {
+      light: { head: [214, 116, 72], tail: [186, 84, 48], core: 0.58, halo: 0.1, ember: 0.06 },
+      dark: { head: [244, 173, 141], tail: [201, 106, 67], core: 0.55, halo: 0.13, ember: 0.1 }
+    };
+
+    // Canvas filters let the halo be genuinely blurred instead of a wide fill,
+    // which would crease against itself on tight curves. Falls back gracefully.
+    var blurAvailable = (function () {
+      var probe = document.createElement("canvas").getContext("2d");
+      if (!probe || !("filter" in probe)) return false;
+      probe.filter = "blur(4px)";
+      return probe.filter === "blur(4px)";
+    })();
 
     document.querySelectorAll("[data-cursor-trail-zone]").forEach(function (zone) {
       var canvas = zone.querySelector("[data-cursor-trail]");
@@ -410,15 +427,16 @@
       var context = canvas.getContext("2d", { alpha: true, desynchronized: true });
       if (!context) return;
 
+      var tone = TONES[zone.dataset.cursorTrailTone === "dark" ? "dark" : "light"];
       var bounds = null;
-      var points = [];
-      var lastPoint = null;
+      var nodes = [];
+      var pointer = null;
+      var presence = 0;
       var frameId = 0;
       var isVisible = true;
       var width = 0;
       var height = 0;
       var dpr = 1;
-      var darkTone = zone.dataset.cursorTrailTone === "dark";
 
       function measure() {
         bounds = zone.getBoundingClientRect();
@@ -427,6 +445,12 @@
 
       function clear() {
         context.clearRect(0, 0, width, height);
+      }
+
+      function reset() {
+        nodes = [];
+        pointer = null;
+        presence = 0;
       }
 
       function resize() {
@@ -442,12 +466,7 @@
         }
 
         context.setTransform(dpr, 0, 0, dpr, 0, 0);
-        context.imageSmoothingEnabled = true;
-        context.imageSmoothingQuality = "high";
-        context.lineCap = "round";
-        context.lineJoin = "round";
-        points = [];
-        lastPoint = null;
+        reset();
         bounds = null;
         clear();
       }
@@ -456,101 +475,177 @@
         if (isVisible && !frameId) frameId = window.requestAnimationFrame(render);
       }
 
-      function addPoint(x, y, createdAt) {
-        if (!lastPoint) {
-          lastPoint = { x: x, y: y, createdAt: createdAt };
-          points.push(lastPoint);
-          schedule();
-          return;
+      function track(event) {
+        var rect = bounds || measure();
+        var x = event.clientX - rect.left;
+        var y = event.clientY - rect.top;
+
+        pointer = { x: x, y: y };
+        if (!nodes.length) {
+          for (var index = 0; index < NODES; index += 1) nodes.push({ x: x, y: y });
         }
-
-        var deltaX = x - lastPoint.x;
-        var deltaY = y - lastPoint.y;
-        var distance = Math.hypot(deltaX, deltaY);
-        if (distance < 1.25) return;
-
-        var steps = Math.min(18, Math.max(1, Math.ceil(distance / SAMPLE_DISTANCE)));
-        var origin = lastPoint;
-        for (var step = 1; step <= steps; step += 1) {
-          var progress = step / steps;
-          points.push({
-            x: origin.x + deltaX * progress,
-            y: origin.y + deltaY * progress,
-            createdAt: createdAt - (steps - step) * 0.4
-          });
-        }
-
-        lastPoint = points[points.length - 1];
-        if (points.length > MAX_POINTS) points.splice(0, points.length - MAX_POINTS);
         schedule();
       }
 
-      function track(event) {
-        var rect = bounds || measure();
-        var coalesced = typeof event.getCoalescedEvents === "function" ? event.getCoalescedEvents() : [];
-        var samples = coalesced.length ? coalesced : [event];
-        var now = performance.now();
-
-        samples.forEach(function (sample, index) {
-          addPoint(
-            sample.clientX - rect.left,
-            sample.clientY - rect.top,
-            now - (samples.length - index - 1) * 0.6
-          );
-        });
+      function mix(from, to, amount) {
+        return [
+          Math.round(from[0] + (to[0] - from[0]) * amount),
+          Math.round(from[1] + (to[1] - from[1]) * amount),
+          Math.round(from[2] + (to[2] - from[2]) * amount)
+        ];
       }
 
-      function strokeSegment(start, control, end, widthValue, alpha, color) {
-        context.beginPath();
-        context.moveTo(start.x, start.y);
-        context.quadraticCurveTo(control.x, control.y, end.x, end.y);
-        context.lineWidth = widthValue;
-        context.strokeStyle = "rgba(" + color + "," + alpha.toFixed(3) + ")";
-        context.stroke();
+      function rgba(color, alpha) {
+        return "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + alpha.toFixed(3) + ")";
       }
 
-      function render(now) {
-        frameId = 0;
-        clear();
-        points = points.filter(function (point) {
-          return now - point.createdAt < TRAIL_LIFETIME;
-        });
+      // Catmull-Rom resample: turns the node chain into a dense smooth spine so
+      // fast gestures curve instead of showing the corners between nodes.
+      function spine() {
+        var points = [];
+        var subdivisions = 4;
+        var last = nodes.length - 1;
 
-        if (points.length > 1) {
-          for (var index = 1; index < points.length; index += 1) {
-            var previous = points[Math.max(0, index - 2)];
-            var control = points[index - 1];
-            var current = points[index];
-            var start = index === 1
-              ? control
-              : { x: (previous.x + control.x) / 2, y: (previous.y + control.y) / 2 };
-            var end = index === points.length - 1
-              ? current
-              : { x: (control.x + current.x) / 2, y: (control.y + current.y) / 2 };
-            var life = Math.max(0, 1 - (now - control.createdAt) / TRAIL_LIFETIME);
-            var alpha = life * life;
-            var lineWidth = 0.6 + life * 2.15;
+        for (var index = 0; index < last; index += 1) {
+          var p0 = nodes[Math.max(0, index - 1)];
+          var p1 = nodes[index];
+          var p2 = nodes[index + 1];
+          var p3 = nodes[Math.min(last, index + 2)];
 
-            strokeSegment(
-              start,
-              control,
-              end,
-              lineWidth * 3.4,
-              alpha * (darkTone ? 0.13 : 0.09),
-              darkTone ? "229,127,83" : "201,106,67"
-            );
-            strokeSegment(
-              start,
-              control,
-              end,
-              lineWidth,
-              alpha * (darkTone ? 0.72 : 0.58),
-              darkTone ? "239,143,101" : "194,65,12"
-            );
+          for (var step = 0; step < subdivisions; step += 1) {
+            var t = step / subdivisions;
+            var t2 = t * t;
+            var t3 = t2 * t;
+            points.push({
+              x: 0.5 * ((2 * p1.x) + (-p0.x + p2.x) * t + (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 + (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3),
+              y: 0.5 * ((2 * p1.y) + (-p0.y + p2.y) * t + (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 + (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3)
+            });
           }
         }
 
-        if (points.length) schedule();
+        points.push({ x: nodes[last].x, y: nodes[last].y });
+        return points;
+      }
+
+      // One continuous tapered ribbon filled with a gradient — a single fill
+      // keeps it seamless, unlike stroking each segment on its own.
+      function fillRibbon(points, spread, alpha) {
+        if (alpha <= 0.004) return;
+
+        var count = points.length;
+        var edge = count - 1;
+        var left = [];
+        var right = [];
+
+        for (var index = 0; index < count; index += 1) {
+          var before = points[Math.max(0, index - 1)];
+          var after = points[Math.min(edge, index + 1)];
+          var length = Math.hypot(after.x - before.x, after.y - before.y) || 1;
+          var normalX = -(after.y - before.y) / length;
+          var normalY = (after.x - before.x) / length;
+          var life = 1 - index / edge;
+          var half = (HEAD_WIDTH / 2) * spread * Math.pow(life, 0.7);
+
+          left.push({ x: points[index].x + normalX * half, y: points[index].y + normalY * half });
+          right.push({ x: points[index].x - normalX * half, y: points[index].y - normalY * half });
+        }
+
+        context.beginPath();
+        context.moveTo(left[0].x, left[0].y);
+        for (var forward = 1; forward < count; forward += 1) context.lineTo(left[forward].x, left[forward].y);
+        for (var backward = edge; backward >= 0; backward -= 1) context.lineTo(right[backward].x, right[backward].y);
+        context.closePath();
+
+        var gradient = context.createLinearGradient(points[0].x, points[0].y, points[edge].x, points[edge].y);
+        gradient.addColorStop(0, rgba(tone.head, alpha));
+        gradient.addColorStop(0.4, rgba(mix(tone.head, tone.tail, 0.5), alpha * 0.6));
+        gradient.addColorStop(1, rgba(tone.tail, 0));
+        context.fillStyle = gradient;
+        context.fill();
+
+        // Round the leading end so the head reads as a drop, not a cut edge.
+        // Filled on its own path: merging it above would punch a nonzero hole.
+        context.beginPath();
+        context.arc(points[0].x, points[0].y, (HEAD_WIDTH / 2) * spread, 0, Math.PI * 2);
+        context.fillStyle = rgba(tone.head, alpha);
+        context.fill();
+      }
+
+      function drawEmber(head, alpha) {
+        if (alpha <= 0.004) return;
+        var radius = HEAD_WIDTH * 2.6;
+        var glow = context.createRadialGradient(head.x, head.y, 0, head.x, head.y, radius);
+        glow.addColorStop(0, rgba(tone.head, alpha));
+        glow.addColorStop(1, rgba(tone.head, 0));
+        context.beginPath();
+        context.fillStyle = glow;
+        context.arc(head.x, head.y, radius, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      function render() {
+        frameId = 0;
+        clear();
+
+        if (!nodes.length) return;
+
+        // Inertia: the head eases toward the pointer, every other node toward
+        // the node in front of it. Stop moving and the chain folds into itself.
+        var head = nodes[0];
+        var previousX = head.x;
+        var previousY = head.y;
+        if (pointer) {
+          head.x += (pointer.x - head.x) * HEAD_EASE;
+          head.y += (pointer.y - head.y) * HEAD_EASE;
+        }
+        for (var index = 1; index < nodes.length; index += 1) {
+          var link = nodes[index];
+          var ahead = nodes[index - 1];
+          link.x += (ahead.x - link.x) * TAIL_EASE;
+          link.y += (ahead.y - link.y) * TAIL_EASE;
+
+          // Rope constraint: a sharp flick cannot stretch the wake indefinitely.
+          var gapX = link.x - ahead.x;
+          var gapY = link.y - ahead.y;
+          var gap = Math.hypot(gapX, gapY);
+          if (gap > MAX_LINK) {
+            link.x = ahead.x + (gapX / gap) * MAX_LINK;
+            link.y = ahead.y + (gapY / gap) * MAX_LINK;
+          }
+        }
+
+        // Opacity follows the gesture: it appears while the pointer moves and
+        // eases away when it rests, so an idle cursor leaves nothing behind.
+        var speed = Math.hypot(head.x - previousX, head.y - previousY);
+        var energy = pointer ? Math.min(1, speed / SPEED_FOR_FULL) : 0;
+        presence += (energy - presence) * (energy > presence ? 0.4 : 0.09);
+
+        var last = nodes.length - 1;
+        var reach = Math.hypot(nodes[last].x - nodes[0].x, nodes[last].y - nodes[0].y);
+
+        if (presence > 0.006 && reach > 1.5) {
+          var points = spine();
+
+          if (blurAvailable) {
+            context.filter = "blur(7px)";
+            fillRibbon(points, 1.6, presence * tone.halo * 1.7);
+            context.filter = "none";
+          } else {
+            fillRibbon(points, 2.3, presence * tone.halo);
+          }
+
+          fillRibbon(points, 1, presence * tone.core);     // solid body
+          drawEmber(nodes[0], presence * tone.ember);      // ember at the head
+        }
+
+        // Keep animating while the trail is visible, still folding back in, or
+        // while the head has not caught up with the pointer yet.
+        var chasing = pointer ? Math.hypot(pointer.x - nodes[0].x, pointer.y - nodes[0].y) : 0;
+        if (presence > 0.006 || reach > 1.2 || chasing > 0.5) {
+          schedule();
+        } else if (!pointer) {
+          reset();
+        }
       }
 
       function invalidateBounds() {
@@ -558,7 +653,7 @@
       }
 
       function endTrail() {
-        lastPoint = null;
+        pointer = null;
         bounds = null;
         schedule();
       }

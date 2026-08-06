@@ -18,7 +18,7 @@ test("critical CSS and JavaScript assets use a release cache key", async () => {
   for (const asset of ["tailwind.css", "lucide-sprite.js", "i18n.js"]) {
     assert.match(html, new RegExp(`assets/${asset.replace(".", "\\.")}\\?${releaseToken}`));
   }
-  assert.match(html, /assets\/app\.js\?v=20260803-2/);
+  assert.match(html, /assets\/app\.js\?v=20260806-1/);
 });
 
 test("draws a fading mouse trail in the hero and footer without a fixed cursor shape", async () => {
@@ -31,11 +31,15 @@ test("draws a fading mouse trail in the hero and footer without a fixed cursor s
   assert.doesNotMatch(html, /cursor-aura|data-cursor-aura/);
   assert.doesNotMatch(html, /cursor-trail[^}]*filter:\s*blur/s);
   assert.match(script, /function initCursorTrails\(\)/);
-  assert.match(script, /TRAIL_LIFETIME\s*=\s*680/);
-  assert.match(script, /getCoalescedEvents/);
-  assert.match(script, /quadraticCurveTo/);
+  // The wake is driven by inertia (a chain of nodes chasing the pointer), not by
+  // replaying recorded pointer positions, and it cannot stretch without bound.
+  assert.match(script, /HEAD_EASE\s*=/);
+  assert.match(script, /TAIL_EASE\s*=/);
+  assert.match(script, /MAX_LINK\s*=/);
+  // Opacity tracks the gesture, so a resting pointer leaves an empty canvas.
+  assert.match(script, /presence \+= \(energy - presence\)/);
+  assert.match(script, /createLinearGradient/);
   assert.match(script, /devicePixelRatio/);
-  assert.match(script, /performance\.now\(\)/);
   assert.match(script, /requestAnimationFrame\(render\)/);
   assert.match(script, /prefers-reduced-motion: reduce/);
   assert.doesNotMatch(script, /initCursorAuras|data-cursor-aura/);
