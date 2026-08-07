@@ -400,31 +400,28 @@
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (!precisePointer.matches || reducedMotion.matches) return;
 
-    var NODES = 32;            // length of the chain
+    var NODES = 40;            // length of the chain
     var HEAD_PULL = 0.1;       // spring pulling the head toward the pointer
     var HEAD_DRAG = 0.72;      // head damping — lower means it floats further behind
     var TAIL_PULL = 0.2;       // spring linking each node to the one ahead
     var TAIL_DRAG = 0.62;      // tail damping — the slack that lets it whip
-    var MAX_LINK = 16;         // px between nodes, caps how far the wake stretches
-    var MAX_BEND = 0.5;        // rad per link, keeps the ribbon from folding over
-    var HEAD_WIDTH = 8;        // px at the thickest point
+    var MAX_LINK = 18;         // px between nodes, caps how far the wake stretches
+    var MAX_BEND = 0.5;        // rad per link, keeps the beam from folding over
+    var BEAM_RADIUS = 88;      // px of glow around the head — the beam is wide
+    var BEAM_TAIL = 0.24;      // how much of that width survives at the tail
+    var STEP = 3;              // spine points skipped between glow stamps
     var SPEED_FOR_FULL = 11;   // px/frame needed for the trail at full opacity
-    var WAVE_AMPLITUDE = 22;   // px of sideways sway at the crest
-    var WAVE_CYCLES = 1.4;     // ripples visible along the ribbon
+    var WAVE_AMPLITUDE = 18;   // px of sideways sway at the crest
+    var WAVE_CYCLES = 1.2;     // ripples visible along the beam
     var WAVE_SPEED = 0.006;    // how fast the ripple travels down the tail
     var TONES = {
-      light: { head: [214, 116, 72], tail: [186, 84, 48], core: 0.58, halo: 0.1, ember: 0.06 },
-      dark: { head: [244, 173, 141], tail: [201, 106, 67], core: 0.55, halo: 0.13, ember: 0.1 }
+      // Blending happens between the stamps on this transparent canvas, not
+      // against the page. Over dark ink they add up into light; over paper they
+      // multiply, so overlaps deepen the orange instead of washing out. The
+      // multiplied tone has to stay bright and saturated or the wake goes grey.
+      light: { glow: [255, 148, 88], core: [255, 112, 50], beam: 0.06, spark: 0.12, blend: "multiply" },
+      dark: { glow: [255, 128, 56], core: [255, 190, 145], beam: 0.11, spark: 0.16, blend: "lighter" }
     };
-
-    // Canvas filters let the halo be genuinely blurred instead of a wide fill,
-    // which would crease against itself on tight curves. Falls back gracefully.
-    var blurAvailable = (function () {
-      var probe = document.createElement("canvas").getContext("2d");
-      if (!probe || !("filter" in probe)) return false;
-      probe.filter = "blur(4px)";
-      return probe.filter === "blur(4px)";
-    })();
 
     document.querySelectorAll("[data-cursor-trail-zone]").forEach(function (zone) {
       var canvas = zone.querySelector("[data-cursor-trail]");
@@ -495,14 +492,6 @@
         schedule();
       }
 
-      function mix(from, to, amount) {
-        return [
-          Math.round(from[0] + (to[0] - from[0]) * amount),
-          Math.round(from[1] + (to[1] - from[1]) * amount),
-          Math.round(from[2] + (to[2] - from[2]) * amount)
-        ];
-      }
-
       function rgba(color, alpha) {
         return "rgba(" + color[0] + "," + color[1] + "," + color[2] + "," + alpha.toFixed(3) + ")";
       }
@@ -566,60 +555,51 @@
         return swayed;
       }
 
-      // One continuous tapered ribbon filled with a gradient — a single fill
-      // keeps it seamless, unlike stroking each segment on its own.
-      function fillRibbon(points, spread, alpha) {
-        if (alpha <= 0.004) return;
-
-        var count = points.length;
-        var edge = count - 1;
-        var left = [];
-        var right = [];
-
-        for (var index = 0; index < count; index += 1) {
-          var before = points[Math.max(0, index - 1)];
-          var after = points[Math.min(edge, index + 1)];
-          var length = Math.hypot(after.x - before.x, after.y - before.y) || 1;
-          var normalX = -(after.y - before.y) / length;
-          var normalY = (after.x - before.x) / length;
-          var life = 1 - index / edge;
-          var half = (HEAD_WIDTH / 2) * spread * Math.pow(life, 0.7);
-
-          left.push({ x: points[index].x + normalX * half, y: points[index].y + normalY * half });
-          right.push({ x: points[index].x - normalX * half, y: points[index].y - normalY * half });
-        }
-
+      // A single soft light stamped along the path. Overlapping wide radial
+      // gradients build the beam out of light itself, so it has no outline and
+      // no edges to crease — it just glows and fades out toward the tail.
+      function stampGlow(x, y, radius, alpha, color) {
+        if (alpha <= 0.0015 || radius <= 1) return;
+        var glow = context.createRadialGradient(x, y, 0, x, y, radius);
+        glow.addColorStop(0, rgba(color, alpha));
+        glow.addColorStop(0.45, rgba(color, alpha * 0.42));
+        glow.addColorStop(1, rgba(color, 0));
         context.beginPath();
-        context.moveTo(left[0].x, left[0].y);
-        for (var forward = 1; forward < count; forward += 1) context.lineTo(left[forward].x, left[forward].y);
-        for (var backward = edge; backward >= 0; backward -= 1) context.lineTo(right[backward].x, right[backward].y);
-        context.closePath();
-
-        var gradient = context.createLinearGradient(points[0].x, points[0].y, points[edge].x, points[edge].y);
-        gradient.addColorStop(0, rgba(tone.head, alpha));
-        gradient.addColorStop(0.4, rgba(mix(tone.head, tone.tail, 0.5), alpha * 0.6));
-        gradient.addColorStop(1, rgba(tone.tail, 0));
-        context.fillStyle = gradient;
-        context.fill();
-
-        // Round the leading end so the head reads as a drop, not a cut edge.
-        // Filled on its own path: merging it above would punch a nonzero hole.
-        context.beginPath();
-        context.arc(points[0].x, points[0].y, (HEAD_WIDTH / 2) * spread, 0, Math.PI * 2);
-        context.fillStyle = rgba(tone.head, alpha);
+        context.fillStyle = glow;
+        context.arc(x, y, radius, 0, Math.PI * 2);
         context.fill();
       }
 
-      function drawEmber(head, alpha) {
-        if (alpha <= 0.004) return;
-        var radius = HEAD_WIDTH * 2.6;
-        var glow = context.createRadialGradient(head.x, head.y, 0, head.x, head.y, radius);
-        glow.addColorStop(0, rgba(tone.head, alpha));
-        glow.addColorStop(1, rgba(tone.head, 0));
-        context.beginPath();
-        context.fillStyle = glow;
-        context.arc(head.x, head.y, radius, 0, Math.PI * 2);
-        context.fill();
+      // Draws tail first so the brightest light lands on top of the dimmer
+      // haze, which is what gives the head its concentrated hot spot.
+      function drawBeam(points) {
+        var edge = points.length - 1;
+        var previousBlend = context.globalCompositeOperation;
+        context.globalCompositeOperation = tone.blend;
+
+        for (var index = edge; index >= 0; index -= STEP) {
+          var life = 1 - index / edge;
+          var radius = BEAM_RADIUS * (BEAM_TAIL + (1 - BEAM_TAIL) * life);
+          var alpha = presence * tone.beam * Math.pow(life, 1.5);
+          stampGlow(points[index].x, points[index].y, radius, alpha, tone.glow);
+        }
+
+        // Hot core burning down the first stretch and dying quickly, so the
+        // beam reads as light with a source instead of an even smear.
+        for (var burn = edge; burn >= 0; burn -= STEP) {
+          var heat = 1 - burn / edge;
+          if (heat < 0.55) continue;
+          var falloff = (heat - 0.55) / 0.45;
+          stampGlow(
+            points[burn].x,
+            points[burn].y,
+            BEAM_RADIUS * (0.16 + 0.2 * falloff),
+            presence * tone.spark * Math.pow(falloff, 2.2),
+            tone.core
+          );
+        }
+
+        context.globalCompositeOperation = previousBlend;
       }
 
       function render(now) {
@@ -692,18 +672,7 @@
         var reach = Math.hypot(nodes[last].x - nodes[0].x, nodes[last].y - nodes[0].y);
 
         if (presence > 0.006 && reach > 1.5) {
-          var points = spine(now || 0);
-
-          if (blurAvailable) {
-            context.filter = "blur(7px)";
-            fillRibbon(points, 1.6, presence * tone.halo * 1.7);
-            context.filter = "none";
-          } else {
-            fillRibbon(points, 2.3, presence * tone.halo);
-          }
-
-          fillRibbon(points, 1, presence * tone.core);     // solid body
-          drawEmber(nodes[0], presence * tone.ember);      // ember at the head
+          drawBeam(spine(now || 0));
         }
 
         // Keep animating while the trail is visible, still folding back in, or

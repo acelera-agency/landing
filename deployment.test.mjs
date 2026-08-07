@@ -18,7 +18,7 @@ test("critical CSS and JavaScript assets use a release cache key", async () => {
   for (const asset of ["tailwind.css", "lucide-sprite.js", "i18n.js"]) {
     assert.match(html, new RegExp(`assets/${asset.replace(".", "\\.")}\\?${releaseToken}`));
   }
-  assert.match(html, /assets\/app\.js\?v=20260806-2/);
+  assert.match(html, /assets\/app\.js\?v=20260806-3/);
 });
 
 test("draws a fading mouse trail in the hero and footer without a fixed cursor shape", async () => {
@@ -41,7 +41,11 @@ test("draws a fading mouse trail in the hero and footer without a fixed cursor s
   assert.match(script, /MAX_BEND\s*=/);
   // Opacity tracks the gesture, so a resting pointer leaves an empty canvas.
   assert.match(script, /presence \+= \(energy - presence\)/);
-  assert.match(script, /createLinearGradient/);
+  // The wake is built from overlapping soft light, not an outlined shape.
+  assert.match(script, /BEAM_RADIUS\s*=/);
+  assert.match(script, /createRadialGradient/);
+  assert.match(script, /globalCompositeOperation/);
+  assert.doesNotMatch(script, /createLinearGradient/);
   assert.match(script, /devicePixelRatio/);
   assert.match(script, /requestAnimationFrame\(render\)/);
   assert.match(script, /prefers-reduced-motion: reduce/);
