@@ -400,12 +400,18 @@
     var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (!precisePointer.matches || reducedMotion.matches) return;
 
-    var NODES = 26;            // length of the chain
-    var HEAD_EASE = 0.38;      // how fast the head chases the pointer
-    var TAIL_EASE = 0.26;      // how fast each node chases the previous one
-    var MAX_LINK = 13;         // px between nodes, caps how far the wake stretches
+    var NODES = 32;            // length of the chain
+    var HEAD_PULL = 0.1;       // spring pulling the head toward the pointer
+    var HEAD_DRAG = 0.72;      // head damping — lower means it floats further behind
+    var TAIL_PULL = 0.2;       // spring linking each node to the one ahead
+    var TAIL_DRAG = 0.62;      // tail damping — the slack that lets it whip
+    var MAX_LINK = 16;         // px between nodes, caps how far the wake stretches
+    var MAX_BEND = 0.5;        // rad per link, keeps the ribbon from folding over
     var HEAD_WIDTH = 8;        // px at the thickest point
     var SPEED_FOR_FULL = 11;   // px/frame needed for the trail at full opacity
+    var WAVE_AMPLITUDE = 22;   // px of sideways sway at the crest
+    var WAVE_CYCLES = 1.4;     // ripples visible along the ribbon
+    var WAVE_SPEED = 0.006;    // how fast the ripple travels down the tail
     var TONES = {
       light: { head: [214, 116, 72], tail: [186, 84, 48], core: 0.58, halo: 0.1, ember: 0.06 },
       dark: { head: [244, 173, 141], tail: [201, 106, 67], core: 0.55, halo: 0.13, ember: 0.1 }
@@ -482,7 +488,9 @@
 
         pointer = { x: x, y: y };
         if (!nodes.length) {
-          for (var index = 0; index < NODES; index += 1) nodes.push({ x: x, y: y });
+          for (var index = 0; index < NODES; index += 1) {
+            nodes.push({ x: x, y: y, vx: 0, vy: 0 });
+          }
         }
         schedule();
       }
@@ -500,8 +508,9 @@
       }
 
       // Catmull-Rom resample: turns the node chain into a dense smooth spine so
-      // fast gestures curve instead of showing the corners between nodes.
-      function spine() {
+      // fast gestures curve instead of showing the corners between nodes. The
+      // spine is then swayed sideways by a ripple that travels toward the tail.
+      function spine(now) {
         var points = [];
         var subdivisions = 4;
         var last = nodes.length - 1;
@@ -524,7 +533,37 @@
         }
 
         points.push({ x: nodes[last].x, y: nodes[last].y });
-        return points;
+
+        // Sideways ripple: anchored at the head so the wake still reads as
+        // attached to the pointer, growing toward the tail where it can breathe.
+        var edge = points.length - 1;
+        var phase = now * WAVE_SPEED;
+        var swayed = [];
+
+        // A short wake cannot hold a tall wave: keeping the crest proportional
+        // to its length stops the ribbon from curling into loops as it retracts.
+        var span = Math.hypot(points[edge].x - points[0].x, points[edge].y - points[0].y);
+        var room = Math.min(WAVE_AMPLITUDE, span * 0.07);
+
+        for (var point = 0; point <= edge; point += 1) {
+          var t = point / edge;
+          var before = points[Math.max(0, point - 1)];
+          var after = points[Math.min(edge, point + 1)];
+          var runX = after.x - before.x;
+          var runY = after.y - before.y;
+          var length = Math.hypot(runX, runY) || 1;
+          // Crests in the middle of the ribbon, where it still has body: pinned
+          // at the head, still swaying where the tail thins out.
+          var amplitude = room * Math.sin(t * Math.PI * 0.85) * presence;
+          var offset = Math.sin(phase - t * Math.PI * 2 * WAVE_CYCLES) * amplitude;
+
+          swayed.push({
+            x: points[point].x - (runY / length) * offset,
+            y: points[point].y + (runX / length) * offset
+          });
+        }
+
+        return swayed;
       }
 
       // One continuous tapered ribbon filled with a gradient — a single fill
@@ -583,26 +622,35 @@
         context.fill();
       }
 
-      function render() {
+      function render(now) {
         frameId = 0;
         clear();
 
         if (!nodes.length) return;
 
-        // Inertia: the head eases toward the pointer, every other node toward
-        // the node in front of it. Stop moving and the chain folds into itself.
+        // Springs, not easing: every node carries its own velocity, so the wake
+        // lags behind the pointer, overshoots and swings back instead of being
+        // glued to it. The slack accumulates down the chain, whipping the tail.
         var head = nodes[0];
         var previousX = head.x;
         var previousY = head.y;
         if (pointer) {
-          head.x += (pointer.x - head.x) * HEAD_EASE;
-          head.y += (pointer.y - head.y) * HEAD_EASE;
+          head.vx = (head.vx + (pointer.x - head.x) * HEAD_PULL) * HEAD_DRAG;
+          head.vy = (head.vy + (pointer.y - head.y) * HEAD_PULL) * HEAD_DRAG;
+        } else {
+          head.vx *= HEAD_DRAG;
+          head.vy *= HEAD_DRAG;
         }
+        head.x += head.vx;
+        head.y += head.vy;
+
         for (var index = 1; index < nodes.length; index += 1) {
           var link = nodes[index];
           var ahead = nodes[index - 1];
-          link.x += (ahead.x - link.x) * TAIL_EASE;
-          link.y += (ahead.y - link.y) * TAIL_EASE;
+          link.vx = (link.vx + (ahead.x - link.x) * TAIL_PULL) * TAIL_DRAG;
+          link.vy = (link.vy + (ahead.y - link.y) * TAIL_PULL) * TAIL_DRAG;
+          link.x += link.vx;
+          link.y += link.vy;
 
           // Rope constraint: a sharp flick cannot stretch the wake indefinitely.
           var gapX = link.x - ahead.x;
@@ -611,6 +659,26 @@
           if (gap > MAX_LINK) {
             link.x = ahead.x + (gapX / gap) * MAX_LINK;
             link.y = ahead.y + (gapY / gap) * MAX_LINK;
+            gapX = link.x - ahead.x;
+            gapY = link.y - ahead.y;
+            gap = MAX_LINK;
+          }
+
+          // Stiffness: cap how sharply one link can turn against the previous
+          // one. Without it an abrupt stop folds the ribbon back over itself
+          // and the fold shows up as a hard edge.
+          if (index >= 2) {
+            var before = nodes[index - 2];
+            var heading = Math.atan2(ahead.y - before.y, ahead.x - before.x);
+            var bend = Math.atan2(gapY, gapX) - heading;
+            while (bend > Math.PI) bend -= Math.PI * 2;
+            while (bend < -Math.PI) bend += Math.PI * 2;
+
+            if (Math.abs(bend) > MAX_BEND) {
+              var eased = heading + (bend > 0 ? MAX_BEND : -MAX_BEND);
+              link.x = ahead.x + Math.cos(eased) * gap;
+              link.y = ahead.y + Math.sin(eased) * gap;
+            }
           }
         }
 
@@ -624,7 +692,7 @@
         var reach = Math.hypot(nodes[last].x - nodes[0].x, nodes[last].y - nodes[0].y);
 
         if (presence > 0.006 && reach > 1.5) {
-          var points = spine();
+          var points = spine(now || 0);
 
           if (blurAvailable) {
             context.filter = "blur(7px)";
