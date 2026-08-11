@@ -208,11 +208,21 @@
         if (feedback) {
           feedback.textContent = payload.message || "Recibimos tu consulta. Te respondemos pronto.";
         }
+
+        window.AceleraAnalytics?.capture("contact_form_submitted", {
+          form: "main_contact",
+          result: "success"
+        });
       } catch (error) {
         if (feedback) {
           feedback.textContent =
             error instanceof Error ? error.message : "Ocurrió un error enviando el formulario.";
         }
+
+        window.AceleraAnalytics?.capture("contact_form_failed", {
+          form: "main_contact",
+          result: "error"
+        });
       } finally {
         if (submitButton) {
           submitButton.disabled = false;

@@ -25,6 +25,8 @@
             href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,450;9..144,600&family=Geist+Mono:wght@500;600&display=swap" />
     </noscript>
     <link rel="stylesheet" href="assets/legal.css?v=20260728-1" />
+    <link rel="stylesheet" href="/assets/analytics.css?v=20260811-1" />
+    <script src="/assets/analytics.js?v=20260811-1"></script>
 </head>
 
 <body>
@@ -52,7 +54,7 @@
             <div>
                 <p class="hero-summary">Qué datos usamos, para qué, con quiénes se procesan y cómo podés ejercer tus
                     derechos.</p>
-                <time class="hero-meta" datetime="2026-07-12">Vigente desde el 12 de julio de 2026 · Argentina</time>
+                <time class="hero-meta" datetime="2026-08-11">Vigente desde el 11 de agosto de 2026 · Argentina</time>
             </div>
         </header>
 
@@ -149,6 +151,13 @@
                             entregar y proteger el sitio.</li>
                         <li><strong>Preferencia de idioma:</strong> español o inglés, guardada localmente en tu navegador.
                         </li>
+                        <li><strong>Analítica opcional:</strong> cuando la aceptás, registramos páginas visitadas,
+                            procedencia, dispositivo, navegador, país o región aproximados, profundidad de scroll,
+                            secciones vistas, clics en llamadas a la acción, inicio y resultado del formulario y errores
+                            técnicos. No enviamos a PostHog el nombre, correo, empresa ni mensaje del formulario.</li>
+                        <li><strong>Grabación de sesión opcional:</strong> PostHog puede reconstruir visualmente la
+                            navegación para detectar fricción. Todos los campos de entrada se enmascaran antes de salir
+                            del navegador y las interacciones del formulario no se autocapturan.</li>
                     </ul>
 
                     <div class="notice">
@@ -169,6 +178,8 @@
                         </li>
                         <li>mantener comunicaciones vinculadas con esa solicitud o con una relación profesional;</li>
                         <li>conocer, de forma limitada, la fuente que originó una consulta;</li>
+                        <li>medir tráfico, recorridos y conversiones del sitio, mejorar su experiencia y detectar
+                            problemas de uso, sólo cuando aceptás la analítica;</li>
                         <li>operar, mantener y proteger el sitio, prevenir abuso y resolver errores; y</li>
                         <li>cumplir obligaciones legales, atender requerimientos válidos y ejercer o defender derechos.
                         </li>
@@ -237,6 +248,16 @@
                                 distribución, reciben datos técnicos necesarios para responder la solicitud.</p>
                         </div>
                         <div class="provider">
+                            <h3>PostHog</h3>
+                            <p>Presta analítica de producto y web, embudos, detección de errores y grabaciones de sesión
+                                cuando elegís aceptar. Procesa eventos técnicos y de navegación en su región US Cloud;
+                                los campos del formulario se enmascaran y no se incluyen como propiedades de eventos. La
+                                dirección IP puede utilizarse transitoriamente para geolocalización aproximada y detección
+                                de tráfico automatizado, y luego se descarta en la configuración del proyecto.
+                                <a href="https://posthog.com/privacy" target="_blank"
+                                    rel="noopener noreferrer">Privacidad</a>.</p>
+                        </div>
+                        <div class="provider">
                             <h3>Autoridades y asesores</h3>
                             <p>Podremos comunicar la información cuando exista una obligación legal, orden válida o sea
                                 necesario para formular, ejercer o defender reclamos.</p>
@@ -249,7 +270,7 @@
                 <section id="transferencias" class="legal-section">
                     <span class="section-number">07</span>
                     <h2>Transferencias internacionales</h2>
-                    <p>Vercel, Resend, Google y las redes de distribución mencionadas son proveedores globales y pueden
+                    <p>Vercel, Resend, PostHog, Google y las redes de distribución mencionadas son proveedores globales y pueden
                         procesar datos en <strong>Estados Unidos y otros países</strong> donde operan ellos o sus
                         subencargados. Estados Unidos no integra actualmente la lista argentina de jurisdicciones con
                         nivel adecuado.</p>
@@ -274,6 +295,10 @@
                             derechos.</li>
                         <li><strong>Preferencia de idioma:</strong> permanece en el almacenamiento local del navegador
                             hasta que la borres desde sus controles.</li>
+                        <li><strong>Elección de analítica:</strong> permanece en el almacenamiento local del navegador
+                            hasta que la cambies desde “Analítica” en el pie del sitio o borres los datos del sitio.</li>
+                        <li><strong>Eventos y grabaciones:</strong> se conservan según los plazos configurados en PostHog
+                            y se eliminan o anonimizan cuando dejan de ser necesarios para las finalidades informadas.</li>
                         <li><strong>Registros técnicos:</strong> por los plazos de seguridad y retención configurados por
                             los proveedores de infraestructura.</li>
                     </ul>
@@ -312,16 +337,19 @@
                 <section id="tecnologias" class="legal-section">
                     <span class="section-number">10</span>
                     <h2>Cookies y tecnologías similares</h2>
-                    <p>A la fecha de esta política, Acelera <strong>no instala cookies propias, Google Analytics, Meta
-                            Pixel ni otros píxeles publicitarios</strong> en el sitio.</p>
+                    <p>Acelera no usa Google Analytics, Meta Pixel ni píxeles publicitarios. Utiliza PostHog para
+                        analítica web, de producto y grabaciones de sesión <strong>sólo después de que elijas “Aceptar
+                            analítica”</strong>. Si elegís “Solo necesarias”, PostHog no se inicializa.</p>
                     <p>El selector de idioma guarda en <code>localStorage</code> la clave
                         <code>acelera-language</code>, con el valor “es” o “en”. Es una preferencia funcional, no se usa
                         para identificarte ni se envía en el formulario. Podés borrarla eliminando los datos del sitio en
                         tu navegador.</p>
+                    <p>La elección se guarda en <code>localStorage</code> bajo la clave
+                        <code>acelera-analytics-consent</code>. Si aceptás, PostHog puede usar cookies o almacenamiento
+                        local para mantener una sesión anónima entre páginas. Podés cambiar la decisión en cualquier
+                        momento mediante el enlace “Analítica” del pie; al rechazar, se detiene la captura futura.</p>
                     <p>Google Fonts y las redes de distribución reciben solicitudes técnicas para entregar recursos, tal
-                        como se describe en la sección 6. Si Acelera incorpora analítica, publicidad o cookies no
-                        esenciales, actualizará esta política y, cuando corresponda, pedirá una elección antes de
-                        activarlas.</p>
+                        como se describe en la sección 6.</p>
                 </section>
 
                 <section id="seguridad" class="legal-section">
@@ -371,6 +399,7 @@
                 <nav class="footer-links" aria-label="Enlaces legales y de contacto">
                     <a href="/">Inicio</a>
                     <a href="/privacidad" aria-current="page">Privacidad</a>
+                    <a href="#preferencias-analitica" data-analytics-preferences>Analítica</a>
                     <a href="/terminos">Términos</a>
                 </nav>
                 <p class="footer-meta">© 2026 Acelera</p>

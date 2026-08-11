@@ -16,6 +16,8 @@
     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
     <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="/assets/analytics.css?v=20260811-1" />
+    <script src="/assets/analytics.js?v=20260811-1"></script>
 
     <!-- Open Graph (LinkedIn, WhatsApp, etc.) -->
     <meta property="og:type" content="website" />
@@ -5194,7 +5196,7 @@
                         </a>
                     </div>
                     <div class="contact-form-panel lg:w-[60%]">
-                        <form data-lead-form class="contact-form" aria-label="Formulario de contacto">
+                        <form data-lead-form data-ph-no-autocapture class="contact-form" aria-label="Formulario de contacto">
                             <div class="contact-form__header">
                                 <h3 class="contact-form__title">Formulario de contacto</h3>
                             </div>
@@ -5298,6 +5300,8 @@
                         class="font-mono text-[10px] font-semibold tracking-[0.18em] uppercase text-paper/50 mb-2">Legal</span>
                     <a href="/privacidad"
                         class="text-sm text-paper font-medium hover:text-accent transition-colors">Privacidad</a>
+                    <a href="#preferencias-analitica" data-analytics-preferences
+                        class="text-sm text-paper font-medium hover:text-accent transition-colors">Analítica</a>
                     <a href="/terminos"
                         class="text-sm text-paper font-medium hover:text-accent transition-colors">Términos</a>
                 </div>
