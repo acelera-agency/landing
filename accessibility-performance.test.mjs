@@ -105,3 +105,31 @@ test("keeps offscreen media lazy and serves responsive modern images", () => {
   assert.match(faroHtml, /faro-mapa-720\.webp 720w, \/assets\/proyectos\/faro-mapa-1080\.webp 1080w, \/assets\/proyectos\/faro-mapa-1440\.webp 1440w/);
   assert.match(faroHtml, /faro-expediente-720\.webp 720w, \/assets\/proyectos\/faro-expediente-1080\.webp 1080w, \/assets\/proyectos\/faro-expediente-1440\.webp 1440w/);
 });
+
+test("reveals each section heading once without hiding it from no-JS or reduced-motion visitors", () => {
+  const sectionHeadings = [...indexHtml.matchAll(/<h2\b[^>]*>/g)]
+    .map((match) => match[0])
+    .filter((tag) => !tag.includes('id="lead-modal-title"'));
+
+  assert.equal(sectionHeadings.length, 8);
+  for (const tag of sectionHeadings) assert.match(tag, /data-mask-reveal/);
+  // Solo el script oculta los títulos, y no lo hace si el visitante pidió reducir movimiento.
+  assert.match(indexHtml, /\.mask-reveal-ready \[data-mask-reveal\]\s*\{[^}]*clip-path:\s*inset\(0 0 100% 0\)/);
+  assert.doesNotMatch(indexHtml, /\n\s*\[data-mask-reveal\]\s*\{/);
+  assert.match(
+    indexHtml,
+    /"IntersectionObserver" in window && !window\.matchMedia\("\(prefers-reduced-motion: reduce\)"\)\.matches\)\s*\{\s*document\.documentElement\.classList\.add\("mask-reveal-ready"\)/,
+  );
+  assert.match(indexHtml, /maskRevealObserver\.unobserve\(entry\.target\)/);
+  // Un título dentro de un bloque con fundido GSAP se animaría dos veces.
+  assert.doesNotMatch(indexHtml, /class="[^"]*\bgsap-reveal\b[^"]*">\s*(?:<span[^>]*>[^<]*<\/span>\s*)?<h2 data-mask-reveal/);
+});
+
+test("draws the hero underline once on load and shows it still for reduced motion", () => {
+  assert.match(indexHtml, /@keyframes heroUnderlineDraw\s*\{\s*from\s*\{\s*background-size:\s*0% 0\.08em;/);
+  assert.match(
+    indexHtml,
+    /\.accent-reveal--static\s*\{[^}]*background-size:\s*100% 0\.08em;[^}]*animation:\s*heroUnderlineDraw [^;]*both;/,
+  );
+  assert.match(indexHtml, /prefers-reduced-motion: reduce\)\s*\{\s*\.accent-reveal--static\s*\{\s*animation:\s*none;/);
+});

@@ -384,14 +384,14 @@ test("exposes a linked organization, services and projects JSON-LD graph without
   }
 
   assert.equal(projects["@type"], "ItemList");
-  assert.equal(projects.numberOfItems, 5);
+  assert.equal(projects.numberOfItems, 6);
   assert.deepEqual(
     projects.itemListElement.map((entry) => entry.position),
-    [1, 2, 3, 4, 5],
+    [1, 2, 3, 4, 5, 6],
   );
   assert.deepEqual(
     projects.itemListElement.map((entry) => nodesById.get(entry.item["@id"]).name),
-    ["Rely", "Lain", "Harness", "Faro", "Lemon Box"],
+    ["Atrae", "Rely", "Lemon Box", "Lain", "Harness", "Faro"],
   );
   for (const entry of projects.itemListElement) {
     const project = nodesById.get(entry.item["@id"]);
@@ -441,8 +441,9 @@ test("does not defer the largest hero heading behind an entrance animation", asy
   assert.match(home, /<h1\b[\s\S]*?accent-reveal--static[\s\S]*?<\/h1>/);
   assert.match(home, /querySelectorAll\("\.accent-reveal:not\(\.accent-reveal--static\)"\)/);
   assert.match(home, /rel="preload" as="font"/);
-  assert.match(home, /font-display: optional/);
-  assert.match(home, /assets\/fonts\/fraunces-latin-600\.woff2/);
+  assert.match(home, /font-family: "Geist";[^}]*font-display: optional;[^}]*geist-variable\.woff2/);
+  assert.match(home, /rel="preload" as="font"[^>]*\s+href="assets\/fonts\/geist-variable\.woff2"/);
+  assert.doesNotMatch(home, /fraunces|family=Inter|ivarTextFont|abcdFont/i, "the home renders a single Geist family");
   assert.match(i18n, /let activeLanguage = "es"/);
   assert.match(i18n, /if \(next !== activeLanguage\)/);
   assert.match(i18n, /next === "en" \? "en" : "es-AR"/);

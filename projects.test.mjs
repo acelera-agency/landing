@@ -16,10 +16,10 @@ const projectCard = (slug) => projectsSection?.match(
   new RegExp(`<article[^>]*data-project="${slug}"[\\s\\S]*?<\\/article>`),
 )?.[0];
 
-test("features five Acelera projects with equal card treatment", () => {
+test("features six Acelera projects with equal card treatment", () => {
   assert.ok(projectsSection, "The projects section should exist");
 
-  const projects = ["rely", "lemon", "lain", "harness", "faro"];
+  const projects = ["atrae", "rely", "lemon", "lain", "harness", "faro"];
   let previousIndex = -1;
   for (const project of projects) {
     const index = projectsSection.indexOf(`data-project="${project}"`);
@@ -55,13 +55,13 @@ test("shows one project on mobile, two on desktop and supports manual navigation
 
 test("lands on the project overview and cards when navigating to the projects section", () => {
   assert.match(projectsSection, /class="projects-heading__title/);
-  assert.match(projectsSection, /class="projects-heading__copy/);
+  assert.doesNotMatch(projectsSection, /projects-heading__copy/);
   assert.match(indexHtml, /const projectAnchorLinks = document\.querySelectorAll\('a\[href="#proyectos"\]'\)/);
   assert.match(indexHtml, /const projectAnchorTarget = document\.querySelector\("\.projects-heading"\)/);
   assert.match(indexHtml, /const alignProjectsAnchor = \(behavior = "auto"\)/);
   assert.match(indexHtml, /const compactProjectsView = window\.innerWidth >= 1200 && window\.innerHeight <= 760/);
   assert.match(indexHtml, /const anchorOffset = compactProjectsView \? 8 : window\.innerWidth >= 768 \? 96 : 76/);
-  assert.match(indexHtml, /@media \(min-width: 1200px\) and \(max-height: 760px\)[\s\S]*?\.projects-heading__copy\s*\{[^}]*font-size:\s*1rem/);
+  assert.match(indexHtml, /@media \(min-width: 1200px\) and \(max-height: 760px\)[\s\S]*?\.projects-heading\s*\{[^}]*margin-bottom:\s*0\.75rem/);
   assert.match(indexHtml, /window\.scrollTo\(\{ top: targetTop, behavior \}\)/);
   assert.match(indexHtml, /window\.history\.pushState\(null, "", "#proyectos"\)/);
   assert.match(indexHtml, /window\.location\.hash !== "#proyectos"/);
@@ -69,7 +69,7 @@ test("lands on the project overview and cards when navigating to the projects se
 });
 
 test("keeps project cards under the Acelera brand without personal credits", () => {
-  for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
+  for (const project of ["rely", "lain", "harness", "faro", "lemon", "atrae"]) {
     assert.match(projectCard(project), /class="project-footer"/);
     assert.match(projectCard(project), /class="project-link__label"/);
   }
@@ -85,6 +85,7 @@ test("links every public project to a real destination", () => {
     rely: "https://rely.business",
     lain: "https://lainagent.com",
     lemon: "https://github.com/frxnnk/lemon-display",
+    atrae: "https://atrae.app",
   };
 
   for (const [project, url] of Object.entries(links)) {
@@ -102,9 +103,10 @@ test("keeps a poster layer visible until every project video is ready", () => {
     lain: "\\?v=20260730-2",
     faro: "\\?v=20260727-3",
     lemon: "\\?v=20260727-4",
+    atrae: "\\?v=20261008-1",
   };
 
-  for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
+  for (const project of ["rely", "lain", "harness", "faro", "lemon", "atrae"]) {
     const card = projectCard(project);
     const posterVersion = releaseVersions[project] ?? "";
     const sourceVersion = project === "harness"
@@ -123,7 +125,7 @@ test("keeps a poster layer visible until every project video is ready", () => {
     "Harness should prefer the verified source MP4 before its WebM fallback",
   );
   assert.match(indexHtml, /\.project-card \.project-media\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/);
-  for (const project of ["rely", "lain", "harness", "faro", "lemon"]) {
+  for (const project of ["rely", "lain", "harness", "faro", "lemon", "atrae"]) {
     assert.doesNotMatch(projectCard(project), /data-media-crop=/);
   }
   assert.doesNotMatch(indexHtml, /\.project-card\[data-media-crop=/);
@@ -132,28 +134,50 @@ test("keeps a poster layer visible until every project video is ready", () => {
   assert.match(indexHtml, /media\?\.classList\.add\("is-video-ready"\)/);
 });
 
-test("maps all capability pills to one of the five featured cases", () => {
+test("groups the twelve capabilities as tabs, each mapped to a featured case", () => {
   assert.ok(capabilitiesSection, "The capabilities section should exist");
-  const mappings = [...capabilitiesSection.matchAll(/class="capability-tab"[^>]*data-case="(harness|rely|lain|faro|lemon)"/g)]
-    .map((match) => match[1]);
+  const tabs = [...capabilitiesSection.matchAll(/<button class="capability-tab"([^>]*)>/g)].map((match) => match[1]);
+  const mappings = tabs.map((attributes) => attributes.match(/data-case="([a-z]+)"/)?.[1]);
 
-  assert.equal(mappings.length, 12);
+  assert.equal(tabs.length, 12);
   assert.deepEqual(mappings, [
-    "harness", "lain", "lemon", "lain", "faro", "faro",
-    "rely", "lain", "lemon", "lain", "rely", "rely",
+    "atrae", "lain", "faro", "faro",
+    "harness", "lain", "lain", "rely",
+    "lemon", "lemon", "rely", "rely",
   ]);
-  assert.match(capabilitiesSection, /data-capability-poster/);
-  assert.doesNotMatch(capabilitiesSection, /data-capability-project/);
+  for (const slug of new Set(mappings)) {
+    assert.ok(projectCard(slug), `${slug} should have a project card for "Ver proyecto"`);
+  }
+  assert.equal([...capabilitiesSection.matchAll(/class="capability-group"/g)].length, 3);
+  assert.match(capabilitiesSection, /class="capability-list" role="tablist"/);
+  assert.match(capabilitiesSection, /id="capability-stage" role="tabpanel" aria-labelledby="capability-tab-01"/);
+  tabs.forEach((attributes, index) => {
+    assert.match(attributes, /role="tab"/);
+    assert.match(attributes, /aria-controls="capability-stage"/);
+    assert.match(attributes, index === 0 ? /aria-selected="true"/ : /aria-selected="false" tabindex="-1"/);
+  });
+  // El layout no vuelve a depender de posiciones absolutas que se cortaban en monitores anchos.
+  assert.doesNotMatch(indexHtml, /\.capability-tab:nth-child/);
 });
 
-test("renders the capability case as an unobstructed layered motion preview", () => {
-  assert.match(capabilitiesSection, /class="capability-preview__stack"/);
-  assert.match(capabilitiesSection, /capability-preview__layer--back/);
-  assert.match(capabilitiesSection, /capability-preview__layer--middle/);
-  assert.match(capabilitiesSection, /<img[^>]*data-capability-poster/);
+test("renders the selected capability on a stage with its case demo", () => {
+  const firstTab = capabilitiesSection.match(/<button class="capability-tab"[^>]*>/)[0];
+  const attribute = (name) => firstTab.match(new RegExp(`${name}="([^"]*)"`))[1];
+  for (const [field, name] of [
+    ["data-capability-title", "data-title"],
+    ["data-capability-kicker", "data-kicker"],
+    ["data-capability-copy", "data-copy"],
+    ["data-capability-case-copy", "data-case-copy"],
+    ["data-capability-delivery", "data-delivery"],
+  ]) {
+    assert.match(capabilitiesSection, new RegExp(`${field}>${attribute(name)}<`), `${field} should start with the first tab's copy`);
+  }
+
+  assert.match(capabilitiesSection, /<img[^>]*data-capability-poster[^>]*atrae-poster\.webp\?v=20261008-1/);
   assert.match(capabilitiesSection, /<video[^>]*data-capability-video[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="none"/);
-  assert.match(capabilitiesSection, /data-capability-source-webm[^>]*harness-demo\.webm\?v=20260727-2/);
-  assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*harness-demo\.mp4\?v=20260727-2/);
+  assert.match(capabilitiesSection, /data-capability-source-webm[^>]*atrae-demo\.webm\?v=20261008-1/);
+  assert.match(capabilitiesSection, /data-capability-source-mp4[^>]*atrae-demo\.mp4\?v=20261008-1/);
+  assert.match(capabilitiesSection, /<a class="capability-case__link" href="#proyectos" data-capability-case-link>/);
   assert.match(
     indexHtml,
     /faro:\s*\{[\s\S]*?faro-poster\.webp\?v=20260727-3[\s\S]*?faro-demo\.webm\?v=20260727-3[\s\S]*?faro-demo\.mp4\?v=20260727-3/,
@@ -168,25 +192,15 @@ test("renders the capability case as an unobstructed layered motion preview", ()
     indexHtml,
     /lain:\s*\{[\s\S]*?lain-poster\.webp\?v=20260730-2[\s\S]*?lain-demo\.webm\?v=20260730-2[\s\S]*?lain-demo\.mp4\?v=20260730-2/,
   );
-  assert.match(indexHtml, /if \(!capabilityMotionBlocked\)\s*\{[\s\S]*?capabilityVideo\.load\(\)/);
+  assert.match(indexHtml, /harness:\s*\{[\s\S]*?harness-demo\.webm\?v=20260727-2[\s\S]*?harness-demo\.mp4\?v=20260727-2/);
   assert.match(indexHtml, /item\.dataset\.case === "harness"[\s\S]*?\[capabilityVideoMp4, capabilityVideoWebm\][\s\S]*?\[capabilityVideoWebm, capabilityVideoMp4\]/);
-  assert.match(
-    capabilitiesSection,
-    /data-capability-source-mp4[^>]*harness-demo\.mp4\?v=20260727-2[\s\S]*data-capability-source-webm[^>]*harness-demo\.webm\?v=20260727-2/,
-    "The Harness capability preview should prefer its verified MP4",
-  );
-  assert.doesNotMatch(capabilitiesSection, /capability-preview__overlay/);
-  assert.doesNotMatch(capabilitiesSection, /data-capability-label/);
-  assert.doesNotMatch(capabilitiesSection, /data-capability-project/);
-  assert.doesNotMatch(capabilitiesSection, /data-capability-copy/);
-  assert.doesNotMatch(capabilitiesSection, /data-capability-kicker/);
+  assert.match(indexHtml, /if \(!capabilityMotionBlocked\)\s*\{[\s\S]*?capabilityVideo\.load\(\)/);
   assert.match(indexHtml, /capabilityMotionBlocked[\s\S]*prefers-reduced-motion:\s*reduce/);
-  assert.match(indexHtml, /capabilityVideo\?\.play\(\)\.catch/);
-  assert.match(indexHtml, /capabilityVideo\?\.pause\(\)/);
-  assert.match(indexHtml, /\.capability-preview__frame\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9;[^}]*background:\s*transparent;[^}]*box-shadow:\s*none;/);
-  assert.match(indexHtml, /\.capability-preview__media\s*\{[^}]*background:\s*transparent;/);
-  assert.match(indexHtml, /\.capability-preview__media img,\s*\.capability-preview__media video\s*\{[^}]*object-fit:\s*contain;/);
-  assert.match(indexHtml, /\.capability-preview__media::after\s*\{[^}]*content:\s*none;/);
+  assert.match(indexHtml, /capabilityVideo\.play\(\)\.catch/);
+  assert.match(indexHtml, /capabilityVideo\.pause\(\)/);
+  assert.match(indexHtml, /\}, \{ threshold: \[0, 0\.35, 0\.75\] \}\)\.observe\(capabilityMedia\)/);
+  assert.match(indexHtml, /addEventListener\("acelera:languagechange", \(\) => \{\s*if \(activeCapability\) renderCapability\(activeCapability\)/);
+  assert.match(indexHtml, /\.capability-case__media\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9;/);
 });
 
 test("controls project playback by viewport, motion preference and data saver", () => {
@@ -226,6 +240,7 @@ test("captures each product from a deliberate wider viewport", async () => {
     /slug: "lain"[\s\S]*?captureSize: \{ width: 1360, height: 765 \}/,
     /slug: "faro"[\s\S]*?captureSize: \{ width: 1200, height: 675 \}/,
     /slug: "lemon"[\s\S]*?captureSize: \{ width: 1440, height: 810 \}/,
+    /slug: "atrae"[\s\S]*?captureSize: \{ width: 1200, height: 675 \}/,
   ]) {
     assert.match(captureSource, contract);
   }
@@ -242,6 +257,7 @@ test("starts each capture from real product content and derives a matching poste
     "Crear sitio web",
     "Casos para presentar",
     "Lemon Box",
+    "Descubrí a tus próximos clientes",
   ]) {
     assert.match(captureSource, new RegExp(`readyText: ".*${readyText}`));
   }
@@ -282,13 +298,15 @@ test("masks private network details in the Lemon demo", async () => {
   assert.match(captureSource, /element\.value\s*=\s*"Red local"/);
 });
 
-test("provides English copy for the five-project story", () => {
+test("provides English copy for the six-project story", () => {
   for (const translation of [
     "Software already solving",
     "real problems.",
     "View Rely",
     "View Lain",
     "View Faro",
+    "View Atrae",
+    "In-house product · B2B prospecting",
     "View full case",
     "View project",
     "Internal platform · AI agent management",
@@ -309,8 +327,39 @@ test("translates each project's case-specific capability copy", () => {
     "Lain turned a product idea into",
     "Faro turns scattered public information into",
     "Lemon Box integrates firmware",
+    "Atrae turns a plain-language request into",
+    "AI and data",
+    "Case study",
+    "Deliverable",
   ]) {
     assert.match(i18nSource, new RegExp(translation));
   }
   assert.match(i18nSource, /"data-case-copy"/);
+});
+
+test("shows the four AI competitions won, with each organizer's logo, right after the hero", async () => {
+  const awards = indexHtml.match(/<div class="awards">[\s\S]*?<\/ol>/)?.[0];
+  assert.ok(awards, "The awards band should exist");
+
+  const heroEnd = indexHtml.indexOf("</section>", indexHtml.indexOf('id="hero-section"'));
+  const awardsStart = indexHtml.indexOf('<div class="awards">');
+  assert.ok(heroEnd < awardsStart && awardsStart < indexHtml.indexOf('<section id="situaciones"'));
+
+  const awardItems = [...awards.matchAll(/<li class="award">[\s\S]*?<\/li>/g)].map((match) => match[0]);
+  const logos = awardItems.map((item) => [...item.matchAll(/src="assets\/logos\/([a-z]+)\.svg"/g)].map((match) => match[1]));
+  assert.deepEqual(logos, [["anthropic", "kaszek"], ["paisanos"], ["indies"], ["musixmatch"]]);
+  for (const name of logos.flat()) {
+    const svg = await readFile(new URL(`./assets/logos/${name}.svg`, import.meta.url), "utf8");
+    assert.doesNotMatch(svg, /<script|\son\w+=|javascript:/i, `${name}.svg should be a static image`);
+  }
+  // Cada organizador queda nombrado: por el alt del logo o por el texto que lo acompaña.
+  for (const name of ["Anthropic", "Kaszek", "Paisanos", "Musixmatch"]) assert.match(awards, new RegExp(`alt="${name}"`));
+  assert.match(awards, /alt=""[^>]*>\s*<span class="award__wordmark">indies\.la<\/span>/);
+
+  assert.match(awards, /Ganamos <span class="awards__count">4<\/span> competencias de IA\./);
+  assert.equal(awardItems.length, 4);
+  assert.match(indexHtml, /y ganamos cuatro\./, "The team story should keep the same count");
+  for (const key of ["Reconocimientos", "Ganamos", "competencias de IA\\.", "Ganadores"]) {
+    assert.match(i18nSource, new RegExp(`"${key}": "`));
+  }
 });

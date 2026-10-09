@@ -299,7 +299,7 @@
                     "@type": "ItemList",
                     "@id": "https://www.acelera.agency/#projects",
                     "name": "Software que ya está resolviendo problemas reales.",
-                    "numberOfItems": 5,
+                    "numberOfItems": 6,
                     "itemListOrder": "https://schema.org/ItemListOrderAscending",
                     "mainEntityOfPage": {
                         "@id": "https://www.acelera.agency/#webpage"
@@ -309,35 +309,42 @@
                             "@type": "ListItem",
                             "position": 1,
                             "item": {
-                                "@id": "https://www.acelera.agency/#project-rely"
+                                "@id": "https://www.acelera.agency/#project-atrae"
                             }
                         },
                         {
                             "@type": "ListItem",
                             "position": 2,
                             "item": {
-                                "@id": "https://www.acelera.agency/#project-lain"
+                                "@id": "https://www.acelera.agency/#project-rely"
                             }
                         },
                         {
                             "@type": "ListItem",
                             "position": 3,
                             "item": {
-                                "@id": "https://www.acelera.agency/#project-harness"
+                                "@id": "https://www.acelera.agency/#project-lemon-box"
                             }
                         },
                         {
                             "@type": "ListItem",
                             "position": 4,
                             "item": {
-                                "@id": "https://www.acelera.agency/#project-faro"
+                                "@id": "https://www.acelera.agency/#project-lain"
                             }
                         },
                         {
                             "@type": "ListItem",
                             "position": 5,
                             "item": {
-                                "@id": "https://www.acelera.agency/#project-lemon-box"
+                                "@id": "https://www.acelera.agency/#project-harness"
+                            }
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 6,
+                            "item": {
+                                "@id": "https://www.acelera.agency/#project-faro"
                             }
                         }
                     ]
@@ -384,21 +391,29 @@
                     "description": "Un dispositivo táctil de cuatro pulgadas para visualizar datos y alertas en tiempo real, con Wi-Fi, audio, control local y actualizaciones remotas.",
                     "url": "https://github.com/frxnnk/lemon-display",
                     "image": "https://www.acelera.agency/assets/proyectos/lemon-poster.webp"
+                },
+                {
+                    "@type": "CreativeWork",
+                    "@id": "https://www.acelera.agency/#project-atrae",
+                    "name": "Atrae",
+                    "description": "Un agente que arma listas de clientes B2B en Latinoamérica: describís a quién querés venderle y devuelve personas reales, con mail y LinkedIn verificados.",
+                    "url": "https://atrae.app",
+                    "image": "https://www.acelera.agency/assets/proyectos/atrae-poster.webp"
                 }
             ]
         }
     </script>
     <link rel="preload" as="font" type="font/woff2" crossorigin
-        href="assets/fonts/fraunces-latin-600.woff2">
+        href="assets/fonts/geist-variable.woff2">
     <link rel="stylesheet" href="assets/tailwind.css?v=20260728-1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400..600&family=Inter:wght@400..700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400..600&display=swap"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400..600&family=Inter:wght@400..700&display=swap">
+            href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400..600&display=swap">
     </noscript>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -419,25 +434,20 @@
     <script defer src="assets/lucide-sprite.js?v=20260728-1"></script>
     <style>
         @font-face {
-            font-family: "Fraunces";
+            font-family: "Geist";
             font-style: normal;
-            font-weight: 600;
+            font-weight: 100 900;
             font-display: optional;
-            src: url("assets/fonts/fraunces-latin-600.woff2") format("woff2");
+            src: url("assets/fonts/geist-variable.woff2") format("woff2");
         }
 
-        @font-face {
-            font-family: "Fraunces";
-            font-style: normal;
-            font-weight: 400 700;
-            font-display: optional;
-            src: url("assets/fonts/fraunces-latin.woff2") format("woff2");
-        }
-
+        /* Una sola familia: Geist para texto y títulos, Geist Mono para etiquetas y datos. */
         :root {
-            --font-ui: "abcdFont", "Inter Variable", "Inter", "DM Sans", system-ui, sans-serif;
-            --font-display: "ivarTextFont", "Freight Display Pro", "Fraunces", Georgia, serif;
+            --font-ui: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+            --font-display: var(--font-ui);
             --font-mono: "Geist Mono", ui-monospace, monospace;
+            --display-weight: 500;
+            --display-tracking: -0.045em;
         }
 
         html {
@@ -451,43 +461,35 @@
             font-family: var(--font-ui);
             overflow-x: clip;
             max-width: 100%;
-            font-feature-settings: 'kern', 'ss01', 'cv11';
+            font-feature-settings: 'kern';
             background-image:
                 radial-gradient(circle at 1px 1px, rgba(11, 15, 20, 0.025) 1px, transparent 0),
                 radial-gradient(circle at 12px 12px, rgba(11, 15, 20, 0.015) 1px, transparent 0);
             background-size: 24px 24px, 32px 32px;
         }
 
-        .cursor-trail {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            display: block;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            contain: strict;
-        }
-
-        @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
-            .cursor-trail {
-                display: none;
-            }
-        }
-
         /* Display headlines — custom display stack with editorial fallback. */
         .text-hero {
             font-size: clamp(3rem, 6.5vw, 6.5rem);
-            line-height: 0.98;
-            letter-spacing: 0;
+            line-height: 0.96;
+        }
+
+        h1.font-serif,
+        h2.font-serif,
+        h3.font-serif {
+            font-weight: var(--display-weight);
+            letter-spacing: var(--display-tracking);
+        }
+
+        h1.text-hero {
+            letter-spacing: -0.055em;
         }
 
         @media (max-width: 767px) {
             /* Interlineado demasiado bajo (1.02) recortaba descendentes con overflow-hidden del hero */
             .text-hero {
                 font-size: clamp(2.875rem, 10.2vw, 3.5rem);
-                line-height: 1.1;
-                letter-spacing: 0;
+                line-height: 1.02;
             }
         }
 
@@ -553,16 +555,6 @@
             width: 100%;
         }
 
-        main > #hero-section { order: 1; }
-        main > #situaciones { order: 2; }
-        main > #construimos { order: 3; }
-        main > #proyectos { order: 4; }
-        main > #proceso { order: 5; }
-        main > #manifesto { order: 6; }
-        main > #equipo { order: 7; }
-        main > #faqs { order: 8; }
-        main > #contacto { order: 9; }
-
         /* Cada bloque principal funciona como una escena de pantalla completa.
            Las secciones con más contenido conservan su altura natural. */
         main > section {
@@ -584,114 +576,86 @@
             width: 100%;
         }
 
-        .situations-intro {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            gap: 2rem;
-            align-items: center;
-            margin-bottom: clamp(2.5rem, 5vw, 4rem);
+        /* Dónde podemos ayudar: franja corta con las dos formas de trabajar. */
+        main > #situaciones {
+            min-height: 0;
         }
 
-        .situations-intro h2 {
-            max-width: 56rem;
-            font-family: var(--font-display);
-            font-size: clamp(3.25rem, 5.2vw, 4.5rem);
-            font-weight: 600;
-            line-height: 0.97;
-            letter-spacing: 0;
+        .ways {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+            gap: clamp(2rem, 6vw, 6rem);
+            align-items: start;
+        }
+
+        .ways__title {
+            max-width: 32rem;
+            margin: 0;
+            font-size: clamp(2.35rem, 3.6vw, 3.4rem);
+            font-weight: var(--display-weight);
+            line-height: 1;
+            letter-spacing: var(--display-tracking);
             text-wrap: balance;
         }
 
-        .situations-intro__note {
-            align-self: end;
-            padding-bottom: 0.4rem;
-            color: #4B5563;
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            white-space: nowrap;
+        .ways__list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border-bottom: 1px solid #D4CFC1;
         }
 
-        .situations-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            border-top: 1px solid #B7B1A5;
-            border-bottom: 1px solid #B7B1A5;
-        }
-
-        .situation-item {
+        .ways__item {
             position: relative;
-            min-width: 0;
-            min-height: clamp(16rem, 24vw, 20rem);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: clamp(2rem, 4vw, 3.25rem) clamp(2rem, 5vw, 4.5rem) clamp(2rem, 4vw, 3.25rem) 0;
+            padding: 1.6rem 0 1.6rem 1.5rem;
+            border-top: 1px solid #D4CFC1;
         }
 
-        .situation-item + .situation-item {
-            padding-right: 0;
-            padding-left: clamp(2rem, 5vw, 4.5rem);
-            border-left: 1px solid #D4CFC1;
+        .ways__item::before {
+            content: "";
+            position: absolute;
+            top: 2.15rem;
+            left: 0;
+            width: 0.5rem;
+            height: 0.5rem;
+            border: 1.5px solid #C96A43;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
         }
 
-        .situation-item h3 {
-            max-width: 30rem;
-            margin-top: auto;
-            font-family: var(--font-display);
-            font-size: clamp(2.25rem, 3.8vw, 3.5rem);
-            font-weight: 600;
-            line-height: 0.98;
-            letter-spacing: 0;
-            text-wrap: balance;
+        .ways__item:hover::before {
+            background: #C96A43;
         }
 
-        .situation-item__examples {
-            margin-top: 1.15rem;
-            color: #686F7D;
-            font-family: var(--font-mono);
-            font-size: 0.64rem;
-            letter-spacing: 0.1em;
-            line-height: 1.6;
-            text-transform: uppercase;
+        .ways__item h3 {
+            margin: 0 0 0.45rem;
+            font-size: clamp(1.35rem, 1.9vw, 1.65rem);
+            font-weight: 500;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
         }
 
-        .situation-item__copy {
-            max-width: 30rem;
-            margin-top: 1rem;
+        .ways__item p {
+            max-width: 34rem;
+            margin: 0;
             color: #4B5563;
-            font-family: var(--font-ui);
-            font-size: 0.92rem;
-            line-height: 1.55;
+            font-size: 0.98rem;
+            line-height: 1.6;
         }
 
         @media (max-width: 767px) {
-            .situations-intro {
+            .ways {
                 grid-template-columns: 1fr;
-                gap: 0.75rem;
-                margin-bottom: 2rem;
+                gap: 2rem;
             }
 
-            .situations-intro h2 { font-size: 2.65rem; }
-
-            .situations-intro__note {
-                align-self: start;
-                padding-bottom: 0;
-                white-space: normal;
+            .ways__item {
+                padding: 1.35rem 0 1.35rem 1.35rem;
             }
 
-            .situations-grid { grid-template-columns: 1fr; }
-
-            .situation-item,
-            .situation-item + .situation-item {
-                min-height: 15rem;
-                padding: 1.75rem 0;
-                border-left: 0;
+            .ways__item::before {
+                top: 1.85rem;
             }
-
-            .situation-item + .situation-item { border-top: 1px solid #D4CFC1; }
-            .situation-item h3 { font-size: 2.25rem; }
         }
 
         @media (min-width: 1024px) {
@@ -878,14 +842,6 @@
             background-size: 100% 0.06em;
             padding-bottom: 0.04em;
         }
-        .brand-mark--loud {
-            background-size: 100% 0.12em;
-            background-position: 0 90%;
-            padding-bottom: 0.06em;
-        }
-        .brand-mark--paper {
-            background-image: linear-gradient(to right, #F7F5F0, #F7F5F0);
-        }
         .accent-reveal {
             position: relative;
             display: inline;
@@ -896,11 +852,19 @@
             vertical-align: baseline;
             line-height: inherit;
         }
+        /* El subrayado del hero se dibuja una vez al cargar. Va como fondo (no text-decoration)
+           para poder animar su ancho; la posición calca la del subrayado de los otros títulos. */
+        @keyframes heroUnderlineDraw {
+            from {
+                background-size: 0% 0.08em;
+            }
+        }
         .accent-reveal--static {
-            text-decoration-line: underline;
-            text-decoration-color: #C96A43;
-            text-decoration-thickness: 0.08em;
-            text-underline-offset: 0.12em;
+            background-image: linear-gradient(#C96A43, #C96A43);
+            background-repeat: no-repeat;
+            background-position: left 0 bottom 0.06em;
+            background-size: 100% 0.08em;
+            animation: heroUnderlineDraw 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.35s both;
         }
         .accent-reveal__text {
             position: relative;
@@ -924,6 +888,9 @@
             transform-origin: left center;
         }
         @media (prefers-reduced-motion: reduce) {
+            .accent-reveal--static {
+                animation: none;
+            }
             .accent-reveal__text {
                 opacity: 1 !important;
             }
@@ -938,14 +905,18 @@
             transform: translateY(40px);
         }
 
-        .clip-reveal {
-            clip-path: inset(100% 0 0 0);
+        /* Títulos: suben desde detrás de un borde invisible una sola vez. Sin JS o con
+           movimiento reducido quedan visibles, porque la clase del html la pone el script. */
+        .mask-reveal-ready [data-mask-reveal] {
+            clip-path: inset(0 0 100% 0);
+            transform: translateY(0.45em);
+            transition:
+                clip-path 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
         }
-
-        /* Dashboard specific */
-        .dash-line {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
+        .mask-reveal-ready [data-mask-reveal].is-revealed {
+            clip-path: inset(-0.3em -0.2em -0.45em -0.2em);
+            transform: none;
         }
 
         /* Scrollbar: pista transparente para que no quede una franja paper sobre el footer oscuro */
@@ -987,323 +958,404 @@
             height: 100%;
         }
 
-        /* Mapa de capacidades: operación -> producto */
-        .capability-map {
+        /* Capacidades: índice agrupado y un escenario con el caso real de cada una. */
+        .capability-explorer {
+            display: grid;
+            grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+            gap: clamp(2.5rem, 5vw, 5.5rem);
+            align-items: start;
+            margin-top: clamp(2.5rem, 4.5vw, 4rem);
+        }
+
+        .capability-list {
             position: relative;
-            min-height: 760px;
+            display: flex;
+            flex-direction: column;
         }
 
-        @keyframes capabilityOrbitClockwise {
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        @keyframes capabilityOrbitCounterClockwise {
-            to { transform: translate(-50%, -50%) rotate(-360deg); }
-        }
-
-        .capability-map__orbit {
+        .capability-list__indicator {
             position: absolute;
-            left: 50%;
-            top: 52%;
-            aspect-ratio: 1;
-            border: 1px dashed rgba(107, 114, 128, 0.55);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transform-origin: center;
-            pointer-events: none;
-            will-change: transform;
-            z-index: 0;
-        }
-
-        .capability-map__orbit::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            top: -4px;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #C96A43;
-            box-shadow: 0 0 0 4px #F7F5F0;
-        }
-
-        .capability-map__orbit--outer {
-            width: min(64vw, 740px);
-            animation: capabilityOrbitClockwise 34s linear infinite;
-        }
-
-        .capability-map__orbit--middle {
-            width: min(48vw, 560px);
-            animation: capabilityOrbitCounterClockwise 27s linear infinite;
-        }
-
-        .capability-map__orbit--inner {
-            width: min(30vw, 330px);
-            animation: capabilityOrbitClockwise 21s linear infinite;
-        }
-
-        .capability-map__axis {
-            position: absolute;
+            top: 0;
             left: 0;
-            right: 0;
-            top: 52%;
-            border-top: 1px dashed rgba(107, 114, 128, 0.55);
-            z-index: 0;
+            width: 2px;
+            height: var(--capability-indicator-height, 0px);
+            background: #C96A43;
+            transform: translateY(var(--capability-indicator-y, 0px));
+            transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), height 420ms cubic-bezier(0.22, 1, 0.36, 1);
             pointer-events: none;
         }
 
-        .capability-map__endpoint {
-            z-index: 3;
-            padding: 0.08rem 0.25rem;
-            background: #F7F5F0;
-            box-shadow: 0 0 0 2px #F7F5F0;
+        .capability-group {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin: 0;
+            padding: 1.75rem 0 0.7rem;
+            border-bottom: 1px solid #0B0F14;
+            color: #A64F2D;
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .capability-group:first-of-type {
+            padding-top: 0;
+        }
+
+        .capability-group span {
+            color: #686F7D;
         }
 
         .capability-tab {
-            position: absolute;
-            z-index: 4;
-            display: inline-flex;
+            display: grid;
+            grid-template-columns: 2.1rem minmax(0, 1fr) auto;
             align-items: center;
-            gap: 0.55rem;
-            min-height: 42px;
-            padding: 0.65rem 1rem;
-            border: 1px solid var(--rule-strong, #D4CFC1);
-            border-radius: 999px;
-            background: #F7F5F0;
+            width: 100%;
+            min-height: 3.1rem;
+            padding: 0.7rem 0.25rem 0.7rem 0.9rem;
+            border: 0;
+            border-bottom: 1px solid #E5E1D8;
+            border-radius: 0;
+            background: transparent;
             color: #686F7D;
             font-family: var(--font-ui);
-            font-size: 0.94rem;
-            font-weight: 600;
-            line-height: 1;
-            white-space: nowrap;
-            transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
+            font-size: clamp(1rem, 1.05vw, 1.0625rem);
+            font-weight: 500;
+            line-height: 1.25;
+            text-align: left;
+            cursor: pointer;
+            transition: color 180ms ease, padding-left 320ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .capability-tab__index {
+            color: #686F7D;
+            font-family: var(--font-mono);
+            font-size: 0.64rem;
+            letter-spacing: 0.12em;
+        }
+
+        .capability-tab__arrow {
+            color: #C96A43;
+            opacity: 0;
+            transform: translateX(-0.4rem);
+            transition: opacity 180ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .capability-tab:hover {
-            border-color: #0B0F14;
             color: #0B0F14;
-            transform: translateY(-2px);
         }
 
-        .capability-tab[aria-expanded="true"] {
-            border-color: #0B0F14;
-            background: #0B0F14;
-            color: #F7F5F0;
+        .capability-tab[aria-selected="true"] {
+            padding-left: 1.3rem;
+            background: linear-gradient(90deg, rgba(201, 106, 67, 0.08), rgba(201, 106, 67, 0) 72%);
+            color: #0B0F14;
+        }
+
+        .capability-tab[aria-selected="true"] .capability-tab__index {
+            color: #A64F2D;
+        }
+
+        .capability-tab:hover .capability-tab__arrow,
+        .capability-tab[aria-selected="true"] .capability-tab__arrow {
+            opacity: 1;
+            transform: none;
         }
 
         .capability-tab:focus-visible {
             outline: 2px solid #C96A43;
-            outline-offset: 3px;
+            outline-offset: -2px;
         }
 
-        .capability-tab__dot {
-            width: 0.55rem;
-            height: 0.55rem;
-            border-radius: 2px;
-            background: #C96A43;
-            flex: 0 0 auto;
+        .capability-stage {
+            min-width: 0;
         }
 
-        .capability-scope-label {
-            position: absolute;
-            z-index: 1;
-            display: inline-flex;
-            align-items: center;
-            min-height: 38px;
-            padding: 0.55rem 0.9rem;
-            border: 1px solid rgba(212, 207, 193, 0.72);
-            border-radius: 999px;
-            background: #F7F5F0;
-            box-shadow: 0 0 0 4px #F7F5F0;
-            color: rgba(107, 114, 128, 0.48);
-            font-family: var(--font-ui);
-            font-size: 0.84rem;
-            font-weight: 600;
-            line-height: 1;
-            white-space: nowrap;
-            pointer-events: none;
-        }
-
-        .capability-scope-label--one { left: 1%; top: 31%; }
-        .capability-scope-label--two { right: 1%; top: 35%; }
-        .capability-scope-label--three { left: 3%; top: 73%; }
-        .capability-scope-label--four { right: 2%; top: 77%; }
-
-        .capability-tab:nth-child(1) { left: 27%; top: 18%; }
-        .capability-tab:nth-child(2) { right: 27%; top: 18%; }
-        .capability-tab:nth-child(3) { left: 20%; top: 33%; }
-        .capability-tab:nth-child(4) { right: 21%; top: 33%; }
-        .capability-tab:nth-child(5) { left: 21%; top: 49%; }
-        .capability-tab:nth-child(6) { right: 21%; top: 49%; }
-        .capability-tab:nth-child(7) { left: 20%; top: 65%; }
-        .capability-tab:nth-child(8) { right: 21%; top: 65%; }
-        .capability-tab:nth-child(9) { left: 29%; top: 79%; }
-        .capability-tab:nth-child(10) { right: 28%; top: 79%; }
-        .capability-tab:nth-child(11) { left: 2%; top: 34%; }
-        .capability-tab:nth-child(12) { right: 2%; top: 70%; }
-
-        .capability-center-intro {
-            position: absolute;
-            z-index: 2;
-            left: 50%;
-            top: 52%;
-            width: min(24vw, 250px);
-            padding: 0.85rem 0.5rem;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            transition: opacity 160ms ease, transform 160ms ease;
-        }
-
-        .capability-center-line {
-            display: table;
-            margin-inline: auto;
-            padding-inline: 0.22em;
-            background: #F7F5F0;
-            box-shadow: 0 0 0 2px #F7F5F0;
-        }
-
-        .capability-map__endpoint.text-muted,
-        .capability-center-intro .text-muted {
+        .capability-stage__meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px solid #0B0F14;
             color: #686F7D;
+            font-family: var(--font-mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
         }
 
-        .capability-center-intro .text-accent {
+        .capability-stage__name {
             color: #A64F2D;
         }
 
-        .capability-map.has-preview .capability-center-intro {
-            opacity: 0;
-            transform: translate(-50%, -46%);
+        .capability-stage__title {
+            margin: 1.35rem 0 0;
+            color: #0B0F14;
+            font-family: var(--font-display);
+            font-size: clamp(1.85rem, 2.6vw, 2.5rem);
+            font-weight: var(--display-weight);
+            line-height: 1.05;
+            letter-spacing: -0.035em;
+            text-wrap: balance;
         }
 
-        .capability-preview {
+        .capability-stage__copy {
+            max-width: 36rem;
+            margin: 0.8rem 0 0;
+            color: #4B5563;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .capability-case {
+            margin: 1.6rem 0 0;
+            padding: 0.45rem;
+            background: #0B0F14;
+            color: #F7F5F0;
+        }
+
+        .capability-case__bar {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.2rem 0.35rem 0.6rem;
+            color: #9CA3AF;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .capability-case__dots {
+            display: inline-flex;
+            gap: 0.3rem;
+            margin-right: 0.35rem;
+        }
+
+        .capability-case__dots i {
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 50%;
+            background: #2B3138;
+        }
+
+        .capability-case__label {
+            color: #C96A43;
+        }
+
+        .capability-case__project {
+            color: #F7F5F0;
+        }
+
+        .capability-case__media {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #171B20;
+        }
+
+        .capability-case__media img,
+        .capability-case__media video {
             position: absolute;
-            z-index: 3;
-            left: 50%;
-            top: 52%;
-            width: min(31vw, 350px);
-            transform: translate(-50%, -46%) scale(0.98);
-            border: 1px solid #D4CFC1;
-            background: #FFFFFF;
-            box-shadow: 0 24px 70px rgba(11, 15, 20, 0.12);
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .capability-case__media img {
+            z-index: 1;
+            transition: opacity 220ms ease;
+        }
+
+        .capability-case__media.is-video-ready img {
             opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity 160ms ease, transform 180ms ease, visibility 160ms ease;
         }
 
-        .capability-preview.is-visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translate(-50%, -50%) scale(1);
+        .capability-case__caption {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: end;
+            gap: 0.75rem 1.5rem;
+            padding: 0.95rem 0.45rem 0.45rem;
         }
 
-        .capability-preview__body {
-            padding: 1.5rem;
+        .capability-case__copy {
+            max-width: 34rem;
+            margin: 0;
+            color: rgba(247, 245, 240, 0.74);
+            font-size: 0.875rem;
+            line-height: 1.5;
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            .capability-map__orbit {
-                animation: none;
-            }
+        .capability-case__link {
+            display: inline-flex;
+            align-items: center;
+            justify-self: start;
+            gap: 0.45rem;
+            min-height: 2.25rem;
+            padding-bottom: 0.1rem;
+            border-bottom: 1px solid #C96A43;
+            color: #F7F5F0;
+            font-family: var(--font-mono);
+            font-size: 0.64rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: color 160ms ease;
         }
 
-        @media (max-width: 1199px) {
-            .capability-map {
-                min-height: 660px;
-            }
-
-            .capability-map__orbit--outer {
-                width: 680px;
-                max-width: 78vw;
-            }
-
-            .capability-map__orbit--middle {
-                width: 520px;
-                max-width: 60vw;
-            }
-
-            .capability-map__orbit--inner {
-                width: 300px;
-                max-width: 36vw;
-            }
-
-            .capability-scope-label { display: none; }
-            .capability-tab { font-size: 0.82rem; }
-            .capability-tab:nth-child(1) { left: 18%; }
-            .capability-tab:nth-child(2) { right: 17%; }
-            .capability-tab:nth-child(3) { left: 8%; }
-            .capability-tab:nth-child(4) { right: 8%; }
-            .capability-tab:nth-child(5) { left: 11%; }
-            .capability-tab:nth-child(6) { right: 10%; }
-            .capability-tab:nth-child(7) { left: 8%; }
-            .capability-tab:nth-child(8) { right: 8%; }
-            .capability-tab:nth-child(9) { left: 20%; }
-            .capability-tab:nth-child(10) { right: 18%; }
-
-            .capability-preview {
-                width: min(40vw, 360px);
-            }
+        .capability-case__link:hover {
+            color: #C96A43;
         }
 
-        @media (max-width: 767px) {
-            .capability-map {
-                min-height: 0;
-            }
+        .capability-case__link:focus-visible {
+            outline: 2px solid #C96A43;
+            outline-offset: 3px;
+        }
 
-            .capability-map__orbit,
-            .capability-map__axis,
-            .capability-map__endpoint,
-            .capability-scope-label {
-                display: none;
-            }
+        .capability-stage__delivery {
+            display: grid;
+            grid-template-columns: 7.5rem minmax(0, 1fr);
+            gap: 1rem;
+            margin: 1.15rem 0 0;
+            color: #0B0F14;
+            font-size: 0.9375rem;
+            line-height: 1.5;
+        }
 
-            .capability-center-intro {
-                position: static;
-                width: 100%;
-                margin-bottom: 1.25rem;
+        .capability-stage__delivery-label {
+            padding-top: 0.2rem;
+            color: #A64F2D;
+            font-family: var(--font-mono);
+            font-size: 0.64rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        @keyframes capabilityStageIn {
+            from {
+                opacity: 0;
+                transform: translateY(0.45rem);
+            }
+            to {
+                opacity: 1;
                 transform: none;
-                text-align: left;
+            }
+        }
+
+        .capability-stage.is-switching .capability-stage__body,
+        .capability-stage.is-switching .capability-case__caption,
+        .capability-stage.is-switching .capability-stage__delivery {
+            animation: capabilityStageIn 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .capability-stage.is-switching .capability-case__caption {
+            animation-delay: 60ms;
+        }
+
+        .capability-stage.is-switching .capability-stage__delivery {
+            animation-delay: 110ms;
+        }
+
+        .capability-closing {
+            margin-top: clamp(2.75rem, 5vw, 4.5rem);
+            padding-top: 1.5rem;
+            border-top: 1px solid #E5E1D8;
+        }
+
+        @media (max-width: 1023px) {
+            .capability-explorer {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1.75rem;
             }
 
-            .capability-map.has-preview .capability-center-intro {
-                display: none;
+            .capability-list {
+                flex-flow: row wrap;
+                gap: 0.5rem;
             }
 
-            .capability-tabs {
-                display: flex;
-                gap: 0.55rem;
-                margin: 0 -1rem 1.25rem;
-                padding: 0 1rem 0.5rem;
-                overflow-x: auto;
-                scroll-snap-type: x proximity;
-                scrollbar-width: none;
-            }
-
-            .capability-tabs::-webkit-scrollbar {
+            .capability-list__indicator,
+            .capability-group,
+            .capability-tab__index,
+            .capability-tab__arrow {
                 display: none;
             }
 
             .capability-tab,
-            .capability-tab:nth-child(n) {
-                position: static;
+            .capability-tab[aria-selected="true"] {
+                display: inline-flex;
+                width: auto;
+                min-height: 2.75rem;
+                padding: 0.6rem 1rem;
+                border: 1px solid #D4CFC1;
+                border-radius: 999px;
+                color: #4B5563;
+                font-size: 0.9375rem;
+                white-space: nowrap;
+            }
+
+            .capability-tab[aria-selected="true"] {
+                border-color: #0B0F14;
+                background: #0B0F14;
+                color: #F7F5F0;
+            }
+
+            .capability-tab:focus-visible {
+                outline-offset: 2px;
+            }
+        }
+
+        /* En mobile las capacidades se recorren deslizando, sin ocupar seis filas. */
+        @media (max-width: 767px) {
+            .capability-list {
+                --capability-bleed: 1rem;
+                flex-wrap: nowrap;
+                margin-inline: calc(var(--capability-bleed) * -1);
+                padding: 0.15rem var(--capability-bleed) 0.35rem;
+                overflow-x: auto;
+                scroll-padding-inline: var(--capability-bleed);
+                scroll-snap-type: x proximity;
+                scrollbar-width: none;
+            }
+
+            .capability-list::-webkit-scrollbar {
+                display: none;
+            }
+
+            .capability-tab,
+            .capability-tab[aria-selected="true"] {
                 flex: 0 0 auto;
                 scroll-snap-align: start;
-                min-height: 44px;
-                transform: none;
             }
 
-            .capability-preview {
-                display: none;
-                position: static;
-                width: 100%;
-                transform: none;
-                box-shadow: 0 16px 44px rgba(11, 15, 20, 0.10);
+            .capability-case__caption {
+                grid-template-columns: minmax(0, 1fr);
             }
 
-            .capability-preview.is-visible {
-                display: block;
-                transform: none;
+            .capability-stage__delivery {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 0.35rem;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 767px) {
+            .capability-list {
+                --capability-bleed: 1.5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .capability-list__indicator,
+            .capability-tab,
+            .capability-tab__arrow {
+                transition: none;
+            }
+
+            .capability-stage.is-switching .capability-stage__body,
+            .capability-stage.is-switching .capability-case__caption,
+            .capability-stage.is-switching .capability-stage__delivery {
+                animation: none;
             }
         }
 
@@ -1380,9 +1432,10 @@
         .method-step__title {
             margin-top: 1.5rem;
             font-family: var(--font-display);
-            font-size: clamp(2rem, 3vw, 3rem);
-            font-weight: 600;
-            line-height: 1;
+            font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+            font-weight: var(--display-weight);
+            line-height: 1.05;
+            letter-spacing: -0.035em;
         }
 
         .method-step__copy {
@@ -1413,131 +1466,11 @@
             overflow: visible;
         }
 
-        .method-blueprint {
-            width: 100%;
-            max-width: 700px;
-            margin-inline: auto;
-        }
-
-        .method-blueprint__header {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 1rem;
-            align-items: end;
-            margin-bottom: 1rem;
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-        }
-
-        .method-blueprint__progress {
-            color: #C96A43;
-        }
-
-        .method-blueprint__track {
-            grid-column: 1 / -1;
-            height: 2px;
-            overflow: hidden;
-            background: #E5E1D8;
-        }
-
-        .method-blueprint__track::after {
-            display: block;
-            width: var(--method-progress, 25%);
-            height: 100%;
-            background: #C96A43;
-            content: "";
-            transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .method-blueprint__flow {
-            display: grid;
-            gap: 0.55rem;
-        }
-
-        .method-module {
-            position: relative;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            gap: 1rem;
-            min-height: 88px;
-            padding: 1rem 1.1rem;
-            border: 1px dashed #B7B1A5;
-            background: rgba(247, 245, 240, 0.72);
-            opacity: 0.3;
-            transform: translateY(12px);
-            transition: opacity 280ms ease, transform 340ms cubic-bezier(0.22, 1, 0.36, 1), background-color 240ms ease, border-color 240ms ease;
-        }
-
-        .method-module.is-revealed {
-            opacity: 1;
-            transform: none;
-        }
-
-        .method-module.is-active {
-            border-color: #C96A43;
-            background: rgba(201, 106, 67, 0.08);
-        }
-
-        .method-module.is-complete {
-            border-color: #6B7280;
-            background: rgba(11, 15, 20, 0.035);
-        }
-
-        .method-module__eyebrow,
-        .method-module__state,
         .method-stack__label {
             font-family: var(--font-mono);
             font-size: 0.58rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-        }
-
-        .method-module__eyebrow {
-            color: #C96A43;
-        }
-
-        .method-module__title {
-            margin-top: 0.35rem;
-            font-family: var(--font-display);
-            font-size: clamp(1.1rem, 1.8vw, 1.45rem);
-            font-weight: 600;
-            line-height: 1.1;
-        }
-
-        .method-module__copy {
-            margin-top: 0.35rem;
-            color: #686F7D;
-            font-size: 0.75rem;
-            line-height: 1.45;
-        }
-
-        .method-module__state {
-            align-self: start;
-            color: #B7B1A5;
-        }
-
-        .method-module.is-active .method-module__state {
-            color: #C96A43;
-        }
-
-        .method-module.is-complete .method-module__state::after {
-            content: " · listo";
-        }
-
-        .method-stack {
-            padding: 0.65rem;
-            border: 1px dashed #B7B1A5;
-            opacity: 0.28;
-            transform: translateY(10px);
-            transition: opacity 280ms ease, transform 340ms cubic-bezier(0.22, 1, 0.36, 1), border-color 240ms ease;
-        }
-
-        .method-stack.is-revealed {
-            border-color: #6B7280;
-            opacity: 1;
-            transform: none;
         }
 
         .method-stack__label {
@@ -1693,7 +1626,7 @@
             }
 
             .method-step__title {
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
 
             .method-stack__grid {
@@ -1702,20 +1635,13 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .method-step__panel,
-            .method-module,
-            .method-stack,
-            .method-blueprint__track::after {
+            .method-step__panel {
                 transition: none;
             }
         }
 
         /* Proyectos: tablero editorial con jerarquia y evidencia. */
         .projects-heading {
-            display: grid;
-            grid-template-columns: minmax(0, 1.65fr) minmax(18rem, 0.75fr);
-            gap: clamp(2rem, 5vw, 5rem);
-            align-items: end;
             margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
         }
 
@@ -1727,13 +1653,6 @@
         .projects-heading__title h2 {
             margin-bottom: 0;
             font-size: clamp(3.5rem, 4vw, 4rem);
-        }
-
-        .projects-heading__copy {
-            max-width: 34rem;
-            padding-bottom: 0.35rem;
-            line-height: 1.45;
-            text-wrap: pretty;
         }
 
         .project-meta {
@@ -1749,21 +1668,11 @@
             border-bottom: 1px solid #B7B1A5;
         }
 
-        .project-feature {
-            min-width: 0;
-            padding: 1.5rem 1.5rem 1.5rem 0;
-            border-right: 1px dashed #B7B1A5;
-        }
-
         .project-media {
             position: relative;
             overflow: hidden;
             border: 1px solid #D4CFC1;
             background: #EFECE5;
-        }
-
-        .project-feature .project-media {
-            aspect-ratio: 16 / 9.4;
         }
 
         .project-media img {
@@ -1774,322 +1683,12 @@
             transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 350ms ease;
         }
 
-        .project-feature .project-media img {
-            object-position: left top;
-        }
-
-        .project-rely-visual {
-            position: relative;
-            display: flex;
-            height: 100%;
-            min-height: 22rem;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-            padding: clamp(1.5rem, 3.5vw, 3rem);
-            background:
-                radial-gradient(circle at 82% 16%, rgba(113, 222, 128, 0.34), transparent 26%),
-                linear-gradient(135deg, #F4F8F0 0%, #E2F0DF 100%);
-            color: #102016;
-        }
-
-        .project-rely-visual::before {
-            content: "";
-            position: absolute;
-            right: -7%;
-            bottom: -32%;
-            width: 48%;
-            aspect-ratio: 1;
-            border: 1px solid rgba(16, 32, 22, 0.12);
-            border-radius: 50%;
-            box-shadow: 0 0 0 2.5rem rgba(113, 222, 128, 0.08), 0 0 0 5rem rgba(113, 222, 128, 0.05);
-        }
-
-        .project-rely-visual__top,
-        .project-rely-visual__bottom {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .project-rely-visual__brand {
-            font-family: var(--font-display);
-            font-size: clamp(2.8rem, 6vw, 5.75rem);
-            font-weight: 600;
-            line-height: 0.82;
-            letter-spacing: -0.035em;
-        }
-
-        .project-rely-visual__status,
-        .project-rely-visual__caption {
-            font-family: var(--font-mono);
-            font-size: 0.58rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-        }
-
-        .project-rely-visual__status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .project-rely-visual__status::before {
-            content: "";
-            width: 0.55rem;
-            height: 0.55rem;
-            border-radius: 50%;
-            background: #42B85A;
-            box-shadow: 0 0 0 0.25rem rgba(66, 184, 90, 0.14);
-        }
-
-        .project-rely-visual__flow {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            margin: clamp(2rem, 5vw, 4.5rem) 0;
-            border: 1px solid rgba(16, 32, 22, 0.22);
-            background: rgba(255, 255, 255, 0.48);
-            backdrop-filter: blur(8px);
-        }
-
-        .project-rely-visual__step {
-            position: relative;
-            min-width: 0;
-            padding: clamp(1rem, 2vw, 1.5rem);
-            border-right: 1px solid rgba(16, 32, 22, 0.16);
-        }
-
-        .project-rely-visual__step:last-child {
-            border-right: 0;
-        }
-
-        .project-rely-visual__step small {
-            display: block;
-            margin-bottom: 0.75rem;
-            color: #4B6954;
-            font-family: var(--font-mono);
-            font-size: 0.52rem;
-            letter-spacing: 0.12em;
-        }
-
-        .project-rely-visual__step strong {
-            display: block;
-            font-size: clamp(0.7rem, 1vw, 0.88rem);
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
-        }
-
-        .project-rely-visual__caption {
-            color: #36513E;
-        }
-
-        .project-rely-visual__seal {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            font-size: 0.72rem;
-            font-weight: 600;
-        }
-
-        .project-rely-visual__seal span {
-            display: inline-flex;
-            width: 1.5rem;
-            height: 1.5rem;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #102016;
-            color: #71DE80;
-        }
-
-        .project-lain-canvas {
-            position: relative;
-            display: flex;
-            height: 100%;
-            min-height: 11rem;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-            padding: clamp(1.25rem, 3vw, 2rem);
-            background:
-                linear-gradient(rgba(247, 245, 240, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(247, 245, 240, 0.08) 1px, transparent 1px),
-                #0B0F14;
-            background-size: 28px 28px;
-            color: #F7F5F0;
-        }
-
-        .project-lain-canvas::after {
-            content: "";
-            position: absolute;
-            right: -12%;
-            bottom: -45%;
-            width: 68%;
-            aspect-ratio: 1;
-            border: 1px solid rgba(201, 106, 67, 0.7);
-            border-radius: 50%;
-            box-shadow: 0 0 0 2rem rgba(201, 106, 67, 0.08), 0 0 0 4rem rgba(201, 106, 67, 0.04);
-        }
-
-        .project-lain-canvas__eyebrow,
-        .project-lain-canvas__tools {
-            position: relative;
-            z-index: 1;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-        }
-
-        .project-lain-canvas__eyebrow {
-            color: #C96A43;
-            font-size: 0.58rem;
-            letter-spacing: 0.18em;
-        }
-
-        .project-lain-canvas__mark {
-            position: relative;
-            z-index: 1;
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 6vw, 5.5rem);
-            font-weight: 600;
-            line-height: 0.82;
-        }
-
-        .project-lain-canvas__tools {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem;
-            color: rgba(247, 245, 240, 0.66);
-            font-size: 0.5rem;
-            letter-spacing: 0.1em;
-        }
-
-        .project-lain-canvas__tools span {
-            padding: 0.3rem 0.45rem;
-            border: 1px solid rgba(247, 245, 240, 0.2);
-            background: rgba(11, 15, 20, 0.72);
-        }
-
-        .project-feature__body {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(155px, 0.36fr);
-            gap: 2rem;
-            min-height: 12rem;
-            padding: 1.75rem 2rem;
-            background: #F7F5F0;
-            color: #0B0F14;
-        }
-
         .project-meta {
             display: block;
             margin-bottom: 0.8rem;
             color: #C96A43;
             font-size: 0.63rem;
             line-height: 1.5;
-        }
-
-        .project-feature__title,
-        .project-compact__title {
-            font-family: var(--font-display);
-            font-weight: 600;
-            letter-spacing: 0;
-        }
-
-        .project-feature__title {
-            font-size: clamp(2rem, 3vw, 3.25rem);
-            line-height: 0.95;
-        }
-
-        .project-feature__copy {
-            max-width: 36rem;
-            margin-top: 1rem;
-            color: #4B5563;
-            font-size: 0.98rem;
-            line-height: 1.6;
-        }
-
-        .project-facts {
-            display: grid;
-            align-content: start;
-            border-left: 1px solid #D4CFC1;
-        }
-
-        .project-facts__item {
-            padding: 0.15rem 0 0.85rem 1.25rem;
-            border-bottom: 1px solid #D4CFC1;
-        }
-
-        .project-facts__item + .project-facts__item {
-            padding-top: 0.85rem;
-        }
-
-        .project-facts dt {
-            color: #8A8F98;
-            font-family: var(--font-mono);
-            font-size: 0.56rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .project-facts dd {
-            margin-top: 0.3rem;
-            color: #0B0F14;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .projects-side {
-            display: grid;
-            grid-template-rows: repeat(2, minmax(0, 1fr));
-        }
-
-        .project-compact {
-            display: grid;
-            grid-template-rows: auto 1fr;
-            gap: 1.25rem;
-            min-width: 0;
-            padding: 1.5rem;
-            transition: background-color 250ms ease;
-        }
-
-        .project-compact:first-child {
-            border-bottom: 1px dashed #B7B1A5;
-        }
-
-        .project-compact .project-media {
-            aspect-ratio: 16 / 7.6;
-        }
-
-        .project-compact__head {
-            display: flex;
-            gap: 1rem;
-            align-items: baseline;
-            justify-content: flex-end;
-        }
-
-        .project-compact__title {
-            color: #0B0F14;
-            font-size: clamp(1.65rem, 2.2vw, 2.25rem);
-            line-height: 1;
-        }
-
-        .project-compact__number {
-            color: #8A8F98;
-            font-family: var(--font-mono);
-            font-size: 0.6rem;
-            letter-spacing: 0.12em;
-        }
-
-        .project-compact__copy {
-            margin-top: 0.75rem;
-            color: #4B5563;
-            font-size: 0.9rem;
-            line-height: 1.55;
         }
 
         .project-footer {
@@ -2163,135 +1762,16 @@
             letter-spacing: 0.08em;
         }
 
-        .project-feature:hover .project-media img,
-        .project-compact:hover .project-media img {
-            transform: scale(1.025);
-        }
-
-        .project-compact:hover {
-            background: #EFECE5;
-        }
-
         @media (max-width: 1023px) {
-            .projects-heading {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 1.25rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .projects-heading__copy {
-                max-width: 42rem;
-                padding-bottom: 0;
-            }
-
-            .projects-heading__rail {
-                display: none;
-            }
 
             .projects-mosaic {
                 grid-template-columns: minmax(0, 1fr);
             }
 
-            .project-feature {
-                padding-right: 0;
-                border-right: 0;
-                border-bottom: 1px dashed #B7B1A5;
-            }
-
-            .projects-side {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                grid-template-rows: auto;
-            }
-
-            .project-compact:first-child {
-                border-right: 1px dashed #B7B1A5;
-                border-bottom: 0;
-            }
-
-        }
-
-        @media (max-width: 767px) {
-            .project-feature {
-                padding-top: 1rem;
-            }
-
-            .project-rely-visual {
-                min-height: 100%;
-                padding: 1rem 1.15rem;
-            }
-
-            .project-rely-visual__brand {
-                font-size: 2.65rem;
-            }
-
-            .project-rely-visual__status {
-                font-size: 0.48rem;
-            }
-
-            .project-rely-visual__flow {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                margin: 0.85rem 0 0;
-            }
-
-            .project-rely-visual__step {
-                padding: 0.55rem 0.7rem;
-            }
-
-            .project-rely-visual__step:nth-child(2) {
-                border-right: 0;
-            }
-
-            .project-rely-visual__step:nth-child(-n + 2) {
-                border-bottom: 1px solid rgba(16, 32, 22, 0.16);
-            }
-
-            .project-rely-visual__step small {
-                margin-bottom: 0.25rem;
-            }
-
-            .project-rely-visual__step strong {
-                font-size: 0.58rem;
-            }
-
-            .project-rely-visual__bottom {
-                display: none;
-            }
-
-            .project-feature__body {
-                grid-template-columns: 1fr;
-                padding: 1.5rem;
-            }
-
-            .project-facts {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                border-top: 1px solid rgba(183, 177, 165, 0.42);
-                border-left: 0;
-            }
-
-            .project-facts__item,
-            .project-facts__item + .project-facts__item {
-                padding: 0.85rem 0.5rem 0 0;
-                border-bottom: 0;
-            }
-
-            .projects-side {
-                grid-template-columns: 1fr;
-            }
-
-            .project-compact:first-child {
-                border-right: 0;
-                border-bottom: 1px dashed #B7B1A5;
-            }
-
-            .project-compact {
-                padding: 1rem 0;
-            }
-
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .project-media img,
-            .project-compact {
+            .project-media img {
                 transition: none;
             }
         }
@@ -2314,8 +1794,9 @@
             list-style: none;
             cursor: pointer;
             padding: 1.65rem 1rem;
-            font-size: clamp(1.3rem, 2vw, 1.85rem);
+            font-size: clamp(1.125rem, 1.4vw, 1.3125rem);
             font-weight: 500;
+            letter-spacing: -0.01em;
         }
         .faq-item summary::-webkit-details-marker {
             display: none;
@@ -2400,10 +1881,11 @@
 
         .contact-form__title {
             color: #0B0F14;
-            font-family: var(--font-serif);
-            font-size: clamp(1.6rem, 2.3vw, 2rem);
+            font-family: var(--font-ui);
+            font-size: clamp(1.25rem, 1.6vw, 1.5rem);
             font-weight: 600;
-            line-height: 1.1;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
         }
 
         .contact-form__row {
@@ -2570,12 +2052,6 @@
                 padding-bottom: 3.5rem;
             }
 
-            #lo-que-no-hacemos .brand-mark--loud {
-                background-size: 100% 0.14em;
-                background-position: 0 88%;
-                padding-bottom: 0.08em;
-            }
-
             #contacto {
                 scroll-margin-top: 5.5rem;
                 padding-top: 3.5rem;
@@ -2604,159 +2080,12 @@
 
         }
 
-        .capability-select-wrap,
         .contact-calendar-link {
             display: none;
         }
 
         /* Responsive compositions outside the approved 1200-2199px desktop range. */
         @media (max-width: 1199px) {
-            .capability-map {
-                display: flex;
-                min-height: 0;
-                flex-direction: column;
-            }
-
-            .capability-map__orbit,
-            .capability-map__axis,
-            .capability-map__endpoint,
-            .capability-scope-label {
-                display: none;
-            }
-
-            .capability-center-intro {
-                position: static;
-                order: -1;
-                width: 100%;
-                margin-bottom: 1rem;
-                padding: 0;
-                transform: none;
-                text-align: left;
-            }
-
-            .capability-center-line {
-                display: inline;
-                margin: 0;
-                padding: 0;
-                background: transparent;
-                box-shadow: none;
-            }
-
-            .capability-map.has-preview .capability-center-intro {
-                display: block;
-                opacity: 1;
-                transform: none;
-            }
-
-            .capability-center-intro > span:last-child {
-                display: none;
-            }
-
-            .capability-select-wrap {
-                order: 0;
-                display: grid;
-                grid-template-columns: minmax(0, 1fr) minmax(180px, 0.55fr);
-                align-items: center;
-                gap: 1.5rem;
-                padding: 1rem 0;
-                border-top: 1px solid #B7B1A5;
-                border-bottom: 1px solid #B7B1A5;
-            }
-
-            .capability-select-wrap > span {
-                color: #686F7D;
-                font-family: var(--font-mono);
-                font-size: 0.62rem;
-                letter-spacing: 0.14em;
-                text-transform: uppercase;
-            }
-
-            .capability-select-wrap select {
-                width: 100%;
-                min-height: 44px;
-                padding: 0 0.25rem;
-                border: 0;
-                border-bottom: 1px solid #0B0F14;
-                border-radius: 0;
-                background: transparent;
-                color: #0B0F14;
-                font-family: var(--font-ui);
-                font-size: 1rem;
-                font-weight: 600;
-            }
-
-            .capability-tabs {
-                display: none;
-            }
-
-            .capability-tab,
-            .capability-tab:nth-child(n) {
-                position: static;
-                width: 100%;
-                min-height: 58px;
-                padding: 0.9rem 0;
-                border: 0;
-                border-bottom: 1px solid #D4CFC1;
-                border-radius: 0;
-                justify-content: flex-start;
-                background: transparent;
-                font-size: 0.84rem;
-                line-height: 1.25;
-                text-align: left;
-                white-space: normal;
-                transform: none;
-                counter-increment: capability;
-            }
-
-            .capability-tab::before {
-                content: counter(capability, decimal-leading-zero);
-                flex: 0 0 2rem;
-                color: #C96A43;
-                font-family: var(--font-mono);
-                font-size: 0.58rem;
-                font-weight: 500;
-                letter-spacing: 0.12em;
-            }
-
-            .capability-tab:hover {
-                color: #0B0F14;
-                transform: none;
-            }
-
-            .capability-tab[aria-expanded="true"] {
-                border-color: #C96A43;
-                background: transparent;
-                color: #0B0F14;
-            }
-
-            .capability-tab__dot {
-                display: none;
-            }
-
-            .capability-preview {
-                position: static;
-                order: 1;
-                display: none;
-                width: 100%;
-                margin-top: 1.5rem;
-                padding-left: 1.25rem;
-                border: 0;
-                border-left: 2px solid #C96A43;
-                background: transparent;
-                transform: none;
-                box-shadow: none;
-            }
-
-            .capability-preview.is-visible {
-                display: block;
-                transform: none;
-            }
-
-            .capability-preview__body {
-                max-width: 42rem;
-                padding: 0;
-            }
-
             .method-copy {
                 gap: clamp(1.5rem, 4vw, 3rem);
             }
@@ -2786,54 +2115,6 @@
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: clamp(1.25rem, 3vw, 2rem);
                 border: 0;
-            }
-
-            .projects-side {
-                display: contents;
-            }
-
-            .project-feature,
-            .project-compact,
-            .project-compact:first-child {
-                display: flex;
-                min-width: 0;
-                flex-direction: column;
-                gap: 1rem;
-                padding: 0 0 1.25rem;
-                border: 0;
-                border-bottom: 1px solid #B7B1A5;
-                background: transparent;
-            }
-
-            .project-feature .project-media,
-            .project-compact .project-media {
-                aspect-ratio: 16 / 10;
-            }
-
-            .project-feature__body {
-                display: block;
-                min-height: 0;
-                padding: 0;
-                background: transparent;
-            }
-
-            .project-compact__number,
-            .project-facts {
-                display: none;
-            }
-
-            .project-feature__title,
-            .project-compact__title {
-                font-size: 1.75rem;
-                line-height: 1;
-            }
-
-            .project-feature__copy,
-            .project-compact__copy {
-                margin-top: 0.75rem;
-                color: #4B5563;
-                font-size: 0.9rem;
-                line-height: 1.55;
             }
 
             .team-grid {
@@ -2922,13 +2203,6 @@
                 padding-bottom: 5rem;
             }
 
-            .capability-heading {
-                display: grid;
-                grid-template-columns: minmax(0, 1.15fr) minmax(15rem, 0.85fr);
-                align-items: end;
-                gap: clamp(2rem, 6vw, 4.5rem);
-            }
-
             .capability-heading__eyebrow {
                 margin-bottom: 1.25rem;
             }
@@ -2938,41 +2212,12 @@
                 line-height: 0.96;
                 text-wrap: balance;
             }
-
-            .capability-heading__copy {
-                max-width: 26rem;
-                padding-bottom: 0.15rem;
-                font-size: 1rem;
-                line-height: 1.55;
-            }
-
-            .capability-center-intro {
-                margin-top: 1.75rem;
-                margin-bottom: 1rem;
-            }
-
-            .capability-closing {
-                margin-top: 1.5rem;
-            }
-
-            .capability-closing > div {
-                padding-top: 1.25rem;
-            }
         }
 
         @media (min-width: 768px) and (max-width: 1049px) {
-            .capability-heading {
-                grid-template-columns: 1fr;
-                gap: 1.25rem;
-            }
-
             .capability-heading__title {
                 max-width: 44rem;
                 font-size: clamp(3.25rem, 7.4vw, 4rem);
-            }
-
-            .capability-heading__copy {
-                max-width: 42rem;
             }
         }
 
@@ -2985,22 +2230,9 @@
             .capability-heading__title {
                 font-size: clamp(3rem, 5.7vw, 3.75rem);
             }
-
-            .capability-center-intro {
-                margin-top: 1.25rem;
-            }
         }
 
         @media (max-width: 639px) {
-            .capability-center-intro {
-                margin-bottom: 0.75rem;
-            }
-
-            .capability-select-wrap {
-                grid-template-columns: 1fr;
-                gap: 0.35rem;
-            }
-
             .method-copy {
                 gap: 0;
             }
@@ -3030,7 +2262,7 @@
 
             .method-step__title {
                 margin-top: 1rem;
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
 
             #equipo {
@@ -3257,211 +2489,14 @@
                 padding-bottom: 4.5rem;
             }
 
-            .capability-heading {
-                grid-template-columns: minmax(0, 1.38fr) minmax(17rem, 0.62fr);
-                gap: clamp(3rem, 6vw, 5rem);
-            }
-
             .capability-heading__title {
                 max-width: 42rem;
                 font-size: clamp(3.35rem, 5.1vw, 3.8rem);
                 line-height: 0.95;
             }
-
-            .capability-heading__copy {
-                max-width: 22rem;
-                font-size: 0.98rem;
-                line-height: 1.55;
-            }
-
-            .capability-map {
-                display: block;
-                margin-top: 2.25rem;
-                border-top: 0;
-                border-bottom: 0;
-            }
-
-            .capability-center-intro {
-                display: none;
-            }
-
-            .capability-center-intro > span:first-child {
-                margin-bottom: 0.65rem;
-            }
-
-            .capability-center-intro p {
-                max-width: 31rem;
-                font-size: 1.35rem;
-            }
-
-            .capability-select-wrap {
-                display: none;
-            }
-
-            .capability-tabs {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                column-gap: 2.5rem;
-                counter-reset: capability;
-            }
-
-            .capability-tab,
-            .capability-tab:nth-child(n) {
-                position: static;
-                display: flex;
-                width: 100%;
-                min-height: 3.15rem;
-                align-items: center;
-                justify-content: flex-start;
-                padding: 0.7rem 0;
-                border: 0;
-                border-bottom: 1px solid #D4CFC1;
-                border-radius: 0;
-                background: transparent;
-                color: #4B5563;
-                font-family: var(--font-ui);
-                font-size: 0.85rem;
-                font-weight: 600;
-                line-height: 1.25;
-                text-align: left;
-                white-space: normal;
-                transform: none;
-            }
-
-            .capability-tab::before {
-                flex-basis: 2.5rem;
-                color: #C96A43;
-            }
-
-            .capability-tab:hover,
-            .capability-tab[aria-expanded="true"] {
-                border-color: #0B0F14;
-                background: transparent;
-                color: #0B0F14;
-                transform: none;
-            }
-
-            .capability-preview {
-                margin: 1.25rem 0 0;
-                padding: 1.25rem 0 0;
-                border-left: 0;
-                border-top: 1px solid #D4CFC1;
-            }
-
-            .capability-closing {
-                margin-top: 0;
-            }
-
-            .capability-closing > div {
-                min-height: 7rem;
-                padding-top: 1.75rem;
-                padding-bottom: 0.25rem;
-            }
-
-            .capability-closing p {
-                max-width: 39rem;
-                font-size: 1.4rem;
-            }
-        }
-
-        /* Standard tablet: a curated capability index, never a select menu. */
-        @media (min-width: 768px) and (max-width: 1049px) {
-            body main > #construimos {
-                align-items: center !important;
-            }
-
-            .capability-map {
-                display: block;
-                margin-top: 1.75rem;
-            }
-
-            .capability-center-intro,
-            .capability-select-wrap {
-                display: none;
-            }
-
-            .capability-tabs {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                column-gap: clamp(1.5rem, 5vw, 3rem);
-                counter-reset: capability;
-            }
-
-            .capability-tab,
-            .capability-tab:nth-child(n) {
-                position: static;
-                display: flex;
-                width: 100%;
-                min-height: 3.5rem;
-                align-items: center;
-                justify-content: flex-start;
-                padding: 0.75rem 0;
-                border: 0;
-                border-bottom: 1px solid #D4CFC1;
-                border-radius: 0;
-                background: transparent;
-                color: #4B5563;
-                font-family: var(--font-ui);
-                font-size: 0.86rem;
-                font-weight: 600;
-                line-height: 1.25;
-                text-align: left;
-                white-space: normal;
-                transform: none;
-            }
-
-            .capability-tab:nth-child(6),
-            .capability-tab:nth-child(7),
-            .capability-tab:nth-child(9),
-            .capability-tab:nth-child(10),
-            .capability-tab:nth-child(11),
-            .capability-tab:nth-child(12) {
-                display: none;
-            }
-
-            .capability-tab::before {
-                flex: 0 0 2.35rem;
-                color: #C96A43;
-            }
-
-            .capability-tab:hover,
-            .capability-tab[aria-expanded="true"] {
-                border-color: #0B0F14;
-                background: transparent;
-                color: #0B0F14;
-                transform: none;
-            }
-
-            .capability-preview {
-                margin: 1.25rem 0 0;
-                padding: 1.25rem 0 0;
-                border-left: 0;
-                border-top: 1px solid #D4CFC1;
-            }
-
-            .capability-closing {
-                margin-top: 1rem;
-            }
         }
 
         @media (min-width: 768px) and (max-width: 1199px) {
-            .capability-tabs {
-                pointer-events: none;
-            }
-
-            .capability-tab,
-            .capability-tab:hover,
-            .capability-tab[aria-expanded="true"] {
-                cursor: default;
-                border-color: #D4CFC1;
-                color: #4B5563;
-            }
-
-            .capability-preview,
-            .capability-preview.is-visible {
-                display: none !important;
-            }
-
             .faq-header {
                 display: block;
                 margin-bottom: 2.25rem;
@@ -3482,82 +2517,6 @@
             .faq-item > p {
                 padding-right: 2.5rem;
                 padding-left: 0;
-            }
-        }
-
-        /* Mobile: static capability index instead of a native select. */
-        @media (max-width: 767px) {
-            .capability-map {
-                display: block;
-                margin-top: 1.75rem;
-            }
-
-            .capability-center-intro,
-            .capability-select-wrap {
-                display: none;
-            }
-
-            .capability-tabs {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 0;
-                column-gap: clamp(0.9rem, 5vw, 1.5rem);
-                margin: 0;
-                padding: 0;
-                overflow: visible;
-                counter-reset: capability;
-                pointer-events: none;
-            }
-
-            .capability-tab,
-            .capability-tab:nth-child(n),
-            .capability-tab:hover,
-            .capability-tab[aria-expanded="true"] {
-                position: static;
-                display: flex;
-                width: 100%;
-                min-height: 4.25rem;
-                align-items: center;
-                justify-content: flex-start;
-                padding: 0.8rem 0;
-                border: 0;
-                border-bottom: 1px solid #D4CFC1;
-                border-radius: 0;
-                background: transparent;
-                color: #4B5563;
-                font-family: var(--font-ui);
-                font-size: 0.8rem;
-                font-weight: 600;
-                line-height: 1.25;
-                text-align: left;
-                white-space: normal;
-                transform: none;
-                cursor: default;
-            }
-
-            .capability-tab:nth-child(6),
-            .capability-tab:nth-child(7),
-            .capability-tab:nth-child(9),
-            .capability-tab:nth-child(10),
-            .capability-tab:nth-child(11),
-            .capability-tab:nth-child(12) {
-                display: none;
-            }
-
-            .capability-tab::before {
-                flex: 0 0 1.85rem;
-                color: #C96A43;
-                font-size: 0.54rem;
-            }
-
-            .capability-tab__dot,
-            .capability-preview,
-            .capability-preview.is-visible {
-                display: none !important;
-            }
-
-            .capability-closing {
-                margin-top: 1.75rem;
             }
         }
 
@@ -3599,14 +2558,6 @@
                 font-size: clamp(2.75rem, 6.25vw, 4rem);
             }
 
-            .situations-intro h2 {
-                font-size: clamp(2.75rem, 5.4vw, 3.25rem);
-            }
-
-            .situation-item h3 {
-                font-size: clamp(2rem, 4.2vw, 2.75rem);
-            }
-
             .capability-heading__title,
             .projects-heading h2,
             .method-heading__title {
@@ -3630,7 +2581,7 @@
             }
 
             #manifesto .why-item h3 {
-                font-size: clamp(1.8rem, 3.6vw, 2.2rem);
+                font-size: clamp(1.5rem, 3vw, 1.85rem);
             }
         }
 
@@ -3646,19 +2597,6 @@
 
             .text-hero {
                 font-size: clamp(2.6rem, 10.4vw, 3rem);
-            }
-
-            .situations-intro h2 {
-                font-size: 2.35rem;
-            }
-
-            .situation-item,
-            .situation-item + .situation-item {
-                min-height: 12rem;
-            }
-
-            .situation-item h3 {
-                font-size: 2rem;
             }
 
             .capability-heading__title,
@@ -3678,24 +2616,19 @@
             }
 
             #manifesto .why-item h3 {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
             }
 
-            .projects-heading p,
             #equipo > .max-w-7xl > .mb-12 > p {
                 font-size: 0.9375rem;
             }
 
             #hero-section p,
-            .capability-heading__copy,
             .method-intro,
             .contact-copy p {
                 font-size: 0.9375rem;
             }
 
-            .situation-item__copy,
-            .project-feature__copy,
-            .project-compact__copy,
             #manifesto .why-intro p,
             #manifesto .why-item p {
                 font-size: 0.875rem;
@@ -3863,7 +2796,8 @@
             }
         }
 
-        @media (min-width: 1440px) {
+        /* Desde 1536px el margen lateral alcanza para las etiquetas sin pisar la columna de contenido. */
+        @media (min-width: 1536px) {
             .section-index {
                 display: block;
                 width: 8.5rem;
@@ -3906,6 +2840,7 @@
             max-width: 36rem;
             font-size: clamp(2.8rem, 8vw, 4.5rem);
             line-height: 0.98;
+            letter-spacing: var(--display-tracking);
         }
 
         .why-intro p {
@@ -3954,9 +2889,10 @@
         .why-item h3 {
             color: #F7F5F0;
             font-family: var(--font-display);
-            font-size: clamp(1.7rem, 5vw, 2.5rem);
-            font-weight: 600;
-            line-height: 1.05;
+            font-size: clamp(1.5rem, 2.2vw, 2rem);
+            font-weight: var(--display-weight);
+            line-height: 1.1;
+            letter-spacing: -0.035em;
         }
 
         .why-item p {
@@ -4017,7 +2953,7 @@
             }
         }
 
-        /* Casos Acelera: cuatro piezas con la misma jerarquía y evidencia en movimiento. */
+        /* Casos Acelera: seis piezas con la misma jerarquía y evidencia en movimiento. */
         .projects-carousel {
             --projects-gap: clamp(1rem, 2vw, 1.5rem);
             min-width: 0;
@@ -4130,8 +3066,7 @@
             background: linear-gradient(to top, rgba(11, 15, 20, 0.24), transparent);
         }
 
-        .project-card video,
-        .capability-preview__media img {
+        .project-card video {
             display: block;
             width: 100%;
             height: 100%;
@@ -4162,9 +3097,10 @@
         .project-card__title {
             color: #0B0F14;
             font-family: var(--font-display);
-            font-size: clamp(2rem, 3.4vw, 3.15rem);
-            font-weight: 600;
-            line-height: 0.95;
+            font-size: clamp(1.85rem, 2.6vw, 2.5rem);
+            font-weight: var(--display-weight);
+            line-height: 1;
+            letter-spacing: -0.035em;
         }
 
         .project-card__copy {
@@ -4192,6 +3128,10 @@
             text-transform: uppercase;
         }
 
+        .project-card .project-signals {
+            margin-bottom: 1.5rem;
+        }
+
         .project-card .project-footer {
             margin-top: auto;
         }
@@ -4199,149 +3139,6 @@
         .project-card:hover {
             transform: translateY(-0.35rem);
             box-shadow: 0 1.5rem 3rem rgba(11, 15, 20, 0.09);
-        }
-
-        .capability-preview {
-            width: min(25.5rem, 37%);
-            max-width: 25.5rem;
-            aspect-ratio: auto;
-            overflow: visible;
-            padding: 0;
-            border: 0;
-            background: transparent;
-            box-shadow: none;
-            isolation: isolate;
-        }
-
-        .capability-preview__stack {
-            position: absolute;
-            z-index: 0;
-            inset: -1.15rem -1.35rem -1rem;
-            pointer-events: none;
-        }
-
-        .capability-preview__layer {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            background-color: #D8D1C4;
-            background-image:
-                linear-gradient(145deg, rgba(247, 245, 240, 0.18), rgba(11, 15, 20, 0.26)),
-                var(--capability-poster);
-            background-position: center;
-            background-size: cover;
-            box-shadow: 0 1.2rem 2.7rem rgba(64, 48, 39, 0.13);
-            filter: saturate(0.72) contrast(0.92);
-            opacity: 0;
-            transition: opacity 240ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .capability-preview__layer--back {
-            border-radius: 1.2rem 0.75rem 1.35rem 0.9rem;
-            transform: translate3d(0.3rem, 0.25rem, 0) rotate(0deg) scale(0.9);
-        }
-
-        .capability-preview__layer--middle {
-            border-radius: 0.75rem 1.25rem 0.85rem 1.15rem;
-            transform: translate3d(-0.2rem, 0.2rem, 0) rotate(0deg) scale(0.93);
-        }
-
-        .capability-preview.is-visible .capability-preview__layer--back {
-            opacity: 0.18;
-            transform: translate3d(1.55rem, -1rem, 0) rotate(4.2deg) scale(0.9);
-        }
-
-        .capability-preview.is-visible .capability-preview__layer--middle {
-            opacity: 0.34;
-            transform: translate3d(-1.45rem, 0.9rem, 0) rotate(-4.5deg) scale(0.94);
-        }
-
-        .capability-preview__frame {
-            position: relative;
-            z-index: 1;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            border-radius: 0.9rem 0.9rem 0.65rem 0.9rem;
-            background: transparent;
-            box-shadow: none;
-            transform-origin: 25% 85%;
-        }
-
-        @keyframes capabilityCardLift {
-            0% {
-                opacity: 0;
-                transform: translate3d(-1.4rem, 1.7rem, 0) rotate(-3.5deg) scale(0.88);
-            }
-            62% {
-                opacity: 1;
-                transform: translate3d(0.18rem, -0.18rem, 0) rotate(0.7deg) scale(1.015);
-            }
-            100% {
-                opacity: 1;
-                transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-            }
-        }
-
-        .capability-preview.is-visible.is-switching .capability-preview__frame {
-            animation: capabilityCardLift 540ms cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-
-        .capability-preview__media {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            background: transparent;
-        }
-
-        .capability-preview__media img,
-        .capability-preview__media video {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .capability-preview__media img {
-            z-index: 1;
-            opacity: 1;
-            transition: opacity 220ms ease;
-        }
-
-        .capability-preview__media video {
-            z-index: 0;
-        }
-
-        .capability-preview__media.is-video-ready img {
-            opacity: 0;
-        }
-
-        .capability-preview__media::after {
-            content: none;
-        }
-
-        .capability-map.has-preview .capability-tab:not([aria-expanded="true"]) {
-            opacity: 0.62;
-        }
-
-        .capability-tab[aria-expanded="true"] {
-            border-color: #C96A43;
-            background: rgba(247, 245, 240, 0.98);
-            color: #0B0F14;
-            box-shadow: 0 0 0 1px rgba(201, 106, 67, 0.24), 0 0.55rem 1.5rem rgba(11, 15, 20, 0.08);
-            transform: translateY(-2px);
-        }
-
-        .capability-tab[aria-expanded="true"] .capability-tab__dot {
-            box-shadow: 0 0 0 0.25rem rgba(201, 106, 67, 0.12);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .capability-preview__layer,
-            .capability-preview.is-visible.is-switching .capability-preview__frame {
-                animation: none;
-                transition: none;
-            }
         }
 
         @media (min-width: 768px) {
@@ -4363,19 +3160,11 @@
 
         @media (min-width: 1200px) and (max-height: 760px) {
             .projects-heading {
-                align-items: start;
                 margin-bottom: 0.75rem;
             }
 
-            .projects-heading__title > .font-mono {
+            .projects-heading__title > .section-eyebrow {
                 display: none;
-            }
-
-            .projects-heading__copy {
-                max-width: 20rem;
-                padding-bottom: 0;
-                font-size: 1rem;
-                line-height: 1.4;
             }
 
             .projects-carousel__toolbar {
@@ -4395,6 +3184,369 @@
             }
         }
 
+
+        /* ============================================================
+           SISTEMA VISUAL — etiquetas numeradas, brillo cálido con grano
+           y la línea naranja del logo como hilo conductor.
+           ============================================================ */
+        :root {
+            --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.4 -0.45'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
+            --grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.45'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
+        }
+
+        main {
+            counter-reset: section-eyebrow;
+        }
+
+        .section-eyebrow {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 0.85rem;
+            color: #A64F2D;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            line-height: 1;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            counter-increment: section-eyebrow;
+        }
+
+        .section-eyebrow::before {
+            content: counter(section-eyebrow, decimal-leading-zero);
+            padding-right: 1.6rem;
+            background: linear-gradient(#C96A43, #C96A43) right center / 0.9rem 2px no-repeat;
+            color: #686F7D;
+        }
+
+        #manifesto .section-eyebrow {
+            color: #C96A43;
+        }
+
+        #manifesto .section-eyebrow::before {
+            color: rgba(247, 245, 240, 0.55);
+        }
+
+        /* Brillo cálido con grano: hero, "Por qué Acelera" y footer. */
+        .ambient-glow {
+            position: absolute;
+            z-index: 0;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            pointer-events: none;
+            background: radial-gradient(closest-side, rgba(201, 106, 67, 0.3), rgba(239, 216, 205, 0.42) 46%, rgba(247, 245, 240, 0) 100%);
+        }
+
+        .ambient-glow::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background-image: var(--grain-dark);
+            background-size: 180px;
+            opacity: 0.32;
+            -webkit-mask-image: radial-gradient(closest-side, #000 15%, transparent 100%);
+            mask-image: radial-gradient(closest-side, #000 15%, transparent 100%);
+        }
+
+        .ambient-glow--hero {
+            top: 50%;
+            right: -14vw;
+            width: min(68vw, 70rem);
+            transform: translateY(-50%);
+        }
+
+        .ambient-glow--manifesto,
+        .ambient-glow--footer {
+            background: radial-gradient(closest-side, rgba(201, 106, 67, 0.4), rgba(201, 106, 67, 0.12) 52%, rgba(6, 9, 12, 0) 100%);
+        }
+
+        .ambient-glow--manifesto::after,
+        .ambient-glow--footer::after {
+            background-image: var(--grain-light);
+            opacity: 0.18;
+        }
+
+        .ambient-glow--manifesto {
+            bottom: -45vh;
+            left: -22vw;
+            width: min(90vw, 78rem);
+        }
+
+        .ambient-glow--footer {
+            bottom: -34rem;
+            left: 50%;
+            width: min(120vw, 96rem);
+            transform: translateX(-50%);
+        }
+
+        #manifesto .why-layout {
+            position: relative;
+            z-index: 1;
+        }
+
+        #footer-watermark {
+            background: linear-gradient(180deg, rgba(247, 245, 240, 0.2), rgba(247, 245, 240, 0.02) 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* Reconocimientos: cada competencia es una pieza con su cinta naranja. */
+        .awards {
+            position: relative;
+            border-top: 1px solid #E5E1D8;
+            background: #F7F5F0;
+        }
+
+        .awards__inner {
+            display: grid;
+            grid-template-columns: minmax(0, 0.8fr) minmax(0, 2.2fr);
+            gap: clamp(2rem, 4vw, 4rem);
+            align-items: center;
+            padding-top: clamp(2.25rem, 4vw, 3.25rem);
+            padding-bottom: clamp(2.25rem, 4vw, 3.25rem);
+        }
+
+        .awards__eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            color: #A64F2D;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .awards__eyebrow::before {
+            content: "";
+            width: 0.9rem;
+            height: 2px;
+            background: #C96A43;
+        }
+
+        .awards__title {
+            max-width: 17rem;
+            margin: 1rem 0 0;
+            color: #0B0F14;
+            font-size: clamp(1.6rem, 2.3vw, 2.15rem);
+            font-weight: 500;
+            line-height: 1.05;
+            letter-spacing: -0.035em;
+            text-wrap: balance;
+        }
+
+        .awards__count {
+            color: #C96A43;
+        }
+
+        .awards__list {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border: 1px solid #E5E1D8;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .award {
+            position: relative;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 1.25rem;
+            min-height: 9.5rem;
+            padding: 1rem 1.15rem 1.35rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .award + .award {
+            border-left: 1px solid #E5E1D8;
+        }
+
+        .award::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 1.15rem;
+            z-index: 1;
+            width: 2.25rem;
+            height: 2px;
+            background: #C96A43;
+            transform-origin: left center;
+            transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .award:hover {
+            background: #FFFFFF;
+        }
+
+        .award:hover::after {
+            width: calc(100% - 2.3rem);
+        }
+
+        .award__meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            color: #686F7D;
+            font-family: var(--font-mono);
+            font-size: 0.64rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .award__meta span:last-child {
+            color: #A64F2D;
+        }
+
+        .award__logos {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            align-self: center;
+        }
+
+        .award__logos img {
+            display: block;
+            width: auto;
+            opacity: 0.86;
+            transition: opacity 0.3s ease;
+        }
+
+        .award:hover .award__logos img {
+            opacity: 1;
+        }
+
+        .award__logos--pair {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.4rem;
+        }
+
+        .award__times {
+            color: #686F7D;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            line-height: 1;
+        }
+
+        .award__logo--anthropic { height: 0.82rem; }
+        .award__logo--kaszek { height: 0.95rem; }
+        .award__logo--paisanos { height: 1.1rem; }
+        .award__logo--indies { height: 2rem; border-radius: 0.45rem; }
+        .award__logo--musixmatch { height: 1.35rem; }
+
+        .award__wordmark {
+            color: #0B0F14;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+        }
+
+        @keyframes awardRibbon {
+            from {
+                transform: scaleX(0);
+            }
+        }
+
+        .mask-reveal-ready .awards__list:not(.is-revealed) .award::after {
+            transform: scaleX(0);
+        }
+
+        .mask-reveal-ready .awards__list.is-revealed .award::after {
+            animation: awardRibbon 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .awards__list .award:nth-child(1)::after { animation-delay: 0.45s; }
+        .awards__list .award:nth-child(2)::after { animation-delay: 0.57s; }
+        .awards__list .award:nth-child(3)::after { animation-delay: 0.69s; }
+        .awards__list .award:nth-child(4)::after { animation-delay: 0.81s; }
+
+        @media (max-width: 1023px) {
+            .awards__inner {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .awards__title {
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .awards__list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .award {
+                min-height: 8rem;
+                padding: 0.9rem 0.9rem 1.15rem;
+            }
+
+            .award + .award {
+                border-left: 0;
+            }
+
+            .award:nth-child(even) {
+                border-left: 1px solid #E5E1D8;
+            }
+
+            .award:nth-child(n + 3) {
+                border-top: 1px solid #E5E1D8;
+            }
+
+            .award::after {
+                left: 0.9rem;
+            }
+        }
+
+        /* Preguntas frecuentes: título fijo a la izquierda y respuestas a la derecha. */
+        .faq-header__lead {
+            max-width: 24rem;
+            margin-top: 1.25rem;
+            color: #4B5563;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .faq-header__link {
+            display: inline-flex;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding-bottom: 0.2rem;
+            border-bottom: 1px solid #C96A43;
+            color: #0B0F14;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .faq-header__link:hover {
+            color: #A64F2D;
+        }
+
+        @media (min-width: 1024px) {
+            .faq-layout {
+                display: grid;
+                grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+                gap: clamp(3rem, 6vw, 6rem);
+                align-items: start;
+            }
+
+            .faq-layout .faq-header {
+                position: sticky;
+                top: 7rem;
+                margin-bottom: 0;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .award::after,
+            .award__logos img {
+                transition: none;
+            }
+        }
     </style>
 </head>
 
@@ -4458,7 +3610,7 @@
             </button>
 
             <span class="font-mono text-[11px] text-accent uppercase tracking-[0.2em] block mb-3">Agendá una reunión</span>
-            <h2 id="lead-modal-title" class="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-ink leading-[1.0] mb-3 text-balance">
+            <h2 id="lead-modal-title" class="font-serif text-3xl sm:text-4xl tracking-tight text-ink leading-[1.0] mb-3 text-balance">
                 Veamos si la IA <span class="brand-mark">suma</span> en tu caso
             </h2>
             <p class="text-mutedStrong text-sm sm:text-base leading-relaxed mb-7">30 minutos, sin compromiso. Te escribimos en menos de 24 horas.</p>
@@ -4516,11 +3668,8 @@
     </div>
 
     <main class="relative z-10">
-        <section id="hero-section" data-header-scheme="light" data-cursor-trail-zone
+        <section id="hero-section" data-header-scheme="light"
             class="w-full min-h-[80vh] md:min-h-screen relative flex items-center overflow-hidden pt-20 md:pt-24 pb-16 md:pb-20">
-            <div class="absolute inset-0 z-0 pointer-events-none">
-                <canvas class="cursor-trail" data-cursor-trail aria-hidden="true"></canvas>
-            </div>
             <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 z-10 relative">
                 <div class="relative">
                     <div class="max-w-none md:max-w-3xl pt-0">
@@ -4546,9 +3695,7 @@
             <div id="hero-3d-wrap" class="hero-3d-container hidden xl:block gsap-hero-text" aria-hidden="true">
                 <canvas id="hero-3d-canvas"></canvas>
             </div>
-            <div
-                class="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 aspect-square bg-gradient-to-br from-surfaceAlt to-transparent rounded-full blur-3xl opacity-60 -z-10">
-            </div>
+            <div class="ambient-glow ambient-glow--hero" aria-hidden="true"></div>
             <a href="#situaciones"
                 class="hero-scroll-cue absolute left-1/2 z-20 -translate-x-1/2 bottom-[max(1.25rem,env(safe-area-inset-bottom))] md:bottom-10 p-1 text-accent hover:text-signal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink rounded-sm transition-colors"
                 aria-label="Seguir leyendo">
@@ -4562,233 +3709,230 @@
         </section>
 
         <!-- ============================================================
+             RECONOCIMIENTOS — Competencias de IA que ganamos
+             ============================================================ -->
+        <div class="awards">
+            <div class="awards__inner max-w-7xl mx-auto px-4 sm:px-6 md:px-12">
+                <div data-mask-reveal>
+                    <p class="awards__eyebrow">Reconocimientos</p>
+                    <p class="awards__title">Ganamos <span class="awards__count">4</span> competencias de IA.</p>
+                </div>
+                <ol class="awards__list" data-mask-reveal>
+                    <li class="award">
+                        <p class="award__meta"><span>01</span><span>Ganadores</span></p>
+                        <div class="award__logos award__logos--pair">
+                            <img class="award__logo--anthropic" src="assets/logos/anthropic.svg" alt="Anthropic" width="512" height="58" loading="lazy" decoding="async">
+                            <span class="award__times" aria-hidden="true">×</span>
+                            <img class="award__logo--kaszek" src="assets/logos/kaszek.svg" alt="Kaszek" width="120" height="20" loading="lazy" decoding="async">
+                        </div>
+                    </li>
+                    <li class="award">
+                        <p class="award__meta"><span>02</span><span>Ganadores</span></p>
+                        <div class="award__logos"><img class="award__logo--paisanos" src="assets/logos/paisanos.svg" alt="Paisanos" width="163" height="28" loading="lazy" decoding="async"></div>
+                    </li>
+                    <li class="award">
+                        <p class="award__meta"><span>03</span><span>Ganadores</span></p>
+                        <div class="award__logos"><img class="award__logo--indies" src="assets/logos/indies.svg" alt="" width="600" height="600" loading="lazy" decoding="async"><span class="award__wordmark">indies.la</span></div>
+                    </li>
+                    <li class="award">
+                        <p class="award__meta"><span>04</span><span>Ganadores</span></p>
+                        <div class="award__logos"><img class="award__logo--musixmatch" src="assets/logos/musixmatch.svg" alt="Musixmatch" width="415" height="71" loading="lazy" decoding="async"></div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- ============================================================
              SITUACIONES — El visitante reconoce cuándo Acelera puede ayudar
              ============================================================ -->
         <section id="situaciones" data-header-scheme="light"
             class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-surfaceAlt/30 border-t border-rule relative">
             <div class="max-w-7xl mx-auto">
-                <div class="situations-intro">
+                <div class="ways">
                     <div>
-                        <span class="font-mono text-xs text-accent uppercase tracking-[0.18em] block mb-5">Dónde podemos ayudar</span>
-                        <h2>Desarrollo a medida para empresas</h2>
+                        <span class="section-eyebrow mb-5">Dos formas de trabajar</span>
+                        <h2 data-mask-reveal class="ways__title">Desarrollo a medida para empresas</h2>
                     </div>
-                </div>
-
-                <div class="situations-grid">
-                    <article class="situation-item">
-                        <div>
-                            <h3>Software para procesos operativos</h3>
-                            <p class="situation-item__copy">Herramientas internas e integraciones para reemplazar procesos manuales por un sistema propio.</p>
-                        </div>
-                    </article>
-
-                    <article class="situation-item">
-                        <div>
-                            <h3>Desarrollo junto a equipos de producto</h3>
-                            <p class="situation-item__copy">Tomamos una parte concreta del producto y la llevamos a producción junto al equipo interno.</p>
-                        </div>
-                    </article>
+                    <ul class="ways__list">
+                        <li class="ways__item">
+                            <h3>Hacemos el proyecto completo</h3>
+                            <p>Herramientas internas e integraciones para reemplazar procesos manuales por un sistema propio.</p>
+                        </li>
+                        <li class="ways__item">
+                            <h3>Trabajamos junto a tu equipo</h3>
+                            <p>Tomamos una parte concreta del producto y la llevamos a producción junto al equipo interno.</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
 
         <!-- ============================================================
-             POR QUÉ ACELERA — Diferencias concretas del servicio
-             ============================================================ -->
-        <section id="manifesto" data-header-scheme="dark" data-why-story class="why-story bg-inkDeep text-paper relative">
-            <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
-                style="background-image: radial-gradient(circle at 1px 1px, rgba(247,245,240,0.025) 1px, transparent 0); background-size: 32px 32px;"></div>
-            <div class="why-sticky">
-                <div class="why-layout max-w-7xl mx-auto">
-                    <div class="why-intro">
-                        <h2 class="font-serif font-semibold text-paper">Por qué Acelera</h2>
-                        <p>Experiencia demostrada, velocidad y criterio para aplicar IA.</p>
-                    </div>
-                    <div class="why-list">
-                        <article class="why-item" data-why-item>
-                            <span class="why-item__number">01</span>
-                            <div><h3>Reconocimiento de la industria</h3><p>Ganamos cuatro competencias de IA, incluida la de Anthropic y Kaszek. Nuestro trabajo fue evaluado y reconocido por referentes internacionales.</p></div>
-                        </article>
-                        <article class="why-item" data-why-item>
-                            <span class="why-item__number">02</span>
-                            <div><h3>Velocidad con criterio</h3><p>Nos movemos rápido porque conocemos las herramientas y sabemos decidir. El objetivo no es presentar una demo. Es dejar software funcionando.</p></div>
-                        </article>
-                        <article class="why-item" data-why-item>
-                            <span class="why-item__number">03</span>
-                            <div><h3>IA cuando aporta</h3><p>Estudiamos y probamos estas tecnologías todos los días. Por eso no usamos IA por moda, sino cuando mejora de verdad el resultado.</p></div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================================
-             MAPA DE CAPACIDADES — De la operación al producto
+             CAPACIDADES — Qué desarrollamos, con un caso real de cada una
              ============================================================ -->
         <section id="construimos" data-header-scheme="light" class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-paper border-t border-rule relative overflow-hidden">
             <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 gap-6 mb-8 md:mb-2">
-                    <div class="capability-heading grid grid-cols-1 lg:grid-cols-[minmax(0,1.25fr)_minmax(300px,0.75fr)] gap-6 lg:gap-16 items-end">
-                        <div>
-                            <span class="capability-heading__eyebrow font-mono text-xs text-accent uppercase tracking-[0.18em] block mb-6">Capacidades</span>
-                            <h2 class="capability-heading__title font-serif text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight text-ink leading-[0.98] text-balance">
-                                Qué desarrollamos
-                            </h2>
-                        </div>
-                        <p class="capability-heading__copy text-mutedStrong text-base md:text-lg leading-relaxed max-w-xl lg:pb-1">
-                            Diseñamos herramientas y plataformas a medida para ordenar procesos, conectar sistemas y reducir trabajo manual.
-                        </p>
-                    </div>
+                <div class="capability-heading">
+                    <span class="capability-heading__eyebrow section-eyebrow mb-6">Capacidades</span>
+                    <h2 data-mask-reveal class="capability-heading__title font-serif text-3xl sm:text-4xl md:text-6xl tracking-tight text-ink leading-[0.98] text-balance">
+                        Qué desarrollamos
+                    </h2>
                 </div>
 
-                <div class="capability-map" data-capability-map>
-                    <div class="capability-map__axis" aria-hidden="true"></div>
-                    <div class="capability-map__orbit capability-map__orbit--outer" aria-hidden="true"></div>
-                    <div class="capability-map__orbit capability-map__orbit--middle" aria-hidden="true"></div>
-                    <div class="capability-map__orbit capability-map__orbit--inner" aria-hidden="true"></div>
-                    <span class="capability-map__endpoint absolute left-0 font-serif text-xl font-semibold text-ink" style="top: calc(52% - 1rem);" aria-hidden="true">Proceso actual</span>
-                    <span class="capability-map__endpoint absolute right-0 font-serif text-xl font-semibold text-ink" style="top: calc(52% - 1rem);" aria-hidden="true">Software funcionando</span>
-                    <span class="capability-map__endpoint absolute left-1/2 top-[9%] -translate-x-1/2 font-mono text-[10px] uppercase tracking-[0.18em] text-muted" aria-hidden="true">Área de especialización</span>
-
-                    <label class="capability-select-wrap">
-                        <span>Elegí una capacidad</span>
-                        <select data-capability-select aria-label="Elegí una capacidad de Acelera">
-                            <option value="">Seleccionar</option>
-                            <option value="0">Plataformas internas</option>
-                            <option value="1">MVPs y productos</option>
-                            <option value="2">Software operativo</option>
-                            <option value="3">Web y mobile</option>
-                            <option value="4">Dashboards y BI</option>
-                            <option value="5">Pipelines de datos</option>
-                            <option value="6">Integraciones y APIs</option>
-                            <option value="7">Agentes IA</option>
-                            <option value="8">Automatizaciones</option>
-                            <option value="9">IA sobre tus datos</option>
-                            <option value="10">Backends y servicios</option>
-                            <option value="11">Portales y autogestión</option>
-                        </select>
-                    </label>
-
-                    <div class="capability-tabs" role="group" aria-label="Capacidades de Acelera">
-                        <button class="capability-tab" data-case="harness" type="button" aria-expanded="false"
-                            data-case-copy="Harness permite definir y sincronizar reglas, herramientas, conocimiento y restricciones para los agentes de IA de cada developer."
-                            data-title="Plataformas internas" data-kicker="Información y procesos en un solo lugar"
-                            data-copy="Desarrollamos una plataforma propia cuando la operación depende de planillas, mensajes y herramientas desconectadas."
-                            data-delivery="Un sistema con usuarios, permisos, trazabilidad y documentación.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Plataformas internas
-                        </button>
-                        <button class="capability-tab" data-case="lain" type="button" aria-expanded="false"
-                            data-case-copy="Lain convirtió una idea de producto en un workspace de IA que ya puede ser usado y validado por personas reales."
-                            data-title="MVPs y productos digitales" data-kicker="Primera versión en producción"
-                            data-copy="Tomamos una idea, definimos el alcance inicial y construimos una versión usable para probarla con usuarios reales."
-                            data-delivery="Un producto desplegado, medible y listo para seguir desarrollando.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>MVPs y productos
-                        </button>
-                        <button class="capability-tab" data-case="lemon" type="button" aria-expanded="false"
-                            data-case-copy="Lemon Box integra firmware, interfaz táctil y una herramienta de configuración para operar el dispositivo."
-                            data-title="Software operativo" data-kicker="Herramientas para el trabajo diario"
-                            data-copy="Creamos software para tareas específicas de operaciones, ventas, administración o soporte."
-                            data-delivery="Un flujo más claro, con menos pasos manuales y menos errores.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Software operativo
-                        </button>
-                        <button class="capability-tab" data-case="lain" type="button" aria-expanded="false"
-                            data-case-copy="Lain combina una aplicación web responsive con herramientas de creación asistida y contexto persistente."
-                            data-title="Aplicaciones web y mobile" data-kicker="Aplicaciones conectadas al negocio"
-                            data-copy="Diseñamos y desarrollamos aplicaciones web y mobile integradas con los sistemas y datos de la empresa."
-                            data-delivery="Una aplicación desplegada, documentada y preparada para crecer.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Web y mobile
-                        </button>
-                        <button class="capability-tab" data-case="faro" type="button" aria-expanded="false"
-                            data-case-copy="Faro transforma información pública dispersa en una vista territorial preparada para explorar y decidir."
-                            data-title="Dashboards y BI" data-kicker="Información para decidir"
-                            data-copy="Reunimos datos de distintas fuentes y los presentamos en indicadores que el equipo puede consultar y verificar."
-                            data-delivery="Un tablero actualizado, con métricas definidas y fuentes conectadas.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Dashboards y BI
-                        </button>
-                        <button class="capability-tab" data-case="faro" type="button" aria-expanded="false"
-                            data-case-copy="Faro normaliza expedientes y fuentes públicas para convertirlos en información comparable y verificable."
-                            data-title="Pipelines de datos" data-kicker="Datos ordenados y disponibles"
-                            data-copy="Construimos los procesos que capturan, transforman y trasladan información entre sistemas."
-                            data-delivery="Datos consistentes, procesos monitoreados y menos correcciones manuales.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Pipelines de datos
-                        </button>
-                        <button class="capability-tab" data-case="rely" type="button" aria-expanded="false"
-                            data-case-copy="Rely conecta proveedores externos y sistemas propios detrás de una experiencia operativa única."
-                            data-title="Integraciones y APIs" data-kicker="Sistemas conectados"
-                            data-copy="Integramos CRM, ERP, WhatsApp, bases de datos y herramientas internas para evitar cargas duplicadas."
-                            data-delivery="Información sincronizada y un registro claro de cada intercambio.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Integraciones y APIs
-                        </button>
-                        <button class="capability-tab" data-case="lain" type="button" aria-expanded="false"
-                            data-case-copy="Lain reúne distintos modelos y modos de trabajo en un agente que mantiene el contexto del proyecto."
+                <div class="capability-explorer" data-capability-explorer>
+                    <div class="capability-list" role="tablist" aria-label="Capacidades de Acelera" aria-orientation="vertical">
+                        <span class="capability-list__indicator" aria-hidden="true"></span>
+                        <p class="capability-group" aria-hidden="true">IA y datos<span>01</span></p>
+                        <button class="capability-tab" id="capability-tab-01" role="tab" type="button" aria-selected="true" aria-controls="capability-stage" data-case="atrae"
                             data-title="Agentes IA" data-kicker="IA dentro de un proceso"
                             data-copy="Desarrollamos asistentes que consultan información y ejecutan tareas concretas con permisos y revisión humana."
-                            data-delivery="Un asistente integrado al flujo de trabajo, con controles y trazabilidad.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Agentes IA
+                            data-delivery="Un asistente integrado al flujo de trabajo, con controles y trazabilidad."
+                            data-case-copy="Atrae convierte un pedido escrito en lenguaje natural en una lista de personas reales, con mail y LinkedIn verificados.">
+                            <span class="capability-tab__index" aria-hidden="true">01</span>
+                            <span class="capability-tab__label">Agentes IA</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
                         </button>
-                        <button class="capability-tab" data-case="lemon" type="button" aria-expanded="false"
-                            data-case-copy="Lemon Box automatiza configuración, actualizaciones OTA y visualización de datos desde un dispositivo dedicado."
-                            data-title="Automatización de procesos" data-kicker="Procesos con menos tareas manuales"
-                            data-copy="Convertimos secuencias repetitivas de ventas, soporte y operaciones en flujos automáticos."
-                            data-delivery="Un proceso automatizado, monitoreado y con puntos claros de intervención.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Automatizaciones
-                        </button>
-                        <button class="capability-tab" data-case="lain" type="button" aria-expanded="false"
-                            data-case-copy="Lain conserva memoria por proyecto para trabajar con información propia sin perder control del contexto."
+                        <button class="capability-tab" id="capability-tab-02" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="lain"
                             data-title="IA sobre datos propios" data-kicker="IA con información de la empresa"
                             data-copy="Conectamos modelos de IA con documentos, bases de datos y reglas propias para buscar, clasificar y responder."
-                            data-delivery="Una herramienta con fuentes visibles, permisos definidos y respuestas basadas en datos propios.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>IA sobre tus datos
+                            data-delivery="Una herramienta con fuentes visibles, permisos definidos y respuestas basadas en datos propios."
+                            data-case-copy="Lain conserva memoria por proyecto para trabajar con información propia sin perder control del contexto.">
+                            <span class="capability-tab__index" aria-hidden="true">02</span>
+                            <span class="capability-tab__label">IA sobre tus datos</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
                         </button>
-                        <button class="capability-tab" data-case="rely" type="button" aria-expanded="false"
-                            data-case-copy="Rely concentra reglas, estados e integraciones en servicios que sostienen toda la operación."
-                            data-title="Backends y servicios" data-kicker="Infraestructura para aplicaciones y procesos"
-                            data-copy="Construimos la lógica, las APIs y los servicios que conectan datos, usuarios y reglas de negocio."
-                            data-delivery="Un backend desplegado, documentado y listo para integrarse con otros sistemas.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Backends y servicios
+                        <button class="capability-tab" id="capability-tab-03" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="faro"
+                            data-title="Dashboards y BI" data-kicker="Información para decidir"
+                            data-copy="Reunimos datos de distintas fuentes y los presentamos en indicadores que el equipo puede consultar y verificar."
+                            data-delivery="Un tablero actualizado, con métricas definidas y fuentes conectadas."
+                            data-case-copy="Faro transforma información pública dispersa en una vista territorial preparada para explorar y decidir.">
+                            <span class="capability-tab__index" aria-hidden="true">03</span>
+                            <span class="capability-tab__label">Dashboards y BI</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
                         </button>
-                        <button class="capability-tab" data-case="rely" type="button" aria-expanded="false"
-                            data-case-copy="Rely ofrece a cada cliente un portal para iniciar gestiones, entregar documentación y seguir su avance."
+                        <button class="capability-tab" id="capability-tab-04" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="faro"
+                            data-title="Pipelines de datos" data-kicker="Datos ordenados y disponibles"
+                            data-copy="Construimos los procesos que capturan, transforman y trasladan información entre sistemas."
+                            data-delivery="Datos consistentes, procesos monitoreados y menos correcciones manuales."
+                            data-case-copy="Faro normaliza expedientes y fuentes públicas para convertirlos en información comparable y verificable.">
+                            <span class="capability-tab__index" aria-hidden="true">04</span>
+                            <span class="capability-tab__label">Pipelines de datos</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
+                        </button>
+                        <p class="capability-group" aria-hidden="true">Producto<span>02</span></p>
+                        <button class="capability-tab" id="capability-tab-05" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="harness"
+                            data-title="Plataformas internas" data-kicker="Información y procesos en un solo lugar"
+                            data-copy="Desarrollamos una plataforma propia cuando la operación depende de planillas, mensajes y herramientas desconectadas."
+                            data-delivery="Un sistema con usuarios, permisos, trazabilidad y documentación."
+                            data-case-copy="Harness permite definir y sincronizar reglas, herramientas, conocimiento y restricciones para los agentes de IA de cada developer.">
+                            <span class="capability-tab__index" aria-hidden="true">05</span>
+                            <span class="capability-tab__label">Plataformas internas</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
+                        </button>
+                        <button class="capability-tab" id="capability-tab-06" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="lain"
+                            data-title="MVPs y productos digitales" data-kicker="Primera versión en producción"
+                            data-copy="Tomamos una idea, definimos el alcance inicial y construimos una versión usable para probarla con usuarios reales."
+                            data-delivery="Un producto desplegado, medible y listo para seguir desarrollando."
+                            data-case-copy="Lain convirtió una idea de producto en un workspace de IA que ya puede ser usado y validado por personas reales.">
+                            <span class="capability-tab__index" aria-hidden="true">06</span>
+                            <span class="capability-tab__label">MVPs y productos</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
+                        </button>
+                        <button class="capability-tab" id="capability-tab-07" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="lain"
+                            data-title="Aplicaciones web y mobile" data-kicker="Aplicaciones conectadas al negocio"
+                            data-copy="Diseñamos y desarrollamos aplicaciones web y mobile integradas con los sistemas y datos de la empresa."
+                            data-delivery="Una aplicación desplegada, documentada y preparada para crecer."
+                            data-case-copy="Lain combina una aplicación web responsive con herramientas de creación asistida y contexto persistente.">
+                            <span class="capability-tab__index" aria-hidden="true">07</span>
+                            <span class="capability-tab__label">Web y mobile</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
+                        </button>
+                        <button class="capability-tab" id="capability-tab-08" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="rely"
                             data-title="Portales y autogestión" data-kicker="Gestiones sin intercambios manuales"
                             data-copy="Creamos portales para que clientes, proveedores o equipos consulten información, inicien gestiones y sigan su estado."
-                            data-delivery="Un portal conectado a la operación, con usuarios, permisos y trazabilidad.">
-                            <span class="capability-tab__dot" aria-hidden="true"></span>Portales y autogestión
+                            data-delivery="Un portal conectado a la operación, con usuarios, permisos y trazabilidad."
+                            data-case-copy="Rely ofrece a cada cliente un portal para iniciar gestiones, entregar documentación y seguir su avance.">
+                            <span class="capability-tab__index" aria-hidden="true">08</span>
+                            <span class="capability-tab__label">Portales y autogestión</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
+                        </button>
+                        <p class="capability-group" aria-hidden="true">Operación<span>03</span></p>
+                        <button class="capability-tab" id="capability-tab-09" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="lemon"
+                            data-title="Software operativo" data-kicker="Herramientas para el trabajo diario"
+                            data-copy="Creamos software para tareas específicas de operaciones, ventas, administración o soporte."
+                            data-delivery="Un flujo más claro, con menos pasos manuales y menos errores."
+                            data-case-copy="Lemon Box integra firmware, interfaz táctil y una herramienta de configuración para operar el dispositivo.">
+                            <span class="capability-tab__index" aria-hidden="true">09</span>
+                            <span class="capability-tab__label">Software operativo</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
+                        </button>
+                        <button class="capability-tab" id="capability-tab-10" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="lemon"
+                            data-title="Automatización de procesos" data-kicker="Procesos con menos tareas manuales"
+                            data-copy="Convertimos secuencias repetitivas de ventas, soporte y operaciones en flujos automáticos."
+                            data-delivery="Un proceso automatizado, monitoreado y con puntos claros de intervención."
+                            data-case-copy="Lemon Box automatiza configuración, actualizaciones OTA y visualización de datos desde un dispositivo dedicado.">
+                            <span class="capability-tab__index" aria-hidden="true">10</span>
+                            <span class="capability-tab__label">Automatizaciones</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
+                        </button>
+                        <button class="capability-tab" id="capability-tab-11" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="rely"
+                            data-title="Integraciones y APIs" data-kicker="Sistemas conectados"
+                            data-copy="Integramos CRM, ERP, WhatsApp, bases de datos y herramientas internas para evitar cargas duplicadas."
+                            data-delivery="Información sincronizada y un registro claro de cada intercambio."
+                            data-case-copy="Rely conecta proveedores externos y sistemas propios detrás de una experiencia operativa única.">
+                            <span class="capability-tab__index" aria-hidden="true">11</span>
+                            <span class="capability-tab__label">Integraciones y APIs</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
+                        </button>
+                        <button class="capability-tab" id="capability-tab-12" role="tab" type="button" aria-selected="false" tabindex="-1" aria-controls="capability-stage" data-case="rely"
+                            data-title="Backends y servicios" data-kicker="Infraestructura para aplicaciones y procesos"
+                            data-copy="Construimos la lógica, las APIs y los servicios que conectan datos, usuarios y reglas de negocio."
+                            data-delivery="Un backend desplegado, documentado y listo para integrarse con otros sistemas."
+                            data-case-copy="Rely concentra reglas, estados e integraciones en servicios que sostienen toda la operación.">
+                            <span class="capability-tab__index" aria-hidden="true">12</span>
+                            <span class="capability-tab__label">Backends y servicios</span>
+                            <span class="capability-tab__arrow" aria-hidden="true">→</span>
                         </button>
                     </div>
 
-                    <div class="capability-center-intro" aria-hidden="true">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-accent block mb-3">Núcleo Acelera</span>
-                        <p class="font-serif text-xl md:text-2xl font-semibold text-ink leading-tight">
-                            <span class="capability-center-line">Software que</span>
-                            <span class="capability-center-line">queda integrado</span>
-                            <span class="capability-center-line">a la operación.</span>
-                        </p>
-                        <span class="font-mono text-[9px] uppercase tracking-[0.16em] text-muted block mt-4">Explorá una capacidad</span>
-                    </div>
-
-                    <article class="capability-preview" aria-live="polite" aria-hidden="true">
-                        <div class="capability-preview__stack" aria-hidden="true">
-                            <span class="capability-preview__layer capability-preview__layer--back"></span>
-                            <span class="capability-preview__layer capability-preview__layer--middle"></span>
+                    <div class="capability-stage" id="capability-stage" role="tabpanel" aria-labelledby="capability-tab-01">
+                        <div class="capability-stage__meta">
+                            <span class="capability-stage__name" data-capability-title>Agentes IA</span>
+                            <span data-capability-count>01 / 12</span>
                         </div>
-                        <div class="capability-preview__frame">
-                            <div class="capability-preview__media" aria-hidden="true">
-                                <img data-capability-poster src="assets/proyectos/harness-poster.webp" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
-                                <video data-capability-video muted loop playsinline preload="none" poster="assets/proyectos/harness-poster.webp" aria-label="Demo del proyecto Harness">
-                                    <source data-capability-source-mp4 src="assets/proyectos/harness-demo.mp4?v=20260727-2" type="video/mp4">
-                                    <source data-capability-source-webm src="assets/proyectos/harness-demo.webm?v=20260727-2" type="video/webm">
+                        <div class="capability-stage__body">
+                            <h3 class="capability-stage__title" data-capability-kicker>IA dentro de un proceso</h3>
+                            <p class="capability-stage__copy" data-capability-copy>Desarrollamos asistentes que consultan información y ejecutan tareas concretas con permisos y revisión humana.</p>
+                        </div>
+                        <figure class="capability-case">
+                            <div class="capability-case__bar">
+                                <span class="capability-case__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                                <span class="capability-case__label">Caso real</span>
+                                <span class="capability-case__project" data-capability-project>Atrae</span>
+                            </div>
+                            <div class="capability-case__media" data-active-case="atrae" aria-hidden="true">
+                                <img data-capability-poster src="assets/proyectos/atrae-poster.webp?v=20261008-1" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                                <video data-capability-video muted loop playsinline preload="none" poster="assets/proyectos/atrae-poster.webp?v=20261008-1">
+                                    <source data-capability-source-webm src="assets/proyectos/atrae-demo.webm?v=20261008-1" type="video/webm">
+                                    <source data-capability-source-mp4 src="assets/proyectos/atrae-demo.mp4?v=20261008-1" type="video/mp4">
                                 </video>
                             </div>
-                        </div>
-                    </article>
-                </div>
-
-                <div class="capability-closing grid grid-cols-1 gap-6 mt-10 md:mt-2">
-                    <div class="pt-6">
-                        <p class="font-serif text-xl md:text-2xl font-medium text-ink leading-snug max-w-3xl text-balance">
-                            Primero definimos qué hace falta construir. Después elegimos la tecnología.
+                            <figcaption class="capability-case__caption">
+                                <p class="capability-case__copy" data-capability-case-copy>Atrae convierte un pedido escrito en lenguaje natural en una lista de personas reales, con mail y LinkedIn verificados.</p>
+                                <a class="capability-case__link" href="#proyectos" data-capability-case-link>Ver proyecto <span aria-hidden="true">↓</span></a>
+                            </figcaption>
+                        </figure>
+                        <p class="capability-stage__delivery">
+                            <span class="capability-stage__delivery-label">Entregable</span>
+                            <span data-capability-delivery>Un asistente integrado al flujo de trabajo, con controles y trazabilidad.</span>
                         </p>
                     </div>
+                </div>
+
+                <div class="capability-closing">
+                    <p class="font-serif text-xl md:text-2xl text-ink leading-snug max-w-3xl text-balance">
+                        Primero definimos qué hace falta construir. Después elegimos la tecnología.
+                    </p>
                 </div>
             </div>
         </section>
@@ -4799,15 +3943,12 @@
         <section id="proyectos" data-header-scheme="light" class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-paper relative">
             <div class="max-w-7xl mx-auto">
                 <div class="projects-heading">
-                    <div class="projects-heading__title gsap-reveal">
-                        <span class="font-mono text-xs text-accent tracking-[0.18em] uppercase block mb-4 md:mb-6">Proyectos</span>
-                        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-ink leading-[0.95]">
+                    <div class="projects-heading__title">
+                        <span class="section-eyebrow mb-4 md:mb-6">Proyectos</span>
+                        <h2 data-mask-reveal class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-ink leading-[0.95]">
                             Software que ya está resolviendo <span class="accent-reveal">problemas reales.</span>
                         </h2>
                     </div>
-                    <p class="projects-heading__copy text-mutedStrong text-lg sm:text-xl font-normal leading-relaxed gsap-reveal">
-                        Desde operaciones societarias y fiscales hasta plataformas internas para gobernar agentes de IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.
-                    </p>
                 </div>
 
                 <div class="projects-carousel" data-projects-carousel>
@@ -4823,6 +3964,25 @@
                     </div>
                     <div class="projects-carousel__viewport" tabindex="0" aria-label="Proyectos destacados">
                     <div id="projects-carousel-track" class="projects-mosaic relative z-10">
+                    <article class="project-card gsap-reveal" data-project="atrae">
+                        <div class="project-media">
+                            <img class="project-media__poster" data-project-poster src="assets/proyectos/atrae-poster.webp?v=20261008-1" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
+                            <video data-project-video muted loop playsinline preload="none" poster="assets/proyectos/atrae-poster.webp?v=20261008-1" aria-label="Demo del agente de prospección Atrae">
+                                <source src="assets/proyectos/atrae-demo.webm?v=20261008-1" type="video/webm">
+                                <source src="assets/proyectos/atrae-demo.mp4?v=20261008-1" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="project-card__body">
+                            <span class="project-meta">Producto propio · Prospección B2B</span>
+                            <h3 class="project-card__title">Atrae</h3>
+                            <p class="project-card__copy">Un agente que arma listas de clientes B2B en Latinoamérica: describís a quién querés venderle y devuelve personas reales, con mail y LinkedIn verificados.</p>
+                            <ul class="project-signals" aria-label="Aspectos destacados de Atrae"><li>Agente IA</li><li>Contactos verificados</li><li>Envíos desde tu casilla</li></ul>
+                            <div class="project-footer">
+                                <a class="project-link" href="https://atrae.app" target="_blank" rel="noopener noreferrer" aria-label="Abrir Atrae en una pestaña nueva"><span class="project-link__label">Ver Atrae</span><span class="project-link__arrow" aria-hidden="true">↗</span></a>
+                            </div>
+                        </div>
+                    </article>
+
                     <article class="project-card gsap-reveal" data-project="rely">
                         <div class="project-media">
                             <img class="project-media__poster" data-project-poster src="assets/proyectos/rely-poster.webp?v=20260727-4" alt="" width="960" height="540" loading="lazy" decoding="async" fetchpriority="low">
@@ -4929,12 +4089,12 @@
             <div class="max-w-7xl mx-auto">
 
                 <div class="method-heading grid grid-cols-1 gap-6 mb-12 md:mb-16">
-                    <div class="gsap-reveal max-w-4xl">
-                        <span class="method-heading__eyebrow font-mono text-xs text-accent tracking-[0.18em] uppercase block mb-4 md:mb-6">Cómo trabajamos</span>
-                        <h2 class="method-heading__title font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-ink leading-[0.95] mb-6 md:mb-8">
+                    <div class="max-w-4xl">
+                        <span class="method-heading__eyebrow section-eyebrow mb-4 md:mb-6">Cómo trabajamos</span>
+                        <h2 data-mask-reveal class="method-heading__title font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-ink leading-[0.95] mb-6 md:mb-8">
                             Del problema a un <span class="accent-reveal">sistema funcionando</span>
                         </h2>
-                        <p class="method-intro text-mutedStrong text-lg sm:text-xl font-normal leading-relaxed max-w-2xl">Trabajamos en cuatro etapas. Cada una termina con una decisión, un entregable y una forma concreta de medir el avance.</p>
+                        <p class="method-intro gsap-reveal text-mutedStrong text-lg sm:text-xl font-normal leading-relaxed max-w-2xl">Trabajamos en cuatro etapas. Cada una termina con una decisión, un entregable y una forma concreta de medir el avance.</p>
                     </div>
                 </div>
 
@@ -5019,11 +4179,45 @@
 
             </div>
         </section>
+
+        <!-- ============================================================
+             POR QUÉ ACELERA — Diferencias concretas del servicio
+             ============================================================ -->
+        <section id="manifesto" data-header-scheme="dark" data-why-story class="why-story bg-inkDeep text-paper relative">
+            <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+                style="background-image: radial-gradient(circle at 1px 1px, rgba(247,245,240,0.025) 1px, transparent 0); background-size: 32px 32px;"></div>
+            <div class="why-sticky">
+                <div class="ambient-glow ambient-glow--manifesto" aria-hidden="true"></div>
+                <div class="why-layout max-w-7xl mx-auto">
+                    <div class="why-intro">
+                        <span class="section-eyebrow mb-6">Diferencias</span>
+                        <h2 data-mask-reveal class="font-serif text-paper">Por qué Acelera</h2>
+                        <p>Experiencia demostrada, velocidad y criterio para aplicar IA.</p>
+                    </div>
+                    <div class="why-list">
+                        <article class="why-item" data-why-item>
+                            <span class="why-item__number">01</span>
+                            <div><h3>Reconocimiento de la industria</h3><p>Ganamos cuatro competencias de IA, incluida la de Anthropic y Kaszek. Nuestro trabajo fue evaluado y reconocido por referentes internacionales.</p></div>
+                        </article>
+                        <article class="why-item" data-why-item>
+                            <span class="why-item__number">02</span>
+                            <div><h3>Velocidad con criterio</h3><p>Nos movemos rápido porque conocemos las herramientas y sabemos decidir. El objetivo no es presentar una demo. Es dejar software funcionando.</p></div>
+                        </article>
+                        <article class="why-item" data-why-item>
+                            <span class="why-item__number">03</span>
+                            <div><h3>IA cuando aporta</h3><p>Estudiamos y probamos estas tecnologías todos los días. Por eso no usamos IA por moda, sino cuando mejora de verdad el resultado.</p></div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="equipo" data-header-scheme="light" class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-surfaceAlt/30 border-t border-borderSubtle">
             <div class="max-w-7xl mx-auto">
-                <div class="mb-12 md:mb-16 gsap-reveal">
-                    <h2 class="font-serif text-4xl md:text-7xl font-semibold mb-6 md:mb-8 text-ink leading-[0.95] tracking-tight"><span class="brand-mark">Equipo fundador</span></h2>
-                    <p class="text-mutedStrong text-lg md:text-xl font-normal max-w-4xl leading-relaxed">Venimos trabajando juntos desde nuestros primeros proyectos. En el último tiempo participamos en competencias de IA en Argentina y el exterior y, por suerte, ganamos la mayoría. Eso nos abrió la puerta a conversar con empresas que repetían el mismo problema: necesitaban desarrollar software, pero los tiempos se alargaban y las soluciones no siempre llegaban a funcionar. De ahí nació Acelera.</p>
+                <div class="mb-12 md:mb-16">
+                    <span class="section-eyebrow mb-5">Equipo</span>
+                    <h2 data-mask-reveal class="font-serif text-4xl md:text-7xl mb-6 md:mb-8 text-ink leading-[0.95] tracking-tight"><span class="brand-mark">Equipo fundador</span></h2>
+                    <p class="gsap-reveal text-mutedStrong text-lg md:text-xl font-normal max-w-4xl leading-relaxed">Venimos trabajando juntos desde nuestros primeros proyectos. En el último tiempo participamos en competencias de IA en Argentina y el exterior, y ganamos cuatro. Eso nos abrió la puerta a conversar con empresas que repetían el mismo problema: necesitaban desarrollar software, pero los tiempos se alargaban y las soluciones no siempre llegaban a funcionar. De ahí nació Acelera.</p>
                 </div>
                 <div class="team-grid grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-x-32">
                     <div class="team-member group gsap-reveal">
@@ -5123,61 +4317,66 @@
              ============================================================ -->
         <section id="faqs" data-header-scheme="light" class="scroll-mt-24 md:scroll-mt-28 py-16 md:py-24 px-4 sm:px-6 md:px-12 bg-paper border-t border-rule relative">
             <div class="max-w-7xl mx-auto">
-                <div class="faq-header">
-                    <h2 class="font-serif text-3xl sm:text-4xl md:text-6xl font-semibold tracking-tight text-ink leading-[0.98]">
-                        Preguntas <span class="brand-mark">frecuentes</span>
-                    </h2>
-                </div>
-                <div class="faq-list">
-                            <details class="faq-item">
-                                <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 font-serif text-lg md:text-xl font-semibold text-ink tracking-tight leading-snug">
-                                    ¿Cuánto tiempo lleva un proyecto?
-                                    <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
-                                </summary>
-                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Depende del alcance. La primera etapa suele llevar una semana y una primera versión entre dos y seis semanas. Antes de empezar acordamos etapas, entregables y fechas.</p>
-                            </details>
-                            <details class="faq-item">
-                                <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 font-serif text-lg md:text-xl font-semibold text-ink tracking-tight leading-snug">
-                                    ¿Cómo comienza el trabajo?
-                                    <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
-                                </summary>
-                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Comenzamos con una reunión de 30 minutos para entender el proceso, el problema y el resultado esperado. Después proponemos un próximo paso concreto o explicamos por qué todavía no conviene construir.</p>
-                            </details>
-                            <details class="faq-item">
-                                <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 font-serif text-lg md:text-xl font-semibold text-ink tracking-tight leading-snug">
-                                    ¿A quién pertenece el código?
-                                    <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
-                                </summary>
-                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Pertenece a la empresa que nos contrata. El código, los repositorios, la documentación y los accesos quedan a su nombre desde el inicio.</p>
-                            </details>
-                            <details class="faq-item">
-                                <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 font-serif text-lg md:text-xl font-semibold text-ink tracking-tight leading-snug">
-                                    ¿Qué recibe la empresa al finalizar?
-                                    <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
-                                </summary>
-                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Software desplegado y funcionando, junto con el código, la documentación técnica, los accesos y una transferencia para el equipo que va a operarlo.</p>
-                            </details>
-                            <details class="faq-item">
-                                <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 font-serif text-lg md:text-xl font-semibold text-ink tracking-tight leading-snug">
-                                    ¿Cómo eligen las tecnologías?
-                                    <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
-                                </summary>
-                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Primero definimos qué hace falta construir. La arquitectura se decide según el producto, las integraciones, el costo operativo y el equipo que va a mantenerlo. AWS, React, Node.js, Python, PostgreSQL y modelos de Anthropic u OpenAI son algunas opciones, no una lista obligatoria.</p>
-                            </details>
-                            <details class="faq-item">
-                                <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 font-serif text-lg md:text-xl font-semibold text-ink tracking-tight leading-snug">
-                                    ¿Cómo protegen la información?
-                                    <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
-                                </summary>
-                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Acordamos desde el inicio cómo se accede, almacena y procesa la información. Aplicamos los permisos mínimos necesarios y documentamos qué datos utiliza cada sistema o integración.</p>
-                            </details>
-                            <details class="faq-item">
-                                <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 font-serif text-lg md:text-xl font-semibold text-ink tracking-tight leading-snug">
-                                    ¿Qué ocurre después del lanzamiento?
-                                    <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
-                                </summary>
-                                <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">El sistema puede quedar completamente en manos del equipo o podemos continuar con mantenimiento, soporte y nuevas versiones. La modalidad se define antes de la entrega.</p>
-                            </details>
+                <div class="faq-layout">
+                    <div class="faq-header">
+                        <span class="section-eyebrow mb-5">Antes de empezar</span>
+                        <h2 data-mask-reveal class="font-serif text-3xl sm:text-4xl md:text-6xl tracking-tight text-ink leading-[0.98]">
+                            Preguntas <span class="brand-mark">frecuentes</span>
+                        </h2>
+                        <p class="faq-header__lead">Lo que suelen preguntarnos en la primera conversación.</p>
+                        <a class="faq-header__link" href="#contacto">¿Otra pregunta? Escribinos <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="faq-list">
+                                <details class="faq-item">
+                                    <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 text-lg md:text-xl font-medium text-ink leading-snug">
+                                        ¿Cuánto tiempo lleva un proyecto?
+                                        <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
+                                    </summary>
+                                    <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Depende del alcance. La primera etapa suele llevar una semana y una primera versión entre dos y seis semanas. Antes de empezar acordamos etapas, entregables y fechas.</p>
+                                </details>
+                                <details class="faq-item">
+                                    <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 text-lg md:text-xl font-medium text-ink leading-snug">
+                                        ¿Cómo comienza el trabajo?
+                                        <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
+                                    </summary>
+                                    <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Comenzamos con una reunión de 30 minutos para entender el proceso, el problema y el resultado esperado. Después proponemos un próximo paso concreto o explicamos por qué todavía no conviene construir.</p>
+                                </details>
+                                <details class="faq-item">
+                                    <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 text-lg md:text-xl font-medium text-ink leading-snug">
+                                        ¿A quién pertenece el código?
+                                        <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
+                                    </summary>
+                                    <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Pertenece a la empresa que nos contrata. El código, los repositorios, la documentación y los accesos quedan a su nombre desde el inicio.</p>
+                                </details>
+                                <details class="faq-item">
+                                    <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 text-lg md:text-xl font-medium text-ink leading-snug">
+                                        ¿Qué recibe la empresa al finalizar?
+                                        <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
+                                    </summary>
+                                    <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Software desplegado y funcionando, junto con el código, la documentación técnica, los accesos y una transferencia para el equipo que va a operarlo.</p>
+                                </details>
+                                <details class="faq-item">
+                                    <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 text-lg md:text-xl font-medium text-ink leading-snug">
+                                        ¿Cómo eligen las tecnologías?
+                                        <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
+                                    </summary>
+                                    <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Primero definimos qué hace falta construir. La arquitectura se decide según el producto, las integraciones, el costo operativo y el equipo que va a mantenerlo. AWS, React, Node.js, Python, PostgreSQL y modelos de Anthropic u OpenAI son algunas opciones, no una lista obligatoria.</p>
+                                </details>
+                                <details class="faq-item">
+                                    <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 text-lg md:text-xl font-medium text-ink leading-snug">
+                                        ¿Cómo protegen la información?
+                                        <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
+                                    </summary>
+                                    <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">Acordamos desde el inicio cómo se accede, almacena y procesa la información. Aplicamos los permisos mínimos necesarios y documentamos qué datos utiliza cada sistema o integración.</p>
+                                </details>
+                                <details class="faq-item">
+                                    <summary class="flex items-baseline justify-between gap-6 py-5 md:py-6 text-lg md:text-xl font-medium text-ink leading-snug">
+                                        ¿Qué ocurre después del lanzamiento?
+                                        <span class="faq-icon font-mono text-accent text-xl leading-none shrink-0" aria-hidden="true">+</span>
+                                    </summary>
+                                    <p class="pb-5 text-mutedStrong text-sm md:text-base leading-relaxed max-w-2xl">El sistema puede quedar completamente en manos del equipo o podemos continuar con mantenimiento, soporte y nuevas versiones. La modalidad se define antes de la entrega.</p>
+                                </details>
+                    </div>
                 </div>
             </div>
         </section>
@@ -5187,7 +4386,8 @@
             <div class="max-w-7xl mx-auto flex-1 flex flex-col min-h-0">
                 <div class="flex-1 flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-16 items-start justify-center min-h-0">
                     <div class="contact-copy lg:w-[40%] max-w-md flex flex-col justify-center">
-                        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-ink leading-[0.98] mb-3 md:mb-4"><span class="brand-mark">Contactanos</span></h2>
+                        <span class="section-eyebrow mb-5">Contacto</span>
+                        <h2 data-mask-reveal class="font-serif text-3xl sm:text-4xl md:text-5xl tracking-tight text-ink leading-[0.98] mb-3 md:mb-4"><span class="brand-mark">Contactanos</span></h2>
                         <p class="text-mutedStrong text-base md:text-lg font-normal leading-relaxed mb-6">Respondemos en menos de 24 horas.</p>
                         <a href="mailto:contacto@acelera.agency"
                             class="inline-flex items-center gap-3 font-mono text-sm md:text-base text-ink hover:text-accent transition-colors group">
@@ -5239,9 +4439,9 @@
             </div>
         </section>
     </main>
-    <footer id="footer-section" data-header-scheme="dark" data-cursor-trail-zone data-cursor-trail-tone="dark"
+    <footer id="footer-section" data-header-scheme="dark"
         class="relative bg-inkDeep text-paper pt-20 pb-10 px-4 sm:px-6 md:px-12 overflow-hidden border-t border-rule">
-        <canvas class="cursor-trail" data-cursor-trail aria-hidden="true"></canvas>
+        <div class="ambient-glow ambient-glow--footer" aria-hidden="true"></div>
         <div
             class="footer-primary max-w-7xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-start px-4 sm:px-6 md:px-12 mb-20 gsap-reveal">
             <div class="max-w-md md:col-span-7" data-nosnippet>
@@ -5324,19 +4524,48 @@
             window.lucide.createIcons();
         }
         document.addEventListener("DOMContentLoaded", async () => {
+            const maskRevealItems = document.querySelectorAll("[data-mask-reveal]");
+            if (maskRevealItems.length && "IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                document.documentElement.classList.add("mask-reveal-ready");
+                const maskRevealObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add("is-revealed");
+                        maskRevealObserver.unobserve(entry.target);
+                    });
+                }, { rootMargin: "0px 0px -12% 0px" });
+                maskRevealItems.forEach((item) => maskRevealObserver.observe(item));
+            }
+
             gsap.registerPlugin(ScrollTrigger);
 
-            const capabilityMap = document.querySelector("[data-capability-map]");
-            if (capabilityMap) {
-                const items = Array.from(capabilityMap.querySelectorAll(".capability-tab"));
-                const preview = capabilityMap.querySelector(".capability-preview");
-                const capabilityPoster = capabilityMap.querySelector("[data-capability-poster]");
-                const capabilityVideo = capabilityMap.querySelector("[data-capability-video]");
-                const capabilityVideoWebm = capabilityMap.querySelector("[data-capability-source-webm]");
-                const capabilityVideoMp4 = capabilityMap.querySelector("[data-capability-source-mp4]");
-                const capabilityMedia = capabilityMap.querySelector(".capability-preview__media");
-                const compactSelect = capabilityMap.querySelector("[data-capability-select]");
+            const capabilityExplorer = document.querySelector("[data-capability-explorer]");
+            if (capabilityExplorer) {
+                const items = Array.from(capabilityExplorer.querySelectorAll(".capability-tab"));
+                const capabilityList = capabilityExplorer.querySelector(".capability-list");
+                const stage = capabilityExplorer.querySelector(".capability-stage");
+                const capabilityPoster = capabilityExplorer.querySelector("[data-capability-poster]");
+                const capabilityVideo = capabilityExplorer.querySelector("[data-capability-video]");
+                const capabilityVideoWebm = capabilityExplorer.querySelector("[data-capability-source-webm]");
+                const capabilityVideoMp4 = capabilityExplorer.querySelector("[data-capability-source-mp4]");
+                const capabilityMedia = capabilityExplorer.querySelector(".capability-case__media");
+                const capabilityCaseLink = capabilityExplorer.querySelector("[data-capability-case-link]");
+                const stageFields = {
+                    title: capabilityExplorer.querySelector("[data-capability-title]"),
+                    count: capabilityExplorer.querySelector("[data-capability-count]"),
+                    kicker: capabilityExplorer.querySelector("[data-capability-kicker]"),
+                    copy: capabilityExplorer.querySelector("[data-capability-copy]"),
+                    project: capabilityExplorer.querySelector("[data-capability-project]"),
+                    caseCopy: capabilityExplorer.querySelector("[data-capability-case-copy]"),
+                    delivery: capabilityExplorer.querySelector("[data-capability-delivery]")
+                };
                 const capabilityCases = {
+                    atrae: {
+                        name: "Atrae",
+                        poster: "assets/proyectos/atrae-poster.webp?v=20261008-1",
+                        webm: "assets/proyectos/atrae-demo.webm?v=20261008-1",
+                        mp4: "assets/proyectos/atrae-demo.mp4?v=20261008-1"
+                    },
                     harness: {
                         name: "Harness",
                         poster: "assets/proyectos/harness-poster.webp",
@@ -5369,136 +4598,143 @@
                     }
                 };
                 const capabilityMotionBlocked = window.matchMedia("(prefers-reduced-motion: reduce)").matches || Boolean(navigator.connection?.saveData);
-                let pinnedCapability = null;
+                const capabilityHoverPreview = window.matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)");
+                const capabilityVerticalList = window.matchMedia("(min-width: 1024px)");
+                let activeCapability = items.find((item) => item.getAttribute("aria-selected") === "true") || items[0];
+                let capabilityInView = false;
+                let capabilityHoverTimer = 0;
+
+                function placeCapabilityIndicator() {
+                    if (!capabilityList || !activeCapability) return;
+                    capabilityList.style.setProperty("--capability-indicator-y", `${activeCapability.offsetTop}px`);
+                    capabilityList.style.setProperty("--capability-indicator-height", `${activeCapability.offsetHeight}px`);
+                }
+
+                // En mobile la lista se desliza: centra la capacidad elegida sin mover la página.
+                function revealActiveCapability() {
+                    if (!capabilityList || capabilityVerticalList.matches || !activeCapability) return;
+                    if (capabilityList.scrollWidth <= capabilityList.clientWidth) return;
+                    const left = activeCapability.offsetLeft - (capabilityList.clientWidth - activeCapability.offsetWidth) / 2;
+                    capabilityList.scrollTo({ left: Math.max(0, left), behavior: capabilityMotionBlocked ? "auto" : "smooth" });
+                }
+
+                function syncCapabilityVideo() {
+                    if (!capabilityVideo || capabilityMotionBlocked) return;
+                    if (capabilityInView) capabilityVideo.play().catch(() => {});
+                    else capabilityVideo.pause();
+                }
 
                 function showCapabilityCase(item) {
                     const caseStudy = capabilityCases[item.dataset.case];
-                    if (!caseStudy) return;
-                    if (preview) preview.style.setProperty("--capability-poster", `url("${caseStudy.poster}")`);
-                    const projectChanged = capabilityPoster?.dataset.activeCase !== item.dataset.case;
-                    if (capabilityPoster && projectChanged) {
-                        capabilityPoster.src = caseStudy.poster;
-                        capabilityPoster.dataset.activeCase = item.dataset.case;
-                    }
-                    if (capabilityVideo && projectChanged) {
-                        capabilityVideo.pause();
-                        capabilityMedia?.classList.remove("is-video-ready");
-                        capabilityVideo.poster = caseStudy.poster;
-                        capabilityVideo.setAttribute("aria-label", `Demo del proyecto ${caseStudy.name}`);
-                        if (!capabilityMotionBlocked) {
-                            if (capabilityVideoWebm) capabilityVideoWebm.src = caseStudy.webm;
-                            if (capabilityVideoMp4) capabilityVideoMp4.src = caseStudy.mp4;
-                            const sources = item.dataset.case === "harness"
-                                ? [capabilityVideoMp4, capabilityVideoWebm]
-                                : [capabilityVideoWebm, capabilityVideoMp4];
-                            sources.forEach((source) => source && capabilityVideo.append(source));
-                            capabilityVideo.load();
-                        }
-                    }
-                    if (preview) {
-                        preview.classList.remove("is-switching");
-                        void preview.offsetWidth;
-                        preview.classList.add("is-switching");
+                    if (!caseStudy || !capabilityMedia || capabilityMedia.dataset.activeCase === item.dataset.case) return;
+                    capabilityMedia.dataset.activeCase = item.dataset.case;
+                    if (capabilityPoster) capabilityPoster.src = caseStudy.poster;
+                    if (!capabilityVideo) return;
+                    capabilityVideo.pause();
+                    capabilityMedia.classList.remove("is-video-ready");
+                    capabilityVideo.poster = caseStudy.poster;
+                    if (!capabilityMotionBlocked) {
+                        if (capabilityVideoWebm) capabilityVideoWebm.src = caseStudy.webm;
+                        if (capabilityVideoMp4) capabilityVideoMp4.src = caseStudy.mp4;
+                        const sources = item.dataset.case === "harness"
+                            ? [capabilityVideoMp4, capabilityVideoWebm]
+                            : [capabilityVideoWebm, capabilityVideoMp4];
+                        sources.forEach((source) => source && capabilityVideo.append(source));
+                        capabilityVideo.load();
+                        syncCapabilityVideo();
                     }
                 }
 
-                function hideCapability() {
-                    pinnedCapability = null;
-                    items.forEach((item) => item.setAttribute("aria-expanded", "false"));
-                    capabilityMap.classList.remove("has-preview");
-                    preview && preview.classList.remove("is-visible");
-                    preview && preview.classList.remove("is-switching");
-                    preview && preview.setAttribute("aria-hidden", "true");
-                    capabilityVideo?.pause();
+                // Los textos salen de los data-* del botón, que i18n.js ya traduce.
+                function renderCapability(item) {
+                    const pad = (value) => String(value).padStart(2, "0");
+                    const caseStudy = capabilityCases[item.dataset.case];
+                    if (stageFields.count) stageFields.count.textContent = `${pad(items.indexOf(item) + 1)} / ${pad(items.length)}`;
+                    if (stageFields.title) stageFields.title.textContent = item.dataset.title;
+                    if (stageFields.kicker) stageFields.kicker.textContent = item.dataset.kicker;
+                    if (stageFields.copy) stageFields.copy.textContent = item.dataset.copy;
+                    if (stageFields.caseCopy) stageFields.caseCopy.textContent = item.dataset.caseCopy;
+                    if (stageFields.delivery) stageFields.delivery.textContent = item.dataset.delivery;
+                    if (stageFields.project && caseStudy) stageFields.project.textContent = caseStudy.name;
                 }
 
-                function showCapability(item, moveFocus = false) {
+                function selectCapability(item, moveFocus = false) {
                     if (!item) return;
-                    if (window.matchMedia("(min-width: 768px) and (max-width: 1199px)").matches) return;
-                    items.forEach((button) => button.setAttribute("aria-expanded", String(button === item)));
-                    showCapabilityCase(item);
-                    capabilityMap.classList.add("has-preview");
-                    preview && preview.classList.add("is-visible");
-                    preview && preview.setAttribute("aria-hidden", "false");
-                    if (!capabilityMotionBlocked) capabilityVideo?.play().catch(() => {});
                     if (moveFocus) item.focus();
+                    if (item === activeCapability) return;
+                    activeCapability = item;
+                    items.forEach((button) => {
+                        const selected = button === item;
+                        button.setAttribute("aria-selected", String(selected));
+                        button.tabIndex = selected ? 0 : -1;
+                    });
+                    stage?.setAttribute("aria-labelledby", item.id);
+                    renderCapability(item);
+                    showCapabilityCase(item);
+                    placeCapabilityIndicator();
+                    revealActiveCapability();
+                    if (stage && !capabilityMotionBlocked) {
+                        stage.classList.remove("is-switching");
+                        void stage.offsetWidth;
+                        stage.classList.add("is-switching");
+                    }
                 }
+
+                items.forEach((item, index) => {
+                    item.addEventListener("click", () => selectCapability(item));
+                    item.addEventListener("keydown", (event) => {
+                        const steps = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
+                        let nextIndex = null;
+                        if (event.key in steps) nextIndex = (index + steps[event.key] + items.length) % items.length;
+                        if (event.key === "Home") nextIndex = 0;
+                        if (event.key === "End") nextIndex = items.length - 1;
+                        if (nextIndex === null) return;
+                        event.preventDefault();
+                        selectCapability(items[nextIndex], true);
+                    });
+                    // En desktop basta con recorrer la lista: una pausa breve evita saltos al cruzarla.
+                    item.addEventListener("mouseenter", () => {
+                        if (!capabilityHoverPreview.matches) return;
+                        window.clearTimeout(capabilityHoverTimer);
+                        capabilityHoverTimer = window.setTimeout(() => selectCapability(item), 90);
+                    });
+                    item.addEventListener("mouseleave", () => window.clearTimeout(capabilityHoverTimer));
+                });
 
                 capabilityVideo?.addEventListener("timeupdate", () => {
                     if (capabilityVideo.currentTime >= 0.12) capabilityMedia?.classList.add("is-video-ready");
                 });
                 capabilityVideo?.addEventListener("error", () => capabilityMedia?.classList.remove("is-video-ready"));
 
-                items.forEach((item, index) => {
-                    let pointerDown = false;
-                    item.addEventListener("pointerdown", () => {
-                        pointerDown = true;
-                    });
-                    item.addEventListener("click", (event) => {
-                        const indexLayout = window.matchMedia("(min-width: 768px) and (max-width: 1199px)").matches;
-                        const touchLayout = window.matchMedia("(max-width: 767px), (hover: none), (pointer: coarse)").matches;
-                        const pointerActivation = pointerDown || event.detail > 0;
-                        pointerDown = false;
-                        if (indexLayout) {
-                            if (pinnedCapability === item) {
-                                hideCapability();
-                                return;
-                            }
-                            pinnedCapability = item;
-                            showCapability(item);
-                            return;
-                        }
-                        if (touchLayout && pointerActivation && item.getAttribute("aria-expanded") === "true") {
-                            hideCapability();
-                            return;
-                        }
-                        showCapability(item);
-                    });
-                    item.addEventListener("mouseenter", () => {
-                        if (window.matchMedia("(min-width: 1200px) and (hover: hover) and (pointer: fine)").matches) {
-                            showCapability(item);
-                        }
-                    });
-                    item.addEventListener("mouseleave", () => {
-                        if (pinnedCapability === item) return;
-                        if (window.matchMedia("(min-width: 1200px) and (hover: hover) and (pointer: fine)").matches && !item.matches(":focus-visible")) {
-                            hideCapability();
-                        }
-                    });
-                    item.addEventListener("focus", () => {
-                        const touchLayout = window.matchMedia("(max-width: 767px), (hover: none), (pointer: coarse)").matches;
-                        if (!touchLayout || (!pointerDown && item.matches(":focus-visible"))) showCapability(item);
-                    });
-                    item.addEventListener("blur", () => {
-                        window.requestAnimationFrame(() => {
-                            if (!items.includes(document.activeElement)) hideCapability();
+                if (capabilityVideo && capabilityMedia && !capabilityMotionBlocked) {
+                    new IntersectionObserver((entries) => {
+                        entries.forEach((entry) => {
+                            capabilityInView = entry.isIntersecting && entry.intersectionRatio >= 0.35;
                         });
-                    });
-                    item.addEventListener("keydown", (event) => {
-                        if (event.key === "Escape") {
-                            hideCapability();
-                            item.blur();
-                            return;
-                        }
-                        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-                        event.preventDefault();
-                        let nextIndex = index;
-                        if (event.key === "ArrowLeft") nextIndex = (index - 1 + items.length) % items.length;
-                        if (event.key === "ArrowRight") nextIndex = (index + 1) % items.length;
-                        if (event.key === "Home") nextIndex = 0;
-                        if (event.key === "End") nextIndex = items.length - 1;
-                        showCapability(items[nextIndex], true);
-                    });
+                        syncCapabilityVideo();
+                    }, { threshold: [0, 0.35, 0.75] }).observe(capabilityMedia);
+                }
+
+                // "Ver proyecto" deja el carrusel en la tarjeta del caso antes de bajar a Proyectos.
+                capabilityCaseLink?.addEventListener("click", () => {
+                    const card = document.querySelector(`.project-card[data-project="${activeCapability?.dataset.case}"]`);
+                    const viewport = card?.closest(".projects-carousel__viewport");
+                    const firstCard = viewport?.querySelector(".project-card");
+                    if (card && viewport && firstCard) viewport.scrollLeft = card.offsetLeft - firstCard.offsetLeft;
                 });
 
-                compactSelect?.addEventListener("change", () => {
-                    const index = Number(compactSelect.value);
-                    if (compactSelect.value === "" || !items[index]) {
-                        hideCapability();
-                        return;
-                    }
-                    showCapability(items[index]);
+                const syncCapabilityLayout = () => {
+                    capabilityList?.setAttribute("aria-orientation", capabilityVerticalList.matches ? "vertical" : "horizontal");
+                    placeCapabilityIndicator();
+                };
+                capabilityVerticalList.addEventListener("change", syncCapabilityLayout);
+                window.addEventListener("resize", placeCapabilityIndicator);
+                document.fonts?.ready?.then(placeCapabilityIndicator);
+                window.addEventListener("acelera:languagechange", () => {
+                    if (activeCapability) renderCapability(activeCapability);
+                    placeCapabilityIndicator();
                 });
+                syncCapabilityLayout();
             }
 
             const projectAnchorLinks = document.querySelectorAll('a[href="#proyectos"]');
@@ -5777,11 +5013,12 @@
                     }
                 });
 
+                // Si el título sube con data-mask-reveal, el barrido espera a que termine de asomar.
                 tl.to(blockNode, {
                     scaleX: 1,
                     duration: 0.34,
                     ease: "power2.out"
-                })
+                }, el.closest(".mask-reveal-ready [data-mask-reveal]") ? 0.45 : 0)
                 .to(textNode, {
                     opacity: 1,
                     duration: 0.01,
@@ -5907,14 +5144,14 @@
 
                         context.fillStyle = "#0B0F14";
                         context.font = centered
-                            ? `600 ${Math.round(canvas.height * 0.135)}px "ivarTextFont", "Fraunces", serif`
-                            : `600 ${Math.round(canvas.height * 0.26)}px "ivarTextFont", "Fraunces", serif`;
+                            ? `600 ${Math.round(canvas.height * 0.135)}px "Geist", system-ui, sans-serif`
+                            : `600 ${Math.round(canvas.height * 0.26)}px "Geist", system-ui, sans-serif`;
                         context.textBaseline = "middle";
                         context.fillText(title, x, canvas.height * (copy ? 0.34 : 0.5));
 
                         if (copy) {
                             context.fillStyle = "#374151";
-                            context.font = `600 ${Math.round(canvas.height * 0.13)}px "abcdFont", "Inter Variable", "DM Sans", sans-serif`;
+                            context.font = `600 ${Math.round(canvas.height * 0.13)}px "Geist", system-ui, sans-serif`;
                             context.fillText(copy, x, canvas.height * 0.72);
                         }
 
@@ -6505,7 +5742,7 @@
             }
         });
     </script>
-    <script defer src="assets/app.js?v=20260806-3"></script>
+    <script defer src="assets/app.js?v=20261008-1"></script>
 </body>
 
 </html>

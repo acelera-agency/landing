@@ -151,6 +151,28 @@ const projects = [
       await maskPrivateNetworkDetails(page);
     },
   },
+  {
+    slug: "atrae",
+    captureSize: { width: 1200, height: 675 },
+    url: "https://atrae.app/landing",
+    readyText: "Descubrí a tus próximos clientes",
+    async prepare(page) {
+      // Encuadra el pedido y la lista antes de que arranque la animación del hero.
+      const composer = page.locator("input:visible").first();
+      await composer.evaluate((element) => {
+        const top = element.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: top - 64, behavior: "instant" });
+      });
+    },
+    async perform(page) {
+      await waitForReadyContent(page, "8 contactos encontrados");
+      await wait(900);
+    },
+    async returnToStart() {
+      // La animación del hero corre una sola vez y no tiene un control para reiniciarla:
+      // el fundido de la costura une el estado final con el pedido vacío.
+    },
+  },
 ];
 
 function runFfmpeg(args) {
@@ -165,11 +187,12 @@ function runFfmpeg(args) {
 function buildFormats(slug, rawVideo, clipStartSeconds) {
   const clipStart = Math.max(0, clipStartSeconds).toFixed(3);
   const seamStart = loopDurationSeconds - seamDurationSeconds;
+  // FFmpeg 7 pierde el frame rate tras setpts y xfade lo exige constante: se vuelve a fijar en la costura.
   const loopFilter = [
     "[0:v]scale=960:540:force_original_aspect_ratio=increase,crop=960:540,fps=24,split=3[headsrc][midsrc][tailsrc]",
-    `[headsrc]trim=start=0:end=${seamDurationSeconds},setpts=PTS-STARTPTS[head]`,
+    `[headsrc]trim=start=0:end=${seamDurationSeconds},setpts=PTS-STARTPTS,fps=24[head]`,
     `[midsrc]trim=start=${seamDurationSeconds}:end=${seamStart},setpts=PTS-STARTPTS[mid]`,
-    `[tailsrc]trim=start=${seamStart}:end=${loopDurationSeconds},setpts=PTS-STARTPTS[tail]`,
+    `[tailsrc]trim=start=${seamStart}:end=${loopDurationSeconds},setpts=PTS-STARTPTS,fps=24[tail]`,
     `[tail][head]xfade=transition=fade:duration=${seamDurationSeconds}:offset=0[seam]`,
     "[seam][mid]concat=n=2:v=1:a=0[out]",
   ].join(";");
@@ -183,7 +206,7 @@ function buildFormats(slug, rawVideo, clipStartSeconds) {
   ];
   const mp4Path = resolve(outputDir, `${slug}-demo.mp4`);
   runFfmpeg([...inputArgs, "-c:v", "libx264", "-preset", "medium", "-crf", "27", "-pix_fmt", "yuv420p", "-movflags", "+faststart", mp4Path]);
-  runFfmpeg([...inputArgs, "-c:v", "libvpx-vp9", "-crf", "38", "-b:v", "0", resolve(outputDir, `${slug}-demo.webm`)]);
+  runFfmpeg([...inputArgs, "-c:v", "libvpx-vp9", "-crf", "38", "-b:v", "0", "-pix_fmt", "yuv420p", resolve(outputDir, `${slug}-demo.webm`)]);
   runFfmpeg(["-i", mp4Path, "-frames:v", "1", "-quality", "78", resolve(outputDir, `${slug}-poster.webp`)]);
 }
 

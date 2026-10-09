@@ -36,6 +36,22 @@ test("keeps PostHog disabled before consent and masks contact fields in replay",
   assert.doesNotMatch(analytics, /formData|\.value\s*[,}]/);
 });
 
+test("keeps the consent banner brief, labelled and aligned with the privacy policy", async () => {
+  const [analytics, privacy, i18n] = await Promise.all([read("assets/analytics.js"), read("privacidad.html"), read("assets/i18n.js")]);
+
+  assert.match(analytics, /setAttribute\("aria-label", "Preferencias de analítica"\)/);
+  assert.match(analytics, /aria-describedby", "analytics-consent-description"/);
+  assert.match(analytics, /href="\/privacidad#tecnologias"/);
+  const description = analytics.match(/id="analytics-consent-description"[^>]*>([^<]*)</)[1];
+  assert.ok(description.length <= 80, "The banner copy should stay to one short sentence");
+  // La política cita los botones por su nombre: si cambian, hay que actualizarla.
+  for (const label of ["Solo necesarias", "Aceptar analítica"]) {
+    assert.match(analytics, new RegExp(`>${label}</button>`));
+    assert.match(privacy.replace(/\s+/g, " "), new RegExp(`“${label}”`));
+    assert.match(i18n, new RegExp(`"${label}":`));
+  }
+});
+
 test("tracks the landing funnel with stable snake-case events and no lead payload", async () => {
   const [analytics, app] = await Promise.all([read("assets/analytics.js"), read("assets/app.js")]);
   const expectedEvents = [

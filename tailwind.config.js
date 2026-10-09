@@ -31,9 +31,10 @@ module.exports = {
                 borderSubtle:  '#E5E1D8'
             },
             fontFamily: {
-                sans:    ['"abcdFont"', '"Inter Variable"', '"Inter"', '"DM Sans"', 'system-ui', 'sans-serif'],
-                serif:   ['"ivarTextFont"', '"Freight Display Pro"', '"Fraunces"', 'Georgia', 'serif'],
-                display: ['"ivarTextFont"', '"Freight Display Pro"', '"Fraunces"', 'Georgia', 'serif'],
+                // Una sola familia en toda la landing.
+                sans:    ['"Geist"', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
+                serif:   ['"Geist"', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
+                display: ['"Geist"', 'system-ui', '-apple-system', '"Segoe UI"', 'sans-serif'],
                 mono:    ['"Geist Mono"', 'ui-monospace', 'monospace']
             },
             boxShadow: {

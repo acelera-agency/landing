@@ -33,7 +33,6 @@
         ", donde el": ", where the",
         "negocio lo pide": "business needs it",
         "Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.": "We design and develop software for specific needs. We start with a concrete problem and take it through to a production-ready solution.",
-        "Dónde podemos ayudar": "Where we can help",
         "Cuando hay una necesidad clara, pero falta tiempo para construirla.": "When the need is clear, but there is not enough time to build it.",
         "Ayudamos a empresas que necesitan mejorar una parte de su operación y a equipos de producto que necesitan avanzar sin frenar otras prioridades.": "We help companies improve part of their operations and product teams move forward without delaying other priorities.",
         "El trabajo depende de planillas, mensajes o tareas manuales.": "Work still depends on spreadsheets, messages or manual tasks.",
@@ -51,14 +50,21 @@
         "Features / herramientas internas / IA aplicada": "Features / internal tools / applied AI",
         "Desarrollamos software para empresas y equipos de producto.": "We develop software for companies and product teams.",
         "Desarrollo a medida para empresas": "Custom development for companies",
-        "Software para procesos operativos": "Software for operational processes",
+        "Dos formas de trabajar": "Two ways to work",
+        "Hacemos el proyecto completo": "We build the whole project",
+        "Trabajamos junto a tu equipo": "We work alongside your team",
+        "Reconocimientos": "Recognition",
+        "Ganamos": "We've won",
+        "competencias de IA.": "AI competitions.",
+        "Ganadores": "Winners",
+        "Lo que suelen preguntarnos en la primera conversación.": "What people usually ask us in the first conversation.",
+        "¿Otra pregunta? Escribinos": "Another question? Write to us",
         "Software para la operación.": "Software for operations.",
         "Herramientas internas, integraciones y sistemas a medida para reemplazar procesos manuales.": "Internal tools, integrations and custom systems to replace manual processes.",
         "Herramientas internas e integraciones para reemplazar procesos manuales por un sistema propio.": "Internal tools and integrations that replace manual processes with a system of your own.",
         "Desarrollo de producto.": "Product development.",
         "Features, aplicaciones y componentes técnicos para equipos que necesitan avanzar más rápido.": "Features, applications and technical components for teams that need to move faster.",
         "Nuevas funciones, aplicaciones y herramientas para equipos que necesitan avanzar más rápido.": "New features, applications and tools for teams that need to move faster.",
-        "Desarrollo junto a equipos de producto": "Development alongside product teams",
         "Tomamos una parte concreta del producto y la llevamos a producción junto al equipo interno.": "We take a specific part of the product through to production alongside the internal team.",
         "Carácter": "Principle",
         "Te decimos": "We tell you",
@@ -86,17 +92,10 @@
         "producto funcionando": "working product",
         "Entramos donde la operación pierde tiempo, información o control. Diseñamos la solución, la construimos y la dejamos funcionando con tu equipo.": "We step in where operations lose time, information or control. We design the solution, build it and leave it running with your team.",
         "Podemos tomar el desarrollo completo o trabajar sobre una parte específica junto al equipo interno.": "We can take on the complete development or work on a specific part alongside the internal team.",
-        "Diseñamos herramientas y plataformas a medida para ordenar procesos, conectar sistemas y reducir trabajo manual.": "We design custom tools and platforms to organize processes, connect systems, and reduce manual work.",
         "Operación": "Operations",
         "Producto": "Product",
-        "Proceso actual": "Current process",
-        "Software funcionando": "Working software",
-        "Área de especialización": "Area of expertise",
         "Campañas": "Campaigns",
         "Consultoría sin implementar": "Consulting without delivery",
-        "Elegí una capacidad": "Choose a capability",
-        "Elegí una capacidad de Acelera": "Choose an Acelera capability",
-        "Seleccionar": "Select",
         "Plataformas internas": "Internal platforms",
         "MVPs y productos": "MVPs and products",
         "MVPs y productos digitales": "MVPs and digital products",
@@ -110,6 +109,11 @@
         "IA sobre tus datos": "AI on your data",
         "Backends y servicios": "Backends and services",
         "Portales y autogestión": "Portals and self-service",
+        "Capacidades de Acelera": "Acelera capabilities",
+        "IA y datos": "AI and data",
+        "Caso real": "Case study",
+        "Entregable": "Deliverable",
+        "Atrae convierte un pedido escrito en lenguaje natural en una lista de personas reales, con mail y LinkedIn verificados.": "Atrae turns a plain-language request into a list of real people with verified email and LinkedIn.",
         "Harness permite definir y sincronizar reglas, herramientas, conocimiento y restricciones para los agentes de IA de cada developer.": "Harness lets teams define and sync rules, tools, knowledge and restrictions for each developer's AI agents.",
         "Lain convirtió una idea de producto en un workspace de IA que ya puede ser usado y validado por personas reales.": "Lain turned a product idea into an AI workspace that real people can already use and validate.",
         "Lemon Box integra firmware, interfaz táctil y una herramienta de configuración para operar el dispositivo.": "Lemon Box integrates firmware, a touch interface and a configuration tool to operate the device.",
@@ -117,23 +121,18 @@
         "Faro transforma información pública dispersa en una vista territorial preparada para explorar y decidir.": "Faro turns scattered public information into a territorial view built for exploration and decisions.",
         "Faro normaliza expedientes y fuentes públicas para convertirlos en información comparable y verificable.": "Faro normalizes public records and sources into comparable, verifiable information.",
         "Rely conecta proveedores externos y sistemas propios detrás de una experiencia operativa única.": "Rely connects external providers and proprietary systems behind one operational experience.",
-        "Lain reúne distintos modelos y modos de trabajo en un agente que mantiene el contexto del proyecto.": "Lain brings models and working modes together in an agent that maintains project context.",
         "Lemon Box automatiza configuración, actualizaciones OTA y visualización de datos desde un dispositivo dedicado.": "Lemon Box automates configuration, OTA updates and data visualization from a dedicated device.",
         "Lain conserva memoria por proyecto para trabajar con información propia sin perder control del contexto.": "Lain keeps per-project memory so teams can work with their own information without losing control of context.",
         "Rely concentra reglas, estados e integraciones en servicios que sostienen toda la operación.": "Rely centralizes rules, states and integrations in services that support the entire operation.",
         "Rely ofrece a cada cliente un portal para iniciar gestiones, entregar documentación y seguir su avance.": "Rely gives every client a portal to start processes, provide documents and track progress.",
-        "Núcleo Acelera": "Acelera core",
         "Software, datos": "Software, data",
-        "Software que": "Software that",
-        "queda integrado": "stays integrated",
-        "a la operación.": "into operations.",
         "e IA aplicados a": "and AI applied to",
         "procesos reales.": "real processes.",
-        "Explorá una capacidad": "Explore a capability",
         "Qué queda funcionando": "What stays running",
         "Resultado": "Outcome",
         "No todo necesita IA. Algunos procesos simplemente necesitan": "Not everything needs AI. Some processes simply need to",
         "dejar de romperse": "stop breaking",
+        "Venimos trabajando juntos desde nuestros primeros proyectos. En el último tiempo participamos en competencias de IA en Argentina y el exterior, y ganamos cuatro. Eso nos abrió la puerta a conversar con empresas que repetían el mismo problema: necesitaban desarrollar software, pero los tiempos se alargaban y las soluciones no siempre llegaban a funcionar. De ahí nació Acelera.": "We have worked together since our first projects. Recently we took part in AI competitions in Argentina and abroad, and won four. That opened conversations with companies facing the same problem: they needed to build software, but timelines kept slipping and solutions did not always end up working. That is how Acelera started.",
         "Primero definimos qué hace falta construir. Después elegimos la tecnología.": "First we define what needs to be built. Then we choose the technology.",
         "Ver si aplica a tu caso": "See if it fits your case",
         "Operación centralizada": "Centralized operations",
@@ -218,7 +217,6 @@
         "Proyecto siguiente": "Next project",
         "Software que ya está resolviendo": "Software already solving",
         "problemas reales.": "real problems.",
-        "Desde operaciones societarias y fiscales hasta plataformas internas para gobernar agentes de IA y análisis de datos públicos. En cada caso convertimos un problema complejo en un producto usable, trazable y preparado para evolucionar.": "From company and tax operations to internal platforms for governing AI agents and public data analysis. In every case, we turn a complex problem into a usable, traceable product built to evolve.",
         "Plataforma operativa · Fintech / Legaltech": "Operational platform · Fintech / Legaltech",
         "Rely: plataforma para formar y administrar LLCs": "Rely: platform for forming and operating LLCs",
         "Rely: flujo operativo desde la formación hasta el compliance": "Rely: operational flow from formation through compliance",
@@ -263,6 +261,15 @@
         "Pantalla 480×480": "480×480 display",
         "Actualizaciones OTA": "OTA updates",
         "Abrir el repositorio de Lemon Box en una pestaña nueva": "Open the Lemon Box repository in a new tab",
+        "Producto propio · Prospección B2B": "In-house product · B2B prospecting",
+        "Un agente que arma listas de clientes B2B en Latinoamérica: describís a quién querés venderle y devuelve personas reales, con mail y LinkedIn verificados.": "An agent that builds B2B customer lists across Latin America: describe who you want to sell to and it returns real people with verified email and LinkedIn.",
+        "Aspectos destacados de Atrae": "Atrae highlights",
+        "Agente IA": "AI agent",
+        "Contactos verificados": "Verified contacts",
+        "Envíos desde tu casilla": "Sends from your own inbox",
+        "Abrir Atrae en una pestaña nueva": "Open Atrae in a new tab",
+        "Ver Atrae": "View Atrae",
+        "Demo del agente de prospección Atrae": "Atrae prospecting agent demo",
         "Ver proyecto": "View project",
         "Software ya resolviendo": "Software already solving",
         "Software que ya está resolviendo": "Software already solving",
@@ -432,6 +439,11 @@
         "No incluyas datos sensibles, contraseñas ni información de terceros sin autorización.": "Do not include sensitive data, passwords, or third-party information without authorization.",
         "© 2026 Acelera — Adopción de IA con sentido": "© 2026 Acelera — Purposeful AI adoption",
         "IA que tu equipo opera. No una caja negra.": "AI your team operates. Not a black box.",
+        "Preferencias de analítica": "Analytics preferences",
+        "Usamos PostHog para mejorar el sitio, solo si lo aceptás.": "We use PostHog to improve the site, only if you accept.",
+        "Ver privacidad": "Privacy policy",
+        "Solo necesarias": "Essential only",
+        "Aceptar analítica": "Accept analytics",
         "Idioma": "Language",
         "Secciones": "Sections",
         "Navegación principal": "Main navigation",
@@ -494,20 +506,6 @@
         });
     }
 
-    function syncCapabilityPreview() {
-        const active = document.querySelector(".capability-tab[aria-expanded='true']");
-        if (!active) return;
-        const values = {
-            "[data-capability-kicker]": active.dataset.title,
-            "[data-capability-project]": ({ harness: "Harness", rely: "Rely", lain: "Lain", faro: "Faro", lemon: "Lemon Box" })[active.dataset.case],
-            "[data-capability-copy]": active.dataset.caseCopy
-        };
-        Object.entries(values).forEach(([selector, value]) => {
-            const target = document.querySelector(selector);
-            if (target && value) target.textContent = value;
-        });
-    }
-
     function updateControls(language) {
         document.querySelectorAll("[data-language-option]").forEach((button) => {
             const active = button.dataset.languageOption === language;
@@ -522,7 +520,6 @@
             translateAttributes(next);
             activeLanguage = next;
         }
-        syncCapabilityPreview();
         document.documentElement.lang = next === "en" ? "en" : "es-AR";
         document.title = next === "en"
             ? english["Acelera Agency | Software a medida e IA para empresas"]

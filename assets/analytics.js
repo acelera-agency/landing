@@ -172,14 +172,10 @@
     element.className = "analytics-consent";
     element.dataset.analyticsConsent = "";
     element.setAttribute("role", "dialog");
-    element.setAttribute("aria-labelledby", "analytics-consent-title");
+    element.setAttribute("aria-label", "Preferencias de analítica");
     element.setAttribute("aria-describedby", "analytics-consent-description");
     element.innerHTML = [
-      '<div class="analytics-consent__copy">',
-      '<p id="analytics-consent-title" class="analytics-consent__title">Analítica con privacidad</p>',
-      '<p id="analytics-consent-description" class="analytics-consent__description">Usamos PostHog para entender visitas, recorridos y problemas de uso. Las grabaciones ocultan todos los campos del formulario y no activamos analítica hasta que elijas.</p>',
-      '<a class="analytics-consent__link" href="/privacidad#tecnologias">Ver política de privacidad</a>',
-      "</div>",
+      '<p id="analytics-consent-description" class="analytics-consent__description">Usamos PostHog para mejorar el sitio, solo si lo aceptás. <a class="analytics-consent__link" href="/privacidad#tecnologias">Ver privacidad</a></p>',
       '<div class="analytics-consent__actions">',
       '<button type="button" data-analytics-choice="deny">Solo necesarias</button>',
       '<button type="button" data-analytics-choice="accept" class="analytics-consent__accept">Aceptar analítica</button>',
