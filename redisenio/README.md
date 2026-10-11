@@ -2,6 +2,10 @@
 
 Vista local: **http://127.0.0.1:4173/** (`npm run dev`). La raíz usa ahora el rediseño; `/redisenio/` conserva una copia no indexable para revisión. Las versiones previas se documentan abajo como historial.
 
+## Hover — revisión 19, 10 de octubre de 2026
+
+El pincel naranja de ambas manos se amplía aproximadamente un 19% en radio de referencia y usa tres elipses inclinadas superpuestas, con bordes suaves. El color sigue limitado a la textura real; no se agrega un fondo naranja. La estrella de la portada conserva un acento parcial en reposo, anclado a las coordenadas del dibujo y limitado proporcionalmente para mantener una parte gris también en móvil. El acento estático no activa un bucle de animación. El glitch del footer se mantiene.
+
 ## Publicación — revisión 18, 10 de octubre de 2026
 
 - Se eliminó el selector «Sin IA / Con IA». La ilustración conserva un único recorrido animado.

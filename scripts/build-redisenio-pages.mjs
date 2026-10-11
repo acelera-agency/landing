@@ -98,7 +98,7 @@ for (const page of pages) {
     <link rel="stylesheet" href="/redisenio/pages.css?v=${version}" />
     <script src="/assets/analytics.js?v=20260811-1" defer></script>
     <script src="/assets/app.js?v=20260806-3" defer></script>
-    <script src="/redisenio/site.js?v=${version}" defer></script>
+    <script src="/redisenio/site.js?v=20261011-hover-19" defer></script>
   </head>
   <body class="proposal-subpage" data-variant="framer-redisenio">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -115,6 +115,6 @@ for (const page of pages) {
 `;
   const target = path.join(root, "redisenio", `${page.route}.html`);
   await mkdir(path.dirname(target), { recursive: true });
-  await writeFile(target, html);
+  await writeFile(target, html.replace(/[\t ]+$/gm, ''));
   console.log(`Generada /redisenio/${page.route}`);
 }

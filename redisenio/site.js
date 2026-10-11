@@ -105,7 +105,7 @@
     const referenceWidth = heroArt?.clientWidth || Math.round(
       (footerFrame?.clientWidth || document.documentElement.clientWidth) * handShare,
     );
-    hoverRadius = Math.min(125, Math.max(44, referenceWidth * 0.16));
+    hoverRadius = Math.min(148, Math.max(52, referenceWidth * 0.19));
   };
   updateHoverRadius();
   let artFrame = 0;
@@ -206,6 +206,7 @@
     const fontSize = cell * 1.667;
     const offsetX = (width - columns * cell) / 2;
     const offsetY = (height - rows * fontSize) / 2;
+    art.drawing = { x: offsetX, y: offsetY, width: columns * cell, height: rows * fontSize };
     baseContext.setTransform(dpr, 0, 0, dpr, 0, 0);
     baseContext.fillStyle = art.color;
     baseContext.font = `${fontSize}px "Fragment Mono", monospace`;
@@ -245,21 +246,48 @@
     const { context, canvas, pointer, dpr } = art;
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.drawImage(art.base, 0, 0);
-    if (art.hoverColor && pointer.mix > 0.002) {
-      const radius = hoverRadius * dpr;
-      const x = pointer.x * dpr;
-      const y = pointer.y * dpr;
+    if (art.hoverColor && (art.restingAccent || pointer.mix > 0.002)) {
       const mask = art.spotContext;
       mask.clearRect(0, 0, canvas.width, canvas.height);
+      // Overlapping, tilted ellipses make a soft brush mark rather than a disk.
+      // The same mask is used by both hands and only colors their actual glyphs.
+      const brush = (x, y, radius, strength) => {
+        mask.save();
+        mask.translate(x * dpr, y * dpr);
+        mask.rotate(-0.3);
+        mask.scale(radius * dpr, radius * dpr);
+        for (const [dx, dy, sx, sy, opacity] of [
+          [0, 0, 1.2, 0.82, 1],
+          [-0.32, 0.2, 0.82, 0.7, 0.65],
+          [0.42, -0.12, 0.73, 0.62, 0.55],
+        ]) {
+          mask.save();
+          mask.translate(dx, dy);
+          mask.scale(sx, sy);
+          const gradient = mask.createRadialGradient(0, 0, 0, 0, 0, 1);
+          gradient.addColorStop(0, `rgba(0,0,0,${strength * opacity})`);
+          gradient.addColorStop(0.34, `rgba(0,0,0,${strength * opacity * 0.95})`);
+          gradient.addColorStop(0.72, `rgba(0,0,0,${strength * opacity * 0.4})`);
+          gradient.addColorStop(1, "rgba(0,0,0,0)");
+          mask.fillStyle = gradient;
+          mask.fillRect(-1, -1, 2, 2);
+          mask.restore();
+        }
+        mask.restore();
+      };
+      if (art.restingAccent) {
+        const bounds = art.drawing;
+        brush(
+          bounds.x + bounds.width * art.restingAccent[0],
+          bounds.y + bounds.height * art.restingAccent[1],
+          Math.min(hoverRadius * 0.78, bounds.width * 0.13),
+          1,
+        );
+      }
+      if (pointer.mix > 0.002)
+        brush(pointer.x, pointer.y, hoverRadius, pointer.mix);
+      mask.globalCompositeOperation = "source-in";
       mask.drawImage(art.warm, 0, 0);
-      const gradient = mask.createRadialGradient(x, y, 0, x, y, radius);
-      gradient.addColorStop(0, `rgba(0,0,0,${pointer.mix})`);
-      gradient.addColorStop(0.34, `rgba(0,0,0,${pointer.mix * 0.95})`);
-      gradient.addColorStop(0.72, `rgba(0,0,0,${pointer.mix * 0.4})`);
-      gradient.addColorStop(1, "rgba(0,0,0,0)");
-      mask.globalCompositeOperation = "destination-in";
-      mask.fillStyle = gradient;
-      mask.fillRect(0, 0, canvas.width, canvas.height);
       mask.globalCompositeOperation = "source-over";
       context.drawImage(art.spot, 0, 0);
     }
@@ -435,11 +463,14 @@
       glow: element.dataset.glow === "true",
       color: element.dataset.tone || "#b0b0b0",
       hoverColor: element.dataset.hoverColor,
+      restingAccent: element.dataset.asciiAccent
+        ?.split(/\s+/).map(Number).filter(value => Number.isFinite(value) && value >= 0 && value <= 1),
       visible: false,
       pointer: { x: 0, y: 0, mix: 0 },
       target: { x: 0, y: 0, mix: 0 },
       touchId: null,
     };
+    if (art.restingAccent?.length !== 2) art.restingAccent = null;
     if (art.glitchMotion) {
       element.dataset.animating = "false";
       element.dataset.textureFrame = "0";
