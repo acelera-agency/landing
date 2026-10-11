@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "source": "https://skills.wheresryan.sh/anatomy",
+  "build": "node scripts/build-anatomy-figure.mjs",
+  "viewBox": {
+    "width": 600,
+    "height": 390
+  },
+  "projection": {
+    "origin": [
+      308.8675942286199,
+      280.1215035214714
+    ],
+    "scale": 1.1961249515757708,
+    "azimuth": 67,
+    "elevation": 25
+  },
+  "solidCount": 65,
+  "pathCount": 666,
+  "mode": "software",
+  "noExternalAssets": true,
+  "screen": {
+    "width": 196,
+    "height": 100,
+    "matrix": "matrix(1.393 0.25 0 1.371 189.188 45.559)"
+  },
+  "motion": "Only screen content animates; physical geometry stays fixed."
+}

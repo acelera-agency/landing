@@ -1,0 +1,125 @@
+{
+  "checkedAt": "2026-10-10",
+  "assets": [
+    {
+      "file": "anthropic.svg",
+      "width": 143.0,
+      "height": 16.0,
+      "bytes": 2747,
+      "sourcePage": "https://www.anthropic.com/",
+      "sourceAsset": "https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/67d47b4c03b69d41f28cc15c_logo-lottie.json",
+      "notes": "Paths originales del primer fotograma del wordmark Lottie oficial, congelados en SVG. Sin fuentes, redibujo ni animación.",
+      "sha256": "c0bfe97b9ade1c4b351a7543745235a277e72dec20725c40783ea97b4e4f8cb1"
+    },
+    {
+      "file": "aws.svg",
+      "width": 109.0,
+      "height": 64.0,
+      "bytes": 7362,
+      "sourcePage": "https://aws.amazon.com/",
+      "sourceAsset": "https://aws.amazon.com/",
+      "notes": "SVG inline del logo en la navegación oficial. Conserva relación 109:64; no usar width y height iguales.",
+      "sha256": "a8efad3c6124e916a52bc33d0f17275d1e89e53f553bcb8d62810df315d7fba2"
+    },
+    {
+      "file": "cloudflare.svg",
+      "width": 719.0,
+      "height": 59.0,
+      "bytes": 2414,
+      "sourcePage": "https://www.cloudflare.com/",
+      "sourceAsset": "https://www.cloudflare.com/",
+      "notes": "Wordmark SVG inline oficial del footer, relleno fijo oscuro.",
+      "sha256": "e06ed5a2f161d3ee67875887c53c81d7d2a5b51e158ed0d9cdf7ca886b995c95"
+    },
+    {
+      "file": "lemon.svg",
+      "width": 274.0,
+      "height": 63.0,
+      "bytes": 4210,
+      "sourcePage": "https://lemon.me/",
+      "sourceAsset": "https://lemon.me/",
+      "notes": "Logo oficial del header, símbolo y letras, paths originales. Lemon Box es el proyecto; la marca es Lemon.",
+      "sha256": "3c894b4830074f7068d475ed49278b44750d0a178004e424f2794389d056b1f6"
+    },
+    {
+      "file": "rely.png",
+      "width": 380,
+      "height": 218,
+      "bytes": 8240,
+      "sourcePage": "https://rely.business/",
+      "sourceAsset": "https://rely.business/images/icons/rely-logo.png",
+      "notes": "PNG oficial, recortado únicamente al área alfa. Es blanco; aplicar filter: brightness(0) en fondos claros.",
+      "sha256": "ab3a6c3b9fcd4cd99b985b98220ec6af8e1839647edff4bd83c559535b50a6c4"
+    },
+    {
+      "file": "ford.svg",
+      "width": 264.58333,
+      "height": 95.227339,
+      "bytes": 9680,
+      "sourcePage": "https://www.francoferreira.com/",
+      "sourceAsset": "https://www.francoferreira.com/brands/background/ford-logo.svg",
+      "notes": "SVG usado por Franco en su historia laboral; paths originales, colores conservados.",
+      "sha256": "e9b775e9be59bf27a1fa06f1b7459e68f0d090f867035ebd0682b75a8ab20b79"
+    },
+    {
+      "file": "hsbc.svg",
+      "width": 315.9,
+      "height": 85.0,
+      "bytes": 1438,
+      "sourcePage": "https://www.francoferreira.com/",
+      "sourceAsset": "https://www.francoferreira.com/brands/background/hsbc-logo.svg",
+      "notes": "SVG usado por Franco en su historia laboral; CSS de rellenos convertido a atributos, colores conservados.",
+      "sha256": "1c964ed5297faf58d3e68999b82bf234ba4d118416fa00f58b4cc1c5ef57f263"
+    },
+    {
+      "file": "aivo.png",
+      "width": 600,
+      "height": 201,
+      "bytes": 22133,
+      "sourcePage": "https://www.francoferreira.com/",
+      "sourceAsset": "https://www.francoferreira.com/brands/background/aivo-logo.png",
+      "notes": "Logo histórico de Aivo usado por Franco; sólo reducción proporcional. aivo.co hoy redirige a Engageware, por eso se mantiene la marca de la experiencia original.",
+      "sha256": "b77cfe13b7c1cbd087034bc7ac221339b72f7839e33fb87a9d7f87d211755a90"
+    },
+    {
+      "file": "lain.svg",
+      "width": 2329.2276,
+      "height": 832.0456,
+      "bytes": 7706,
+      "sourcePage": "https://lainagent.com/",
+      "sourceAsset": "https://raw.githubusercontent.com/google/fonts/main/ofl/librebaskerville/LibreBaskerville%5Bwght%5D.ttf",
+      "notes": "Wordmark tipográfico Lain de su sidebar: Libre Baskerville, peso 600. Letras convertidas a paths de la fuente oficial; no se inventó símbolo. Configuración corroborada en la web y repositorio de Lain.",
+      "sha256": "8bf401a01d965ac82dc1038ce3fcc456b233ffddebf083eed51fb7a4bfadf42e"
+    },
+    {
+      "file": "atrae-wordmark.png",
+      "width": 640,
+      "height": 195,
+      "bytes": 20934,
+      "sourcePage": "https://atrae.app/landing",
+      "sourceAsset": "/Users/mauro/Desktop/proyectos/explee acelera/public/assets/brand/atrae-wordmark.png",
+      "notes": "Wordmark vigente del repositorio propietario, sin cambios; coincide con AtraeWordmark de la landing pública.",
+      "sha256": "97c72d884b369c39c67fe2320c828a745f380ded7357c05b4dcba5969932b5fc"
+    },
+    {
+      "file": "atrae-mark.png",
+      "width": 128,
+      "height": 128,
+      "bytes": 13717,
+      "sourcePage": "https://atrae.app/landing",
+      "sourceAsset": "/Users/mauro/Desktop/proyectos/explee acelera/public/assets/brand/atrae-ribbon-mark.png",
+      "notes": "Símbolo oficial azul reducido de 256 a 128 px.",
+      "sha256": "409e3aea790be3a944aea7405be8b3c5b3942200c5f552a20ae4bfc322281433"
+    },
+    {
+      "file": "atrae-workspace.webp",
+      "width": 1600,
+      "height": 1000,
+      "bytes": 108066,
+      "sourcePage": "https://atrae.app/landing",
+      "sourceAsset": "/Users/mauro/Desktop/proyectos/explee acelera/public/landing/product-workspace.png",
+      "notes": "Captura que ya se muestra públicamente en la landing Atrae, convertida a WebP 1600×1000. No es una nueva verificación funcional del producto.",
+      "sha256": "629634411f1a010bda514ad17cfd3bdce98480622e6224c8d9015ee761541f80"
+    }
+  ]
+}

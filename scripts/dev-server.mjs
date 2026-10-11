@@ -7,8 +7,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const rootDir = path.resolve(__dirname, "..");
+try {
+  process.loadEnvFile(path.join(rootDir, ".env.local"));
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
 const port = Number(process.env.PORT || 4173);
 const leadApiUrl = pathToFileURL(path.join(rootDir, "api", "lead.js")).href;
+const scheduleApiUrl = pathToFileURL(path.join(rootDir, "api", "schedule.js")).href;
 
 const contentTypes = new Map([
   [".css", "text/css; charset=utf-8"],
@@ -63,16 +69,31 @@ function isSafePath(filePath) {
 const server = createServer(async (req, res) => {
   const requestUrl = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
 
-  if (requestUrl.pathname === "/api/lead") {
+  if (["/api/lead", "/api/schedule"].includes(requestUrl.pathname)) {
     try {
-      const { default: leadHandler } = await import(leadApiUrl);
-      await leadHandler(req, res);
+      const { default: handler } = await import(requestUrl.pathname === "/api/schedule" ? scheduleApiUrl : leadApiUrl);
+      await handler(req, res);
     } catch (error) {
       res.writeHead(500, { "Content-Type": "application/json; charset=utf-8" });
       res.end(JSON.stringify({ error: "Server error" }));
-      console.error("[dev-server] Failed to handle /api/lead", error);
+      console.error(`[dev-server] Failed to handle ${requestUrl.pathname}`, error.name);
     }
 
+    return;
+  }
+
+  // Only public site files are served; local credentials and server sources
+  // must never be reachable through the static preview.
+  let segments;
+  try {
+    segments = decodeURIComponent(requestUrl.pathname).split("/").filter(Boolean);
+  } catch {
+    res.writeHead(400).end("Invalid path");
+    return;
+  }
+  if (segments.some(segment => segment.startsWith(".")) ||
+      ["api", "lib", "node_modules", "scripts"].includes(segments[0])) {
+    res.writeHead(404).end("Not found");
     return;
   }
 
@@ -114,6 +135,6 @@ const server = createServer(async (req, res) => {
   }
 });
 
-server.listen(port, () => {
+server.listen(port, "127.0.0.1", () => {
   console.log(`Landing Acelera disponible en http://127.0.0.1:${port}`);
 });

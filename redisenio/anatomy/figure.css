@@ -1,0 +1,74 @@
+/* One modern workstation; controls and motion stay local to this figure. */
+.anatomy-card {
+  position: relative; display: block; isolation: isolate; min-width: 0; margin: 0;
+  overflow: hidden; border: 1px dashed var(--dash); background: #fafaf8;
+}
+.anatomy-stage { position: absolute; inset: 40px 2px 63px; user-select: none; touch-action: pan-y; }
+.anatomy-stage .anatomy-svg { display: block; width: 100%; height: 100%; max-width: 600px; margin-inline: auto; overflow: visible; }
+.anatomy-card-head, .anatomy-card-foot {
+  position: absolute; z-index: 2; left: 16px; right: 16px; display: flex;
+  align-items: center; justify-content: space-between; gap: 10px;
+  font: 400 11px/1.4 var(--sans); color: #71716a;
+}
+.anatomy-card-head { top: 13px; padding-right: 31px; pointer-events: none; }
+.anatomy-card-head > span:first-child { color: #575751; font-variant-numeric: tabular-nums; }
+.anatomy-card-title { margin-left: auto; color: #41423f; font-weight: 500; }
+.anatomy-card-foot { bottom: 14px; }
+.anatomy-controls { display: inline-flex; flex-shrink: 0; gap: 2px; padding: 3px; border: 1px solid #e0e0da; border-radius: 8px; background: #f5f5f1; }
+.anatomy-mode {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 30px; min-width: 54px;
+  padding: 4px 8px; border: 1px solid transparent; border-radius: 5px; background: transparent;
+  color: #63645e; font: 500 11px/1.2 var(--sans); cursor: pointer;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+.anatomy-mode[aria-pressed="true"] { border-color: #d9d9d1; background: #fff; color: #292b27; box-shadow: 0 1px 2px #292b2709; }
+.anatomy-mode[data-anatomy-mode="ai"][aria-pressed="true"] { color: #9c4d2f; border-color: #ddc6b9; background: #fff8f3; }
+.anatomy-readout { max-width: 165px; color: #65665f; font-size: 10px; text-align: right; text-wrap: balance; }
+.anatomy-motion {
+  position: absolute; z-index: 3; top: 7px; right: 10px; display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; padding: 7px; border: 1px solid transparent; border-radius: 50%;
+  color: #777870; background: transparent; cursor: pointer;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+.anatomy-motion svg { width: 13px; height: 13px; }
+.anatomy-motion [data-motion-play] { display: none; }
+.anatomy-motion[data-paused="true"] [data-motion-play] { display: block; }
+.anatomy-motion[data-paused="true"] [data-motion-pause] { display: none; }
+.anatomy-card:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+.anatomy-mode:focus-visible, .anatomy-motion:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.anatomy-card[data-anatomy-mode="direct"] [data-ai-only],
+.anatomy-card[data-anatomy-mode="ai"] [data-direct-only] { display: none; }
+.anatomy-svg [data-active="true"] > .screen-panel { stroke: var(--screen-muted); stroke-width: .85; }
+.anatomy-svg [data-flow-ai][data-active="true"] > .screen-ai-panel { fill: var(--screen-accent-soft); }
+.anatomy-svg [data-output-row] { opacity: calc(.16 + .84 * var(--flow-active, 1)); }
+.anatomy-svg [data-anatomy-signal] { fill: var(--screen-ink); pointer-events: none; }
+.anatomy-svg [data-anatomy-signal-halo] { fill: var(--screen-ink); pointer-events: none; }
+.anatomy-card[data-anatomy-mode="ai"] :is([data-anatomy-signal], [data-anatomy-signal-halo]) { fill: var(--accent, #c96a43); }
+.anatomy-sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .anatomy-mode:hover { color: #292b27; background: #fff; }
+  .anatomy-motion:hover { color: var(--accent-ink); border-color: #e7d2c8; background: #f6eae4; }
+}
+@media (min-width: 700px) and (max-width: 1099px) {
+  #tecnologia .tech-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: 360px repeat(2, 120px); }
+  #tecnologia .tech-visual { grid-column: 1 / -1; grid-row: 1; }
+  .anatomy-stage { inset: 38px 24px 61px; }
+  .anatomy-card-head, .anatomy-card-foot { left: 20px; right: 20px; }
+}
+@media (max-width: 699px) {
+  #tecnologia .tech-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 320px repeat(3, minmax(112px, auto)); }
+  #tecnologia .tech-visual { grid-column: 1 / -1; grid-row: 1; }
+  .anatomy-stage { inset: 38px 0 64px; }
+  .anatomy-card-head, .anatomy-card-foot { left: 13px; right: 13px; }
+}
+@media (max-width: 450px) {
+  .anatomy-stage { inset: 38px -4px 77px; }
+  .anatomy-card-foot { flex-wrap: wrap; justify-content: center; gap: 6px; bottom: 12px; }
+  .anatomy-readout { flex: 0 0 100%; max-width: none; text-align: center; font-size: 10px; }
+  .anatomy-card-head { font-size: 10px; }
+  .anatomy-mode { min-height: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .anatomy-mode, .anatomy-motion { transition: none; }
+  .anatomy-svg :is([data-anatomy-signal], [data-anatomy-signal-halo]) { opacity: 0 !important; }
+}

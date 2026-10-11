@@ -1,64 +1,37 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, access } from "node:fs/promises";
 import test from "node:test";
-
-const releaseToken = "v=20260728-1";
-
-test("mutable assets are revalidated instead of cached as immutable", async () => {
-  const config = JSON.parse(await readFile(new URL("./vercel.json", import.meta.url), "utf8"));
-  const assetRule = config.headers.find((rule) => rule.source === "/assets/(.*)");
-  const cacheHeader = assetRule?.headers.find((header) => header.key === "Cache-Control");
-
-  assert.equal(cacheHeader?.value, "public, max-age=0, must-revalidate");
+const read = p=>readFile(new URL(p,import.meta.url),"utf8");
+const pages=["index","desarrollo-software-a-medida","plataformas-internas","agentes-ia-empresas","consultoria-ia-empresas","casos/faro","privacidad","terminos"];
+test("mutable shared and redesign assets are revalidated",async()=>{
+  const config=JSON.parse(await read("vercel.json"));
+  for(const source of ["/assets/(.*)","/redisenio/(.*)"]) assert.equal(config.headers.find(r=>r.source===source)?.headers.find(h=>h.key==="Cache-Control")?.value,"public, max-age=0, must-revalidate");
 });
-
-test("critical CSS and JavaScript assets use a release cache key", async () => {
-  const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
-
-  for (const asset of ["tailwind.css", "lucide-sprite.js", "i18n.js"]) {
-    assert.match(html, new RegExp(`assets/${asset.replace(".", "\\.")}\\?${releaseToken}`));
-  }
-  assert.match(html, /assets\/app\.js\?v=20261008-1/);
-});
-
-test("keeps the hero and footer free of pointer-following light effects", async () => {
-  const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
-  const script = await readFile(new URL("./assets/app.js", import.meta.url), "utf8");
-
-  assert.doesNotMatch(html, /cursor-trail|cursor-aura|hero-glow|footer-glow/);
-  assert.doesNotMatch(script, /initCursorTrails|initCursorAuras|data-cursor-/);
-});
-
-test("legal pages invalidate their shared stylesheet", async () => {
-  for (const page of ["privacidad.html", "terminos.html"]) {
-    const html = await readFile(new URL(`./${page}`, import.meta.url), "utf8");
-    assert.match(html, new RegExp(`assets/legal\\.css\\?${releaseToken}`));
+test("all production pages point to final routes and existing released resources",async()=>{
+  for(const page of pages){
+    const html=await read(page+".html");
+    for(const tag of html.matchAll(/<(?:script|link|img)\b[^>]*>/g)){
+      const url=tag[0].match(/(?:src|href)="(\/[^"?#]+)/)?.[1];
+      if(url) await access(new URL("."+url,import.meta.url));
+    }
+    assert.match(html,/styles\.css\?v=20261011-release-18/);
+    assert.match(html,/app\.js\?v=20261011-release-18/);
+    assert.doesNotMatch(html,/href="\/redisenio\/(?:privacidad|terminos|casos\/faro|desarrollo-software-a-medida|plataformas-internas|agentes-ia-empresas|consultoria-ia-empresas)(?:["#])/);
   }
 });
-
-test("service and case pages invalidate their shared stylesheet", async () => {
-  for (const page of [
-    "desarrollo-software-a-medida.html",
-    "plataformas-internas.html",
-    "agentes-ia-empresas.html",
-    "consultoria-ia-empresas.html",
-    "casos/faro.html",
-  ]) {
-    const html = await readFile(new URL(`./${page}`, import.meta.url), "utf8");
-    assert.match(html, new RegExp(`assets/service-pages\\.css\\?${releaseToken}`));
+test("the native agenda proxies to its production backend and preserves the lead gateway",async()=>{
+  const config=JSON.parse(await read("vercel.json"));
+  assert.deepEqual(config.rewrites.find(r=>r.source==="/api/schedule"),{source:"/api/schedule",destination:"https://acelera-schedule-api.vercel.app/api/schedule"});
+  assert.match(await read("assets/app.js"),/formEndpoint: "https:\/\/acelera-lead-gateway\.vercel\.app\/api\/lead"/);
+});
+test("private files and tooling are excluded from the deployment",async()=>{
+  const ignore=await read(".vercelignore");
+  for(const path of ["tmp/","scripts/",".env*","docs/","output/","**/*.test.*","lib/"]) assert.ok(ignore.split("\n").includes(path));
+});
+test("the illustration has no IA mode selector in either entry point",async()=>{
+  for(const page of ["index.html","redisenio/index.html"]){
+    const html=await read(page);
+    assert.doesNotMatch(html,/data-anatomy-toggle|Sin IA|Con IA/);
+    assert.match(html,/data-anatomy-mode="ai"/);
   }
-});
-
-test("the public forms use the managed lead gateway", async () => {
-  const script = await readFile(new URL("./assets/app.js", import.meta.url), "utf8");
-
-  assert.match(script, /formEndpoint: "https:\/\/acelera-lead-gateway\.vercel\.app\/api\/lead"/);
-});
-
-test("keeps the hero canvas safe while responsive layouts collapse it", async () => {
-  const html = await readFile(new URL("./index.html", import.meta.url), "utf8");
-
-  assert.match(html, /if \(w <= 0 \|\| h <= 0\) \{[\s\S]*?return false;/);
-  assert.match(html, /if \(resize\(\)\) draw\(\);/);
-  assert.match(html, /connectorCanvas\.width <= 0 \|\| connectorCanvas\.height <= 0\) return;/);
 });

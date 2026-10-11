@@ -20,19 +20,19 @@ async function read(path) {
 test("installs the consent-first PostHog integration on every public page", async () => {
   for (const page of publicPages) {
     const html = await read(page);
-    assert.match(html, /\/assets\/analytics\.css\?v=20260811-1/, `${page} should load analytics styles`);
-    assert.match(html, /\/assets\/analytics\.js\?v=20260811-1/, `${page} should load analytics code`);
+    assert.match(html, /\/assets\/analytics\.css\?v=20261011-release-18/, `${page} should load analytics styles`);
+    assert.match(html, /\/assets\/analytics\.js\?v=20261011-release-18/, `${page} should load analytics code`);
     assert.match(html, /data-analytics-preferences/, `${page} should expose analytics preferences`);
   }
 });
 
 test("keeps PostHog disabled before consent and masks contact fields in replay", async () => {
-  const [analytics, homepage] = await Promise.all([read("assets/analytics.js"), read("index.html")]);
+  const [analytics, homepage] = await Promise.all([read("assets/analytics.js"), read("redisenio/scheduler.js")]);
 
   assert.match(analytics, /readConsent\(\) !== CONSENT_GRANTED/);
   assert.match(analytics, /maskAllInputs:\s*true/);
   assert.match(analytics, /data-ph-no-autocapture/);
-  assert.match(homepage, /<form data-lead-form data-ph-no-autocapture/);
+  assert.match(homepage, /form\.setAttribute\("data-ph-no-autocapture", ""\)/);
   assert.doesNotMatch(analytics, /formData|\.value\s*[,}]/);
 });
 

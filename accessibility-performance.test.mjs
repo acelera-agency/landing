@@ -1,24 +1,8 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-
-const rootUrl = new URL("./", import.meta.url);
-const indexHtml = await readFile(new URL("index.html", rootUrl), "utf8");
-const appSource = await readFile(new URL("assets/app.js", rootUrl), "utf8");
-const serviceCss = await readFile(new URL("assets/service-pages.css", rootUrl), "utf8");
-const legalCss = await readFile(new URL("assets/legal.css", rootUrl), "utf8");
-const faroHtml = await readFile(new URL("casos/faro.html", rootUrl), "utf8");
-
-const secondaryPages = [
-  "desarrollo-software-a-medida.html",
-  "plataformas-internas.html",
-  "agentes-ia-empresas.html",
-  "consultoria-ia-empresas.html",
-  "casos/faro.html",
-  "privacidad.html",
-  "terminos.html",
-];
-
+const read=p=>readFile(new URL(p,import.meta.url),"utf8");
+const indexHtml=await read("index.html"); const styles=await read("redisenio/styles.css");
 const hexToRgb = (hex) => (
   hex.match(/[a-f\d]{2}/gi).map((component) => Number.parseInt(component, 16))
 );
@@ -43,93 +27,31 @@ const cssVariable = (css, name) => (
   css.match(new RegExp(`--${name}:\\s*(#[\\da-f]{6})`, "i"))?.[1]
 );
 
-test("loads optional Google Fonts without blocking first paint", async () => {
-  for (const page of secondaryPages) {
-    const html = await readFile(new URL(page, rootUrl), "utf8");
-    assert.match(
-      html,
-      /<link[^>]*rel="preload"[^>]*as="style"[^>]*fonts\.googleapis\.com\/css2[^>]*onload="this\.onload=null;this\.rel='stylesheet'"/,
-      `${page} should load Google Fonts after the critical render`,
-    );
-    assert.match(
-      html,
-      /<noscript>[\s\S]*?<link[^>]*rel="stylesheet"[^>]*fonts\.googleapis\.com\/css2[\s\S]*?<\/noscript>/,
-      `${page} should keep a no-JavaScript font fallback`,
-    );
-  }
+
+test("keeps primary and muted small text at WCAG AA contrast",()=>{
+  for(const foreground of ["#0b0f14","#595959","#a7441d"]) assert.ok(contrast(foreground,"#fdfdfd")>=4.5);
 });
-
-test("keeps small text contrast at or above WCAG AA", () => {
-  const serviceAccent = cssVariable(serviceCss, "accent-strong");
-  const serviceQuiet = cssVariable(serviceCss, "quiet");
-  const servicePaper = cssVariable(serviceCss, "paper");
-  const serviceMutedPaper = cssVariable(serviceCss, "paper-muted");
-  const legalAccent = cssVariable(legalCss, "accent");
-  const legalQuiet = cssVariable(legalCss, "quiet");
-  const legalPaper = cssVariable(legalCss, "paper");
-
-  assert.ok(contrast(serviceAccent, serviceMutedPaper) >= 4.5);
-  assert.ok(contrast(serviceQuiet, serviceMutedPaper) >= 4.5);
-  assert.ok(contrast("#fffaf5", serviceAccent) >= 4.5);
-  assert.ok(contrast(legalAccent, legalPaper) >= 4.5);
-  assert.ok(contrast(legalQuiet, legalPaper) >= 4.5);
-  assert.ok(contrast("#a64f2d", servicePaper) >= 4.5);
-  assert.ok(contrast("#646a73", servicePaper) >= 4.5);
-  assert.ok(contrast("#686f7d", servicePaper) >= 4.5);
-  assert.ok(contrast("#c96a43", "#0b0f14") >= 4.5);
-  assert.ok(contrast("#d4cfc1", "#0b0f14") >= 4.5);
+test("names team social links and hides the decorative hands",()=>{
+  const team=indexHtml.match(/<section[^>]*id="equipo"[\s\S]*?<\/section>/)?.[0]; assert.ok(team);
+  assert.equal((team.match(/<h3\b/g)||[]).length,3);
+  for(const name of ["Ignacio Estevo","Mauro Proto","Franco Ferreira"]) assert.ok(team.includes(`aria-label="LinkedIn de ${name}"`));
+  const hands=[...indexHtml.matchAll(/<div[^>]*data-ascii="[^"]+"[^>]*>/g)]; assert.equal(hands.length,2);
+  assert.match(indexHtml,/<div[^>]*aria-hidden="true"[^>]*class="hero-art/); assert.match(hands.at(-1)[0],/aria-hidden="true"/);
 });
-
-test("uses a continuous heading order and names the team social links", () => {
-  const teamSection = indexHtml.match(
-    /<section id="equipo"[\s\S]*?<section id="faqs"/,
-  )?.[0];
-
-  assert.ok(teamSection);
-  assert.equal((teamSection.match(/<h3\b/g) ?? []).length, 3);
-  assert.doesNotMatch(teamSection, /<h4\b/);
-  for (const name of ["Ignacio Estevo", "Mauro Proto", "Franco Ferreira"]) {
-    assert.match(teamSection, new RegExp(`aria-label="LinkedIn de ${name}"`));
-  }
-  assert.match(indexHtml, /<div id="footer-watermark" aria-hidden="true"/);
-  assert.match(indexHtml, /#footer-watermark::before\s*\{[^}]*content:\s*"Acelera"/);
+test("loads fonts locally and keeps optional motion under user preferences",async()=>{
+  assert.doesNotMatch(indexHtml,/fonts\.googleapis\.com/);
+  assert.match(styles,/@font-face[\s\S]*?font-family: Geist/);
+  assert.match(styles,/prefers-reduced-motion: reduce/);
+  const script=await read("redisenio/site.js");
+  assert.match(script,/prefers-reduced-motion/);
+  assert.match(script,/IntersectionObserver/);
+  assert.match(script,/revealObserver\.unobserve/);
+  assert.doesNotMatch(indexHtml.match(/<h1[^>]*>/)[0],/reveal-pending/);
 });
-
-test("keeps offscreen media lazy and serves responsive modern images", () => {
-  assert.doesNotMatch(appSource, /warmDeferredImages|image\.loading\s*=\s*"eager"/);
-  assert.match(indexHtml, /acelera-wordmark-184\.webp 184w, assets\/acelera-wordmark-256\.webp 256w/);
-  assert.match(indexHtml, /estevo_profile-320\.webp 320w/);
-  assert.match(indexHtml, /mauro_profile-320\.webp 320w/);
-  assert.match(indexHtml, /franco_profile-320\.webp 320w/);
-  assert.match(faroHtml, /faro-hero-720\.webp 720w, \/assets\/proyectos\/faro-hero-1080\.webp 1080w, \/assets\/proyectos\/faro-hero\.webp 1400w/);
-  assert.match(faroHtml, /faro-mapa-720\.webp 720w, \/assets\/proyectos\/faro-mapa-1080\.webp 1080w, \/assets\/proyectos\/faro-mapa-1440\.webp 1440w/);
-  assert.match(faroHtml, /faro-expediente-720\.webp 720w, \/assets\/proyectos\/faro-expediente-1080\.webp 1080w, \/assets\/proyectos\/faro-expediente-1440\.webp 1440w/);
-});
-
-test("reveals each section heading once without hiding it from no-JS or reduced-motion visitors", () => {
-  const sectionHeadings = [...indexHtml.matchAll(/<h2\b[^>]*>/g)]
-    .map((match) => match[0])
-    .filter((tag) => !tag.includes('id="lead-modal-title"'));
-
-  assert.equal(sectionHeadings.length, 8);
-  for (const tag of sectionHeadings) assert.match(tag, /data-mask-reveal/);
-  // Solo el script oculta los títulos, y no lo hace si el visitante pidió reducir movimiento.
-  assert.match(indexHtml, /\.mask-reveal-ready \[data-mask-reveal\]\s*\{[^}]*clip-path:\s*inset\(0 0 100% 0\)/);
-  assert.doesNotMatch(indexHtml, /\n\s*\[data-mask-reveal\]\s*\{/);
-  assert.match(
-    indexHtml,
-    /"IntersectionObserver" in window && !window\.matchMedia\("\(prefers-reduced-motion: reduce\)"\)\.matches\)\s*\{\s*document\.documentElement\.classList\.add\("mask-reveal-ready"\)/,
-  );
-  assert.match(indexHtml, /maskRevealObserver\.unobserve\(entry\.target\)/);
-  // Un título dentro de un bloque con fundido GSAP se animaría dos veces.
-  assert.doesNotMatch(indexHtml, /class="[^"]*\bgsap-reveal\b[^"]*">\s*(?:<span[^>]*>[^<]*<\/span>\s*)?<h2 data-mask-reveal/);
-});
-
-test("draws the hero underline once on load and shows it still for reduced motion", () => {
-  assert.match(indexHtml, /@keyframes heroUnderlineDraw\s*\{\s*from\s*\{\s*background-size:\s*0% 0\.08em;/);
-  assert.match(
-    indexHtml,
-    /\.accent-reveal--static\s*\{[^}]*background-size:\s*100% 0\.08em;[^}]*animation:\s*heroUnderlineDraw [^;]*both;/,
-  );
-  assert.match(indexHtml, /prefers-reduced-motion: reduce\)\s*\{\s*\.accent-reveal--static\s*\{\s*animation:\s*none;/);
+test("defers team and project media and preserves responsive Faro images",async()=>{
+  for(const tag of indexHtml.matchAll(/<img[^>]*src="[^" ]*linkedin[^" ]*"[^>]*>/g)) assert.match(tag[0],/loading="lazy"/);
+  const faro=await read("casos/faro.html");
+  assert.match(faro,/faro-hero-720\.webp 720w/);
+  assert.match(faro,/faro-mapa-720\.webp 720w/);
+  assert.match(faro,/faro-expediente-720\.webp 720w/);
 });

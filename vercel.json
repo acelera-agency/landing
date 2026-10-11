@@ -1,6 +1,15 @@
 {
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/api/schedule", "destination": "https://acelera-schedule-api.vercel.app/api/schedule" }
+  ],
   "headers": [
+    {
+      "source": "/redisenio/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    },
     {
       "source": "/assets/(.*)",
       "headers": [

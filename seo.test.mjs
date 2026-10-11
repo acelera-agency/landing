@@ -71,7 +71,7 @@ test("publishes crawl controls and only canonical indexable URLs", async () => {
     assert.match(sitemap, new RegExp(`<loc>${canonicalOrigin.replaceAll(".", "\\.")}${page.route}</loc>`));
   }
   assert.equal((sitemap.match(/<loc>/g) || []).length, indexablePages.length + 1);
-  assert.equal((sitemap.match(/<lastmod>2026-07-27<\/lastmod>/g) || []).length, indexablePages.length + 1);
+  assert.equal((sitemap.match(/<lastmod>2026-10-10<\/lastmod>/g) || []).length, indexablePages.length + 1);
   assert.doesNotMatch(sitemap, /privacidad|terminos|landing-prueba|tracking-demo/);
 });
 
@@ -126,7 +126,7 @@ test("positions the homepage clearly and keeps footer contact data out of Google
   );
   assert.match(home, /<meta property="og:title" content="Acelera Agency \| Software a medida e IA para empresas"/);
   assert.match(home, /"name": "Acelera Agency \| Software a medida e IA para empresas"/);
-  assert.match(home, /<div class="max-w-md md:col-span-7" data-nosnippet>/);
+  assert.match(home, /<div class="footer-brand" data-nosnippet>/);
 
   const i18n = await read("assets/i18n.js");
   assert.match(i18n, /"Acelera Agency \| Software a medida e IA para empresas"/);
@@ -301,8 +301,8 @@ test("uses direct language instead of diagnosis and generic work-with phrasing",
   }
 
   const home = await read("index.html");
-  assert.match(home, /<span class="method-step__meta">Entender<\/span>/);
-  assert.match(home, /La arquitectura se decide según el producto, las integraciones, el costo operativo y el equipo que va a mantenerlo\./);
+  assert.match(home, /<h3>Entender<\/h3>/);
+  assert.match(home.replace(/\s+/g," "), /La arquitectura depende del producto, las integraciones y el equipo que va a mantenerlo\./);
 });
 
 test("keeps repetitive service-page footer copy out of result snippets", async () => {
@@ -310,7 +310,7 @@ test("keeps repetitive service-page footer copy out of result snippets", async (
     const html = await read(page.file);
     assert.match(
       html,
-      /<footer class="site-footer">[\s\S]*?<div class="shell footer-main">[\s\S]*?<div data-nosnippet>/,
+      /<footer class="site-footer">[\s\S]*?<div class="footer-brand" data-nosnippet>/,
       `${page.file} should exclude its generic footer brand copy from snippets`,
     );
   }
@@ -374,7 +374,7 @@ test("exposes a linked organization, services and projects JSON-LD graph without
   assert.equal(webpage.mainEntity["@id"], organizationId);
 
   assert.equal(services["@type"], "OfferCatalog");
-  assert.equal(services.itemListElement.length, 6);
+  assert.equal(services.itemListElement.length, 4);
   for (const offer of services.itemListElement) {
     assert.equal(offer["@type"], "Offer");
     const service = nodesById.get(offer.itemOffered["@id"]);
@@ -417,7 +417,7 @@ test("exposes a linked organization, services and projects JSON-LD graph without
 
   for (const description of descriptions) {
     assert.ok(
-      homeWithoutStructuredData.includes(description),
+      homeWithoutStructuredData.replace(/\s+/g, " ").includes(description),
       `structured description is not present in visible or interactive page content: ${description}`,
     );
   }
@@ -431,20 +431,9 @@ test("keeps non-public previews and browser artifacts out of Vercel deployments"
   }
 });
 
-test("does not defer the largest hero heading behind an entrance animation", async () => {
-  const home = await read("index.html");
-  const i18n = await read("assets/i18n.js");
-  const h1 = home.match(/<h1\b[^>]*>/)?.[0];
-
-  assert.ok(h1, "missing H1");
-  assert.doesNotMatch(h1, /gsap-hero-text|opacity-0/);
-  assert.match(home, /<h1\b[\s\S]*?accent-reveal--static[\s\S]*?<\/h1>/);
-  assert.match(home, /querySelectorAll\("\.accent-reveal:not\(\.accent-reveal--static\)"\)/);
-  assert.match(home, /rel="preload" as="font"/);
-  assert.match(home, /font-family: "Geist";[^}]*font-display: optional;[^}]*geist-variable\.woff2/);
-  assert.match(home, /rel="preload" as="font"[^>]*\s+href="assets\/fonts\/geist-variable\.woff2"/);
-  assert.doesNotMatch(home, /fraunces|family=Inter|ivarTextFont|abcdFont/i, "the home renders a single Geist family");
-  assert.match(i18n, /let activeLanguage = "es"/);
-  assert.match(i18n, /if \(next !== activeLanguage\)/);
-  assert.match(i18n, /next === "en" \? "en" : "es-AR"/);
+test("does not hide the hero heading and preloads local Geist fonts",async()=>{
+  const html=await read("index.html"); const css=await read("redisenio/styles.css");
+  const h1=html.match(/<h1\b[^>]*>/)?.[0]; assert.ok(h1); assert.doesNotMatch(h1,/opacity-0|reveal-pending/);
+  assert.match(html,/geist-medium\.woff2/); assert.match(css,/font-family: Geist/); assert.match(css,/font-display: swap/);
+  assert.doesNotMatch(html,/fonts\.googleapis\.com/);
 });
