@@ -54,6 +54,28 @@ const casePages = [
 ];
 const indexablePages = [...servicePages, ...casePages];
 
+test("shares the current brand image with truthful dimensions and consistent social copy", async () => {
+  const home = await read("index.html");
+  const asset = await readFile(new URL("assets/acelera-social-20261010.png", root));
+  assert.equal(asset.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+  const dimensions = [asset.readUInt32BE(16), asset.readUInt32BE(20)];
+  assert.deepEqual(dimensions, [1200, 630]);
+  for (const key of ["title", "description", "image"]) {
+    const og = home.match(new RegExp(`<meta property="og:${key}" content="([^"]+)"`))?.[1];
+    const twitter = home.match(new RegExp(`<meta name="twitter:${key}" content="([^"]+)"`))?.[1];
+    assert.ok(og);
+    assert.equal(twitter, og);
+  }
+  for (const file of ["index.html", ...servicePages.map(page => page.file)]) {
+    const html = await read(file);
+    assert.match(html, /https:\/\/www\.acelera\.agency\/assets\/acelera-social-20261010\.png/);
+    assert.doesNotMatch(html, /\/assets\/og-image\.png/);
+    assert.match(html, /property="og:image:width" content="1200"/);
+    assert.match(html, /property="og:image:height" content="630"/);
+    assert.match(html, /property="og:image:alt" content="[^\"]+"/);
+  }
+});
+
 async function read(relativePath) {
   return readFile(new URL(relativePath, root), "utf8");
 }
@@ -83,8 +105,8 @@ test("keeps canonical metadata aligned with the final www host", async () => {
   assert.match(home, /<html lang="es-AR"/);
   assert.match(home, /<link rel="canonical" href="https:\/\/www\.acelera\.agency\/"/);
   assert.match(home, /<meta property="og:url" content="https:\/\/www\.acelera\.agency\/"/);
-  assert.match(home, /<meta property="og:image:width" content="1432"/);
-  assert.match(home, /<meta property="og:image:height" content="891"/);
+  assert.match(home, /<meta property="og:image:width" content="1200"/);
+  assert.match(home, /<meta property="og:image:height" content="630"/);
   assert.match(privacy, /<link rel="canonical" href="https:\/\/www\.acelera\.agency\/privacidad"/);
   assert.match(terms, /<link rel="canonical" href="https:\/\/www\.acelera\.agency\/terminos"/);
 
@@ -124,7 +146,7 @@ test("positions the homepage clearly and keeps footer contact data out of Google
       `<meta name="description"\\s+content="${description.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`,
     ),
   );
-  assert.match(home, /<meta property="og:title" content="Acelera Agency \| Software a medida e IA para empresas"/);
+  assert.match(home, /<meta property="og:title" content="Acelera — Software a medida e IA con sentido"/);
   assert.match(home, /"name": "Acelera Agency \| Software a medida e IA para empresas"/);
   assert.match(home, /<div class="footer-brand" data-nosnippet>/);
 

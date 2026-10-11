@@ -1,6 +1,7 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { socialMetadata } from './social-preview.mjs';
 
 // Rebuild only the alternative proposal. Source pages are never modified.
 // Header/footer are read at build time so the proposal has one navigation source.
@@ -115,6 +116,6 @@ for (const page of pages) {
 `;
   const target = path.join(root, "redisenio", `${page.route}.html`);
   await mkdir(path.dirname(target), { recursive: true });
-  await writeFile(target, html.replace(/[\t ]+$/gm, ''));
+  await writeFile(target, socialMetadata(html).replace(/[\t ]+$/gm, ''));
   console.log(`Generada /redisenio/${page.route}`);
 }

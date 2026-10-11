@@ -1,6 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { socialMetadata } from './social-preview.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const origin = 'https://www.acelera.agency';
@@ -53,6 +54,7 @@ for (const route of routes) {
     html = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, `<script type="application/ld+json">\n${homeSchema(html)}\n</script>`);
   }
   html = html.replace(/<!-- proposal-metadata:(start|end) -->/g, '');
+  html = socialMetadata(html, route === 'index');
   await writeFile(resolve(root, `${route}.html`), html.replace(/[\t ]+$/gm, ''));
 }
 console.log(`Promoted ${routes.length} redesigned pages; archive preserved.`);

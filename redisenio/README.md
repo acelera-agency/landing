@@ -2,6 +2,10 @@
 
 Vista local: **http://127.0.0.1:4173/** (`npm run dev`). La raíz usa ahora el rediseño; `/redisenio/` conserva una copia no indexable para revisión. Las versiones previas se documentan abajo como historial.
 
+## Vista previa social — revisión 20, 10 de octubre de 2026
+
+La imagen anterior de compartir se reemplaza por `assets/acelera-social-20261010.png`, una tarjeta de 1200×630 basada en el hero actual, Geist y las manos con el acento de la estrella. Se capturó desde Chrome para mantener texto nítido. `scripts/build-social-preview.mjs` genera la página de captura local; `scripts/social-preview.mjs` centraliza la imagen y la copia social. El título de buscadores y la copia visible permanecen iguales. Open Graph y Twitter usan el mismo título corto y descripción. Las páginas de servicio actualizan su imagen genérica; Faro conserva su imagen específica. La URL de imagen nueva evita reutilizar el archivo anterior cuando la aplicación vuelve a consultar los metadatos. Las vistas previas guardadas por aplicaciones externas no se pueden invalidar desde el sitio.
+
 ## Hover — revisión 19, 10 de octubre de 2026
 
 El pincel naranja de ambas manos se amplía aproximadamente un 19% en radio de referencia y usa tres elipses inclinadas superpuestas, con bordes suaves. El color sigue limitado a la textura real; no se agrega un fondo naranja. La estrella de la portada conserva un acento parcial en reposo, anclado a las coordenadas del dibujo y limitado proporcionalmente para mantener una parte gris también en móvil. El acento estático no activa un bucle de animación. El glitch del footer se mantiene.
