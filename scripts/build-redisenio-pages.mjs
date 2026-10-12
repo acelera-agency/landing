@@ -2,16 +2,13 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { socialMetadata } from './social-preview.mjs';
+import { retiredServiceRoutes, removeRetiredPages } from './public-routes.mjs';
 
 // Rebuild only the alternative proposal. Source pages are never modified.
 // Header/footer are read at build time so the proposal has one navigation source.
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const version = "20261011-release-18";
+const version = "20261012-services-1";
 const pages = [
-  { route: "desarrollo-software-a-medida", label: "Software a medida", kind: "service" },
-  { route: "plataformas-internas", label: "Plataformas internas", kind: "service" },
-  { route: "agentes-ia-empresas", label: "Agentes de IA", kind: "service" },
-  { route: "consultoria-ia-empresas", label: "Consultoría de IA", kind: "service" },
   { route: "casos/faro", label: "Faro", kind: "case" },
   { route: "privacidad", label: "Privacidad", kind: "legal" },
   { route: "terminos", label: "Términos", kind: "legal" },
@@ -20,6 +17,7 @@ const pages = [
 const home = await readFile(path.join(root, "redisenio/index.html"), "utf8");
 const homeIds = new Set([...home.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]));
 const routeSet = new Set(pages.map(({ route }) => `/${route}`));
+await removeRetiredPages(['redisenio/']);
 
 function requireMatch(html, expression, context) {
   const result = html.match(expression);
@@ -44,7 +42,8 @@ function mapLinks(html, sharedNavigation = false) {
     else {
       const [pathname, suffix = ""] = href.split(/(?=[?#])/s, 2);
       const cleanPath = pathname.replace(/\.html$/, "").replace(/\/$/, "");
-      if (routeSet.has(cleanPath)) next = `/redisenio${cleanPath}${suffix}`;
+      if (retiredServiceRoutes.includes(cleanPath.slice(1))) next = homeAnchor('#servicios');
+      else if (routeSet.has(cleanPath)) next = `/redisenio${cleanPath}${suffix}`;
     }
     return `href=${quote}${next}${quote}`;
   });

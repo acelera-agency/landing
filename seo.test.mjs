@@ -1,47 +1,10 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { publicRoutes } from "./scripts/public-routes.mjs";
 
 const root = new URL("./", import.meta.url);
 const canonicalOrigin = "https://www.acelera.agency";
-const servicePages = [
-  {
-    file: "desarrollo-software-a-medida.html",
-    route: "/desarrollo-software-a-medida",
-    title: "Desarrollo de software a medida en Argentina | Acelera",
-    description:
-      "Desarrollamos software y aplicaciones con IA a medida para empresas en Argentina. Del problema a producción, con código, documentación y control.",
-    h1: "Desarrollo de software a medida para empresas",
-    serviceType: "Desarrollo de software a medida",
-  },
-  {
-    file: "plataformas-internas.html",
-    route: "/plataformas-internas",
-    title: "Plataformas internas para empresas | Acelera",
-    description:
-      "Diseñamos plataformas internas para reemplazar planillas, mensajes y procesos manuales por un sistema con permisos, integraciones y trazabilidad.",
-    h1: "Plataformas internas que ordenan la operación",
-    serviceType: "Desarrollo de plataformas internas",
-  },
-  {
-    file: "agentes-ia-empresas.html",
-    route: "/agentes-ia-empresas",
-    title: "Agentes de IA para empresas en Argentina | Acelera",
-    description:
-      "Desarrollamos agentes de IA conectados a información y sistemas reales, con permisos, evaluación, trazabilidad y revisión humana.",
-    h1: "Agentes de IA integrados a procesos reales",
-    serviceType: "Desarrollo de agentes de inteligencia artificial",
-  },
-  {
-    file: "consultoria-ia-empresas.html",
-    route: "/consultoria-ia-empresas",
-    title: "Consultoría de IA para empresas en Argentina | Acelera",
-    description:
-      "Evaluamos dónde la IA puede mejorar un proceso y, cuando tiene sentido, diseñamos e implementamos la solución hasta producción.",
-    h1: "Consultoría de IA que llega a una decisión concreta",
-    serviceType: "Consultoría e implementación de inteligencia artificial",
-  },
-];
 const casePages = [
   {
     file: "casos/faro.html",
@@ -52,7 +15,7 @@ const casePages = [
     h1: "Faro: de datos dispersos a expedientes verificables",
   },
 ];
-const indexablePages = [...servicePages, ...casePages];
+const indexablePages = casePages;
 
 test("shares the current brand image with truthful dimensions and consistent social copy", async () => {
   const home = await read("index.html");
@@ -66,7 +29,7 @@ test("shares the current brand image with truthful dimensions and consistent soc
     assert.ok(og);
     assert.equal(twitter, og);
   }
-  for (const file of ["index.html", ...servicePages.map(page => page.file)]) {
+  for (const file of ['index.html', 'en/index.html']) {
     const html = await read(file);
     assert.match(html, /https:\/\/www\.acelera\.agency\/assets\/acelera-social-20261010\.png/);
     assert.doesNotMatch(html, /\/assets\/og-image\.png/);
@@ -156,89 +119,16 @@ test("positions the homepage clearly and keeps footer contact data out of Google
   assert.doesNotMatch(i18n, /document\.title\s*=[\s\S]*?"Acelera \| IA con sentido, donde el negocio lo pide"/);
 });
 
-test("publishes differentiated service pages for high-intent software and AI searches", async () => {
-  const home = await read("index.html");
-  const titles = new Set();
-  const descriptions = new Set();
-
-  for (const page of servicePages) {
-    const html = await read(page.file);
-    const canonicalUrl = `${canonicalOrigin}${page.route}`;
-    const h1Matches = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];
-    const jsonLdMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
-
-    assert.match(home, new RegExp(`href="${page.route.replaceAll("/", "\\/")}"`));
-    assert.match(html, /<html lang="es-AR"/);
-    assert.match(html, /<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/);
-    assert.match(html, new RegExp(`<link rel="canonical" href="${canonicalUrl.replaceAll(".", "\\.")}"`));
-    assert.match(html, new RegExp(`<title>${page.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</title>`));
-    assert.match(
-      html,
-      new RegExp(
-        `<meta name="description"\\s+content="${page.description.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`,
-      ),
-    );
-    assert.equal(h1Matches.length, 1, `${page.file} must have exactly one H1`);
-    assert.equal(h1Matches[0][1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(), page.h1);
-    assert.match(html, /href="\/#contacto"/);
-    assert.match(html, /href="\/privacidad"/);
-    assert.match(html, /href="\/terminos"/);
-    assert.ok(jsonLdMatch, `${page.file} is missing JSON-LD`);
-
-    const graph = JSON.parse(jsonLdMatch[1])["@graph"];
-    const organization = graph.find((node) => node["@type"] === "Organization");
-    const website = graph.find((node) => node["@type"] === "WebSite");
-    const webpage = graph.find((node) => node["@type"] === "WebPage");
-    const service = graph.find((node) => node["@type"] === "Service");
-    const breadcrumbs = graph.find((node) => node["@type"] === "BreadcrumbList");
-
-    assert.equal(organization["@id"], `${canonicalOrigin}/#organization`);
-    assert.equal(organization.alternateName, "Acelera Agency");
-    assert.ok(organization.sameAs.includes("https://github.com/acelera-agency"));
-    assert.equal(website["@id"], `${canonicalOrigin}/#website`);
-    assert.equal(webpage.url, canonicalUrl);
-    assert.equal(webpage.mainEntity["@id"], service["@id"]);
-    assert.equal(service.url, canonicalUrl);
-    assert.equal(service.serviceType, page.serviceType);
-    assert.equal(service.provider["@id"], organization["@id"]);
-    assert.equal(service.areaServed.name, "Argentina");
-    assert.equal(breadcrumbs.itemListElement.at(-1).item, canonicalUrl);
-
-    const htmlWithoutStructuredData = html.replace(
-      /<script type="application\/ld\+json">[\s\S]*?<\/script>/,
-      "",
-    );
-    assert.ok(
-      htmlWithoutStructuredData.includes(service.description),
-      `${page.file} service description must also be visible`,
-    );
-    assert.ok((html.match(/<details\b/g) || []).length >= 3, `${page.file} needs useful visible FAQs`);
-
-    for (const relatedPage of servicePages.filter((candidate) => candidate.route !== page.route)) {
-      assert.match(html, new RegExp(`href="${relatedPage.route.replaceAll("/", "\\/")}"`));
-    }
-
-    titles.add(page.title);
-    descriptions.add(page.description);
-  }
-
-  assert.equal(titles.size, servicePages.length);
-  assert.equal(descriptions.size, servicePages.length);
-});
 
 test("publishes Faro as a source-backed case with transparent attribution", async () => {
   const [page] = casePages;
   const home = await read("index.html");
-  const softwarePage = await read("desarrollo-software-a-medida.html");
-  const platformsPage = await read("plataformas-internas.html");
   const html = await read(page.file);
   const canonicalUrl = `${canonicalOrigin}${page.route}`;
   const h1Matches = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];
   const jsonLdMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
 
   assert.match(home, /href="\/casos\/faro"/);
-  assert.match(softwarePage, /href="\/casos\/faro"/);
-  assert.match(platformsPage, /href="\/casos\/faro"/);
   assert.match(html, /<html lang="es-AR"/);
   assert.match(html, /<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/);
   assert.match(html, new RegExp(`<link rel="canonical" href="${canonicalUrl.replaceAll(".", "\\.")}"`));
@@ -288,31 +178,14 @@ test("publishes a concise machine-readable guide without inventing a second cont
   assert.match(llms, /https:\/\/www\.linkedin\.com\/company\/acelera-agency/);
   assert.match(llms, /https:\/\/github\.com\/acelera-agency/);
 
-  for (const page of servicePages) {
-    assert.match(llms, new RegExp(`${canonicalOrigin.replaceAll(".", "\\.")}${page.route}`));
-  }
+  assert.ok(llms.includes(`${canonicalOrigin}/#servicios`));
   assert.match(llms, new RegExp(`${canonicalOrigin.replaceAll(".", "\\.")}/casos/faro`));
 });
 
-test("answers the applications-with-AI intent in the final visible FAQ", async () => {
-  const html = await read("desarrollo-software-a-medida.html");
-  const visibleHtml = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, "");
-
-  assert.match(
-    visibleHtml,
-    /<details>\s*<summary>¿Desarrollan aplicaciones con IA\?<\/summary>\s*<p>Sí\. Acelera diseña y desarrolla aplicaciones web, plataformas internas y productos digitales que incorporan IA cuando resuelve una necesidad concreta\.[\s\S]*?<\/p>\s*<\/details>\s*<\/div>\s*<\/section>/,
-  );
-  assert.match(visibleHtml, /agentes, automatizaciones, integraciones o funciones sobre datos propios/);
-  assert.match(visibleHtml, /permisos, evaluación y revisión humana/);
-});
 
 test("uses direct language instead of diagnosis and generic work-with phrasing", async () => {
   const publicFiles = [
     "index.html",
-    "desarrollo-software-a-medida.html",
-    "plataformas-internas.html",
-    "agentes-ia-empresas.html",
-    "consultoria-ia-empresas.html",
     "assets/i18n.js",
   ];
 
@@ -327,13 +200,13 @@ test("uses direct language instead of diagnosis and generic work-with phrasing",
   assert.match(home.replace(/\s+/g," "), /La arquitectura depende del producto, las integraciones y el equipo que va a mantenerlo\./);
 });
 
-test("keeps repetitive service-page footer copy out of result snippets", async () => {
-  for (const page of servicePages) {
-    const html = await read(page.file);
+test("keeps repetitive footer copy out of result snippets", async () => {
+  for (const route of publicRoutes) {
+    const html = await read(route + ".html");
     assert.match(
       html,
       /<footer class="site-footer">[\s\S]*?<div class="footer-brand" data-nosnippet>/,
-      `${page.file} should exclude its generic footer brand copy from snippets`,
+      `${route} should exclude its generic footer brand copy from snippets`,
     );
   }
 });

@@ -3,11 +3,12 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { socialMetadata } from './social-preview.mjs';
 import { buildLocales } from './build-locales.mjs';
+import { publicRoutes } from './public-routes.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const origin = 'https://www.acelera.agency';
 const version = '20261012-language-1';
-const routes = ['index', 'desarrollo-software-a-medida', 'plataformas-internas', 'agentes-ia-empresas', 'consultoria-ia-empresas', 'casos/faro', 'privacidad', 'terminos'];
+const routes = publicRoutes;
 const read = (file) => readFile(resolve(root, file), 'utf8');
 const schema = (html) => JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
 const original = await read('docs/archive/pre-redesign/index.html');

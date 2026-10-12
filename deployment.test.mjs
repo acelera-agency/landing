@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
 import test from "node:test";
 const read = p=>readFile(new URL(p,import.meta.url),"utf8");
-const pages=["index","desarrollo-software-a-medida","plataformas-internas","agentes-ia-empresas","consultoria-ia-empresas","casos/faro","privacidad","terminos"];
+import { publicRoutes as pages } from "./scripts/public-routes.mjs";
 test("mutable shared and redesign assets are revalidated",async()=>{
   const config=JSON.parse(await read("vercel.json"));
   for(const source of ["/assets/(.*)","/redisenio/(.*)"]) assert.equal(config.headers.find(r=>r.source===source)?.headers.find(h=>h.key==="Cache-Control")?.value,"public, max-age=0, must-revalidate");
@@ -14,7 +14,7 @@ test("all production pages point to final routes and existing released resources
       const url=tag[0].match(/(?:src|href)="(\/[^"?#]+)/)?.[1];
       if(url) await access(new URL("."+url,import.meta.url));
     }
-    assert.match(html,/styles\.css\?v=20261011-release-18/);
+    assert.match(html,/styles\.css\?v=20261012-services-1/);
     assert.match(html,/app\.js\?v=20261012-language-1/);
     assert.doesNotMatch(html,/href="\/redisenio\/(?:privacidad|terminos|casos\/faro|desarrollo-software-a-medida|plataformas-internas|agentes-ia-empresas|consultoria-ia-empresas)(?:["#])/);
   }

@@ -10,10 +10,10 @@
 
 ## Servicios
 
-- Desarrollo de software y aplicaciones a medida: https://www.acelera.agency/desarrollo-software-a-medida
-- Plataformas internas: https://www.acelera.agency/plataformas-internas
-- Agentes de IA para empresas: https://www.acelera.agency/agentes-ia-empresas
-- Consultoría e implementación de IA: https://www.acelera.agency/consultoria-ia-empresas
+- Desarrollo de software y aplicaciones a medida: https://www.acelera.agency/#servicios
+- Plataformas internas: https://www.acelera.agency/#servicios
+- Agentes de IA para empresas: https://www.acelera.agency/#servicios
+- Consultoría e implementación de IA: https://www.acelera.agency/#servicios
 
 ## Evidencia y forma de trabajo
 
