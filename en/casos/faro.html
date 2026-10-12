@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Faro case study: public data platform | Acelera</title>
+    <meta name="description" content="How Acelera team members and collaborators built Faro: public data turned into verifiable records, with sources and traceability." />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
+<link rel="canonical" href="https://www.acelera.agency/en/casos/faro"/>
+    <meta name="theme-color" content="#fdfdfd" />
+    <meta name="color-scheme" content="light" />
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Acelera">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Faro case study: public data platform | Acelera">
+    <meta property="og:description" content="From scattered official sources to verifiable records with Explorer, a map, receipts and explicit limits.">
+    <meta property="og:url" content="https://www.acelera.agency/en/casos/faro">
+    <meta property="og:image" content="https://www.acelera.agency/assets/proyectos/faro-hero.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Faro case study: public data platform | Acelera">
+    <meta name="twitter:description" content="A verifiable example of product development, data engineering and traceability using public sources.">
+    <meta name="twitter:image" content="https://www.acelera.agency/assets/proyectos/faro-hero.png">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.acelera.agency/#organization",
+      "name": "Acelera",
+      "alternateName": "Acelera Agency",
+      "url": "https://www.acelera.agency/",
+      "logo": "https://www.acelera.agency/assets/acelera-wordmark.png",
+      "sameAs": [
+        "https://www.linkedin.com/company/acelera-agency",
+        "https://github.com/acelera-agency"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.acelera.agency/#website",
+      "url": "https://www.acelera.agency/",
+      "name": "Acelera",
+      "publisher": {
+        "@id": "https://www.acelera.agency/#organization"
+      },
+      "inLanguage": [
+        "es-AR",
+        "en"
+      ]
+    },
+    {
+      "@type": "CreativeWork",
+      "@id": "https://www.acelera.agency/en/casos/faro#project",
+      "name": "Faro",
+      "description": "A platform turning official public spending data into verifiable records with Explorer, a map, sources, receipts, caveats and exportable reports.",
+      "url": "https://faro-argentina.vercel.app",
+      "image": [
+        "https://www.acelera.agency/assets/proyectos/faro-hero.png",
+        "https://www.acelera.agency/assets/proyectos/faro-mapa.png",
+        "https://www.acelera.agency/assets/proyectos/faro-expediente.jpg"
+      ],
+      "award": "Ganador del track Transparencia y Corrupción de Hack@LATAM",
+      "sameAs": [
+        "https://faro-argentina.vercel.app",
+        "https://github.com/NachoEstevo/Faro-Argentina"
+      ],
+      "contributor": [
+        {
+          "@type": "Person",
+          "name": "Ignacio Estevo",
+          "sameAs": "https://github.com/NachoEstevo"
+        },
+        {
+          "@type": "Person",
+          "name": "Mauro Proto",
+          "sameAs": "https://github.com/MauroProto"
+        },
+        {
+          "@type": "Person",
+          "name": "Franco Ferreira",
+          "sameAs": "https://www.linkedin.com/in/franco-ferreira/"
+        },
+        {
+          "@type": "Person",
+          "name": "Juan Giorgio",
+          "sameAs": "https://github.com/JuanGiorgio"
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://www.acelera.agency/en/casos/faro#article",
+      "headline": "Faro: from scattered public data to verifiable records",
+      "description": "A verifiable case study on the design and development of Faro by Acelera team members and collaborators.",
+      "url": "https://www.acelera.agency/en/casos/faro",
+      "datePublished": "2026-07-27",
+      "dateModified": "2026-07-27",
+      "inLanguage": "en",
+      "image": "https://www.acelera.agency/assets/proyectos/faro-hero.png",
+      "author": {
+        "@id": "https://www.acelera.agency/#organization"
+      },
+      "publisher": {
+        "@id": "https://www.acelera.agency/#organization"
+      },
+      "about": {
+        "@id": "https://www.acelera.agency/en/casos/faro#project"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://www.acelera.agency/en/casos/faro#webpage"
+      },
+      "citation": [
+        "https://github.com/NachoEstevo/Faro-Argentina",
+        "https://es.linkedin.com/posts/ai-playgrounds-tech_hack-activity-7465177592455835648-2Asl",
+        "https://www.linkedin.com/in/franco-ferreira/"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.acelera.agency/en/casos/faro#webpage",
+      "url": "https://www.acelera.agency/en/casos/faro",
+      "name": "Faro case study: public data platform | Acelera",
+      "description": "How Acelera team members and collaborators built Faro: public data turned into verifiable records, with sources and traceability.",
+      "isPartOf": {
+        "@id": "https://www.acelera.agency/#website"
+      },
+      "about": {
+        "@id": "https://www.acelera.agency/en/casos/faro#project"
+      },
+      "mainEntity": {
+        "@id": "https://www.acelera.agency/en/casos/faro#article"
+      },
+      "breadcrumb": {
+        "@id": "https://www.acelera.agency/en/casos/faro#breadcrumb"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.acelera.agency/en/casos/faro#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.acelera.agency/en/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Faro",
+          "item": "https://www.acelera.agency/en/casos/faro"
+        }
+      ]
+    }
+  ]
+}
+</script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/redisenio/assets/geist-medium.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/redisenio/assets/geist-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/analytics.css?v=20261012-language-1" />
+    <link rel="stylesheet" href="/redisenio/styles.css?v=20261011-release-18" />
+    <link rel="stylesheet" href="/assets/language.css?v=20261012-1" />
+    <link rel="stylesheet" href="/redisenio/pages.css?v=20261011-release-18" />
+    <script src="/assets/locale.js?v=20261012-1" defer></script>
+    <script src="/assets/analytics.js?v=20261012-language-1" defer></script>
+    <script src="/assets/app.js?v=20261012-language-1" defer></script>
+    <script src="/redisenio/site.js?v=20261012-language-1" defer></script>
+  <link rel="alternate" hreflang="es-AR" href="https://www.acelera.agency/casos/faro"/>
+<link rel="alternate" hreflang="en" href="https://www.acelera.agency/en/casos/faro"/>
+<link rel="alternate" hreflang="x-default" href="https://www.acelera.agency/casos/faro"/>
+</head>
+  <body class="proposal-subpage" data-variant="framer-redisenio">
+    <a class="skip-link" href="#contenido">Skip to content</a>
+    <header class="site-header">
+<nav aria-label="Main navigation" class="navigation">
+<div class="nav-side nav-side--left">
+<a class="bracket-link" href="/en/#equipo">Team</a>
+<a class="bracket-link" href="/en/#servicios">Services</a>
+</div>
+<a aria-label="Acelera — home" class="brand" href="/en/#inicio">
+<img alt="Acelera" height="36" src="/assets/acelera-wordmark-184.webp" width="92"/>
+</a>
+<div class="nav-side nav-side--right">
+<a class="bracket-link" href="/en/#proyectos">Projects</a>
+<a class="bracket-link" href="/en/#contacto">Contact</a>
+</div>
+<a class="language-switch" data-language-switch data-language-option="es" href="/casos/faro" hreflang="es-AR" lang="es" aria-label="Ver esta página en español"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7"/><ellipse cx="10" cy="10" rx="3" ry="7"/><path d="M3 10h14"/></svg><span>ES</span></a>
+<button aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu" class="menu-toggle" type="button">
+<span></span><span></span><span></span>
+</button>
+<div class="mobile-menu" hidden="" id="mobile-menu">
+<a class="bracket-link" href="/en/#servicios">Services</a>
+<a class="bracket-link" href="/en/#proceso">Process</a>
+<a class="bracket-link" href="/en/#proyectos">Projects</a>
+<a class="bracket-link" href="/en/#equipo">Team</a>
+<a class="bracket-link" href="/en/#contacto">Contact</a>
+</div>
+</nav>
+</header>
+    <main class="page-content page-content--case" id="contenido">
+      <nav class="page-breadcrumb" aria-label="Breadcrumb">
+        <a href="/en/">Home</a><span aria-hidden="true">/</span><span aria-current="page">Faro</span>
+      </nav>
+
+    <section class="shell service-hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Verifiable case study · Public data</p>
+        <h1 id="page-title">Faro: from scattered data to verifiable records</h1>
+        <p class="hero-lead">Acelera team members and collaborators built a platform that organizes official public spending sources, preserves traceability and makes clear what can be stated and what still needs verification.</p>
+        <div class="hero-actions">
+          <a class="primary-action" href="https://faro-argentina.vercel.app" target="_blank" rel="noopener noreferrer">Open Faro ↗</a>
+          <a class="secondary-action" href="#evidencia">Review the evidence ↓</a>
+        </div>
+      </div>
+      <aside class="hero-aside" aria-label="Public status of the Faro case study">
+        <p class="aside-label">Case study transparency</p>
+        <p>An award-winning project that can be verified publicly.</p>
+        <dl>
+          <div>
+            <dt>Type</dt>
+            <dd>A product by team members and collaborators, rather than a client project.</dd>
+          </div>
+          <div>
+            <dt>Validation</dt>
+            <dd>Winner of the Transparency and Corruption track at Hack@LATAM.</dd>
+          </div>
+          <div>
+            <dt>Sources</dt>
+            <dd>Public platform, repository and recognition.</dd>
+          </div>
+        </dl>
+      </aside>
+    </section>
+
+    <nav class="shell page-index" aria-label="Page contents">
+      <span>In this case study</span>
+      <a href="#problema">Problem</a>
+      <a href="#solucion">Solution</a>
+      <a href="#criterio">Principles</a>
+      <a href="#evidencia">Evidence</a>
+      <a href="#fuentes">Sources</a>
+    </nav>
+
+    <section class="shell content-section" id="problema">
+      <div class="section-heading">
+        <p class="section-kicker">The problem</p>
+        <div>
+          <h2>The data exists, but verifying a lead takes too much work</h2>
+          <p class="section-intro">Information on public works, contracts, agencies and suppliers is spread across portals, files and incompatible formats. Finding a record is not enough: its origin must be preserved, its limits understood and the process reproducible.</p>
+        </div>
+      </div>
+      <div class="decision-grid">
+        <ul class="signal-list">
+          <li>The same investigation requires moving between portals, CSV files, APIs and documents.</li>
+          <li>Identifiers, names and amounts do not always use the same format.</li>
+          <li>A contract or award can be confused with a payment if context is not preserved.</li>
+          <li>Many records do not have sufficiently precise official geometry to display on a map.</li>
+        </ul>
+        <aside class="decision-note">
+          <p class="aside-label">Product goal</p>
+          <h3>Reduce the distance between a lead and its verification.</h3>
+          <p>Faro does not replace investigation. It organizes the process so every claim leads back to a source and shows its limits.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="shell content-section" id="solucion">
+      <div class="section-heading">
+        <p class="section-kicker">What we built</p>
+        <div>
+          <h2>A complete workflow from search to exportable evidence</h2>
+          <p class="section-intro">The product combines exploration, data normalization and traceability. The map guides users where valid geometry exists; Explorer also keeps records accessible when they cannot be plotted reliably.</p>
+        </div>
+      </div>
+      <div class="service-lines">
+        <article class="service-line">
+          <h3>Explorer</h3>
+          <p>Search by agency, supplier, source, signal or free text to find a lead without relying on the map.</p>
+        </article>
+        <article class="service-line">
+          <h3>Records</h3>
+          <p>Each case brings together a summary, key data, sources, limitations and next verification steps.</p>
+        </article>
+        <article class="service-line">
+          <h3>Receipts</h3>
+          <p>Hashes, paths, identifiers and parser versions preserve a reproducible technical trail.</p>
+        </article>
+        <article class="service-line">
+          <h3>Evidence packs</h3>
+          <p>The record can be exported with a claims matrix, caveats and an investigative checklist.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-media-section" aria-label="Faro product views">
+      <div class="shell case-media-grid">
+        <figure class="case-figure case-figure--wide">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/assets/proyectos/faro-hero-720.webp 720w, /assets/proyectos/faro-hero-1080.webp 1080w, /assets/proyectos/faro-hero.webp 1400w"
+              sizes="(max-width: 1280px) calc(100vw - 2rem), 1248px">
+            <img src="/assets/proyectos/faro-hero.png" alt="Faro homepage with access to the map and public data explorer" width="1400" height="787" loading="lazy" decoding="async">
+          </picture>
+          <figcaption>Public entry point to Faro.</figcaption>
+        </figure>
+        <figure class="case-figure">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/assets/proyectos/faro-mapa-720.webp 720w, /assets/proyectos/faro-mapa-1080.webp 1080w, /assets/proyectos/faro-mapa-1440.webp 1440w"
+              sizes="(max-width: 700px) calc(100vw - 2rem), (max-width: 1280px) calc((100vw - 4rem) / 2), 608px">
+            <img src="/assets/proyectos/faro-mapa.png" alt="Faro interactive map with records and geographic filters" width="2000" height="1253" loading="lazy" decoding="async">
+          </picture>
+          <figcaption>The map displays only geometry that passes integrity checks.</figcaption>
+        </figure>
+        <figure class="case-figure">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="/assets/proyectos/faro-expediente-720.webp 720w, /assets/proyectos/faro-expediente-1080.webp 1080w, /assets/proyectos/faro-expediente-1440.webp 1440w"
+              sizes="(max-width: 700px) calc(100vw - 2rem), (max-width: 1280px) calc((100vw - 4rem) / 2), 608px">
+            <img src="/assets/proyectos/faro-expediente.jpg" alt="Faro record with agency, supplier, amount, source and verification steps" width="2000" height="1255" loading="lazy" decoding="async">
+          </picture>
+          <figcaption>The record connects a lead to its source and limitations.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="shell content-section" id="criterio">
+      <div class="section-heading">
+        <p class="section-kicker">A central decision</p>
+        <div>
+          <h2>Prioritize verifiability over a striking conclusion</h2>
+          <p class="section-intro">In a sensitive domain, the interface also shapes which claims seem valid. Faro avoids corruption or guilt scores and distinguishes what a source supports, what is partial and what cannot yet be claimed.</p>
+        </div>
+      </div>
+      <div class="deliverables">
+        <div>
+          <p class="section-kicker">Product rule</p>
+          <h2>Faro does not accuse. It shows where to look.</h2>
+        </div>
+        <div class="deliverables-copy">
+          <p>Traceability is not separate technical documentation: it is part of the product the user sees and exports.</p>
+          <ul class="deliverable-list">
+            <li>A visible official source for each integrated record.</li>
+            <li>Caveats about what that source cannot establish.</li>
+            <li>Invalid geometry preserved as a gap, rather than plotted as certainty.</li>
+            <li>A claims matrix with supported, partial and not supported states.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="evidence-section" id="evidencia">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="section-kicker">Public evidence</p>
+          <div>
+            <h2>Results that can be checked at the source</h2>
+            <p class="section-intro">The baseline published in the repository corresponds to the snapshot regenerated on July 14, 2026. These are technical coverage metrics, rather than business outcomes.</p>
+          </div>
+        </div>
+        <div class="case-list">
+          <article class="case-row">
+            <p class="case-kicker">Corpus</p>
+            <div>
+              <h3>7,935 records</h3>
+              <p>Argentine records and relationships organized from six generated datasets.</p>
+            </div>
+            <a href="https://github.com/NachoEstevo/Faro-Argentina#estado-actual" target="_blank" rel="noopener noreferrer">View source ↗</a>
+          </article>
+          <article class="case-row">
+            <p class="case-kicker">Traceability</p>
+            <div>
+              <h3>9,634 receipts</h3>
+              <p>Reproducible trails with identifiers, hashes, paths and parser versions.</p>
+            </div>
+            <a href="https://github.com/NachoEstevo/Faro-Argentina#estado-actual" target="_blank" rel="noopener noreferrer">View source ↗</a>
+          </article>
+          <article class="case-row">
+            <p class="case-kicker">A cautious map</p>
+            <div>
+              <h3>180 records</h3>
+              <p>Cases eligible for the map after geographic integrity checks.</p>
+            </div>
+            <a href="https://github.com/NachoEstevo/Faro-Argentina#estado-actual" target="_blank" rel="noopener noreferrer">View source ↗</a>
+          </article>
+          <article class="case-row">
+            <p class="case-kicker">External validation</p>
+            <div>
+              <h3>Track winner</h3>
+              <p>Hack@LATAM recognized Faro as the winner of the Transparency and Corruption track.</p>
+            </div>
+            <a href="https://es.linkedin.com/posts/ai-playgrounds-tech_hack-activity-7465177592455835648-2Asl" target="_blank" rel="noopener noreferrer">View announcement ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell content-section" aria-labelledby="attribution-title">
+      <div class="section-heading">
+        <p class="section-kicker">Attribution</p>
+        <div>
+          <h2 id="attribution-title">What participation is documented</h2>
+          <p class="section-intro">Faro is presented as a project built by members of what is now the Acelera team, together with collaborators. It is not presented as the agency&#39;s exclusive work or a client project.</p>
+        </div>
+      </div>
+      <div class="decision-grid">
+        <ul class="signal-list">
+          <li>The public repository records main contributions by Ignacio Estevo, Mauro Proto and Juan Giorgio.</li>
+          <li>Franco Ferreira publicly documents Faro, its development and its recognition.</li>
+          <li>The organizer independently published the track result.</li>
+          <li>The platform and code can be reviewed without relying on Acelera&#39;s claims.</li>
+        </ul>
+        <aside class="decision-note">
+          <p class="aside-label">An explicit limit</p>
+          <h3>This is not a client project.</h3>
+          <p>It demonstrates product, data and engineering capabilities. On its own, it does not demonstrate business results, savings or impact within a company.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="related-section" id="fuentes" aria-labelledby="sources-title">
+      <div class="shell">
+        <div class="related-heading">
+          <h2 id="sources-title">Sources to verify the case study</h2>
+          <a href="/en/#proyectos">Back to projects →</a>
+        </div>
+        <div class="related-grid">
+          <a class="related-link" href="https://faro-argentina.vercel.app" target="_blank" rel="noopener noreferrer">
+            <span>Public platform</span>
+            <span>Open Faro ↗</span>
+          </a>
+          <a class="related-link" href="https://github.com/NachoEstevo/Faro-Argentina" target="_blank" rel="noopener noreferrer">
+            <span>Repository and documentation</span>
+            <span>Review code and data ↗</span>
+          </a>
+          <a class="related-link" href="https://es.linkedin.com/posts/ai-playgrounds-tech_hack-activity-7465177592455835648-2Asl" target="_blank" rel="noopener noreferrer">
+            <span>External recognition</span>
+            <span>View official announcement ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section">
+      <div class="shell contact-inner">
+        <div>
+          <h2>Do you have scattered data that should become a tool?</h2>
+          <p>We can review the sources, users and decisions the system needs to support before defining what to build.</p>
+        </div>
+        <a class="primary-action" href="/en/#contacto">Talk to Acelera</a>
+      </div>
+    </section>
+
+    </main>
+    <footer class="site-footer">
+<div class="footer-main">
+<div class="footer-content">
+<div class="footer-brand" data-nosnippet>
+<a aria-label="Acelera — back to top" href="/en/#inicio"><img alt="Acelera" height="56" loading="lazy" src="/assets/acelera-wordmark-256.webp" width="142"/></a>
+<p>Custom software.<br/>AI where it makes sense.</p>
+<a class="footer-email" href="mailto:contacto@acelera.agency">contacto@acelera.agency <span aria-hidden="true">↗</span></a>
+<div class="footer-meta">
+<div class="footer-social">
+<a href="https://www.linkedin.com/company/acelera-agency" rel="noopener noreferrer" target="_blank">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/acelera-agency" rel="noopener noreferrer" target="_blank">GitHub <span aria-hidden="true">↗</span></a>
+</div>
+<div class="footer-legal">
+<a href="/en/privacidad">Privacy</a><a href="/en/terminos">Terms</a>
+<button data-analytics-preferences="" type="button">Analytics preferences</button>
+</div>
+<div class="footer-copyright">
+<small>© <span data-year="">2026</span> Acelera</small>
+</div>
+</div>
+</div>
+<nav aria-label="Explore" class="footer-column">
+<h2>Explore</h2>
+<a href="/en/#servicios">Services</a><a href="/en/#proceso">Process</a><a href="/en/#proyectos">Projects</a><a href="/en/#equipo">Team</a><a href="/en/#preguntas">Frequently asked questions</a><a href="/en/#contacto">Contact</a>
+</nav>
+<nav aria-label="Services" class="footer-column">
+<h2>What we do</h2>
+<a href="/en/desarrollo-software-a-medida">Custom software</a><a href="/en/plataformas-internas">Internal platforms</a><a href="/en/agentes-ia-empresas">AI agents</a><a href="/en/consultoria-ia-empresas">AI consulting</a><a href="/en/casos/faro">Faro case study</a>
+</nav>
+</div>
+<div aria-hidden="true" class="footer-art ascii-art" data-crop="570 145 455 879" data-ascii="/redisenio/assets/graphic-b.png" data-ascii-style="blocks" data-ascii-motion="glitch" data-columns="50" data-glow="true" data-hover-color="#C96A43" data-tone="#9f9f9f">
+<img alt="" class="ascii-fallback" height="1024" loading="lazy" src="/redisenio/assets/graphic-b.png" width="1536"/>
+</div>
+</div>
+</footer>
+  </body>
+</html>

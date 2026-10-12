@@ -2,10 +2,11 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { socialMetadata } from './social-preview.mjs';
+import { buildLocales } from './build-locales.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const origin = 'https://www.acelera.agency';
-const version = '20261011-release-18';
+const version = '20261012-language-1';
 const routes = ['index', 'desarrollo-software-a-medida', 'plataformas-internas', 'agentes-ia-empresas', 'consultoria-ia-empresas', 'casos/faro', 'privacidad', 'terminos'];
 const read = (file) => readFile(resolve(root, file), 'utf8');
 const schema = (html) => JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
@@ -58,3 +59,4 @@ for (const route of routes) {
   await writeFile(resolve(root, `${route}.html`), html.replace(/[\t ]+$/gm, ''));
 }
 console.log(`Promoted ${routes.length} redesigned pages; archive preserved.`);
+await buildLocales();

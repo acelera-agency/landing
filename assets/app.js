@@ -1,4 +1,5 @@
 (function () {
+  const t = window.AceleraLocale?.t || (value => value);
   const siteConfig = {
     workingBrand: "Acelera",
     formEndpoint: "https://acelera-lead-gateway.vercel.app/api/lead",
@@ -178,11 +179,11 @@
 
       if (submitButton) {
         submitButton.disabled = true;
-        submitButton.innerHTML = "Enviando...";
+        submitButton.textContent = t("Enviando...");
       }
 
       if (feedback) {
-        feedback.textContent = "Enviando solicitud...";
+        feedback.textContent = t("Enviando solicitud...");
       }
 
       try {
@@ -199,14 +200,14 @@
         });
 
         if (!response.ok) {
-          throw new Error(payload.error || "No pudimos enviar el formulario.");
+          throw new Error(window.AceleraLocale?.language === "en" ? t("No pudimos enviar el formulario.") : (payload.error || "No pudimos enviar el formulario."));
         }
 
         form.reset();
         applyTrackingContext(form);
 
         if (feedback) {
-          feedback.textContent = payload.message || "Recibimos tu consulta. Te respondemos pronto.";
+          feedback.textContent = window.AceleraLocale?.language === "en" ? t("Recibimos tu consulta. Te respondemos pronto.") : (payload.message || "Recibimos tu consulta. Te respondemos pronto.");
         }
 
         window.AceleraAnalytics?.capture("contact_form_submitted", {
@@ -216,7 +217,7 @@
       } catch (error) {
         if (feedback) {
           feedback.textContent =
-            error instanceof Error ? error.message : "Ocurrió un error enviando el formulario.";
+            error instanceof Error ? error.message : t("Ocurrió un error enviando el formulario.");
         }
 
         window.AceleraAnalytics?.capture("contact_form_failed", {

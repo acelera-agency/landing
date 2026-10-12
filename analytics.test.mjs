@@ -20,8 +20,8 @@ async function read(path) {
 test("installs the consent-first PostHog integration on every public page", async () => {
   for (const page of publicPages) {
     const html = await read(page);
-    assert.match(html, /\/assets\/analytics\.css\?v=20261011-release-18/, `${page} should load analytics styles`);
-    assert.match(html, /\/assets\/analytics\.js\?v=20261011-release-18/, `${page} should load analytics code`);
+    assert.match(html, /\/assets\/analytics\.css\?v=20261012-language-1/, `${page} should load analytics styles`);
+    assert.match(html, /\/assets\/analytics\.js\?v=20261012-language-1/, `${page} should load analytics code`);
     assert.match(html, /data-analytics-preferences/, `${page} should expose analytics preferences`);
   }
 });
@@ -39,14 +39,16 @@ test("keeps PostHog disabled before consent and masks contact fields in replay",
 test("keeps the consent banner brief, labelled and aligned with the privacy policy", async () => {
   const [analytics, privacy, i18n] = await Promise.all([read("assets/analytics.js"), read("privacidad.html"), read("assets/i18n.js")]);
 
-  assert.match(analytics, /setAttribute\("aria-label", "Preferencias de analítica"\)/);
+  assert.match(analytics, /setAttribute\("aria-label", t\("Preferencias de analítica"\)\)/);
   assert.match(analytics, /aria-describedby", "analytics-consent-description"/);
-  assert.match(analytics, /href="\/privacidad#tecnologias"/);
-  const description = analytics.match(/id="analytics-consent-description"[^>]*>([^<]*)</)[1];
+  assert.match(analytics, /"\/privacidad#tecnologias"/);
+  assert.match(analytics, /"\/en\/privacidad#tecnologias"/);
+  const description = "Usamos PostHog para mejorar el sitio, solo si lo aceptás.";
+  assert.ok(analytics.includes(description));
   assert.ok(description.length <= 80, "The banner copy should stay to one short sentence");
   // La política cita los botones por su nombre: si cambian, hay que actualizarla.
   for (const label of ["Solo necesarias", "Aceptar analítica"]) {
-    assert.match(analytics, new RegExp(`>${label}</button>`));
+    assert.ok(analytics.includes(`t("${label}")`));
     assert.match(privacy.replace(/\s+/g, " "), new RegExp(`“${label}”`));
     assert.match(i18n, new RegExp(`"${label}":`));
   }

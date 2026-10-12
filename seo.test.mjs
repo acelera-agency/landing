@@ -92,8 +92,8 @@ test("publishes crawl controls and only canonical indexable URLs", async () => {
   for (const page of indexablePages) {
     assert.match(sitemap, new RegExp(`<loc>${canonicalOrigin.replaceAll(".", "\\.")}${page.route}</loc>`));
   }
-  assert.equal((sitemap.match(/<loc>/g) || []).length, indexablePages.length + 1);
-  assert.equal((sitemap.match(/<lastmod>2026-10-10<\/lastmod>/g) || []).length, indexablePages.length + 1);
+  assert.equal((sitemap.match(/<loc>/g) || []).length, (indexablePages.length + 1) * 2);
+  assert.equal((sitemap.match(/<lastmod>2026-10-12<\/lastmod>/g) || []).length, (indexablePages.length + 1) * 2);
   assert.doesNotMatch(sitemap, /privacidad|terminos|landing-prueba|tracking-demo/);
 });
 

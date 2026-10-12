@@ -2,11 +2,12 @@
   "use strict";
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const mobile = window.matchMedia("(max-width: 809px)");
+  const t = window.AceleraLocale?.t || (value => value);
   // Keep the shared privacy dialog on the current site route.
   const policyObserver = new MutationObserver(() => {
     const link = document.querySelector(".analytics-consent__link");
     if (!link) return;
-    link.href = (location.pathname.startsWith("/redisenio/") ? "/redisenio" : "") + "/privacidad#tecnologias";
+    link.href = (location.pathname.startsWith("/redisenio/") ? "/redisenio" : document.documentElement.lang.startsWith("en") ? "/en" : "") + "/privacidad#tecnologias";
     policyObserver.disconnect();
   });
   policyObserver.observe(document.body, { childList: true });
@@ -15,7 +16,7 @@
   const setMenu = (open, restoreFocus = false) => {
     menu.hidden = !open;
     menuButton.setAttribute("aria-expanded", String(open));
-    menuButton.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    menuButton.setAttribute("aria-label", t(open ? "Cerrar menú" : "Abrir menú"));
     if (restoreFocus) menuButton.focus();
   };
   menuButton.addEventListener("click", () => setMenu(menu.hidden));

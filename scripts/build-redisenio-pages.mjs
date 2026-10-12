@@ -96,10 +96,12 @@ for (const page of pages) {
     <link rel="preload" href="/redisenio/assets/geist-regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/assets/analytics.css?v=20260811-1" />
     <link rel="stylesheet" href="/redisenio/styles.css?v=${version}" />
+    <link rel="stylesheet" href="/assets/language.css?v=20261012-1" />
     <link rel="stylesheet" href="/redisenio/pages.css?v=${version}" />
+    <script src="/assets/locale.js?v=20261012-1" defer></script>
     <script src="/assets/analytics.js?v=20260811-1" defer></script>
     <script src="/assets/app.js?v=20260806-3" defer></script>
-    <script src="/redisenio/site.js?v=20261011-hover-19" defer></script>
+    <script src="/redisenio/site.js?v=20261012-language-1" defer></script>
   </head>
   <body class="proposal-subpage" data-variant="framer-redisenio">
     <a class="skip-link" href="#contenido">Saltar al contenido</a>

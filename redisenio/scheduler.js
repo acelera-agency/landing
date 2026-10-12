@@ -5,10 +5,13 @@
   if (!host) return;
   const ENDPOINT = "/api/schedule";
   const BOOKING_LINK = "https://calendar.app.google/Ci3pYTwmLT6q3LMQ8";
-  const fmtTime = new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", hour12: false });
-  const fmtDay = new Intl.DateTimeFormat("es-AR", { weekday: "long", day: "numeric", month: "long" });
-  const fmtMonth = new Intl.DateTimeFormat("es-AR", { month: "long", year: "numeric" });
-  const fmtZone = new Intl.DateTimeFormat("es-AR", { timeZoneName: "shortOffset" });
+  const english = document.documentElement.lang.startsWith("en");
+  const locale = english ? "en-US" : "es-AR";
+  const t = window.AceleraLocale?.t || (value => value);
+  const fmtTime = new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit", hour12: false });
+  const fmtDay = new Intl.DateTimeFormat(locale, { weekday: "long", day: "numeric", month: "long" });
+  const fmtMonth = new Intl.DateTimeFormat(locale, { month: "long", year: "numeric" });
+  const fmtZone = new Intl.DateTimeFormat(locale, { timeZoneName: "shortOffset" });
   const capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1);
   const dayKey = (date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
   const monthIndex = (date) => date.getFullYear() * 12 + date.getMonth();
@@ -23,7 +26,7 @@
   function element(tag, className, text) {
     const node = document.createElement(tag);
     if (className) node.className = className;
-    if (text !== undefined) node.textContent = text;
+    if (text !== undefined) node.textContent = t(text);
     return node;
   }
   function icon(kind) {
@@ -48,7 +51,7 @@
   }
   const live = element("p", "booking-accessible");
   live.setAttribute("role", "status"); live.setAttribute("aria-live", "polite"); live.setAttribute("aria-atomic", "true");
-  function announce(message) { live.textContent = message; }
+  function announce(message) { live.textContent = t(message); }
   function focusElement(node) { if (node) node.focus({ preventScroll: true }); }
   function daySlots() { return state.byDay.get(state.selectedDay) || []; }
   function bounds() {
@@ -144,7 +147,7 @@
     head.append(element("h3", "", date ? capitalize(fmtDay.format(date)) : "Elegí un día"), element("p", "booking-meta", `${state.availability.slotMinutes} min · Google Meet${date ? ` · ${zoneLabel(date)}` : ""}`));
     fragment.append(head);
     if (state.error) fragment.append(errorMessage());
-    const list = element("ul", "booking-slots"); list.setAttribute("aria-label", "Horarios disponibles");
+    const list = element("ul", "booking-slots"); list.setAttribute("aria-label", t("Horarios disponibles"));
     for (const date of dates) {
       const li = element("li"), iso = date.toISOString();
       const choice = button("booking-slot", fmtTime.format(date), () => pickSlot(iso));
@@ -160,7 +163,7 @@
     state.selectedDay = key; state.month = monthIndex(state.byDay.get(key)[0]); state.slot = null; state.stage = "pick"; state.error = ""; state.fallbackAllowed = false;
     render();
     if (focus) focusElement([...host.querySelectorAll("[data-booking-day]")].find((node) => node.dataset.bookingDay === key));
-    announce(`${capitalize(fmtDay.format(state.byDay.get(key)[0]))}: ${daySlots().length} horarios disponibles.`);
+    announce(`${capitalize(fmtDay.format(state.byDay.get(key)[0]))}: ${daySlots().length} ${t("horarios disponibles.")}`);
   }
   function shiftMonth(delta, focus = true) {
     const limit = bounds();
@@ -211,13 +214,13 @@
     const nav = element("div", "booking-month-nav");
     for (const [delta, label, direction] of [[-1, "Mes anterior", "previous"], [1, "Mes siguiente", "next"]]) {
       const control = button("", "", () => shiftMonth(delta)); control.dataset.bookingMonth = direction;
-      control.setAttribute("aria-label", label); control.append(icon(delta < 0 ? "left" : "right"));
+      control.setAttribute("aria-label", t(label)); control.append(icon(delta < 0 ? "left" : "right"));
       control.disabled = locked || (delta < 0 ? state.month <= limit.min : state.month >= limit.max); nav.append(control);
     }
     header.append(heading, nav);
     const weekdays = element("div", "booking-weekdays"); weekdays.setAttribute("aria-hidden", "true");
-    for (const day of ["L", "M", "M", "J", "V", "S", "D"]) weekdays.append(element("span", "", day));
-    const days = element("div", "booking-days"); days.setAttribute("role", "group"); days.setAttribute("aria-label", "Días con horarios disponibles. Usá las flechas para cambiar de día.");
+    for (const day of english ? ["M", "T", "W", "T", "F", "S", "S"] : ["L", "M", "M", "J", "V", "S", "D"]) weekdays.append(element("span", "", day));
+    const days = element("div", "booking-days"); days.setAttribute("role", "group"); days.setAttribute("aria-label", t("Días con horarios disponibles. Usá las flechas para cambiar de día."));
     const leading = (first.getDay() + 6) % 7, count = new Date(first.getFullYear(), first.getMonth() + 1, 0).getDate();
     const cellCount = Math.ceil((leading + count) / 7) * 7, today = dayKey(new Date());
     for (let i = 0; i < cellCount; i++) {
@@ -238,7 +241,7 @@
   }
   function bookingForm() {
     const form = element("form", "booking-form"); form.setAttribute("data-ph-no-autocapture", ""); form.addEventListener("submit", submit);
-    const back = button("booking-back", "", () => pickDay(state.selectedDay)); back.append(icon("back"), document.createTextNode("Cambiar horario"));
+    const back = button("booking-back", "", () => pickDay(state.selectedDay)); back.append(icon("back"), document.createTextNode(t("Cambiar horario")));
     form.append(back, when(new Date(state.slot), new Date(new Date(state.slot).getTime() + state.availability.slotMinutes * 60000)));
     const fields = [["name", "Nombre", "text", "name", 80], ["email", "Mail", "email", "email", 120], ["company", "Empresa", "text", "organization", 80]];
     for (const [name, labelText, type, autocomplete, maxLength] of fields) {
@@ -283,7 +286,7 @@
     host.setAttribute("aria-busy", "true"); form.setAttribute("aria-busy", "true");
     host.querySelectorAll("button, input").forEach((node) => { node.disabled = true; });
     form.querySelector(".booking-error")?.remove();
-    form.querySelector(".booking-confirm").textContent = "Agendando…"; announce("Confirmando la reunión.");
+    form.querySelector(".booking-confirm").textContent = t("Agendando…"); announce("Confirmando la reunión.");
     const controller = new AbortController(), timeout = setTimeout(() => controller.abort(), 25000);
     let shouldReload = false;
     try {
@@ -318,7 +321,7 @@
     const hint = element("p", "booking-hint", "La reunión quedó reservada con el correo "); hint.append(element("b", "", state.booked.email), document.createTextNode("."));
     panel.append(mark, heading, when(state.booked.start, state.booked.end), hint);
     if (state.booked.meetLink) {
-      const meet = externalLink("booking-meet", "Abrir Google Meet", state.booked.meetLink); meet.replaceChildren(icon("video"), document.createTextNode("Abrir Google Meet")); panel.append(meet);
+      const meet = externalLink("booking-meet", "Abrir Google Meet", state.booked.meetLink); meet.replaceChildren(icon("video"), document.createTextNode(t("Abrir Google Meet"))); panel.append(meet);
     }
     return panel;
   }

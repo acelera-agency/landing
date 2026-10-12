@@ -15,7 +15,7 @@ test("all production pages point to final routes and existing released resources
       if(url) await access(new URL("."+url,import.meta.url));
     }
     assert.match(html,/styles\.css\?v=20261011-release-18/);
-    assert.match(html,/app\.js\?v=20261011-release-18/);
+    assert.match(html,/app\.js\?v=20261012-language-1/);
     assert.doesNotMatch(html,/href="\/redisenio\/(?:privacidad|terminos|casos\/faro|desarrollo-software-a-medida|plataformas-internas|agentes-ia-empresas|consultoria-ia-empresas)(?:["#])/);
   }
 });

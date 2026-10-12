@@ -168,17 +168,19 @@
   }
 
   function buildConsentElement() {
+    const t = window.AceleraLocale?.t || (value => value);
+    const policy = document.documentElement.lang.startsWith("en") ? "/en/privacidad#tecnologias" : "/privacidad#tecnologias";
     const element = document.createElement("section");
     element.className = "analytics-consent";
     element.dataset.analyticsConsent = "";
     element.setAttribute("role", "dialog");
-    element.setAttribute("aria-label", "Preferencias de analítica");
+    element.setAttribute("aria-label", t("Preferencias de analítica"));
     element.setAttribute("aria-describedby", "analytics-consent-description");
     element.innerHTML = [
-      '<p id="analytics-consent-description" class="analytics-consent__description">Usamos PostHog para mejorar el sitio, solo si lo aceptás. <a class="analytics-consent__link" href="/privacidad#tecnologias">Ver privacidad</a></p>',
+      `<p id="analytics-consent-description" class="analytics-consent__description">${t("Usamos PostHog para mejorar el sitio, solo si lo aceptás.")} <a class="analytics-consent__link" href="${policy}">${t("Ver privacidad")}</a></p>`,
       '<div class="analytics-consent__actions">',
-      '<button type="button" data-analytics-choice="deny">Solo necesarias</button>',
-      '<button type="button" data-analytics-choice="accept" class="analytics-consent__accept">Aceptar analítica</button>',
+      `<button type="button" data-analytics-choice="deny">${t("Solo necesarias")}</button>`,
+      `<button type="button" data-analytics-choice="accept" class="analytics-consent__accept">${t("Aceptar analítica")}</button>`,
       "</div>"
     ].join("");
 

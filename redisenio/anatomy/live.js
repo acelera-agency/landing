@@ -1,6 +1,7 @@
 import { advanceFlow, finalFrame, flowFrame, followLevel, normalizeMode } from './model.js?v=20261011-release-18';
 
 const card = document.querySelector('[data-anatomy-card]');
+const t = window.AceleraLocale?.t || (value => value);
 if (card) {
   const stage = card.querySelector('[data-anatomy-stage]');
   const svg = stage?.querySelector('.anatomy-svg');
@@ -29,16 +30,16 @@ if (card) {
 
     function announce(text) {
       if (!status || text === lastAnnounced) return;
-      status.textContent = text; lastAnnounced = text;
+      status.textContent = t(text); lastAnnounced = text;
     }
     function updateControls() {
       card.dataset.anatomyMode = mode; svg.dataset.flowMode = mode;
       for (const node of aiOnly) node.removeAttribute('opacity');
       for (const button of modeButtons) button.setAttribute('aria-pressed', String(button.dataset.anatomyMode === mode));
-      svg.setAttribute('aria-label', mode === 'ai' ? 'Terminal con una aplicación: los datos pasan por reglas y una etapa opcional de IA antes de actualizar el resultado.' : 'Terminal con una aplicación: los datos pasan por reglas y actualizan el resultado, sin una etapa de IA.');
+      svg.setAttribute('aria-label', t(mode === 'ai' ? 'Terminal con una aplicación: los datos pasan por reglas y una etapa opcional de IA antes de actualizar el resultado.' : 'Terminal con una aplicación: los datos pasan por reglas y actualizan el resultado, sin una etapa de IA.'));
       if (!motionButton) return;
       motionButton.disabled = reduced.matches; motionButton.dataset.paused = String(paused || reduced.matches);
-      motionButton.setAttribute('aria-label', reduced.matches ? 'Animación desactivada por movimiento reducido' : paused ? 'Reanudar la animación del software' : 'Pausar la animación del software');
+      motionButton.setAttribute('aria-label', t(reduced.matches ? 'Animación desactivada por movimiento reducido' : paused ? 'Reanudar la animación del software' : 'Pausar la animación del software'));
     }
     function writeLevel(element, level) {
       element.style.setProperty('--flow-active', level.toFixed(3));
@@ -58,7 +59,8 @@ if (card) {
       for (const node of [signal, halo]) { node.setAttribute('cx', point.x.toFixed(3)); node.setAttribute('cy', point.y.toFixed(3)); }
       // Inline opacity takes priority over the standalone SVG's halo styles.
       signal.style.opacity = frame.signalOpacity.toFixed(3); halo.style.opacity = (frame.signalOpacity * 0.15).toFixed(3);
-      if (readout.textContent !== frame.label) readout.textContent = frame.label;
+      const label = t(frame.label);
+      if (readout.textContent !== label) readout.textContent = label;
       if (phase !== frame.phase) {
         phase = frame.phase; card.dataset.flowPhase = phase;
         if (source === 'user' && playing) announce(frame.label);
@@ -85,13 +87,13 @@ if (card) {
       mode = normalizeMode(nextMode); source = origin; elapsed = 0; phase = ''; updateControls();
       if (reduced.matches || paused) {
         playing = false; current = finalFrame(mode, paths[mode].anchors); draw(current, true);
-        if (origin === 'user') announce((mode === 'ai' ? 'Con IA' : 'Sin IA') + '. Aplicación actualizada.');
+        if (origin === 'user') announce(t(mode === 'ai' ? 'Con IA' : 'Sin IA') + '. ' + t('Aplicación actualizada') + '.');
         return;
       }
       playing = true;
       // A restart has an invisible signal, never a visible trip backwards.
       draw(flowFrame(0, mode, paths[mode].anchors));
-      if (origin === 'user') announce((mode === 'ai' ? 'Con IA' : 'Sin IA') + '. Conectando datos.');
+      if (origin === 'user') announce(t(mode === 'ai' ? 'Con IA' : 'Sin IA') + '. ' + t('Conectando datos') + '.');
       run();
     }
     function scheduleIdle(delay = 3600) {
@@ -106,7 +108,7 @@ if (card) {
     for (const button of modeButtons) button.addEventListener('click', () => begin(button.dataset.anatomyMode));
     card.addEventListener('pointerenter', event => { if (event.pointerType !== 'mouse') return; hovered = true; holdIdle(); });
     card.addEventListener('pointerleave', () => { hovered = false; scheduleIdle(); });
-    card.addEventListener('focusin', () => { focused = true; holdIdle(); announce((mode === 'ai' ? 'Con IA' : 'Sin IA') + '. ' + readout.textContent + '.'); });
+    card.addEventListener('focusin', () => { focused = true; holdIdle(); announce(t(mode === 'ai' ? 'Con IA' : 'Sin IA') + '. ' + readout.textContent + '.'); });
     card.addEventListener('focusout', event => { if (card.contains(event.relatedTarget)) return; focused = false; scheduleIdle(); });
     motionButton?.addEventListener('click', () => {
       paused = !paused; updateControls(); clearTimeout(idleTimer);

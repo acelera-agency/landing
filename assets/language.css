@@ -1,0 +1,31 @@
+/* Keep the centered desktop navigation and make the language action available
+   without opening the mobile menu. */
+.language-switch {
+  position: absolute;
+  right: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 58px;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+.language-switch svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.2; }
+.language-switch:hover { color: var(--accent-ink); border-color: #c7b4aa; background: #f7f1ed; }
+@media (max-width: 809px) {
+  .language-switch { position: static; flex-shrink: 0; margin-left: 0; order: 2; }
+  .menu-toggle { order: 1; margin-left: auto; flex-shrink: 0; }
+  .navigation { gap: 10px; }
+  .mobile-menu { order: 3; }
+}
+@media (max-width: 359px) {
+  .navigation { padding-inline: 20px; }
+}
