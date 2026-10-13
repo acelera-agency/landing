@@ -69,7 +69,9 @@
   const control = document.querySelector('[data-language-switch]');
   if (!control) return;
   const path = control.getAttribute('href');
-  const sync = () => { control.href = path + location.search + location.hash; };
+  // A Spanish-only page links to the English home: keep the query, drop the section anchor.
+  const keepHash = !('languageHome' in control.dataset);
+  const sync = () => { control.href = path + location.search + (keepHash ? location.hash : ''); };
   sync();
   addEventListener('hashchange', sync);
   control.addEventListener('click', () => { try { localStorage.setItem('acelera-language', control.dataset.languageOption); } catch {} });

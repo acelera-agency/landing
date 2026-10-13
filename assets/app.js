@@ -233,6 +233,12 @@
         }
       }
     });
+
+    // Forms that must not submit natively ship their controls disabled and
+    // become usable only once this handler is attached.
+    form.querySelectorAll("[data-requires-js]").forEach((control) => {
+      control.disabled = false;
+    });
   });
 
   const navToggle = document.querySelector("[data-nav-toggle]");

@@ -27,7 +27,7 @@ test("the native agenda proxies to its production backend and preserves the lead
 });
 test("private files and tooling are excluded from the deployment",async()=>{
   const ignore=await read(".vercelignore");
-  for(const path of ["tmp/","scripts/",".env*","docs/","output/","**/*.test.*","lib/"]) assert.ok(ignore.split("\n").includes(path));
+  for(const path of ["tmp/","scripts/",".env*","docs/","output/","**/*.test.*","lib/"]) assert.ok(ignore.split(/\r?\n/).includes(path));
 });
 test("the illustration has no IA mode selector in either entry point",async()=>{
   for(const page of ["index.html","redisenio/index.html"]){
