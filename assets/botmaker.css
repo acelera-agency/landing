@@ -56,6 +56,8 @@
 .bm-sectors article { padding: 22px 22px 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
 .bm-sectors h3 { font-size: 19px; line-height: 1.25; margin: 12px 0 10px; }
 .bm-sectors p:not(.bm-mono) { font-size: 13px; line-height: 1.65; color: #333; }
+.bm-sectors__more { margin-bottom: 16px; font-size: 14px; line-height: 1.7; color: #333; }
+.bm-sectors__more a { text-decoration: underline; }
 .bm-fit { display: grid; grid-template-columns: 1.25fr 1fr; border: 1px solid var(--line); border-radius: 8px; }
 .bm-fit__col { padding: 26px 28px; }
 .bm-fit__col--note { border-left: 1px solid var(--line); background: #f8f8f8; }
