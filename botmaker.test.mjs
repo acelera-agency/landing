@@ -50,7 +50,7 @@ test("botmaker page explains the offer and ideal customer in plain HTML", async 
   // The South Cone is not a target market: Argentina only appears as where the team works from
   // and in the shared privacy consent.
   assert.equal(body.match(/Argentina/g).length, 3);
-  for (const phrase of ["consultora de software con equipo en Argentina. Trabajamos de forma remota", "El equipo de Acelera está en Argentina y todo el proyecto se hace de forma remota", "procesarlos fuera de Argentina"]) assert.ok(body.includes(phrase), phrase);
+  for (const phrase of ["consultora de software con equipo en Argentina. Trabajamos de forma remota", "Nuestro equipo está en Argentina y trabaja de forma remota", "procesarlos fuera de Argentina"]) assert.ok(body.includes(phrase), phrase);
   assert.doesNotMatch(body, /Buenos Aires|Tokko|Cono Sur|Latinoamérica y Argentina/);
   // Each example says what the assistant does, what the team gets and when a person continues.
   const examples = [...html.matchAll(/<article class="bm-example">([\s\S]*?)<\/article>/g)];
