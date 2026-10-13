@@ -15,7 +15,7 @@ test("botmaker page has one h1, canonical metadata and service + FAQ structured 
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /<title>[^<]*Botmaker[^<]*\| Acelera<\/title>/);
   assert.match(html, /<meta name="description" content="México, Centroamérica y República Dominicana: [^"]{34,134}"/);
-  assert.match(html, /<meta property="og:description" content="Para empresas de México y Centroamérica: /);
+  assert.match(html, /<meta property="og:description" content="Para empresas de México, Centroamérica y República Dominicana: /);
   assert.match(html, new RegExp(`<link rel="canonical" href="${url.replaceAll(".", "\\.")}"/>`));
   assert.match(html, new RegExp(`<meta property="og:url" content="${url.replaceAll(".", "\\.")}">`));
   assert.match(html, /<meta name="robots" content="index, follow/);
@@ -52,7 +52,7 @@ test("botmaker page explains the offer and ideal customer in plain HTML", async 
   // intros of the sections that describe who it is for, who pays what and how to get in touch.
   const hero = text(html.match(/<section class="bm-hero"[\s\S]*?<\/section>/)[0]);
   assert.match(text(html.match(/<p class="bm-kicker">[\s\S]*?<\/p>\s*<h1/)[0]), /^Para empresas de México, Centroamérica y República Dominicana/);
-  assert.match(text(html.match(/<p class="bm-hero__lead">[\s\S]*?<\/p>/)[0]), /^Trabajamos con empresas de México y Centroamérica/);
+  assert.match(text(html.match(/<p class="bm-hero__lead">[\s\S]*?<\/p>/)[0]), /^Trabajamos con empresas de México, Centroamérica y República Dominicana/);
   assert.doesNotMatch(text(html.match(/<h1\b[\s\S]*?<\/h1>/)[0]), /México|Centroamérica/);
   assert.ok(body.slice(0, Math.floor(body.length / 3)).match(/México|Centroamérica/g).length >= 3);
   for (const id of ["para-quien", "acelera-y-botmaker", "contacto"]) {

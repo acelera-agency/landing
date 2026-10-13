@@ -31,8 +31,8 @@
 .bm-cobrand__botmaker { width: 144px; }
 .bm-badge { margin: 0 auto; }
 .bm-kicker { margin: 22px auto 0; font-size: 14px; line-height: 1.5; color: #333; }
-.bm-kicker + h1 { margin-top: 12px; }
 .bm-hero h1 { max-width: 1060px; margin: 30px auto 22px; font: 500 clamp(36px, 4.4vw, 56px)/1.06 var(--sans); letter-spacing: -.055em; text-wrap: balance; }
+.bm-hero .bm-kicker + h1 { margin-top: 12px; }
 .bm-hero h1 span { color: var(--accent-ink); }
 .bm-hero__lead { max-width: 640px; margin: 0 auto; font-size: 16px; line-height: 1.65; color: #333; }
 .bm-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
