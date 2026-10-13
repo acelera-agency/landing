@@ -30,7 +30,7 @@
 .bm-cobrand > img:first-child { width: 92px; }
 .bm-cobrand__botmaker { width: 144px; }
 .bm-badge { margin: 0 auto; }
-.bm-hero h1 { max-width: 900px; margin: 30px auto 22px; font: 500 clamp(36px, 5vw, 62px)/1.06 var(--sans); letter-spacing: -.055em; text-wrap: balance; }
+.bm-hero h1 { max-width: 1060px; margin: 30px auto 22px; font: 500 clamp(36px, 4.4vw, 56px)/1.06 var(--sans); letter-spacing: -.055em; text-wrap: balance; }
 .bm-hero h1 span { color: var(--accent-ink); }
 .bm-hero__lead { max-width: 640px; margin: 0 auto; font-size: 16px; line-height: 1.65; color: #333; }
 .bm-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
@@ -51,7 +51,11 @@
 .bm-heading__copy { display: grid; gap: 12px; max-width: 440px; font-size: 14px; line-height: 1.7; color: #333; }
 .bm-heading__copy a { text-decoration: underline; }
 
-/* Para quién. */
+/* Para quién: the four target sectors, then signals and countries. */
+.bm-sectors { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 16px; }
+.bm-sectors article { padding: 22px 22px 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.bm-sectors h3 { font-size: 19px; line-height: 1.25; margin: 12px 0 10px; }
+.bm-sectors p:not(.bm-mono) { font-size: 13px; line-height: 1.65; color: #333; }
 .bm-fit { display: grid; grid-template-columns: 1.25fr 1fr; border: 1px solid var(--line); border-radius: 8px; }
 .bm-fit__col { padding: 26px 28px; }
 .bm-fit__col--note { border-left: 1px solid var(--line); background: #f8f8f8; }
@@ -61,6 +65,7 @@
 .bm-list li:last-child { border-bottom: 0; }
 .bm-list li::before { content: "+"; position: absolute; left: 0; color: var(--accent-ink); }
 .bm-fit__col > .bm-mono + .bm-list { margin-top: 8px; }
+.bm-fit__col--note .bm-list li { padding-block: 8px; }
 
 /* Ejemplos: each card answers the same three questions. */
 .bm-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -111,7 +116,7 @@
 
 /* Integraciones. */
 .bm-integrations { padding: 22px 0 28px; border-block: 1px dashed var(--dash); }
-.bm-logo-grid--integrations { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px 12px; margin-top: 20px; }
+.bm-logo-grid--integrations { grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 18px 12px; margin-top: 20px; }
 .bm-logo-grid--integrations img { width: 36px; height: 36px; object-fit: contain; }
 .bm-lines { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 32px; }
 .bm-lines p:not(.bm-mono) { margin-top: 10px; font-size: 13px; line-height: 1.65; }
@@ -147,6 +152,8 @@
 .bm-cases-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0 18px; border-top: 1px dashed var(--dash); }
 .bm-cases-head h3 { font-size: 24px; }
 .bm-cases { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.bm-cases--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.bm-logo-grid--sectors { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .bm-cases article { display: flex; flex-direction: column; padding: 22px 20px 10px; border: 1px solid var(--line); border-radius: 8px; }
 .bm-cases img { width: 104px; height: 42px; object-fit: contain; object-position: left center; margin-bottom: 22px; }
 .bm-cases .bm-mono { font-size: 10px; }
@@ -188,7 +195,7 @@
   .bm-section, .bm-hero, .bm-index { padding-inline: 28px; }
   .bm-summary { margin-inline: -28px; }
   .bm-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .bm-logo-grid--integrations { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .bm-sectors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bm-lines { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bm-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -204,6 +211,8 @@
   .bm-roles article + article { border-top: 1px solid var(--bm-warm-line); }
   .bm-logo-grid--channels { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .bm-logo-grid--clients { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bm-logo-grid--integrations { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .bm-cases--three { grid-template-columns: 1fr; }
   .bm-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bm-api { flex-wrap: wrap; }
   .bm-api > div { flex: 1; min-width: 220px; }
@@ -217,7 +226,7 @@
   .bm-hero { padding-top: 28px; }
   .bm-cobrand { gap: 14px; }
   .bm-cobrand__botmaker { width: 124px; }
-  .bm-hero h1 { font-size: clamp(32px, 9vw, 44px); margin-block: 26px 18px; }
+  .bm-hero h1 { font-size: clamp(28px, 7.6vw, 38px); margin-block: 26px 18px; }
   .bm-hero__lead { font-size: 15px; }
   .bm-actions .button { width: 100%; }
   .bm-index { gap: 2px 14px; }
@@ -226,10 +235,10 @@
   .bm-example dl > div { grid-template-columns: 1fr; gap: 4px; }
   .bm-strip { flex-direction: column; align-items: flex-start; gap: 6px; }
   .bm-logo-grid--channels { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .bm-logo-grid--integrations { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .bm-logo-grid--clients { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 16px; }
   .bm-logo-grid--clients img { height: 34px; }
-  .bm-lines, .bm-steps, .bm-cases { grid-template-columns: 1fr; }
+  .bm-logo-grid--sectors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bm-sectors, .bm-lines, .bm-steps, .bm-cases { grid-template-columns: 1fr; }
   .bm-cases-head { flex-direction: column; align-items: flex-start; gap: 4px; }
   .bm-faq summary { font-size: 15px; }
   .bm-faq details > p { padding-right: 0; font-size: 13px; }

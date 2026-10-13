@@ -200,14 +200,14 @@
         });
 
         if (!response.ok) {
-          throw new Error(window.AceleraLocale?.language === "en" ? t("No pudimos enviar el formulario.") : (payload.error || "No pudimos enviar el formulario."));
+          throw new Error(window.AceleraLocale?.language === "en" ? t("No pudimos enviar el formulario.") : t(payload.error || "No pudimos enviar el formulario."));
         }
 
         form.reset();
         applyTrackingContext(form);
 
         if (feedback) {
-          feedback.textContent = window.AceleraLocale?.language === "en" ? t("Recibimos tu consulta. Te respondemos pronto.") : (payload.message || "Recibimos tu consulta. Te respondemos pronto.");
+          feedback.textContent = window.AceleraLocale?.language === "en" ? t("Recibimos tu consulta. Te respondemos pronto.") : t(payload.message || "Recibimos tu consulta. Te respondemos pronto.");
         }
 
         window.AceleraAnalytics?.capture("contact_form_submitted", {

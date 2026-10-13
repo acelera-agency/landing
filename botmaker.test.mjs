@@ -6,10 +6,12 @@ import vm from "node:vm";
 const read = path => readFile(new URL(path, import.meta.url), "utf8");
 const text = html => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
 const url = "https://www.acelera.agency/botmaker";
+const countries = ["México", "Guatemala", "El Salvador", "Honduras", "Costa Rica", "Panamá", "República Dominicana"];
 
 test("botmaker page has one h1, canonical metadata and service + FAQ structured data", async () => {
   const html = await read("botmaker.html");
-  assert.match(html, /<html lang="es-AR"/);
+  assert.match(html, /<html lang="es-MX"/);
+  assert.match(html, /<meta property="og:locale" content="es_MX">/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /<title>[^<]*Botmaker[^<]*\| Acelera<\/title>/);
   assert.match(html, /<meta name="description" content="[^"]{80,180}"/);
@@ -21,6 +23,8 @@ test("botmaker page has one h1, canonical metadata and service + FAQ structured 
   const service = graph.find(node => node["@type"] === "Service");
   assert.equal(service.provider["@id"], "https://www.acelera.agency/#organization");
   assert.equal(service.url, url);
+  assert.deepEqual(service.areaServed.map(place => place.name), countries);
+  assert.equal(graph.find(node => node["@type"] === "WebPage").inLanguage, "es-MX");
 
   // FAQ answers in JSON-LD must be the visible answers.
   const faq = graph.find(node => node["@type"] === "FAQPage");
@@ -37,10 +41,17 @@ test("botmaker page explains the offer and ideal customer in plain HTML", async 
     assert.match(html, new RegExp(`id="${id}"`));
     assert.match(html, new RegExp(`href="#${id}"`), `${id} is linked from the page index`);
   }
-  // Plain-HTML ideal customer profile for the lead engine and cold-mail visitors.
-  for (const signal of ["Rubros habituales", "Distribuidoras", "Tiendas online", "Instituciones educativas", "turnos", "posventa", "CRM", "Latinoamérica"]) {
-    assert.match(body, new RegExp(signal, "i"), signal);
+  // Plain-HTML ideal customer profile for the lead engine and cold-mail visitors:
+  // region, size, the four sectors and the signals that make a company a fit.
+  for (const country of countries) assert.ok(body.includes(country), country);
+  for (const signal of ["20 a 500 personas", "Educación privada", "Universidades, preparatorias, colegios e institutos", "Salud privada", "Clínicas, hospitales privados, consultorios dentales", "Inmobiliarias y desarrolladoras", "Agencias automotrices y concesionarias", "admisiones", "citas", "prueba de manejo", "refacciones", "HubSpot", "Salesforce", "Zoho", "Kommo", "Meta", "Google", "sucursales, planteles o campus"]) {
+    assert.ok(body.toLowerCase().includes(signal.toLowerCase()), signal);
   }
+  // The South Cone is not a target market: Argentina only appears as where the team works from
+  // and in the shared privacy consent.
+  assert.equal(body.match(/Argentina/g).length, 3);
+  for (const phrase of ["consultora de software con equipo en Argentina. Trabajamos de forma remota", "El equipo de Acelera está en Argentina y todo el proyecto se hace de forma remota", "procesarlos fuera de Argentina"]) assert.ok(body.includes(phrase), phrase);
+  assert.doesNotMatch(body, /Buenos Aires|Tokko|Cono Sur|Latinoamérica y Argentina/);
   // Each example says what the assistant does, what the team gets and when a person continues.
   const examples = [...html.matchAll(/<article class="bm-example">([\s\S]*?)<\/article>/g)];
   assert.ok(examples.length >= 6);
@@ -49,7 +60,18 @@ test("botmaker page explains the offer and ideal customer in plain HTML", async 
   }
   for (const cost of ["Implementación de Acelera", "Licencia de Botmaker", "Consumo de los canales"]) assert.ok(body.includes(cost));
   assert.match(body, /WhatsApp/);
-  assert.match(body, /Argentina/);
+  assert.match(body, /Meta define la tarifa de los mensajes de WhatsApp para cada país/);
+});
+
+test("botmaker copy speaks to Mexico with tú: no voseo or Rioplatense vocabulary in the page's own content", async () => {
+  const html = await read("botmaker.html");
+  // The shared header and footer are compared with the rest of the site in another test.
+  const own = html.replace(/<header class="site-header">[\s\S]*?<\/header>|<footer class="site-footer">[\s\S]*?<\/footer>/g, "");
+  const voseo = /(?<!\p{L})(contanos|querés|podés|tenés|escribinos|sabés|necesitás|elegí|mirá|contá|describí|reservá|preferís|usás|agendá|consultá|sumá|revisá|probá|volvé|completá|ingresá|vos)(?!\p{L})/giu;
+  assert.deepEqual(own.match(voseo) || [], []);
+  // Rioplatense vocabulary; "asesor de ventas en turno" is the Mexican sense of the word.
+  assert.deepEqual(text(own).match(/(?<!\p{L})(acá|turnos?|presupuestos? de|abono)(?!\p{L})/giu) || [], ["turno"]);
+  assert.match(own, /Cuéntanos qué necesitas/);
 });
 
 test("botmaker page avoids forbidden claims, pricing and invented contact channels", async () => {
@@ -60,8 +82,8 @@ test("botmaker page avoids forbidden claims, pricing and invented contact channe
   // the hero badge and one FAQ question (mirrored in the FAQPage JSON-LD).
   const partner = [...html.matchAll(/[^<>"]*partner[^<>"]*/gi)].map(([match]) => match.trim());
   assert.deepEqual(partner, [
-    "Implementación de Botmaker · Partner oficial | Acelera",
-    "Implementación de Botmaker · Partner oficial | Acelera",
+    "Botmaker en México y Centroamérica · Partner oficial | Acelera",
+    "Botmaker en México y Centroamérica · Partner oficial | Acelera",
     "¿Acelera es partner oficial de Botmaker?",
     "Partner oficial de Botmaker",
     "¿Acelera es partner oficial de Botmaker?",
@@ -118,7 +140,7 @@ test("the switch on a Spanish-only page keeps the query but not the section anch
   const run = dataset => {
     let href;
     const control = { getAttribute: () => "/en/", dataset, set href(value) { href = value; }, addEventListener() {} };
-    vm.runInNewContext(source, { document: { documentElement: { lang: "es-AR" }, querySelector: () => control }, window: {}, location: { search: "?utm_source=mail", hash: "#integraciones" }, addEventListener() {} });
+    vm.runInNewContext(source, { document: { documentElement: { lang: "es-MX" }, querySelector: () => control }, window: {}, location: { search: "?utm_source=mail", hash: "#integraciones" }, addEventListener() {} });
     return href;
   };
   assert.equal(run({ languageOption: "en", languageHome: "" }), "/en/?utm_source=mail");
@@ -157,4 +179,24 @@ test("botmaker images are local, sized and lazy below the fold; the video loads 
   assert.match(main, /data-video-facade data-vimeo-id="\d+"[\s\S]*?href="https:\/\/vimeo\.com\/\d+"/);
   // The scheduler is reused; without JavaScript it points to the public mailbox.
   assert.match(main, /<div data-scheduler[^>]*>\s*<noscript>[\s\S]*mailto:contacto@acelera\.agency[\s\S]*?<\/noscript>/);
+});
+
+test("shared scheduler, consent and form messages switch to tú only on es-MX pages", async () => {
+  const [source, app, scheduler] = await Promise.all([read("assets/locale.js"), read("assets/app.js"), read("redisenio/scheduler.js")]);
+  const localeFor = lang => {
+    const context = { document: { documentElement: { lang }, querySelector: () => null }, window: {}, location: { search: "", hash: "" }, addEventListener() {} };
+    vm.runInNewContext(source, context);
+    return context.window.AceleraLocale;
+  };
+  const mx = localeFor("es-MX"), ar = localeFor("es-AR");
+  assert.equal(mx.language, "es");
+  assert.equal(mx.t("Elegí un día"), "Elige un día");
+  assert.equal(mx.t("Revisá el nombre y el mail."), "Revisa el nombre y el correo.");
+  assert.equal(mx.t("Usamos PostHog para mejorar el sitio, solo si lo aceptás."), "Usamos PostHog para mejorar el sitio, solo si lo aceptas.");
+  assert.equal(mx.t("No pudimos enviar el formulario. Escribinos a contacto@acelera.agency."), "No pudimos enviar el formulario. Escríbenos a contacto@acelera.agency.");
+  assert.equal(ar.t("Elegí un día"), "Elegí un día");
+  // Gateway messages go through t() so the page language decides how they read.
+  assert.ok(app.includes(': t(payload.error || "No pudimos enviar el formulario.")'));
+  assert.ok(app.includes(': t(payload.message || "Recibimos tu consulta. Te respondemos pronto.")'));
+  assert.ok(scheduler.includes('lang === "es-MX" ? "es-MX" : "es-AR"'));
 });

@@ -14,7 +14,7 @@
 - Plataformas internas: https://www.acelera.agency/#servicios
 - Agentes de IA para empresas: https://www.acelera.agency/#servicios
 - Consultoría e implementación de IA: https://www.acelera.agency/#servicios
-- Implementación de Botmaker: atención por WhatsApp e Instagram conectada con CRM, tienda online o sistema de atención, para empresas con muchas consultas y un equipo comercial o de atención en Argentina y Latinoamérica: https://www.acelera.agency/botmaker
+- Implementación de Botmaker en México, Centroamérica y República Dominicana: WhatsApp integrado con CRM (HubSpot, Salesforce, Zoho, Kommo) y agenda de citas o visitas para empresas medianas (unas 20 a 500 personas) de educación privada, salud privada, inmobiliarias y desarrolladoras, y agencias automotrices; trabajo remoto desde Argentina: https://www.acelera.agency/botmaker
 
 ## Evidencia y forma de trabajo
 

@@ -64,7 +64,26 @@
   "Interpretando con IA": "Interpreting with AI",
   "Actualizando la aplicación": "Updating the application"
 };
-  const t = value => language === 'en' ? (english[value] ?? value) : value;
+  const mexican = document.documentElement.lang === 'es-MX' ? {
+  "Usamos PostHog para mejorar el sitio, solo si lo aceptás.": "Usamos PostHog para mejorar el sitio, solo si lo aceptas.",
+  "Agenda disponible. Elegí un día y un horario.": "Agenda disponible. Elige un día y un horario.",
+  "Podés elegir un horario en nuestra agenda de Google Calendar.": "Puedes elegir un horario en nuestra agenda de Google Calendar.",
+  "Elegí un horario": "Elige un horario",
+  "Elegí un día": "Elige un día",
+  "Elegí otro mes para ver los días disponibles.": "Elige otro mes para ver los días disponibles.",
+  "Días con horarios disponibles. Usá las flechas para cambiar de día.": "Días con horarios disponibles. Usa las flechas para cambiar de día.",
+  "Mail": "Correo",
+  "Revisá el nombre y el mail.": "Revisa el nombre y el correo.",
+  "Ese horario se acaba de ocupar. Elegí otro, por favor.": "Ese horario se acaba de ocupar. Elige otro, por favor.",
+  "Demasiados intentos seguidos. Probá de nuevo en un rato.": "Demasiados intentos seguidos. Intenta de nuevo en unos minutos.",
+  "La agenda no está disponible aquí en este momento. Podés usar la agenda de Google Calendar.": "La agenda no está disponible aquí en este momento. Puedes usar la agenda de Google Calendar.",
+  "No pudimos confirmar la reserva. Volvé a intentarlo con los mismos datos para verificarla sin duplicarla.": "No pudimos confirmar la reserva. Vuelve a intentarlo con los mismos datos para verificarla sin duplicarla.",
+  "Completá tu nombre y empresa.": "Completa tu nombre y empresa.",
+  "Ingresá un email válido.": "Ingresa un correo válido.",
+  "Necesitás aceptar la Política de Privacidad para enviar la consulta.": "Necesitas aceptar la Política de Privacidad para enviar la consulta.",
+  "No pudimos enviar el formulario. Escribinos a contacto@acelera.agency.": "No pudimos enviar el formulario. Escríbenos a contacto@acelera.agency."
+} : {};
+  const t = value => language === 'en' ? (english[value] ?? value) : (mexican[value] ?? value);
   window.AceleraLocale = { language, t };
   const control = document.querySelector('[data-language-switch]');
   if (!control) return;

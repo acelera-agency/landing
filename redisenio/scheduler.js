@@ -6,7 +6,7 @@
   const ENDPOINT = "/api/schedule";
   const BOOKING_LINK = "https://calendar.app.google/Ci3pYTwmLT6q3LMQ8";
   const english = document.documentElement.lang.startsWith("en");
-  const locale = english ? "en-US" : "es-AR";
+  const locale = english ? "en-US" : document.documentElement.lang === "es-MX" ? "es-MX" : "es-AR";
   const t = window.AceleraLocale?.t || (value => value);
   const fmtTime = new Intl.DateTimeFormat(locale, { hour: "2-digit", minute: "2-digit", hour12: false });
   const fmtDay = new Intl.DateTimeFormat(locale, { weekday: "long", day: "numeric", month: "long" });
