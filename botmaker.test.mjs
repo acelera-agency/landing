@@ -14,7 +14,8 @@ test("botmaker page has one h1, canonical metadata and service + FAQ structured 
   assert.match(html, /<meta property="og:locale" content="es_MX">/);
   assert.equal((html.match(/<h1\b/g) || []).length, 1);
   assert.match(html, /<title>[^<]*Botmaker[^<]*\| Acelera<\/title>/);
-  assert.match(html, /<meta name="description" content="[^"]{80,180}"/);
+  assert.match(html, /<meta name="description" content="México, Centroamérica y República Dominicana: [^"]{34,134}"/);
+  assert.match(html, /<meta property="og:description" content="Para empresas de México y Centroamérica: /);
   assert.match(html, new RegExp(`<link rel="canonical" href="${url.replaceAll(".", "\\.")}"/>`));
   assert.match(html, new RegExp(`<meta property="og:url" content="${url.replaceAll(".", "\\.")}">`));
   assert.match(html, /<meta name="robots" content="index, follow/);
@@ -47,10 +48,22 @@ test("botmaker page explains the offer and ideal customer in plain HTML", async 
   for (const signal of ["20 a 500 personas", "Educación privada", "Universidades, preparatorias, colegios e institutos", "Salud privada", "Clínicas, hospitales privados, consultorios dentales", "Inmobiliarias y desarrolladoras", "Agencias automotrices y concesionarias", "admisiones", "citas", "prueba de manejo", "refacciones", "HubSpot", "Salesforce", "Zoho", "Kommo", "Meta", "Google", "sucursales, planteles o campus"]) {
     assert.ok(body.toLowerCase().includes(signal.toLowerCase()), signal);
   }
-  // The South Cone is not a target market: Argentina only appears as where the team works from
-  // and in the shared privacy consent.
-  assert.equal(body.match(/Argentina/g).length, 3);
-  for (const phrase of ["consultora de software con equipo en Argentina. Trabajamos de forma remota", "Nuestro equipo está en Argentina y trabaja de forma remota", "procesarlos fuera de Argentina"]) assert.ok(body.includes(phrase), phrase);
+  // The region is stated early for the lead engine: above the h1, in the hero lead and in the
+  // intros of the sections that describe who it is for, who pays what and how to get in touch.
+  const hero = text(html.match(/<section class="bm-hero"[\s\S]*?<\/section>/)[0]);
+  assert.match(text(html.match(/<p class="bm-kicker">[\s\S]*?<\/p>\s*<h1/)[0]), /^Para empresas de México, Centroamérica y República Dominicana/);
+  assert.match(text(html.match(/<p class="bm-hero__lead">[\s\S]*?<\/p>/)[0]), /^Trabajamos con empresas de México y Centroamérica/);
+  assert.doesNotMatch(text(html.match(/<h1\b[\s\S]*?<\/h1>/)[0]), /México|Centroamérica/);
+  assert.ok(body.slice(0, Math.floor(body.length / 3)).match(/México|Centroamérica/g).length >= 3);
+  for (const id of ["para-quien", "acelera-y-botmaker", "contacto"]) {
+    assert.match(text(html.match(new RegExp(`<section[^>]*id="${id}"[\\s\\S]*?</section>`))[0]), /México|Centroamérica/, id);
+  }
+  // The South Cone is not a target market: Argentina only appears in the FAQ about the region,
+  // as where the team works from, and in the shared privacy consent.
+  assert.equal(body.match(/Argentina/g).length, 2);
+  for (const phrase of ["Nuestro equipo está en Argentina y trabaja de forma remota", "procesarlos fuera de Argentina"]) assert.ok(body.includes(phrase), phrase);
+  assert.doesNotMatch(hero, /Argentina/);
+  assert.doesNotMatch(html.match(/<section[^>]*id="para-quien"[\s\S]*?<\/section>/)[0], /Argentina/);
   assert.doesNotMatch(body, /Buenos Aires|Tokko|Cono Sur|Latinoamérica y Argentina/);
   // Each example says what the assistant does, what the team gets and when a person continues.
   const examples = [...html.matchAll(/<article class="bm-example">([\s\S]*?)<\/article>/g)];

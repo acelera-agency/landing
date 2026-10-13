@@ -14,7 +14,7 @@
 - Plataformas internas: https://www.acelera.agency/#servicios
 - Agentes de IA para empresas: https://www.acelera.agency/#servicios
 - Consultoría e implementación de IA: https://www.acelera.agency/#servicios
-- Implementación de Botmaker en México, Centroamérica y República Dominicana: WhatsApp integrado con CRM (HubSpot, Salesforce, Zoho, Kommo) y agenda de citas o visitas para empresas medianas (unas 20 a 500 personas) de educación privada, salud privada, inmobiliarias y desarrolladoras, y agencias automotrices; trabajo remoto desde Argentina: https://www.acelera.agency/botmaker
+- Implementación de Botmaker para empresas de México, Centroamérica (Guatemala, El Salvador, Honduras, Costa Rica, Panamá) y República Dominicana: empresas medianas (unas 20 a 500 personas) de educación privada, salud privada, inmobiliarias y desarrolladoras, y agencias automotrices que atienden por WhatsApp; integración con su CRM (HubSpot, Salesforce, Zoho, Kommo) y su agenda de citas o visitas: https://www.acelera.agency/botmaker
 
 ## Evidencia y forma de trabajo
 
