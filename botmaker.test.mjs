@@ -33,9 +33,13 @@ test("botmaker page has one h1, canonical metadata and service + FAQ structured 
 test("botmaker page explains the offer and ideal customer in plain HTML", async () => {
   const html = await read("botmaker.html");
   const body = text(html.match(/<main\b[\s\S]*<\/main>/)[0]);
-  for (const id of ["para-quien", "ejemplos", "integraciones", "forma-de-trabajo", "acelera-y-botmaker", "preguntas", "contacto"]) {
+  for (const id of ["para-quien", "ejemplos", "plataforma", "integraciones", "forma-de-trabajo", "acelera-y-botmaker", "clientes", "preguntas", "contacto"]) {
     assert.match(html, new RegExp(`id="${id}"`));
     assert.match(html, new RegExp(`href="#${id}"`), `${id} is linked from the page index`);
+  }
+  // Plain-HTML ideal customer profile for the lead engine and cold-mail visitors.
+  for (const signal of ["Rubros habituales", "Distribuidoras", "Tiendas online", "Instituciones educativas", "turnos", "posventa", "CRM", "Latinoamérica"]) {
+    assert.match(body, new RegExp(signal, "i"), signal);
   }
   // Each example says what the assistant does, what the team gets and when a person continues.
   const examples = [...html.matchAll(/<article class="bm-example">([\s\S]*?)<\/article>/g)];
@@ -51,7 +55,18 @@ test("botmaker page explains the offer and ideal customer in plain HTML", async 
 test("botmaker page avoids forbidden claims, pricing and invented contact channels", async () => {
   const html = await read("botmaker.html");
   assert.doesNotMatch(html, /innovaci[oó]n|disrupci[oó]n|transformaci[oó]n digital|vanguardia|llave en mano|[uú]ltima generaci[oó]n/i);
-  assert.doesNotMatch(html, /partner|certificad|testimonio/i);
+  assert.doesNotMatch(html, /certificad|testimonio/i);
+  // The partner claim lives in three editable places: <title> (reused as the WebPage name),
+  // the hero badge and one FAQ question (mirrored in the FAQPage JSON-LD).
+  const partner = [...html.matchAll(/[^<>"]*partner[^<>"]*/gi)].map(([match]) => match.trim());
+  assert.deepEqual(partner, [
+    "Implementación de Botmaker · Partner oficial | Acelera",
+    "Implementación de Botmaker · Partner oficial | Acelera",
+    "¿Acelera es partner oficial de Botmaker?",
+    "Partner oficial de Botmaker",
+    "¿Acelera es partner oficial de Botmaker?",
+  ]);
+  assert.doesNotMatch(html.match(/<meta property="og:title"[^>]*>/)[0], /partner/i);
   assert.doesNotMatch(html, /(?:USD|U\$S|ARS|\$)\s?\d/);
   assert.doesNotMatch(html, /wa\.me|tel:|calendly|calendar\.app\.google/i);
   assert.match(html, /mailto:contacto@acelera\.agency/);
@@ -59,7 +74,7 @@ test("botmaker page avoids forbidden claims, pricing and invented contact channe
 
 test("botmaker lead form reuses the shared gateway and is tagged with its own variant", async () => {
   const html = await read("botmaker.html");
-  assert.match(html, /<body class="proposal-subpage" data-variant="botmaker">/);
+  assert.match(html, /<body class="bm-page" data-variant="botmaker">/);
   const form = html.match(/<form\b[^>]*data-lead-form[\s\S]*?<\/form>/)?.[0];
   assert.ok(form);
   assert.match(form, /data-ph-no-autocapture/);
@@ -69,12 +84,17 @@ test("botmaker lead form reuses the shared gateway and is tagged with its own va
   assert.match(html, /\/assets\/app\.js\?v=/);
 });
 
-test("botmaker shares the site header and footer", async () => {
+test("botmaker shares the site footer and its header points to this page's sections", async () => {
   const [page, faro] = await Promise.all([read("botmaker.html"), read("casos/faro.html")]);
   const part = (html, tag) => html.match(new RegExp(`<${tag} class="site-${tag}">[\\s\\S]*?</${tag}>`))[0]
     .replace(/<a class="language-switch"[\s\S]*?<\/a>/, "").replace(/\r/g, "");
-  assert.equal(part(page, "header"), part(faro, "header"));
   assert.equal(part(page, "footer"), part(faro, "footer"));
+  const header = part(page, "header");
+  // "Contacto" leads to this page's form, not to the home scheduler.
+  assert.match(header, /<a class="bracket-link" href="#contacto">Contacto<\/a>/);
+  assert.doesNotMatch(header, /href="\/#contacto"/);
+  assert.match(header, /class="brand" href="\/"/);
+  for (const [, id] of header.matchAll(/href="#([a-z-]+)"/g)) assert.match(page, new RegExp(`<section[^>]*id="${id}"`), id);
   // There is no English version yet: the switch leads to the English site instead of a missing page.
   assert.match(page, /data-language-switch[^>]*href="\/en\/"/);
   assert.doesNotMatch(page, /hreflang="en" href="https:\/\/www\.acelera\.agency\/en\/botmaker"/);
@@ -110,4 +130,31 @@ test("the Spanish home links to /botmaker and the English build leaves it out", 
   for (const html of [es, source]) assert.match(html, /Caso Faro<\/a><a href="\/botmaker">Implementación de Botmaker<\/a>/);
   // English navigation stays in English and /botmaker has no English version.
   assert.doesNotMatch(en, /href="(?:\/en)?\/botmaker/);
+});
+
+test("Botmaker clients and cases are labelled as Botmaker's and link to the official source", async () => {
+  const html = await read("botmaker.html");
+  const section = html.match(/<section[^>]*id="clientes"[\s\S]*?<\/section>/)[0];
+  assert.match(text(section), /son de Botmaker[\s\S]*No son proyectos de Acelera/);
+  const cases = [...section.matchAll(/<article>([\s\S]*?)<\/article>/g)].map(([card]) => card);
+  assert.ok(cases.length >= 3);
+  for (const card of cases) {
+    assert.match(card, /\[ CASO DE BOTMAKER/);
+    assert.match(card, /href="https:\/\/botmaker\.com\/es\/nuestros-clientes\/[a-z0-9-]+\/" target="_blank" rel="noopener noreferrer"/);
+  }
+});
+
+test("botmaker images are local, sized and lazy below the fold; the video loads on demand", async () => {
+  const html = await read("botmaker.html");
+  const main = html.match(/<main\b[\s\S]*<\/main>/)[0];
+  const heroEnd = main.indexOf("</section>");
+  for (const [tag] of main.matchAll(/<img\b[^>]*>/g)) {
+    assert.match(tag, /src="\/assets\//, tag);
+    assert.match(tag, /width="\d+" height="\d+"/, tag);
+    if (main.indexOf(tag) > heroEnd) assert.match(tag, /loading="lazy"/, tag);
+  }
+  assert.doesNotMatch(main, /<iframe/);
+  assert.match(main, /data-video-facade data-vimeo-id="\d+"[\s\S]*?href="https:\/\/vimeo\.com\/\d+"/);
+  // The scheduler is reused; without JavaScript it points to the public mailbox.
+  assert.match(main, /<div data-scheduler[^>]*>\s*<noscript>[\s\S]*mailto:contacto@acelera\.agency[\s\S]*?<\/noscript>/);
 });

@@ -1,268 +1,234 @@
-/* /botmaker reuses the subpage system in redisenio/pages.css. These rules only
-   cover the components that page needs and stay scoped to it. */
-.page-content--botmaker h1 {
-  max-width: 18ch;
-  font-size: clamp(40px, 4.4vw, 60px);
-}
+/* /botmaker uses the redesign system (redisenio/styles.css): paper, Geist, thin
+   borders and the terracotta accent. Every rule is scoped to .bm-page. */
+.bm-page { --bm-warm: #fbf8f6; --bm-warm-line: #e2d9d2; }
+.bm-page .page-frame { padding-top: var(--nav-height); }
+.bm-page .nav-side { gap: 24px; }
+.bm-page .nav-side a,
+.bm-page .mobile-menu .bracket-link { min-height: 44px; display: inline-flex; align-items: center; }
+.bm-page a { text-underline-offset: 4px; }
+.bm-page .button { min-height: 44px; padding: 8px 16px; border-radius: 8px; gap: 10px; }
+.bm-page .button--primary { background: var(--accent-ink); border-color: var(--accent-ink); color: #fff; }
+.bm-page .button--primary:hover { background: #8d3816; border-color: #8d3816; }
+.bm-page .button:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+/* Resets skip the shared scheduler, which brings its own styles. */
+.bm-main :where(h2, h3, h4):not(:where([data-scheduler] *)) { margin: 0; font-weight: 500; letter-spacing: -.035em; text-wrap: balance; }
+.bm-main h2 { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.1; letter-spacing: -.045em; }
+.bm-main p { text-wrap: pretty; }
+.bm-main :where(ul, ol):not(:where([data-scheduler] *)) { margin: 0; padding: 0; list-style: none; }
+.bm-mono { font: 11px/1.55 "Fragment Mono", ui-monospace, monospace; letter-spacing: .04em; color: var(--muted); text-transform: uppercase; }
+.bm-text-link { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; font-size: 13px; text-decoration: underline; }
+.bm-text-link:hover, .bm-main a:not(.button):not(:where([data-scheduler] a)):hover { color: var(--accent-ink); }
+.bm-note { font-size: 12px; color: var(--muted); }
 
-.page-content--botmaker .primary-action {
-  border-radius: 8px;
-}
+/* Hero: centered co-brand lockup, two-line title with the accent line. */
+.bm-hero { padding: 40px 42px 0; text-align: center; border-bottom: 1px solid var(--line); }
+.bm-breadcrumb { display: flex; justify-content: center; gap: 8px; font-size: 12px; color: var(--muted); margin-bottom: 30px; }
+.bm-breadcrumb a { text-decoration: underline; }
+.bm-cobrand { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 26px; }
+.bm-cobrand > span { color: #999; font-size: 23px; }
+.bm-cobrand img { height: auto; }
+.bm-cobrand > img:first-child { width: 92px; }
+.bm-cobrand__botmaker { width: 144px; }
+.bm-badge { margin: 0 auto; }
+.bm-hero h1 { max-width: 900px; margin: 30px auto 22px; font: 500 clamp(36px, 5vw, 62px)/1.06 var(--sans); letter-spacing: -.055em; text-wrap: balance; }
+.bm-hero h1 span { color: var(--accent-ink); }
+.bm-hero__lead { max-width: 640px; margin: 0 auto; font-size: 16px; line-height: 1.65; color: #333; }
+.bm-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.bm-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 48px -42px 0; border-top: 1px solid var(--line); text-align: left; }
+.bm-summary > div { padding: 22px 28px 26px; }
+.bm-summary > div + div { border-left: 1px solid var(--line); }
+.bm-summary dd { margin: 10px 0 0; font-size: 14px; line-height: 1.6; }
 
-.page-content--botmaker .decision-grid > div > h3 {
-  margin-bottom: 20px;
-  font-size: 19px;
-}
+.bm-index { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; padding: 14px 42px; border-bottom: 1px solid var(--line); font-size: 13px; }
+.bm-index .bm-mono { margin-right: 6px; }
+.bm-index a { min-height: 32px; display: inline-flex; align-items: center; }
 
-.page-content--botmaker .bm-plain-list {
-  margin: 0 0 18px;
-  padding: 0;
-  list-style: none;
-}
+/* Sections. */
+.bm-section { padding: 66px 42px; border-bottom: 1px solid var(--line); scroll-margin-top: 16px; }
+.bm-section--warm { background: var(--bm-warm); }
+.bm-heading { display: grid; grid-template-columns: 1.2fr 1fr; align-items: end; gap: 40px; margin-bottom: 38px; }
+.bm-heading h2 { margin-top: 22px; max-width: 18ch; }
+.bm-heading__copy { display: grid; gap: 12px; max-width: 440px; font-size: 14px; line-height: 1.7; color: #333; }
+.bm-heading__copy a { text-decoration: underline; }
 
-.page-content--botmaker .bm-plain-list li {
-  padding: 9px 0;
-  border-bottom: 1px dashed var(--page-rule);
-  font-size: 14px;
-}
+/* Para quién. */
+.bm-fit { display: grid; grid-template-columns: 1.25fr 1fr; border: 1px solid var(--line); border-radius: 8px; }
+.bm-fit__col { padding: 26px 28px; }
+.bm-fit__col--note { border-left: 1px solid var(--line); background: #f8f8f8; }
+.bm-fit__col--note h3 { font-size: 21px; margin: 12px 0 10px; }
+.bm-fit__col--note > p:last-child { margin-top: 16px; font-size: 13px; color: var(--muted); }
+.bm-list li { padding: 11px 0 11px 20px; border-bottom: 1px dashed var(--dash); font-size: 14px; line-height: 1.6; position: relative; }
+.bm-list li:last-child { border-bottom: 0; }
+.bm-list li::before { content: "+"; position: absolute; left: 0; color: var(--accent-ink); }
+.bm-fit__col > .bm-mono + .bm-list { margin-top: 8px; }
 
-.page-content--botmaker .decision-note > p:last-child {
-  margin-top: 0;
-}
+/* Ejemplos: each card answers the same three questions. */
+.bm-examples { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.bm-example { padding: 24px 26px 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.bm-example h3 { font-size: 22px; line-height: 1.2; margin: 14px 0 6px; }
+.bm-example__context { font-size: 13px; color: var(--muted); }
+.bm-example dl { margin: 18px 0 0; }
+.bm-example dl > div { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 12px 0; border-top: 1px dashed var(--dash); }
+.bm-example dt { font-size: 12px; font-weight: 500; color: var(--accent-ink); }
+.bm-example dd { margin: 0; font-size: 13px; line-height: 1.6; }
+.bm-strip { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 28px; padding: 16px 0; border-block: 1px dashed var(--dash); font-size: 14px; }
+.bm-strip--plain { align-items: flex-start; padding: 24px 0; }
+.bm-strip--plain h3 { font-size: 22px; margin-top: 8px; }
+.bm-strip--plain > p { max-width: 620px; font-size: 14px; line-height: 1.7; }
 
-/* Examples: each card answers the same three questions. */
-.page-content--botmaker .bm-examples {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
+/* Plataforma. */
+.bm-products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.bm-product { display: flex; flex-direction: column; padding: 24px 22px 12px; border: 1px solid var(--line); border-radius: 8px; }
+.bm-product h3 { font-size: 22px; line-height: 1.2; margin: 18px 0 12px; }
+.bm-product > p { font-size: 13px; line-height: 1.65; }
+.bm-product ul { margin: 18px 0 12px; font-size: 12px; color: var(--muted); }
+.bm-product li { padding: 7px 0; border-bottom: 1px dashed var(--line); }
+.bm-product li::before { content: "+"; color: var(--accent-ink); margin-right: 8px; }
+.bm-product > a { margin-top: auto; }
+.bm-capabilities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; margin-top: 40px; }
+.bm-capabilities article { padding-top: 18px; border-top: 1px dashed var(--dash); }
+.bm-capabilities h3 { font-size: 19px; margin: 10px 0 8px; }
+.bm-capabilities p:not(.bm-mono) { font-size: 13px; line-height: 1.65; }
+.bm-video-row { display: grid; grid-template-columns: 1fr 1.6fr; align-items: center; gap: 44px; margin-top: 52px; }
+.bm-video-row h3 { font-size: 28px; margin: 12px 0; }
+.bm-video-row__copy > p:last-child { font-size: 13px; color: var(--muted); max-width: 320px; }
+.bm-video { position: relative; aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #f1f1f1; }
+.bm-video iframe, .bm-video__poster, .bm-video__poster img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.bm-video__poster img { object-fit: cover; }
+.bm-video__play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 16px; border-radius: 8px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 500; white-space: nowrap; transition: background .2s; }
+.bm-video__poster:hover .bm-video__play, .bm-video__poster:focus-visible .bm-video__play { background: var(--accent-ink); }
+.bm-channels { margin-top: 56px; padding-top: 30px; border-top: 1px dashed var(--dash); }
+.bm-channels__head { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: end; margin-bottom: 24px; }
+.bm-channels__head h3 { font-size: 24px; }
+.bm-channels__head p { font-size: 13px; color: #333; max-width: 440px; }
+.bm-logo-grid { display: grid; gap: 12px; }
+.bm-logo-grid li { min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; text-align: center; }
+.bm-logo-grid span { font-size: 11px; color: var(--muted); }
+.bm-logo-grid--channels { grid-template-columns: repeat(6, minmax(0, 1fr)); margin-bottom: 10px; }
+.bm-logo-grid--channels li { padding: 18px 8px; min-height: 108px; border: 1px solid var(--line); border-radius: 8px; }
+.bm-logo-grid--channels img { width: 34px; height: 34px; object-fit: contain; }
+.bm-logo-grid--channels span { color: var(--ink); font-size: 12px; }
 
-.page-content--botmaker .bm-example {
-  display: flex;
-  flex-direction: column;
-  padding: 28px;
-  border: 1px dashed var(--page-rule);
-}
+/* Integraciones. */
+.bm-integrations { padding: 22px 0 28px; border-block: 1px dashed var(--dash); }
+.bm-logo-grid--integrations { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px 12px; margin-top: 20px; }
+.bm-logo-grid--integrations img { width: 36px; height: 36px; object-fit: contain; }
+.bm-lines { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; margin-top: 32px; }
+.bm-lines p:not(.bm-mono) { margin-top: 10px; font-size: 13px; line-height: 1.65; }
+.bm-api { display: flex; align-items: center; gap: 24px; margin-top: 34px; padding: 22px 24px; border: 1px solid var(--line); border-radius: 8px; background: #f8f8f8; }
+.bm-api__symbol { font: 28px "Fragment Mono", ui-monospace, monospace; color: var(--accent-ink); flex-shrink: 0; }
+.bm-api h3 { font-size: 20px; }
+.bm-api p { margin-top: 6px; font-size: 13px; line-height: 1.65; max-width: 680px; }
+.bm-api > a { margin-left: auto; white-space: nowrap; }
 
-.page-content--botmaker .bm-example h3 {
-  margin-bottom: 8px;
-  font-size: 21px;
-}
+/* Forma de trabajo. */
+.bm-steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px; counter-reset: none; }
+.bm-steps li { display: flex; flex-direction: column; min-width: 0; padding-top: 18px; border-top: 1px solid var(--ink); }
+.bm-steps h3 { font-size: 20px; margin: 14px 0 10px; }
+.bm-steps li > p:not(.bm-mono) { font-size: 13px; line-height: 1.65; }
+.bm-steps__result { margin-top: auto; padding-top: 18px; font-size: 11px; color: var(--accent-ink); }
 
-.page-content--botmaker .bm-example__context {
-  margin-bottom: 20px;
-  color: var(--page-muted);
-  font-size: 14px;
-}
+/* Acelera × Botmaker. */
+.bm-roles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--bm-warm-line); }
+.bm-roles article { padding: 26px 26px 28px 0; }
+.bm-roles article + article { padding-left: 26px; border-left: 1px solid var(--bm-warm-line); }
+.bm-roles h3 { font-size: 24px; margin: 10px 0 8px; }
+.bm-roles p:not(.bm-mono) { font-size: 14px; line-height: 1.65; max-width: 340px; }
+.bm-costs-title { font-size: 24px; margin: 44px 0 18px; }
+.bm-costs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.bm-costs li { padding: 22px 22px 24px; border: 1px solid var(--bm-warm-line); border-radius: 8px; background: var(--paper); }
+.bm-costs h4 { font-size: 19px; margin: 10px 0 8px; }
+.bm-costs p:not(.bm-mono) { font-size: 13px; line-height: 1.65; }
+.bm-section--warm > .bm-note { margin-top: 18px; }
 
-.page-content--botmaker .bm-example dl {
-  display: grid;
-  gap: 14px;
-  margin: 0;
-}
+/* Clientes y casos de Botmaker. */
+.bm-logo-grid--clients { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 28px 24px; padding-bottom: 34px; }
+.bm-logo-grid--clients img { width: 100%; max-width: 120px; height: 44px; object-fit: contain; filter: grayscale(1); opacity: .85; }
+.bm-cases-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0 18px; border-top: 1px dashed var(--dash); }
+.bm-cases-head h3 { font-size: 24px; }
+.bm-cases { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.bm-cases article { display: flex; flex-direction: column; padding: 22px 20px 10px; border: 1px solid var(--line); border-radius: 8px; }
+.bm-cases img { width: 104px; height: 42px; object-fit: contain; object-position: left center; margin-bottom: 22px; }
+.bm-cases .bm-mono { font-size: 10px; }
+.bm-cases h4 { font-size: 19px; line-height: 1.3; margin: 10px 0 8px; }
+.bm-cases p:not(.bm-mono) { font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
+.bm-cases a { margin-top: auto; font-size: 12px; }
 
-.page-content--botmaker .bm-example dl div {
-  padding-top: 14px;
-  border-top: 1px dashed var(--page-rule);
-}
+/* FAQ: the "+" is drawn with CSS so the summary text stays the question. */
+.bm-faq { max-width: 900px; }
+.bm-faq details { border-top: 1px solid var(--line); }
+.bm-faq details:last-child { border-bottom: 1px solid var(--line); }
+.bm-faq summary { position: relative; cursor: pointer; list-style: none; padding: 20px 44px 20px 0; font-size: 17px; letter-spacing: -.02em; }
+.bm-faq summary::-webkit-details-marker { display: none; }
+.bm-faq summary::after { content: "+"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); font-size: 22px; font-weight: 300; color: var(--accent-ink); transition: transform .2s; }
+.bm-faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.bm-faq details > p { padding: 0 44px 22px 0; font-size: 14px; line-height: 1.7; max-width: 780px; color: #333; }
 
-.page-content--botmaker .bm-example dt {
-  color: var(--page-accent-dark);
-  font-size: 12px;
-  font-weight: 500;
-}
+/* Contacto: copy and form, then the shared scheduler. */
+.bm-contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); gap: 56px; align-items: start; border-bottom: 0; }
+.bm-contact__intro h2 { margin: 22px 0 18px; max-width: 14ch; }
+.bm-contact__intro h2 span { color: var(--accent-ink); }
+.bm-contact__intro > p:not(.eyebrow) { max-width: 480px; font-size: 15px; line-height: 1.7; color: #333; }
+.bm-contact .contact-form { border-radius: 8px; background: var(--paper); }
+.bm-contact .form-submit { border-radius: 8px; }
+.bm-contact .form-feedback { font-size: 13px; }
+.bm-contact .contact-form .bm-note { margin: 0; }
+.bm-contact .contact-form .bm-note a { text-decoration: underline; }
+.bm-contact__schedule { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 2fr); gap: 40px; padding-top: 34px; border-top: 1px dashed var(--dash); }
+.bm-contact__schedule h3 { font-size: 24px; margin: 10px 0; }
+.bm-contact__schedule > div:first-child > p:last-child { font-size: 14px; line-height: 1.7; color: #333; }
+.bm-contact__schedule [data-scheduler] { min-width: 0; }
+.bm-contact__schedule noscript p a { text-decoration: underline; }
 
-.page-content--botmaker .bm-example dd {
-  margin: 4px 0 0;
-  font-size: 14px;
-  line-height: 1.6;
+@media (max-width: 1199px) {
+  .bm-section, .bm-hero, .bm-index { padding-inline: 28px; }
+  .bm-summary { margin-inline: -28px; }
+  .bm-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .bm-logo-grid--integrations { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .bm-lines { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bm-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-
-.page-content--botmaker .service-line h3 {
-  font-size: 19px;
-}
-
-/* Process: five steps instead of the four used by service pages. */
-.page-content--botmaker .bm-steps {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
-  margin: 0 0 10px;
-  padding: 0;
-  list-style: none;
-}
-
-.page-content--botmaker .bm-steps .process-step h3 {
-  margin-top: 28px;
-  font-size: 19px;
-}
-
-.page-content--botmaker .deliverables h3 {
-  margin: 0;
-}
-
-.page-content--botmaker .deliverables-copy > p {
-  margin: 0;
-}
-
-/* Responsibilities and costs. */
-.page-content--botmaker .bm-roles {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0 50px;
-}
-
-.page-content--botmaker .bm-role {
-  padding-block: 22px 26px;
-  border-top: 1px solid var(--page-ink, #222);
-}
-
-.page-content--botmaker .bm-role p:last-child {
-  margin: 10px 0 0;
-  color: var(--page-muted);
-}
-
-.page-content--botmaker .bm-costs-title {
-  margin: 40px 0 18px;
-  font-size: 23px;
-}
-
-.page-content--botmaker .bm-costs {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: bm-cost;
-}
-
-.page-content--botmaker .bm-costs li {
-  padding: 26px 28px;
-  border: 1px dashed var(--page-rule);
-  background: #fafafa;
-  counter-increment: bm-cost;
-}
-
-.page-content--botmaker .bm-costs li::before {
-  display: block;
-  margin-bottom: 18px;
-  color: var(--page-accent-dark);
-  font-size: 12px;
-  content: "0" counter(bm-cost);
-}
-
-.page-content--botmaker .bm-costs h4 {
-  margin: 0 0 10px;
-  font-size: 19px;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1.25;
-}
-
-.page-content--botmaker .bm-costs p {
-  margin: 0;
-  color: var(--page-muted);
-  font-size: 14px;
-}
-
-.page-content--botmaker .bm-note {
-  margin: 18px 0 0;
-  color: var(--page-muted);
-  font-size: 12px;
-}
-
-.page-content--botmaker .bm-faq {
-  margin-bottom: 0;
-}
-
-.page-content--botmaker .bm-faq .faq-list {
-  margin-top: 30px;
-}
-
-/* Contact: copy on the left, the shared lead form on the right. */
-.page-content--botmaker .bm-contact {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
-  align-items: start;
-  gap: 65px;
-}
-
-.page-content--botmaker .bm-contact__intro h2 {
-  margin: 14px 0 22px;
-  max-width: 16ch;
-}
-
-.page-content--botmaker .bm-contact__intro p:not(.section-kicker) {
-  max-width: 520px;
-  color: var(--page-muted);
-}
-
-.page-content--botmaker .bm-contact__intro a {
-  color: var(--ink, #050505);
-  text-decoration: underline;
-}
-
-.page-content--botmaker .contact-form {
-  background: #fdfdfd;
-}
-
-.page-content--botmaker .form-submit {
-  width: 100%;
-  justify-content: space-between;
-  font-size: 14px;
-}
-
-.page-content--botmaker .form-submit:disabled {
-  opacity: 0.6;
-}
-
-.page-content--botmaker .form-feedback {
-  margin: 0;
-  color: var(--ink, #050505);
-  font-size: 13px;
-}
-
-.page-content--botmaker .contact-form .bm-note {
-  margin: 0;
-}
-
-@media (max-width: 1100px) {
-  .page-content--botmaker .bm-steps {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .page-content--botmaker .bm-contact {
-    gap: 40px;
-  }
-}
-
 @media (max-width: 809px) {
-  .page-content--botmaker .bm-examples,
-  .page-content--botmaker .bm-roles,
-  .page-content--botmaker .bm-costs,
-  .page-content--botmaker .bm-contact {
-    grid-template-columns: 1fr;
-  }
-  .page-content--botmaker .bm-steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .page-content--botmaker .hero-aside dl {
-    grid-template-columns: 1fr;
-  }
+  .bm-page .navigation { justify-content: space-between; padding-inline: 22px; }
+  .bm-section { padding-block: 48px; }
+  .bm-heading, .bm-channels__head { grid-template-columns: 1fr; gap: 18px; }
+  .bm-summary, .bm-products, .bm-capabilities, .bm-roles, .bm-costs, .bm-examples, .bm-fit, .bm-video-row, .bm-contact, .bm-contact__schedule { grid-template-columns: 1fr; }
+  .bm-summary > div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .bm-fit__col--note { border-left: 0; border-top: 1px solid var(--line); }
+  .bm-video-row { gap: 22px; }
+  .bm-roles article, .bm-roles article + article { padding: 22px 0; border-left: 0; }
+  .bm-roles article + article { border-top: 1px solid var(--bm-warm-line); }
+  .bm-logo-grid--channels { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bm-logo-grid--clients { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bm-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bm-api { flex-wrap: wrap; }
+  .bm-api > div { flex: 1; min-width: 220px; }
+  .bm-api > a { margin-left: 0; }
+  .bm-contact { gap: 36px; }
 }
-
-@media (max-width: 539px) {
-  .page-content--botmaker .bm-steps {
-    grid-template-columns: 1fr;
-  }
-  .page-content--botmaker .bm-example,
-  .page-content--botmaker .bm-costs li {
-    padding: 22px 20px;
-  }
-  .page-content--botmaker .contact-form {
-    padding: 22px 18px;
-  }
-  .page-content--botmaker .bm-steps .process-step h3 {
-    margin-top: 18px;
-  }
+@media (max-width: 599px) {
+  .bm-section, .bm-hero, .bm-index { padding-inline: 20px; }
+  .bm-summary { margin-inline: -20px; }
+  .bm-summary > div { padding: 18px 20px; }
+  .bm-hero { padding-top: 28px; }
+  .bm-cobrand { gap: 14px; }
+  .bm-cobrand__botmaker { width: 124px; }
+  .bm-hero h1 { font-size: clamp(32px, 9vw, 44px); margin-block: 26px 18px; }
+  .bm-hero__lead { font-size: 15px; }
+  .bm-actions .button { width: 100%; }
+  .bm-index { gap: 2px 14px; }
+  .bm-fit__col { padding: 20px 18px; }
+  .bm-example { padding: 20px 18px 12px; }
+  .bm-example dl > div { grid-template-columns: 1fr; gap: 4px; }
+  .bm-strip { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .bm-logo-grid--channels { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .bm-logo-grid--integrations { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .bm-logo-grid--clients { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 16px; }
+  .bm-logo-grid--clients img { height: 34px; }
+  .bm-lines, .bm-steps, .bm-cases { grid-template-columns: 1fr; }
+  .bm-cases-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .bm-faq summary { font-size: 15px; }
+  .bm-faq details > p { padding-right: 0; font-size: 13px; }
+  .bm-contact .contact-form { padding: 22px 18px; }
+  .bm-video__play { font-size: 13px; }
 }
