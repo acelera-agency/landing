@@ -1,0 +1,268 @@
+/* /botmaker reuses the subpage system in redisenio/pages.css. These rules only
+   cover the components that page needs and stay scoped to it. */
+.page-content--botmaker h1 {
+  max-width: 18ch;
+  font-size: clamp(40px, 4.4vw, 60px);
+}
+
+.page-content--botmaker .primary-action {
+  border-radius: 8px;
+}
+
+.page-content--botmaker .decision-grid > div > h3 {
+  margin-bottom: 20px;
+  font-size: 19px;
+}
+
+.page-content--botmaker .bm-plain-list {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.page-content--botmaker .bm-plain-list li {
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--page-rule);
+  font-size: 14px;
+}
+
+.page-content--botmaker .decision-note > p:last-child {
+  margin-top: 0;
+}
+
+/* Examples: each card answers the same three questions. */
+.page-content--botmaker .bm-examples {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.page-content--botmaker .bm-example {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  border: 1px dashed var(--page-rule);
+}
+
+.page-content--botmaker .bm-example h3 {
+  margin-bottom: 8px;
+  font-size: 21px;
+}
+
+.page-content--botmaker .bm-example__context {
+  margin-bottom: 20px;
+  color: var(--page-muted);
+  font-size: 14px;
+}
+
+.page-content--botmaker .bm-example dl {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.page-content--botmaker .bm-example dl div {
+  padding-top: 14px;
+  border-top: 1px dashed var(--page-rule);
+}
+
+.page-content--botmaker .bm-example dt {
+  color: var(--page-accent-dark);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.page-content--botmaker .bm-example dd {
+  margin: 4px 0 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.page-content--botmaker .service-line h3 {
+  font-size: 19px;
+}
+
+/* Process: five steps instead of the four used by service pages. */
+.page-content--botmaker .bm-steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.page-content--botmaker .bm-steps .process-step h3 {
+  margin-top: 28px;
+  font-size: 19px;
+}
+
+.page-content--botmaker .deliverables h3 {
+  margin: 0;
+}
+
+.page-content--botmaker .deliverables-copy > p {
+  margin: 0;
+}
+
+/* Responsibilities and costs. */
+.page-content--botmaker .bm-roles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 50px;
+}
+
+.page-content--botmaker .bm-role {
+  padding-block: 22px 26px;
+  border-top: 1px solid var(--page-ink, #222);
+}
+
+.page-content--botmaker .bm-role p:last-child {
+  margin: 10px 0 0;
+  color: var(--page-muted);
+}
+
+.page-content--botmaker .bm-costs-title {
+  margin: 40px 0 18px;
+  font-size: 23px;
+}
+
+.page-content--botmaker .bm-costs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: bm-cost;
+}
+
+.page-content--botmaker .bm-costs li {
+  padding: 26px 28px;
+  border: 1px dashed var(--page-rule);
+  background: #fafafa;
+  counter-increment: bm-cost;
+}
+
+.page-content--botmaker .bm-costs li::before {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--page-accent-dark);
+  font-size: 12px;
+  content: "0" counter(bm-cost);
+}
+
+.page-content--botmaker .bm-costs h4 {
+  margin: 0 0 10px;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.25;
+}
+
+.page-content--botmaker .bm-costs p {
+  margin: 0;
+  color: var(--page-muted);
+  font-size: 14px;
+}
+
+.page-content--botmaker .bm-note {
+  margin: 18px 0 0;
+  color: var(--page-muted);
+  font-size: 12px;
+}
+
+.page-content--botmaker .bm-faq {
+  margin-bottom: 0;
+}
+
+.page-content--botmaker .bm-faq .faq-list {
+  margin-top: 30px;
+}
+
+/* Contact: copy on the left, the shared lead form on the right. */
+.page-content--botmaker .bm-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  align-items: start;
+  gap: 65px;
+}
+
+.page-content--botmaker .bm-contact__intro h2 {
+  margin: 14px 0 22px;
+  max-width: 16ch;
+}
+
+.page-content--botmaker .bm-contact__intro p:not(.section-kicker) {
+  max-width: 520px;
+  color: var(--page-muted);
+}
+
+.page-content--botmaker .bm-contact__intro a {
+  color: var(--ink, #050505);
+  text-decoration: underline;
+}
+
+.page-content--botmaker .contact-form {
+  background: #fdfdfd;
+}
+
+.page-content--botmaker .form-submit {
+  width: 100%;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.page-content--botmaker .form-submit:disabled {
+  opacity: 0.6;
+}
+
+.page-content--botmaker .form-feedback {
+  margin: 0;
+  color: var(--ink, #050505);
+  font-size: 13px;
+}
+
+.page-content--botmaker .contact-form .bm-note {
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .page-content--botmaker .bm-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .page-content--botmaker .bm-contact {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 809px) {
+  .page-content--botmaker .bm-examples,
+  .page-content--botmaker .bm-roles,
+  .page-content--botmaker .bm-costs,
+  .page-content--botmaker .bm-contact {
+    grid-template-columns: 1fr;
+  }
+  .page-content--botmaker .bm-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .page-content--botmaker .hero-aside dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 539px) {
+  .page-content--botmaker .bm-steps {
+    grid-template-columns: 1fr;
+  }
+  .page-content--botmaker .bm-example,
+  .page-content--botmaker .bm-costs li {
+    padding: 22px 20px;
+  }
+  .page-content--botmaker .contact-form {
+    padding: 22px 18px;
+  }
+  .page-content--botmaker .bm-steps .process-step h3 {
+    margin-top: 18px;
+  }
+}

@@ -1,6 +1,10 @@
 import { rm } from 'node:fs/promises';
 
 export const publicRoutes = ['index', 'casos/faro', 'privacidad', 'terminos'];
+// Pages published only in Spanish. They are maintained by hand (no redesign
+// source and no English build) but are listed in the sitemap and discovery files.
+export const spanishOnlyRoutes = ['botmaker'];
+export const spanishOnlyLastmod = '2026-10-13';
 export const retiredServiceRoutes = [
   'desarrollo-software-a-medida',
   'plataformas-internas',

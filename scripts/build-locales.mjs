@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { publicRoutes, removeRetiredPages } from './public-routes.mjs';
+import { publicRoutes, spanishOnlyRoutes, spanishOnlyLastmod, removeRetiredPages } from './public-routes.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const origin = 'https://www.acelera.agency';
@@ -86,8 +86,11 @@ export async function buildLocales() {
     await writeFile(resolve(root, route + '.html'), spanish);
   }
   const indexable = routes.filter(route => !['privacidad', 'terminos'].includes(route));
-  const urls = indexable.flatMap(route => [pathFor(route), pathFor(route, true)]);
-  await writeFile(resolve(root, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(path => `  <url>\n    <loc>${origin}${path}</loc>\n    <lastmod>2026-10-12</lastmod>\n  </url>`).join('\n')}\n</urlset>\n`);
+  const urls = [
+    ...indexable.flatMap(route => [pathFor(route), pathFor(route, true)]).map(path => [path, '2026-10-12']),
+    ...spanishOnlyRoutes.map(route => [pathFor(route), spanishOnlyLastmod]),
+  ];
+  await writeFile(resolve(root, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([path, lastmod]) => `  <url>\n    <loc>${origin}${path}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`).join('\n')}\n</urlset>\n`);
   console.log(`Built ${routes.length} English pages with reciprocal language links.`);
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) await buildLocales();

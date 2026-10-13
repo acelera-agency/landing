@@ -2,7 +2,8 @@ import assert from "node:assert/strict";
 import { readFile, access } from "node:fs/promises";
 import test from "node:test";
 const read = p=>readFile(new URL(p,import.meta.url),"utf8");
-import { publicRoutes as pages } from "./scripts/public-routes.mjs";
+import { publicRoutes, spanishOnlyRoutes } from "./scripts/public-routes.mjs";
+const pages=[...publicRoutes,...spanishOnlyRoutes];
 test("mutable shared and redesign assets are revalidated",async()=>{
   const config=JSON.parse(await read("vercel.json"));
   for(const source of ["/assets/(.*)","/redisenio/(.*)"]) assert.equal(config.headers.find(r=>r.source===source)?.headers.find(h=>h.key==="Cache-Control")?.value,"public, max-age=0, must-revalidate");

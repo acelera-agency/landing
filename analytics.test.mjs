@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-import { publicRoutes } from "./scripts/public-routes.mjs";
-const publicPages = publicRoutes.flatMap(route => [route + ".html", "en/" + route + ".html"]);
+import { publicRoutes, spanishOnlyRoutes } from "./scripts/public-routes.mjs";
+const publicPages = [...publicRoutes.flatMap(route => [route + ".html", "en/" + route + ".html"]), ...spanishOnlyRoutes.map(route => route + ".html")];
 
 async function read(path) {
   return readFile(new URL(path, import.meta.url), "utf8");

@@ -216,8 +216,10 @@
         });
       } catch (error) {
         if (feedback) {
+          // fetch() rejects with a TypeError when the network or endpoint is down;
+          // its browser message is not meant for visitors.
           feedback.textContent =
-            error instanceof Error ? error.message : t("Ocurrió un error enviando el formulario.");
+            error instanceof Error && error.name !== "TypeError" ? error.message : t("Ocurrió un error enviando el formulario.");
         }
 
         window.AceleraAnalytics?.capture("contact_form_failed", {

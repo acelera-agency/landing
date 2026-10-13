@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { publicRoutes } from "./scripts/public-routes.mjs";
+import { publicRoutes, spanishOnlyRoutes, spanishOnlyLastmod } from "./scripts/public-routes.mjs";
 
 const root = new URL("./", import.meta.url);
 const canonicalOrigin = "https://www.acelera.agency";
@@ -55,7 +55,10 @@ test("publishes crawl controls and only canonical indexable URLs", async () => {
   for (const page of indexablePages) {
     assert.match(sitemap, new RegExp(`<loc>${canonicalOrigin.replaceAll(".", "\\.")}${page.route}</loc>`));
   }
-  assert.equal((sitemap.match(/<loc>/g) || []).length, (indexablePages.length + 1) * 2);
+  for (const route of spanishOnlyRoutes) {
+    assert.match(sitemap, new RegExp(`<loc>${canonicalOrigin.replaceAll(".", "\\.")}/${route}</loc>\\s*<lastmod>${spanishOnlyLastmod}</lastmod>`));
+  }
+  assert.equal((sitemap.match(/<loc>/g) || []).length, (indexablePages.length + 1) * 2 + spanishOnlyRoutes.length);
   assert.equal((sitemap.match(/<lastmod>2026-10-12<\/lastmod>/g) || []).length, (indexablePages.length + 1) * 2);
   assert.doesNotMatch(sitemap, /privacidad|terminos|landing-prueba|tracking-demo/);
 });
@@ -84,6 +87,7 @@ test("keeps every public page free of phone contact data", async () => {
     "privacidad.html",
     "terminos.html",
     ...indexablePages.map(({ file }) => file),
+    ...spanishOnlyRoutes.map(route => `${route}.html`),
   ];
 
   for (const page of publicPages) {
@@ -201,7 +205,7 @@ test("uses direct language instead of diagnosis and generic work-with phrasing",
 });
 
 test("keeps repetitive footer copy out of result snippets", async () => {
-  for (const route of publicRoutes) {
+  for (const route of [...publicRoutes, ...spanishOnlyRoutes]) {
     const html = await read(route + ".html");
     assert.match(
       html,

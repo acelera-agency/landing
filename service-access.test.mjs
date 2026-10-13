@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 import test from 'node:test';
-import { publicRoutes, retiredServiceRoutes } from './scripts/public-routes.mjs';
+import { publicRoutes, retiredServiceRoutes, spanishOnlyRoutes } from './scripts/public-routes.mjs';
 
 const read = file => readFile(new URL(file, import.meta.url), 'utf8');
 
@@ -32,7 +32,7 @@ test('retired service pages are absent from all deployable language and prototyp
 
 test('navigation, metadata and discovery files never advertise retired service URLs', async () => {
   const files = publicRoutes.flatMap(route => ['', 'en/', 'redisenio/'].map(prefix => `${prefix}${route}.html`));
-  files.push('sitemap.xml', 'llms.txt');
+  files.push(...spanishOnlyRoutes.map(route => `${route}.html`), 'sitemap.xml', 'llms.txt');
   for (const file of files) {
     const html = await read(file);
     for (const route of retiredServiceRoutes) assert.ok(!html.includes(`/${route}`), `${file}: ${route}`);
@@ -40,5 +40,5 @@ test('navigation, metadata and discovery files never advertise retired service U
       assert.equal((html.match(/<span class="footer-service">/g) || []).length, 4, file);
     }
   }
-  assert.equal((await read('sitemap.xml')).match(/<loc>/g).length, 4);
+  assert.equal((await read('sitemap.xml')).match(/<loc>/g).length, 4 + spanishOnlyRoutes.length);
 });
