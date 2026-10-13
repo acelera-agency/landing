@@ -310,7 +310,12 @@
     } finally {
       clearTimeout(timeout); requestInFlight = false;
     }
-    if (shouldReload) { await load(state.error); return; }
+    if (shouldReload) {
+      await load(state.error);
+      // Keep keyboard users inside the scheduler after the re-render: first free slot, else the selected day, else retry.
+      focusElement(host.querySelector(".booking-slot") || host.querySelector('[data-booking-day][tabindex="0"]') || host.querySelector(".booking-retry"));
+      return;
+    }
     render();
     if (state.stage === "done") { announce("Reunión agendada."); focusElement(host.querySelector(".booking-done h3")); }
     else { announce(state.error); focusElement(host.querySelector(".booking-confirm")); }

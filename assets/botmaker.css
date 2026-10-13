@@ -179,6 +179,10 @@
 .bm-contact__schedule > div:first-child > p:last-child { font-size: 14px; line-height: 1.7; color: #333; }
 .bm-contact__schedule [data-scheduler] { min-width: 0; }
 .bm-contact__schedule noscript p a { text-decoration: underline; }
+/* Placeholders: the shared #7a7a7a on #f8f8f8 is 4.04:1; --muted (#595959) clears 4.5:1. */
+.bm-page :is(input, textarea)::placeholder { color: var(--muted); opacity: 1; }
+/* The shared scheduler uses 9–22px radii; this page caps radii at 8px without touching the component. */
+.bm-page [data-scheduler] :is(.booking-card, .booking-fallback, .booking-slot, .booking-back, .booking-field input, .booking-button, .booking-error, .booking-month-nav button, .booking-day, .booking-ghost-list i, .booking-ghost-grid i) { border-radius: 8px; }
 
 @media (max-width: 1199px) {
   .bm-section, .bm-hero, .bm-index { padding-inline: 28px; }
