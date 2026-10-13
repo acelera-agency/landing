@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="/redisenio/styles.css?v=20261012-services-1" />
     <link rel="stylesheet" href="/assets/language.css?v=20261012-1" />
     <link rel="stylesheet" href="/redisenio/scheduler.css?v=20261012-language-1" />
-    <link rel="stylesheet" href="/assets/botmaker.css?v=20261013-r5" />
+    <link rel="stylesheet" href="/assets/botmaker.css?v=20261013-r6" />
     <script src="/assets/locale.js?v=20261012-1" defer></script>
     <script src="/assets/analytics.js?v=20261012-language-1" defer></script>
     <script src="/assets/app.js?v=20261012-language-1" defer></script>
@@ -85,7 +85,7 @@
       </div>
       <p class="eyebrow bm-badge">Partner oficial de Botmaker<i aria-hidden="true"><b></b></i></p>
       <h1 id="page-title">Implementamos Botmaker para escuelas, clínicas, inmobiliarias y agencias de autos<br/><span>en México y Centroamérica.</span></h1>
-      <p class="bm-hero__lead">Configuramos Botmaker para que tu equipo de ventas o de admisiones atienda por WhatsApp, y lo integramos con tu CRM y tu agenda de citas o visitas. Cada prospecto llega con sus datos, la cita queda registrada y nadie tiene que volver a capturar la conversación a mano.</p>
+      <p class="bm-hero__lead">Configuramos Botmaker para que tu equipo de ventas o de admisiones atienda por WhatsApp, y lo integramos con tu CRM y tu agenda de citas o visitas. El equipo recibe los datos del prospecto y el resumen de la conversación. Cuando tu sistema permite la integración, también registramos las citas y visitas para reducir la captura manual.</p>
       <div class="bm-actions">
         <a class="button button--primary" href="#contacto">Cuéntanos qué necesitas resolver <span aria-hidden="true">↓</span></a>
         <a class="button" href="#ejemplos">Ver ejemplos por sector <span aria-hidden="true">↓</span></a>
@@ -211,7 +211,7 @@
           <h3>Prospectos de portales y anuncios, hasta la visita</h3>
           <p class="bm-example__context">Para inmobiliarias y desarrolladoras que reciben contactos desde portales, Meta y Google.</p>
           <dl>
-            <div><dt>Qué hace el asistente</dt><dd>Responde por el desarrollo o la propiedad del anuncio, envía la ficha y pregunta zona, presupuesto aproximado, forma de pago y plazo para comprar o rentar.</dd></div>
+            <div><dt>Qué hace el asistente</dt><dd>Responde preguntas sobre el desarrollo o la propiedad del anuncio, envía la ficha y pregunta zona, presupuesto aproximado, forma de pago y plazo para comprar o rentar.</dd></div>
             <div><dt>Qué recibe el equipo</dt><dd>El prospecto calificado en el CRM, con el anuncio de origen y sus respuestas, asignado al asesor del desarrollo y con la visita propuesta.</dd></div>
             <div><dt>Cuándo sigue una persona</dt><dd>El asesor confirma la visita, negocia y presenta opciones de crédito. El asistente no promete precios, descuentos ni disponibilidad que no estén publicados.</dd></div>
           </dl>
@@ -506,15 +506,14 @@
       <div class="bm-heading">
         <div>
           <p class="eyebrow">Clientes de Botmaker<i aria-hidden="true"><b></b></i></p>
-          <h2 id="clientes-title">Empresas de estos sectores que usan la plataforma</h2>
+          <h2 id="clientes-title">Referencias sectoriales publicadas por Botmaker</h2>
         </div>
         <div class="bm-heading__copy">
-          <p>Estas marcas y estos casos son de Botmaker y están publicados en su sitio. No son proyectos de Acelera. Elegimos los de sectores parecidos a los de esta página; son de distintos países de Latinoamérica.</p>
+          <p>Estas referencias muestran usos de Botmaker en otros mercados. No son proyectos de Acelera. Nuestro servicio está dirigido a empresas medianas de educación privada, salud privada, inmobiliarias y agencias automotrices en los países indicados arriba.</p>
         </div>
       </div>
       <ul class="bm-logo-grid bm-logo-grid--clients bm-logo-grid--sectors" aria-label="Clientes publicados por Botmaker">
         <li><img src="/assets/botmaker/client-ford.webp" alt="" width="212" height="105" loading="lazy" decoding="async"/><span>Ford · Automotriz</span></li>
-        <li><img src="/assets/botmaker/client-volkswagen.webp" alt="" width="314" height="156" loading="lazy" decoding="async"/><span>Volkswagen · Automotriz</span></li>
         <li><img src="/assets/botmaker/client-alicerce.webp" alt="" width="181" height="89" loading="lazy" decoding="async"/><span>Alicerce · Educación</span></li>
         <li><img src="/assets/botmaker/client-lopes.webp" alt="" width="181" height="89" loading="lazy" decoding="async"/><span>Lopes · Inmobiliaria</span></li>
       </ul>
@@ -522,10 +521,11 @@
         <h3>Casos publicados por Botmaker</h3>
         <a class="bm-text-link" href="https://botmaker.com/es/nuestros-clientes/todos-los-clientes/" target="_blank" rel="noopener noreferrer">Todos los casos en botmaker.com <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="bm-cases bm-cases--three">
+      <div class="bm-cases bm-cases--two">
         <article>
           <img src="/assets/botmaker/client-ford.webp" alt="" width="212" height="105" loading="lazy" decoding="async"/>
           <p class="bm-mono">[ CASO DE BOTMAKER · AUTOMOTRIZ ]</p>
+          <p class="bm-cases__market">Ford · Automotriz · Referencia en otros mercados de Latinoamérica</p>
           <h4>Ford</h4>
           <p>Un asistente que responde sobre modelos y precios, busca la concesionaria más cercana y pasa a ventas a los prospectos calificados.</p>
           <a class="bm-text-link" href="https://botmaker.com/es/nuestros-clientes/fordi-bot-de-ford/" target="_blank" rel="noopener noreferrer">Leer el caso en botmaker.com <span aria-hidden="true">↗</span></a>
@@ -533,16 +533,10 @@
         <article>
           <img src="/assets/botmaker/client-alicerce.webp" alt="" width="181" height="89" loading="lazy" decoding="async"/>
           <p class="bm-mono">[ CASO DE BOTMAKER · EDUCACIÓN ]</p>
+          <p class="bm-cases__market">Alicerce · Educación · Brasil</p>
           <h4>Alicerce</h4>
           <p>Un asistente que contesta preguntas de estudiantes y familias sobre clases, cursos y pagos.</p>
           <a class="bm-text-link" href="https://botmaker.com/es/nuestros-clientes/bot-de-alicerce/" target="_blank" rel="noopener noreferrer">Leer el caso en botmaker.com <span aria-hidden="true">↗</span></a>
-        </article>
-        <article>
-          <img src="/assets/botmaker/client-viacerta.webp" alt="" width="480" height="76" loading="lazy" decoding="async"/>
-          <p class="bm-mono">[ CASO DE BOTMAKER · ATENCIÓN Y CRM ]</p>
-          <h4>Viacerta</h4>
-          <p>Atención por chat integrada con el CRM de la empresa para calificar clientes y retomar conversaciones.</p>
-          <a class="bm-text-link" href="https://botmaker.com/es/nuestros-clientes/cliente-viacerta/" target="_blank" rel="noopener noreferrer">Leer el caso en botmaker.com <span aria-hidden="true">↗</span></a>
         </article>
       </div>
     </section>

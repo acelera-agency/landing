@@ -81,7 +81,8 @@
   "Completá tu nombre y empresa.": "Completa tu nombre y empresa.",
   "Ingresá un email válido.": "Ingresa un correo válido.",
   "Necesitás aceptar la Política de Privacidad para enviar la consulta.": "Necesitas aceptar la Política de Privacidad para enviar la consulta.",
-  "No pudimos enviar el formulario. Escribinos a contacto@acelera.agency.": "No pudimos enviar el formulario. Escríbenos a contacto@acelera.agency."
+  "No pudimos enviar el formulario. Escribinos a contacto@acelera.agency.": "No pudimos enviar el formulario. Escríbenos a contacto@acelera.agency.",
+  "El formulario todavia no esta configurado.": "El formulario todavía no está configurado."
 } : {};
   const t = value => language === 'en' ? (english[value] ?? value) : (mexican[value] ?? value);
   window.AceleraLocale = { language, t };

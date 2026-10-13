@@ -157,9 +157,11 @@ test("the Spanish home links to /botmaker and the English build leaves it out", 
 test("Botmaker clients and cases are labelled as Botmaker's and link to the official source", async () => {
   const html = await read("botmaker.html");
   const section = html.match(/<section[^>]*id="clientes"[\s\S]*?<\/section>/)[0];
-  assert.match(text(section), /son de Botmaker[\s\S]*No son proyectos de Acelera/);
+  assert.match(text(section), /usos de Botmaker[\s\S]*No son proyectos de Acelera/);
+  // Only references close to the target sectors: no financial institutions or a wall of car makers.
+  assert.doesNotMatch(section, /Viacerta|Volkswagen/);
   const cases = [...section.matchAll(/<article>([\s\S]*?)<\/article>/g)].map(([card]) => card);
-  assert.ok(cases.length >= 3);
+  assert.ok(cases.length >= 2);
   for (const card of cases) {
     assert.match(card, /\[ CASO DE BOTMAKER/);
     assert.match(card, /href="https:\/\/botmaker\.com\/es\/nuestros-clientes\/[a-z0-9-]+\/" target="_blank" rel="noopener noreferrer"/);
@@ -194,6 +196,7 @@ test("shared scheduler, consent and form messages switch to tú only on es-MX pa
   assert.equal(mx.t("Revisá el nombre y el mail."), "Revisa el nombre y el correo.");
   assert.equal(mx.t("Usamos PostHog para mejorar el sitio, solo si lo aceptás."), "Usamos PostHog para mejorar el sitio, solo si lo aceptas.");
   assert.equal(mx.t("No pudimos enviar el formulario. Escribinos a contacto@acelera.agency."), "No pudimos enviar el formulario. Escríbenos a contacto@acelera.agency.");
+  assert.equal(mx.t("El formulario todavia no esta configurado."), "El formulario todavía no está configurado.");
   assert.equal(ar.t("Elegí un día"), "Elegí un día");
   // Gateway messages go through t() so the page language decides how they read.
   assert.ok(app.includes(': t(payload.error || "No pudimos enviar el formulario.")'));

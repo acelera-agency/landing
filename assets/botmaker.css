@@ -152,14 +152,16 @@
 .bm-cases-head { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 26px 0 18px; border-top: 1px dashed var(--dash); }
 .bm-cases-head h3 { font-size: 24px; }
 .bm-cases { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-.bm-cases--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.bm-logo-grid--sectors { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.bm-cases--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.bm-logo-grid--sectors { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .bm-cases article { display: flex; flex-direction: column; padding: 22px 20px 10px; border: 1px solid var(--line); border-radius: 8px; }
 .bm-cases img { width: 104px; height: 42px; object-fit: contain; object-position: left center; margin-bottom: 22px; }
 .bm-cases .bm-mono { font-size: 10px; }
 .bm-cases h4 { font-size: 19px; line-height: 1.3; margin: 10px 0 8px; }
 .bm-cases p:not(.bm-mono) { font-size: 13px; line-height: 1.6; margin-bottom: 14px; }
 .bm-cases a { margin-top: auto; font-size: 12px; }
+.bm-cases p.bm-cases__market { margin: 8px 0 0; font-size: 12px; line-height: 1.5; color: var(--muted); }
+.bm-page .form-consent label { font-size: 13px; }
 
 /* FAQ: the "+" is drawn with CSS so the summary text stays the question. */
 .bm-faq { max-width: 900px; }
@@ -212,7 +214,7 @@
   .bm-logo-grid--channels { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .bm-logo-grid--clients { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .bm-logo-grid--integrations { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .bm-cases--three { grid-template-columns: 1fr; }
+  .bm-logo-grid--sectors { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .bm-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bm-api { flex-wrap: wrap; }
   .bm-api > div { flex: 1; min-width: 220px; }
@@ -237,7 +239,6 @@
   .bm-logo-grid--channels { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
   .bm-logo-grid--clients { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px 16px; }
   .bm-logo-grid--clients img { height: 34px; }
-  .bm-logo-grid--sectors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bm-sectors, .bm-lines, .bm-steps, .bm-cases { grid-template-columns: 1fr; }
   .bm-cases-head { flex-direction: column; align-items: flex-start; gap: 4px; }
   .bm-faq summary { font-size: 15px; }
