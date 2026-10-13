@@ -59,9 +59,9 @@ test("botmaker page explains the offer and ideal customer in plain HTML", async 
     assert.match(text(html.match(new RegExp(`<section[^>]*id="${id}"[\\s\\S]*?</section>`))[0]), /México|Centroamérica/, id);
   }
   // The South Cone is not a target market: Argentina only appears in the FAQ about the region,
-  // as where the team works from, and in the shared privacy consent.
-  assert.equal(body.match(/Argentina/g).length, 2);
-  for (const phrase of ["Nuestro equipo está en Argentina y trabaja de forma remota", "procesarlos fuera de Argentina"]) assert.ok(body.includes(phrase), phrase);
+  // as where the team works from. The consent says "en otros países" instead of naming it.
+  assert.equal(body.match(/Argentina/g).length, 1);
+  for (const phrase of ["Nuestro equipo está en Argentina y trabaja de forma remota", "procesarlos en otros países"]) assert.ok(body.includes(phrase), phrase);
   assert.doesNotMatch(hero, /Argentina/);
   assert.doesNotMatch(html.match(/<section[^>]*id="para-quien"[\s\S]*?<\/section>/)[0], /Argentina/);
   assert.doesNotMatch(body, /Buenos Aires|Tokko|Cono Sur|Latinoamérica y Argentina/);
