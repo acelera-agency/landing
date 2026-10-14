@@ -1,13 +1,29 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/schedule", "destination": "https://acelera-schedule-api.vercel.app/api/schedule" }
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:bot\\.acelera\\.agency|acelera-botmaker-preview\\.vercel\\.app)"
+        }
+      ],
+      "destination": "/botmaker"
+    },
+    {
+      "source": "/api/schedule",
+      "destination": "https://acelera-schedule-api.vercel.app/api/schedule"
+    }
   ],
   "headers": [
     {
       "source": "/redisenio/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
@@ -54,6 +70,30 @@
           "value": "public, max-age=86400, must-revalidate"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/botmaker",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:bot\\.acelera\\.agency|acelera-botmaker-preview\\.vercel\\.app)"
+        }
+      ],
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:bot\\.acelera\\.agency|acelera-botmaker-preview\\.vercel\\.app)"
+        }
+      ],
+      "destination": "https://www.acelera.agency/en/:path*",
+      "permanent": false
     }
   ]
 }

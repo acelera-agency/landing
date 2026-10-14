@@ -5,7 +5,7 @@ import vm from "node:vm";
 
 const read = path => readFile(new URL(path, import.meta.url), "utf8");
 const text = html => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
-const url = "https://www.acelera.agency/botmaker";
+const url = "https://bot.acelera.agency/";
 const countries = ["México", "Guatemala", "El Salvador", "Honduras", "Costa Rica", "Panamá", "República Dominicana"];
 
 test("botmaker page has one h1, canonical metadata and service + FAQ structured data", async () => {
@@ -109,7 +109,7 @@ test("botmaker page avoids forbidden claims, pricing and invented contact channe
 
 test("botmaker lead form reuses the shared gateway and is tagged with its own variant", async () => {
   const html = await read("botmaker.html");
-  assert.match(html, /<body class="bm-page" data-variant="botmaker">/);
+  assert.match(html, /<body class="bm-page" data-variant="botmaker-mx">/);
   const form = html.match(/<form\b[^>]*data-lead-form[\s\S]*?<\/form>/)?.[0];
   assert.ok(form);
   assert.match(form, /data-ph-no-autocapture/);
@@ -123,7 +123,9 @@ test("botmaker shares the site footer and its header points to this page's secti
   const [page, faro] = await Promise.all([read("botmaker.html"), read("casos/faro.html")]);
   const part = (html, tag) => html.match(new RegExp(`<${tag} class="site-${tag}">[\\s\\S]*?</${tag}>`))[0]
     .replace(/<a class="language-switch"[\s\S]*?<\/a>/, "").replace(/\r/g, "");
-  assert.equal(part(page, "footer"), part(faro, "footer"));
+  // Served from bot.acelera.agency, so links back to the main site are absolute.
+  const pageFooter = part(page, "footer").replaceAll('href="https://www.acelera.agency/', 'href="/').replaceAll('href="https://bot.acelera.agency/"', 'href="/botmaker"');
+  assert.equal(pageFooter, part(faro, "footer"));
   const header = part(page, "header");
   // "Contacto" leads to this page's form, not to the home scheduler.
   assert.match(header, /<a class="bracket-link" href="#contacto">Contacto<\/a>/);
