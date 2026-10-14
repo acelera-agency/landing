@@ -218,3 +218,13 @@ test("shared scheduler, consent and form messages switch to tú only on es-MX pa
   assert.ok(app.includes(': t(payload.message || "Recibimos tu consulta. Te respondemos pronto.")'));
   assert.ok(scheduler.includes('lang === "es-MX" ? "es-MX" : "es-AR"'));
 });
+
+test("bot.acelera.agency serves the botmaker page at its root and leaves other hosts alone", async () => {
+  const { default: middleware, config } = await import("./middleware.js");
+  assert.equal(config.matcher, "/");
+  const rewrite = middleware(new Request("https://bot.acelera.agency/?utm_source=explee"));
+  assert.equal(rewrite.headers.get("x-middleware-rewrite"), "https://bot.acelera.agency/botmaker?utm_source=explee");
+  assert.equal(middleware(new Request("https://www.acelera.agency/")), undefined);
+  const vercel = JSON.parse(await read("vercel.json"));
+  assert.deepEqual(vercel.redirects.find(r => r.source === "/botmaker")?.destination, "/");
+});

@@ -2,16 +2,6 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "(?:bot\\.acelera\\.agency|acelera-botmaker-preview\\.vercel\\.app)"
-        }
-      ],
-      "destination": "/botmaker"
-    },
-    {
       "source": "/api/schedule",
       "destination": "https://acelera-schedule-api.vercel.app/api/schedule"
     }
@@ -83,6 +73,17 @@
       ],
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/en",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:bot\\.acelera\\.agency|acelera-botmaker-preview\\.vercel\\.app)"
+        }
+      ],
+      "destination": "https://www.acelera.agency/en/",
+      "permanent": false
     },
     {
       "source": "/en/:path*",
