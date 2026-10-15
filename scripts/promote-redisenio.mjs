@@ -22,14 +22,31 @@ function homeSchema(html) {
   const organization = current.find(node => node['@type'] === 'Organization');
   Object.assign(organization, { ...byId.get(organization['@id']), ...organization });
   const people = current.filter(node => node['@type'] === 'Person').map(node => ({ ...byId.get(node['@id']), ...node }));
-  const services = current.filter(node => node['@type'] === 'Service').map(node => ({ ...node, areaServed: { '@type': 'Country', name: 'Argentina' } }));
-  const catalog = { '@type': 'OfferCatalog', '@id': `${origin}/#services`, name: 'Qué construimos', itemListElement: services.map(node => ({ '@type': 'Offer', itemOffered: { '@id': node['@id'] } })) };
+  const services = current.filter(node => node['@type'] === 'Service').map(node => ({ ...node, url: node['@id'], serviceType: node.name, areaServed: { '@type': 'Country', name: 'Argentina' } }));
+  const catalog = { '@type': 'OfferCatalog', '@id': `${origin}/#services`, name: 'Qué construimos', url: `${origin}/#servicios`, itemListElement: services.map(node => ({ '@type': 'Offer', itemOffered: { '@id': node['@id'] } })) };
   organization.hasOfferCatalog = { '@id': catalog['@id'] };
+  // Describe the current page rather than carrying an unpublished office
+  // location or old capability list forward from the pre-redesign archive.
+  delete organization.address;
+  organization.knowsAbout = services.map(node => node.name);
+  organization.slogan = html.match(/<h1\b[^>]*>([^<]+)<\/h1>/)[1];
+  organization.logo = { '@type': 'ImageObject', url: `${origin}/assets/acelera-wordmark.png`, width: 552, height: 213 };
+  for (const person of people) {
+    const card = [...html.matchAll(/<article class="team-card">([\s\S]*?)<\/article>/g)].find(([, body]) => body.includes(`<h3>${person.name}</h3>`));
+    if (!card) throw new Error(`Missing visible team member: ${person.name}`);
+    person.image = origin + card[1].match(/<img\b[^>]*\bsrc="([^"]+)"/)[1];
+  }
   const list = current.find(node => node['@type'] === 'ItemList');
   const projects = list.itemListElement.map(entry => ({ ...byId.get(entry.item['@id']), ...entry.item }));
   list.itemListElement = list.itemListElement.map(entry => ({ ...entry, item: { '@id': entry.item['@id'] } }));
   const graph = [organization, ...people, catalog, ...services, byId.get(`${origin}/#website`), byId.get(`${origin}/#webpage`), list, ...projects];
-  graph.find(node => node['@type'] === 'WebSite').inLanguage = 'es-AR';
+  graph.find(node => node['@type'] === 'WebSite').inLanguage = ['es-AR', 'en'];
+  const page = graph.find(node => node['@type'] === 'WebPage');
+  page.primaryImageOfPage = { '@type': 'ImageObject', url: organization.image, width: 1200, height: 630 };
+  page.hasPart = [...html.matchAll(/<section\b[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/section>/g)].flatMap(([, id, body]) => {
+    const heading = body.match(/<h2\b[^>]*>([\s\S]*?)<\/h2>/)?.[1];
+    return heading ? [{ '@type': 'WebPageElement', '@id': `${origin}/#${id}`, name: heading.replace(/<[^>]*>/g, '') }] : [];
+  });
   // JSON-LD describes the same visible copy, with whitespace normalized.
   for (const node of graph) if (node.description) node.description = node.description.replace(/\s+/g, ' ').trim();
   return JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2).replace(/</g, '\\u003c');
@@ -61,3 +78,9 @@ for (const route of routes) {
 }
 console.log(`Promoted ${routes.length} redesigned pages; archive preserved.`);
 await buildLocales();
+// Keep the optional discovery guide aligned with real services and links. It
+// supplements the HTML; Google does not use llms.txt as a ranking signal.
+const graph = schema(await read('index.html'))['@graph'];
+const organization = graph.find(node => node['@type'] === 'Organization');
+const services = graph.filter(node => node['@type'] === 'Service');
+await writeFile(resolve(root, 'llms.txt'), `# Acelera Agency\n\n> ${organization.description}\n\n## Identidad canónica\n\n- Sitio oficial en español: ${origin}/\n- English version: ${origin}/en/\n- LinkedIn oficial: ${organization.sameAs[0]}\n- GitHub oficial: ${organization.sameAs[1]}\n\n## Servicios\n\n${services.map(node => `- ${node.name}: ${node.description} ${node.url}`).join('\n')}\n\n## Evidencia y forma de trabajo\n\n- Proyectos del equipo: ${origin}/#proyectos\n- Caso verificable de Faro: ${origin}/casos/faro\n- Método: ${origin}/#proceso\n- Equipo fundador: ${origin}/#equipo\n- Preguntas frecuentes: ${origin}/#preguntas\n\nLas marcas del carrusel incluyen proyectos, experiencia previa de integrantes y tecnologías utilizadas. No equivalen a una lista de clientes de Acelera.\n\n## Contacto\n\n- Email: ${organization.email}\n- Agenda de reuniones: ${origin}/#contacto\n`);

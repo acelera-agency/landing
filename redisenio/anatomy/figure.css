@@ -5,6 +5,8 @@
 }
 .anatomy-stage { position: absolute; inset: 40px 2px 63px; user-select: none; touch-action: pan-y; }
 .anatomy-stage .anatomy-svg { display: block; width: 100%; height: 100%; max-width: 600px; margin-inline: auto; overflow: visible; }
+.anatomy-preview { object-fit: contain; }
+.anatomy-motion[hidden] { display: none; }
 .anatomy-card-head, .anatomy-card-foot {
   position: absolute; z-index: 2; left: 16px; right: 16px; display: flex;
   align-items: center; justify-content: space-between; gap: 10px;

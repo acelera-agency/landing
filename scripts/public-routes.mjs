@@ -1,6 +1,9 @@
 import { rm } from 'node:fs/promises';
 
 export const publicRoutes = ['index', 'casos/faro', 'privacidad', 'terminos'];
+// Change only when the corresponding public content changes, never on every
+// build: sitemap lastmod must describe a real update rather than build time.
+export const indexableLastModified = { index: '2026-10-15', 'casos/faro': '2026-10-12' };
 export const retiredServiceRoutes = [
   'desarrollo-software-a-medida',
   'plataformas-internas',

@@ -1,8 +1,8 @@
 import { advanceFlow, finalFrame, flowFrame, followLevel, normalizeMode } from './model.js?v=20261011-release-18';
 
-const card = document.querySelector('[data-anatomy-card]');
 const t = window.AceleraLocale?.t || (value => value);
-if (card) {
+export function initAnatomy(card) {
+  if (!card || card.dataset.anatomyReady === 'true') return;
   const stage = card.querySelector('[data-anatomy-stage]');
   const svg = stage?.querySelector('.anatomy-svg');
   const readout = card.querySelector('[data-anatomy-readout]');
@@ -20,6 +20,8 @@ if (card) {
   }));
 
   if (svg && readout && signal && halo && paths.direct?.length && paths.ai?.length) {
+    card.dataset.anatomyReady = 'true';
+    if (motionButton) motionButton.hidden = false;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     let mode = normalizeMode(card.dataset.anatomyMode);
     let elapsed = 0, raf = 0, last = 0, idleTimer = 0;

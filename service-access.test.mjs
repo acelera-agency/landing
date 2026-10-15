@@ -10,7 +10,7 @@ test('service rows are informational content without mouse or keyboard navigatio
     const html = await read(file);
     const section = html.match(/<section[^>]*id="servicios"[\s\S]*?<\/section>/)?.[0];
     assert.ok(section, file);
-    const rows = [...section.matchAll(/<article class="service-row">([\s\S]*?)<\/article>/g)];
+    const rows = [...section.matchAll(/<article class="service-row"[^>]*>([\s\S]*?)<\/article>/g)];
     assert.equal(rows.length, 4, file);
     for (const row of rows) {
       assert.doesNotMatch(row[0], /<(?:a|button)\b|\b(?:href|tabindex|onclick|role)=|↗/, file);

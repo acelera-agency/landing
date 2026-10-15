@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { publicRoutes } from "./scripts/public-routes.mjs";
+import { publicRoutes, indexableLastModified } from "./scripts/public-routes.mjs";
 
 const root = new URL("./", import.meta.url);
 const canonicalOrigin = "https://www.acelera.agency";
@@ -56,7 +56,12 @@ test("publishes crawl controls and only canonical indexable URLs", async () => {
     assert.match(sitemap, new RegExp(`<loc>${canonicalOrigin.replaceAll(".", "\\.")}${page.route}</loc>`));
   }
   assert.equal((sitemap.match(/<loc>/g) || []).length, (indexablePages.length + 1) * 2);
-  assert.equal((sitemap.match(/<lastmod>2026-10-12<\/lastmod>/g) || []).length, (indexablePages.length + 1) * 2);
+  for (const [route, modified] of Object.entries(indexableLastModified)) {
+    const path = route === 'index' ? '' : route;
+    for (const prefix of ['', 'en/']) {
+      assert.ok(sitemap.includes(`<loc>${canonicalOrigin}/${prefix}${path}</loc>\n    <lastmod>${modified}</lastmod>`));
+    }
+  }
   assert.doesNotMatch(sitemap, /privacidad|terminos|landing-prueba|tracking-demo/);
 });
 
@@ -173,12 +178,14 @@ test("publishes a concise machine-readable guide without inventing a second cont
   const llms = await read("llms.txt");
 
   assert.match(llms, /^# Acelera Agency$/m);
-  assert.match(llms, /consultora argentina de desarrollo de software a medida e inteligencia artificial aplicada/);
-  assert.match(llms, /aplicaciones, plataformas internas, integraciones y agentes de IA/);
+  assert.match(llms, /Diseñamos y desarrollamos software para necesidades específicas/);
+  assert.match(llms, /Datos e integraciones:/);
+  assert.match(llms, /Agenda de reuniones:/);
+  assert.doesNotMatch(llms, /sede en Buenos Aires|Formulario:/);
   assert.match(llms, /https:\/\/www\.linkedin\.com\/company\/acelera-agency/);
   assert.match(llms, /https:\/\/github\.com\/acelera-agency/);
 
-  assert.ok(llms.includes(`${canonicalOrigin}/#servicios`));
+  assert.ok(llms.includes(`${canonicalOrigin}/#service-custom-software`));
   assert.match(llms, new RegExp(`${canonicalOrigin.replaceAll(".", "\\.")}/casos/faro`));
 });
 
@@ -246,10 +253,10 @@ test("exposes a linked organization, services and projects JSON-LD graph without
   assert.equal(organization.areaServed.name, "Argentina");
   assert.ok(organization.sameAs.includes("https://www.linkedin.com/company/acelera-agency"));
   assert.ok(organization.sameAs.includes("https://github.com/acelera-agency"));
-  assert.ok(organization.knowsAbout.includes("Desarrollo de software a medida"));
+  assert.ok(organization.knowsAbout.includes("Software a medida"));
   assert.ok(organization.knowsAbout.includes("Plataformas internas"));
-  assert.ok(organization.knowsAbout.includes("Agentes IA"));
-  assert.ok(organization.knowsAbout.includes("Consultoría de inteligencia artificial"));
+  assert.ok(organization.knowsAbout.includes("Agentes e IA aplicada"));
+  assert.ok(organization.knowsAbout.includes("Datos e integraciones"));
   assert.equal(organization.hasOfferCatalog["@id"], servicesId);
 
   assert.equal(organization.founder.length, 3);

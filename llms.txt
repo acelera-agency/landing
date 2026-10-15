@@ -1,29 +1,32 @@
 # Acelera Agency
 
-> Acelera Agency es una consultora argentina de desarrollo de software a medida e inteligencia artificial aplicada, con sede en Buenos Aires. Diseña y desarrolla aplicaciones, plataformas internas, integraciones y agentes de IA para empresas.
+> Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.
 
 ## Identidad canónica
 
-- Sitio oficial: https://www.acelera.agency/
+- Sitio oficial en español: https://www.acelera.agency/
+- English version: https://www.acelera.agency/en/
 - LinkedIn oficial: https://www.linkedin.com/company/acelera-agency
 - GitHub oficial: https://github.com/acelera-agency
 
 ## Servicios
 
-- Desarrollo de software y aplicaciones a medida: https://www.acelera.agency/#servicios
-- Plataformas internas: https://www.acelera.agency/#servicios
-- Agentes de IA para empresas: https://www.acelera.agency/#servicios
-- Consultoría e implementación de IA: https://www.acelera.agency/#servicios
+- Software a medida: Productos web y mobile, MVPs y backends diseñados para lo que tu empresa necesita construir. https://www.acelera.agency/#service-custom-software
+- Plataformas internas: Herramientas propias para reemplazar tareas manuales, ordenar la operación y conectar a tu equipo. https://www.acelera.agency/#service-internal-platforms
+- Agentes e IA aplicada: Agentes, asistentes y automatizaciones que trabajan con tus datos y se integran a tus procesos. https://www.acelera.agency/#service-ai-agents
+- Datos e integraciones: APIs, pipelines de datos y dashboards para conectar sistemas y convertir información en decisiones. https://www.acelera.agency/#service-integrations
 
 ## Evidencia y forma de trabajo
 
-- Proyectos: https://www.acelera.agency/#proyectos
+- Proyectos del equipo: https://www.acelera.agency/#proyectos
 - Caso verificable de Faro: https://www.acelera.agency/casos/faro
 - Método: https://www.acelera.agency/#proceso
 - Equipo fundador: https://www.acelera.agency/#equipo
 - Preguntas frecuentes: https://www.acelera.agency/#preguntas
 
+Las marcas del carrusel incluyen proyectos, experiencia previa de integrantes y tecnologías utilizadas. No equivalen a una lista de clientes de Acelera.
+
 ## Contacto
 
 - Email: contacto@acelera.agency
-- Formulario: https://www.acelera.agency/#contacto
+- Agenda de reuniones: https://www.acelera.agency/#contacto
