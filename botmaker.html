@@ -32,13 +32,11 @@
     <link rel="stylesheet" href="/assets/analytics.css?v=20261012-language-1" />
     <link rel="stylesheet" href="/redisenio/styles.css?v=20261012-services-1" />
     <link rel="stylesheet" href="/assets/language.css?v=20261012-1" />
-    <link rel="stylesheet" href="/redisenio/scheduler.css?v=20261012-language-1" />
-    <link rel="stylesheet" href="/assets/botmaker.css?v=20261013-r9" />
+    <link rel="stylesheet" href="/assets/botmaker.css?v=20261015-calendar-1" />
     <script src="/assets/locale.js?v=20261012-1" defer></script>
     <script src="/assets/analytics.js?v=20261012-language-1" defer></script>
     <script src="/assets/app.js?v=20261012-language-1" defer></script>
     <script src="/redisenio/site.js?v=20261012-language-1" defer></script>
-    <script src="/redisenio/scheduler.js?v=20261013-focus-1" defer></script>
     <script src="/assets/botmaker.js?v=20261013-r3" defer></script>
   </head>
   <body class="bm-page" data-variant="botmaker-mx">
@@ -633,10 +631,11 @@
         <div>
           <p class="bm-mono">[ AGENDA ]</p>
           <h3>¿Prefieres elegir un horario?</h3>
-          <p>Reserva una videollamada con Acelera. Los horarios se ven en tu zona horaria, por ejemplo la del Centro de México.</p>
+          <p>Reserva una videollamada de 30 minutos con Acelera. En Google Calendar verás los horarios disponibles en tu zona horaria.</p>
         </div>
-        <div data-scheduler aria-label="Agendar una reunión">
-          <noscript><p>La agenda necesita JavaScript. Escríbenos a <a href="mailto:contacto@acelera.agency">contacto@acelera.agency</a> y coordinamos un horario.</p></noscript>
+        <div class="bm-contact__booking">
+          <a class="button button--primary" href="https://calendar.app.google/Ci3pYTwmLT6q3LMQ8" target="_blank" rel="noopener noreferrer">Elegir horario en Google Calendar <span aria-hidden="true">↗</span></a>
+          <p class="bm-note">Se abre en una nueva pestaña.</p>
         </div>
       </div>
     </section>

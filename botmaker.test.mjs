@@ -103,11 +103,11 @@ test("botmaker page avoids forbidden claims, pricing and invented contact channe
   ]);
   assert.doesNotMatch(html.match(/<meta property="og:title"[^>]*>/)[0], /partner/i);
   assert.doesNotMatch(html, /(?:USD|U\$S|ARS|\$)\s?\d/);
-  assert.doesNotMatch(html, /wa\.me|tel:|calendly|calendar\.app\.google/i);
+  assert.doesNotMatch(html, /wa\.me|tel:|calendly/i);
   assert.match(html, /mailto:contacto@acelera\.agency/);
 });
 
-test("botmaker lead form reuses the shared gateway and is tagged with its own variant", async () => {
+test("botmaker contact keeps the lead gateway and uses the outreach Google agenda", async () => {
   const html = await read("botmaker.html");
   assert.match(html, /<body class="bm-page" data-variant="botmaker-mx">/);
   const form = html.match(/<form\b[^>]*data-lead-form[\s\S]*?<\/form>/)?.[0];
@@ -117,6 +117,11 @@ test("botmaker lead form reuses the shared gateway and is tagged with its own va
   assert.match(form, /name="privacy_consent" type="checkbox" value="accepted" required/);
   assert.match(form, /data-feedback role="status" aria-live="polite"/);
   assert.match(html, /\/assets\/app\.js\?v=/);
+  const calendarLinks = [...html.matchAll(/<a\b[^>]*href="(https:\/\/calendar\.app\.google\/[^\"]+)"[^>]*>/g)];
+  assert.deepEqual(calendarLinks.map(([, href]) => href), ["https://calendar.app.google/Ci3pYTwmLT6q3LMQ8"]);
+  assert.match(calendarLinks[0][0], /target="_blank"/);
+  assert.match(calendarLinks[0][0], /rel="noopener noreferrer"/);
+  assert.doesNotMatch(html, /data-scheduler|data-calendly-link|\/redisenio\/scheduler\.(?:js|css)/);
 });
 
 test("botmaker shares the site footer and its header points to this page's sections", async () => {
@@ -194,8 +199,6 @@ test("botmaker images are local, sized and lazy below the fold; the video loads 
   }
   assert.doesNotMatch(main, /<iframe/);
   assert.match(main, /data-video-facade data-vimeo-id="\d+"[\s\S]*?href="https:\/\/vimeo\.com\/\d+"/);
-  // The scheduler is reused; without JavaScript it points to the public mailbox.
-  assert.match(main, /<div data-scheduler[^>]*>\s*<noscript>[\s\S]*mailto:contacto@acelera\.agency[\s\S]*?<\/noscript>/);
 });
 
 test("shared scheduler, consent and form messages switch to tú only on es-MX pages", async () => {
