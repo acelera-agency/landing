@@ -9,12 +9,12 @@ const origin = 'https://www.acelera.agency';
 test('English content, accessibility labels and metadata are available before JavaScript runs', async () => {
   const html = await read('en/index.html');
   assert.match(html, /<html lang="en"/);
-  assert.match(html, /<h1 id="hero-title">Purposeful AI, where business needs it\.<\/h1>/);
+  assert.match(html, /<h1 id="hero-title">We build the software that drives your business\.<\/h1>/);
   assert.match(html, /AI agents|Agents and applied AI/);
   assert.match(html, /How does the work begin\?/);
   assert.match(html, /Book a meeting/);
   assert.doesNotMatch(html, /Experiencia del equipo|¿Todos los proyectos necesitan IA\?|Ingeniería de software/);
-  assert.match(await read('index.html'), /<h1 id="hero-title">IA con sentido, donde el negocio lo pide\.<\/h1>/);
+  assert.match(await read('index.html'), /<h1 id="hero-title">Construimos el software que impulsa tu negocio\.<\/h1>/);
   assert.doesNotMatch(await read('index.html'), /Experiencia del equipo/);
   assert.throws(() => translate('Nuevo contenido sin traducción'), /Missing English translation/);
 });

@@ -144,7 +144,7 @@ test("uses direct language instead of diagnosis and generic work-with phrasing",
 
   const home = await read("index.html");
   assert.match(home, /<h3>Entender<\/h3>/);
-  assert.match(home.replace(/\s+/g," "), /La arquitectura depende del producto, las integraciones y el equipo que va a mantenerlo\./);
+  assert.match(home, /<h2 id="tech-title">Elegida con criterio\.<\/h2>/);
 });
 
 test("keeps repetitive footer copy out of result snippets", async () => {
