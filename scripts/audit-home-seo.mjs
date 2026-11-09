@@ -80,9 +80,9 @@ for (const crawler of ['Googlebot','bingbot','OAI-SearchBot','PerplexityBot','Cl
 }
 result.crawlerLimitation='Requests use the audit machine, not authenticated provider IPs. This does not prove a provider has crawled or indexed the page.';
 const sitemap=await get('/sitemap.xml');
-assert.equal(sitemap.status,200);assert.equal((sitemap.body.match(/<loc>/g)||[]).length,4);
+assert.equal(sitemap.status,200);assert.equal((sitemap.body.match(/<loc>/g)||[]).length,2);
 for (const [,url] of sitemap.body.matchAll(/<loc>([^<]+)<\/loc>/g)) {
   assert.equal((await get(new URL(url).pathname)).status,200,url);
 }
 if (output) { await mkdir(new URL('../output/seo-geo-20261015/',import.meta.url),{recursive:true}); await writeFile(output,JSON.stringify(result,null,2)+'\n'); }
-console.log(JSON.stringify({pages:result.pages.length,resources:result.resources.length,retiredVariants:result.retired.length,crawlerUserAgents:result.crawlers.length,sitemapURLs:4,status:'passed'}));
+console.log(JSON.stringify({pages:result.pages.length,resources:result.resources.length,retiredVariants:result.retired.length,crawlerUserAgents:result.crawlers.length,sitemapURLs:2,status:'passed'}));

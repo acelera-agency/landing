@@ -5,17 +5,7 @@ import { publicRoutes, indexableLastModified } from "./scripts/public-routes.mjs
 
 const root = new URL("./", import.meta.url);
 const canonicalOrigin = "https://www.acelera.agency";
-const casePages = [
-  {
-    file: "casos/faro.html",
-    route: "/casos/faro",
-    title: "Caso Faro: plataforma de datos públicos | Acelera",
-    description:
-      "Cómo integrantes de Acelera y colaboradores construyeron Faro: datos públicos convertidos en expedientes verificables, con fuentes y trazabilidad.",
-    h1: "Faro: de datos dispersos a expedientes verificables",
-  },
-];
-const indexablePages = casePages;
+const indexablePages = [];
 
 test("shares the current brand image with truthful dimensions and consistent social copy", async () => {
   const home = await read("index.html");
@@ -124,56 +114,6 @@ test("positions the homepage clearly and keeps footer contact data out of Google
   assert.doesNotMatch(i18n, /document\.title\s*=[\s\S]*?"Acelera \| IA con sentido, donde el negocio lo pide"/);
 });
 
-
-test("publishes Faro as a source-backed case with transparent attribution", async () => {
-  const [page] = casePages;
-  const home = await read("index.html");
-  const html = await read(page.file);
-  const canonicalUrl = `${canonicalOrigin}${page.route}`;
-  const h1Matches = [...html.matchAll(/<h1\b[^>]*>([\s\S]*?)<\/h1>/g)];
-  const jsonLdMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
-
-  assert.match(home, /href="\/casos\/faro"/);
-  assert.match(html, /<html lang="es-AR"/);
-  assert.match(html, /<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/);
-  assert.match(html, new RegExp(`<link rel="canonical" href="${canonicalUrl.replaceAll(".", "\\.")}"`));
-  assert.match(html, new RegExp(`<title>${page.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}</title>`));
-  assert.match(
-    html,
-    new RegExp(
-      `<meta name="description"\\s+content="${page.description.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`,
-    ),
-  );
-  assert.equal(h1Matches.length, 1);
-  assert.equal(h1Matches[0][1].replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(), page.h1);
-  assert.match(html, /No es un caso de cliente\./);
-  assert.match(html, /7\.935 registros/);
-  assert.match(html, /9\.634 receipts/);
-  assert.match(html, /180 expedientes/);
-  assert.match(html, /Ganador del track Transparencia y Corrupción/);
-  assert.match(html, /https:\/\/github\.com\/NachoEstevo\/Faro-Argentina/);
-  assert.match(html, /https:\/\/es\.linkedin\.com\/posts\/ai-playgrounds-tech_hack-activity-7465177592455835648-2Asl/);
-  assert.ok(jsonLdMatch);
-
-  const graph = JSON.parse(jsonLdMatch[1])["@graph"];
-  const organization = graph.find((node) => node["@type"] === "Organization");
-  const article = graph.find((node) => node["@type"] === "Article");
-  const project = graph.find((node) => node["@type"] === "CreativeWork");
-  const webpage = graph.find((node) => node["@type"] === "WebPage");
-  const breadcrumbs = graph.find((node) => node["@type"] === "BreadcrumbList");
-
-  assert.equal(organization["@id"], `${canonicalOrigin}/#organization`);
-  assert.equal(article.url, canonicalUrl);
-  assert.equal(article.publisher["@id"], organization["@id"]);
-  assert.equal(article.about["@id"], project["@id"]);
-  assert.equal(project.name, "Faro");
-  assert.equal(project.contributor.length, 4);
-  assert.ok(project.sameAs.includes("https://github.com/NachoEstevo/Faro-Argentina"));
-  assert.equal(webpage.url, canonicalUrl);
-  assert.equal(webpage.mainEntity["@id"], article["@id"]);
-  assert.equal(breadcrumbs.itemListElement.at(-1).item, canonicalUrl);
-});
-
 test("publishes a concise machine-readable guide without inventing a second content surface", async () => {
   const llms = await read("llms.txt");
 
@@ -186,7 +126,7 @@ test("publishes a concise machine-readable guide without inventing a second cont
   assert.match(llms, /https:\/\/github\.com\/acelera-agency/);
 
   assert.ok(llms.includes(`${canonicalOrigin}/#service-custom-software`));
-  assert.match(llms, new RegExp(`${canonicalOrigin.replaceAll(".", "\\.")}/casos/faro`));
+  assert.doesNotMatch(llms, /\/casos\/faro/);
 });
 
 
@@ -264,8 +204,9 @@ test("exposes a linked organization, services and projects JSON-LD graph without
     const founder = nodesById.get(founderReference["@id"]);
     assert.equal(founder["@type"], "Person");
     assert.equal(founder.worksFor["@id"], organizationId);
-    assert.match(founder.sameAs, /^https:\/\/www\.linkedin\.com\/in\//);
+    assert.ok([founder.sameAs].flat().some((url) => /^https:\/\/www\.linkedin\.com\/in\//.test(url)));
   }
+  assert.ok(nodesById.get(`${canonicalOrigin}/#mauro-proto`).sameAs.includes("https://x.com/ProtoMauro"));
 
   assert.equal(website.name, "Acelera");
   assert.equal(website.alternateName, "Acelera Agency");
@@ -301,7 +242,7 @@ test("exposes a linked organization, services and projects JSON-LD graph without
     assert.equal(project.creator, undefined);
   }
   const faro = nodesById.get(`${canonicalOrigin}/#project-faro`);
-  assert.equal(faro.url, `${canonicalOrigin}/casos/faro`);
+  assert.equal(faro.url, undefined);
   assert.ok(faro.sameAs.includes("https://faro-argentina.vercel.app"));
   assert.ok(faro.sameAs.includes("https://github.com/NachoEstevo/Faro-Argentina"));
 

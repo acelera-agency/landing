@@ -35,6 +35,8 @@ test("names team social links and hides the decorative hands",()=>{
   const team=indexHtml.match(/<section[^>]*id="equipo"[\s\S]*?<\/section>/)?.[0]; assert.ok(team);
   assert.equal((team.match(/<h3\b/g)||[]).length,3);
   for(const name of ["Ignacio Estevo","Mauro Proto","Franco Ferreira"]) assert.ok(team.includes(`aria-label="LinkedIn de ${name}"`));
+  assert.ok(team.includes('aria-label="X de Mauro Proto"'));
+  assert.ok(team.includes('href="https://x.com/ProtoMauro"'));
   const hands=[...indexHtml.matchAll(/<div[^>]*data-ascii="[^"]+"[^>]*>/g)]; assert.equal(hands.length,2);
   assert.match(indexHtml,/<div[^>]*aria-hidden="true"[^>]*class="hero-art/); assert.match(hands.at(-1)[0],/aria-hidden="true"/);
 });
@@ -48,10 +50,6 @@ test("loads fonts locally and keeps optional motion under user preferences",asyn
   assert.match(script,/revealObserver\.unobserve/);
   assert.doesNotMatch(indexHtml.match(/<h1[^>]*>/)[0],/reveal-pending/);
 });
-test("defers team and project media and preserves responsive Faro images",async()=>{
+test("defers team media",async()=>{
   for(const tag of indexHtml.matchAll(/<img[^>]*src="[^" ]*linkedin[^" ]*"[^>]*>/g)) assert.match(tag[0],/loading="lazy"/);
-  const faro=await read("casos/faro.html");
-  assert.match(faro,/faro-hero-720\.webp 720w/);
-  assert.match(faro,/faro-mapa-720\.webp 720w/);
-  assert.match(faro,/faro-expediente-720\.webp 720w/);
 });

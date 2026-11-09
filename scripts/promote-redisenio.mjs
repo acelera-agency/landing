@@ -37,7 +37,11 @@ function homeSchema(html) {
     person.image = origin + card[1].match(/<img\b[^>]*\bsrc="([^"]+)"/)[1];
   }
   const list = current.find(node => node['@type'] === 'ItemList');
-  const projects = list.itemListElement.map(entry => ({ ...byId.get(entry.item['@id']), ...entry.item }));
+  const projects = list.itemListElement.map(entry => {
+    const project = { ...byId.get(entry.item['@id']), ...entry.item };
+    if (!entry.item.url) delete project.url;
+    return project;
+  });
   list.itemListElement = list.itemListElement.map(entry => ({ ...entry, item: { '@id': entry.item['@id'] } }));
   const graph = [organization, ...people, catalog, ...services, byId.get(`${origin}/#website`), byId.get(`${origin}/#webpage`), list, ...projects];
   graph.find(node => node['@type'] === 'WebSite').inLanguage = ['es-AR', 'en'];
@@ -83,4 +87,4 @@ await buildLocales();
 const graph = schema(await read('index.html'))['@graph'];
 const organization = graph.find(node => node['@type'] === 'Organization');
 const services = graph.filter(node => node['@type'] === 'Service');
-await writeFile(resolve(root, 'llms.txt'), `# Acelera Agency\n\n> ${organization.description}\n\n## Identidad canónica\n\n- Sitio oficial en español: ${origin}/\n- English version: ${origin}/en/\n- LinkedIn oficial: ${organization.sameAs[0]}\n- GitHub oficial: ${organization.sameAs[1]}\n\n## Servicios\n\n${services.map(node => `- ${node.name}: ${node.description} ${node.url}`).join('\n')}\n\n## Evidencia y forma de trabajo\n\n- Proyectos del equipo: ${origin}/#proyectos\n- Caso verificable de Faro: ${origin}/casos/faro\n- Método: ${origin}/#proceso\n- Equipo fundador: ${origin}/#equipo\n- Preguntas frecuentes: ${origin}/#preguntas\n\nLas marcas del carrusel incluyen proyectos, experiencia previa de integrantes y tecnologías utilizadas. No equivalen a una lista de clientes de Acelera.\n\n## Contacto\n\n- Email: ${organization.email}\n- Agenda de reuniones: ${origin}/#contacto\n`);
+await writeFile(resolve(root, 'llms.txt'), `# Acelera Agency\n\n> ${organization.description}\n\n## Identidad canónica\n\n- Sitio oficial en español: ${origin}/\n- English version: ${origin}/en/\n- LinkedIn oficial: ${organization.sameAs[0]}\n- GitHub oficial: ${organization.sameAs[1]}\n\n## Servicios\n\n${services.map(node => `- ${node.name}: ${node.description} ${node.url}`).join('\n')}\n\n## Evidencia y forma de trabajo\n\n- Proyectos del equipo: ${origin}/#proyectos\n- Método: ${origin}/#proceso\n- Equipo fundador: ${origin}/#equipo\n- Preguntas frecuentes: ${origin}/#preguntas\n\nLas marcas del carrusel incluyen proyectos, experiencia previa de integrantes y tecnologías utilizadas. No equivalen a una lista de clientes de Acelera.\n\n## Contacto\n\n- Email: ${organization.email}\n- Agenda de reuniones: ${origin}/#contacto\n`);

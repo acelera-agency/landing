@@ -40,5 +40,5 @@ test('navigation, metadata and discovery files never advertise retired service U
       assert.equal((html.match(/<span class="footer-service">/g) || []).length, 4, file);
     }
   }
-  assert.equal((await read('sitemap.xml')).match(/<loc>/g).length, 4);
+  assert.equal((await read('sitemap.xml')).match(/<loc>/g).length, 2);
 });

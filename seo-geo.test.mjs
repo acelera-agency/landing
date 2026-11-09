@@ -38,21 +38,15 @@ test('homepage metadata and entity graph describe each language and visible serv
   }
 });
 
-test('the optional illustration is localized and does not burden the initial HTML', async () => {
-  for (const [file, svg] of [['index.html','figure.svg'], ['en/index.html','figure.en.svg']]) {
+test('the technology section omits the anatomy illustration and keeps initial HTML lightweight', async () => {
+  for (const file of ['index.html', 'en/index.html']) {
     const html = await read(file);
-    assert.ok(Buffer.byteLength(html) < 50000, 'The full illustration must not be embedded in the document');
-    assert.doesNotMatch(html, /data-anatomy-part=|src="\/redisenio\/anatomy\/live\.js/);
-    assert.match(html, /<img[^>]*data-anatomy-preview[^>]*loading="lazy"[^>]*alt="[^"]+"/);
-    assert.ok(html.includes(`/redisenio/anatomy/${svg}?`));
-    assert.match(html, /data-anatomy-motion hidden/);
-    const asset = await read('redisenio/anatomy/' + svg);
-    assert.match(asset, /viewBox="0 0 600 390"/);
-    assert.match(asset, /data-flow-path="ai"/);
-    assert.match(asset, /data-flow-path="direct"/);
+    assert.ok(Buffer.byteLength(html) < 50000, 'The initial HTML must stay lightweight');
+    assert.doesNotMatch(html, /data-anatomy-card|data-anatomy-preview|\/redisenio\/anatomy\//);
+    const techSection = html.match(/<section[^>]*id="tecnologia"[\s\S]*?<\/section>/)?.[0];
+    assert.ok(techSection);
+    assert.equal((techSection.match(/class="tech-card"/g) || []).length, 6);
   }
-  assert.match(await read('redisenio/anatomy/figure.en.svg'), /Connected software/);
-  assert.match(await read('redisenio/anatomy/figure.svg'), /Software conectado/);
 });
 
 test('offscreen decoration does not start animation requests and network failure preserves its fallback', async () => {

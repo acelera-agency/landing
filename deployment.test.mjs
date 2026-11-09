@@ -28,10 +28,9 @@ test("private files and tooling are excluded from the deployment",async()=>{
   const ignore=await read(".vercelignore");
   for(const path of ["tmp/","scripts/",".env*","docs/","output/","**/*.test.*","lib/"]) assert.ok(ignore.split("\n").includes(path));
 });
-test("the illustration has no IA mode selector in either entry point",async()=>{
-  for(const page of ["index.html","redisenio/index.html"]){
+test("the technology section has no anatomy illustration in any entry point",async()=>{
+  for(const page of ["index.html","en/index.html","redisenio/index.html"]){
     const html=await read(page);
-    assert.doesNotMatch(html,/data-anatomy-toggle|Sin IA|Con IA/);
-    assert.match(html,/data-anatomy-mode="ai"/);
+    assert.doesNotMatch(html,/data-anatomy-card|data-anatomy-toggle|\/redisenio\/anatomy\//);
   }
 });

@@ -6,14 +6,14 @@ const section=html.match(/<section[^>]*id="proyectos"[\s\S]*?<\/section>/)?.[0];
 test("publishes the six approved projects with real destinations",()=>{
   assert.ok(section);
   assert.deepEqual([...section.matchAll(/<h3>(.*?)<\/h3>/g)].map(x=>x[1]),["Atrae","Rely","Lemon Box","Lain","Harness","Faro"]);
-  for(const url of ["https://atrae.app","https://rely.business","https://github.com/frxnnk/lemon-display","https://lainagent.com","/casos/faro"]) assert.ok(section.includes(`href="${url}"`));
-  assert.match(section,/data-demo="harness"/);
+  for(const url of ["https://atrae.app","https://rely.business","https://github.com/frxnnk/lemon-display","https://lainagent.com"]) assert.ok(section.includes(`href="${url}"`));
+  assert.doesNotMatch(section,/data-demo="harness"|\/casos\/faro|Ver caso completo|Ver demo/);
 });
-test("names project navigation and keeps the demo opt-in",()=>{
+test("names project navigation and omits the Harness demo video",()=>{
   assert.match(section,/aria-controls="project-track" aria-label="Proyectos anteriores"/);
   assert.match(section,/aria-controls="project-track" aria-label="Proyectos siguientes"/);
   assert.match(section,/id="project-track" role="region" tabindex="0"/);
-  assert.match(html,/<video[^>]*controls[^>]*preload="none"/);
+  assert.doesNotMatch(html,/<dialog[^>]*class="demo-dialog"|harness-demo\.mp4/);
   assert.doesNotMatch(section,/<video[^>]*autoplay/);
 });
 test("serves project demos with explicit video MIME types locally", async () => {

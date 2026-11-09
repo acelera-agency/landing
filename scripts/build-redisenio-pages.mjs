@@ -9,7 +9,6 @@ import { retiredServiceRoutes, removeRetiredPages } from './public-routes.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const version = "20261012-services-1";
 const pages = [
-  { route: "casos/faro", label: "Faro", kind: "case" },
   { route: "privacidad", label: "Privacidad", kind: "legal" },
   { route: "terminos", label: "Términos", kind: "legal" },
 ];
