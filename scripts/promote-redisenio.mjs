@@ -23,7 +23,7 @@ function homeSchema(html) {
   Object.assign(organization, { ...byId.get(organization['@id']), ...organization });
   const people = current.filter(node => node['@type'] === 'Person').map(node => ({ ...byId.get(node['@id']), ...node }));
   const services = current.filter(node => node['@type'] === 'Service').map(node => ({ ...node, url: node['@id'], serviceType: node.name, areaServed: { '@type': 'Country', name: 'Argentina' } }));
-  const catalog = { '@type': 'OfferCatalog', '@id': `${origin}/#services`, name: 'Qué construimos', url: `${origin}/#servicios`, itemListElement: services.map(node => ({ '@type': 'Offer', itemOffered: { '@id': node['@id'] } })) };
+  const catalog = { '@type': 'OfferCatalog', '@id': `${origin}/#services`, name: 'Qué hacemos', url: `${origin}/#servicios`, itemListElement: services.map(node => ({ '@type': 'Offer', itemOffered: { '@id': node['@id'] } })) };
   organization.hasOfferCatalog = { '@id': catalog['@id'] };
   // Describe the current page rather than carrying an unpublished office
   // location or old capability list forward from the pre-redesign archive.

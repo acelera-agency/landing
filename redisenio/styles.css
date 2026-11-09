@@ -449,6 +449,9 @@ p {
   font-size: 14px;
   line-height: 1.6;
 }
+.heading-copy .section-intro {
+  width: min(520px, 100%);
+}
 .section-heading--center {
   flex-direction: column;
   align-items: center;
@@ -2073,11 +2076,21 @@ h3 {
 .contact-heading {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-end;
   gap: 24px;
   width: 100%;
   max-width: 780px;
   margin-inline: auto;
+}
+.contact-heading__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.contact-intro {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
 }
 .contact-heading h2 {
   font-size: clamp(28px, 3vw, 36px);

@@ -118,7 +118,7 @@ test("publishes a concise machine-readable guide without inventing a second cont
   const llms = await read("llms.txt");
 
   assert.match(llms, /^# Acelera Agency$/m);
-  assert.match(llms, /Diseñamos y desarrollamos software para necesidades específicas/);
+  assert.match(llms, /Diseñamos y desarrollamos sistemas a medida para la operación de tu empresa/);
   assert.match(llms, /Datos e integraciones:/);
   assert.match(llms, /Agenda de reuniones:/);
   assert.doesNotMatch(llms, /sede en Buenos Aires|Formulario:/);
@@ -186,7 +186,7 @@ test("exposes a linked organization, services and projects JSON-LD graph without
   assert.equal(organization.alternateName, "Acelera Agency");
   assert.equal(
     organization.description,
-    "Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.",
+    "Diseñamos y desarrollamos sistemas a medida para la operación de tu empresa. Partimos de un problema real y lo llevamos hasta producción.",
   );
   assert.equal(organization.url, `${canonicalOrigin}/`);
   assert.equal(organization.email, "contacto@acelera.agency");

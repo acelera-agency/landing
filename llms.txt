@@ -1,6 +1,6 @@
 # Acelera Agency
 
-> Diseñamos y desarrollamos software para necesidades específicas. Empezamos por un problema concreto y lo llevamos hasta una solución en producción.
+> Diseñamos y desarrollamos sistemas a medida para la operación de tu empresa. Partimos de un problema real y lo llevamos hasta producción.
 
 ## Identidad canónica
 
@@ -11,10 +11,10 @@
 
 ## Servicios
 
-- Software a medida: Productos web y mobile, MVPs y backends diseñados para lo que tu empresa necesita construir. https://www.acelera.agency/#service-custom-software
-- Plataformas internas: Herramientas propias para reemplazar tareas manuales, ordenar la operación y conectar a tu equipo. https://www.acelera.agency/#service-internal-platforms
+- Software a medida: Aplicaciones web y móviles, primeras versiones (MVP) y sistemas centrales pensados para acompañar el crecimiento de tu operación. https://www.acelera.agency/#service-custom-software
+- Plataformas internas: Sistemas propios para dejar atrás las planillas y tareas manuales, ordenar la operación diaria y centralizar el trabajo del equipo. https://www.acelera.agency/#service-internal-platforms
 - Agentes e IA aplicada: Agentes, asistentes y automatizaciones que trabajan con tus datos y se integran a tus procesos. https://www.acelera.agency/#service-ai-agents
-- Datos e integraciones: APIs, pipelines de datos y dashboards para conectar sistemas y convertir información en decisiones. https://www.acelera.agency/#service-integrations
+- Datos e integraciones: APIs, flujos de datos y tableros de control para conectar tus sistemas y contar con información unificada en tiempo real. https://www.acelera.agency/#service-integrations
 
 ## Evidencia y forma de trabajo
 
